@@ -173,6 +173,8 @@ symbolDirectionFor:!comparisons!public! !
 
 allSquares
 
+	AllSquares ifNil: [self initializeAllSquares].
+
 	^AllSquares!
 
 fenSquares

@@ -69,6 +69,8 @@ four
 
 getRank: anInteger
 
+	AllChessRanks ifNil: [self initializeRanks].
+
 	^AllChessRanks at: anInteger ifAbsent: [self error: 'No Chess Rank [', anInteger printString, ']']!
 
 icon

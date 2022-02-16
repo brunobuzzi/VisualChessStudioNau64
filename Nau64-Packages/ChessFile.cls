@@ -92,6 +92,8 @@ g
 
 getFile: aString
 
+	AllChessFiles ifNil: [self initializeFiles].
+
 	^AllChessFiles at: aString ifAbsent: [self error: 'No Chess File [', aString , ']']!
 
 h

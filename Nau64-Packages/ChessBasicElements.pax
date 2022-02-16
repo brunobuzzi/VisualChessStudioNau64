@@ -1,0 +1,206 @@
+﻿| package |
+package := Package name: 'ChessBasicElements'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #Bishop;
+	add: #Chessboard;
+	add: #ChessCoordinate;
+	add: #ChessEastOrientation;
+	add: #ChessFile;
+	add: #ChessMove;
+	add: #ChessNorthOrientation;
+	add: #ChessOrientation;
+	add: #ChessOrientationVector;
+	add: #ChessPiece;
+	add: #ChessRank;
+	add: #ChessSide;
+	add: #ChessSideBlack;
+	add: #ChessSideWhite;
+	add: #ChessSouthOrientation;
+	add: #ChessSquare;
+	add: #ChessSquareVector;
+	add: #ChessWestOrientation;
+	add: #King;
+	add: #Knight;
+	add: #Pawn;
+	add: #Queen;
+	add: #Rook;
+	add: #SquaresDictionary;
+	yourself.
+
+package methodNames
+	add: #Association -> #asChessVector;
+	add: #Symbol -> #asChessSquare;
+	yourself.
+
+package globalNames
+	add: #AllChessFiles;
+	add: #AllChessRanks;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #Chessboard
+	instanceVariableNames: 'squares orientation squareSize blackSide whiteSide pieces'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessCoordinate
+	instanceVariableNames: 'name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessMove
+	instanceVariableNames: 'vector piece'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessOrientation
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessOrientationVector
+	instanceVariableNames: 'southOrNorth eastOrWest'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessPiece
+	instanceVariableNames: 'chessSide'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessSide
+	instanceVariableNames: 'chessboard'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessSquare
+	instanceVariableNames: 'file rank'
+	classVariableNames: 'AllSquares ValidMoves'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessSquareVector
+	instanceVariableNames: 'originSquare targetSquare'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SquaresDictionary
+	instanceVariableNames: 'squares piece'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessCoordinate subclass: #ChessFile
+	instanceVariableNames: ''
+	classVariableNames: 'AllChessFiles'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessCoordinate subclass: #ChessRank
+	instanceVariableNames: ''
+	classVariableNames: 'AllChessRanks'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessOrientation subclass: #ChessEastOrientation
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessOrientation subclass: #ChessNorthOrientation
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessOrientation subclass: #ChessSouthOrientation
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessOrientation subclass: #ChessWestOrientation
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessPiece subclass: #Bishop
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessPiece subclass: #King
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessPiece subclass: #Knight
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessPiece subclass: #Pawn
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessPiece subclass: #Queen
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessPiece subclass: #Rook
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessSide subclass: #ChessSideBlack
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessSide subclass: #ChessSideWhite
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Association methodsFor!
+
+asChessVector
+
+	^ChessSquareVector newFromSquareName: key toSquareName: value! !
+!Association categoriesForMethods!
+asChessVector!public! !
+!
+
+!Symbol methodsFor!
+
+asChessSquare
+
+	self size = 2 ifFalse: [self error: 'Wrong size, it must be 2'].
+
+	^ChessSquare squareAt: (self first asString , self second asString) asSymbol
+! !
+!Symbol categoriesForMethods!
+asChessSquare!public! !
+!
+
+"End of package definition"!
+

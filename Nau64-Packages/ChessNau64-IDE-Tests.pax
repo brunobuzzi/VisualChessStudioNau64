@@ -1,0 +1,46 @@
+﻿| package |
+package := Package name: 'ChessNau64-IDE-Tests'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #ChessFenParserTest;
+	add: #ChessShellTest;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'ChessBasicElements'
+	'ChessNau64-IDE'
+	'ChessParsers'
+	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\Core\Contributions\Camp Smalltalk\SUnit\SUnit').
+
+package!
+
+"Class Definitions"!
+
+TestCase subclass: #ChessFenParserTest
+	instanceVariableNames: 'shell'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+TestCase subclass: #ChessShellTest
+	instanceVariableNames: 'shell'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

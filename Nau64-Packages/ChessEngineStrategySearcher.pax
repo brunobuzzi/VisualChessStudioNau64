@@ -1,0 +1,43 @@
+﻿| package |
+package := Package name: 'ChessEngineStrategySearcher'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #ChessChunk;
+	add: #ChessTemplate;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #ChessChunk
+	instanceVariableNames: 'code chessboard pieces'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessTemplate
+	instanceVariableNames: 'chunks'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

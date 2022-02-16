@@ -1,0 +1,165 @@
+﻿| package |
+package := Package name: 'ChessPiecesMovementsEngine'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #BishopMovementEngine;
+	add: #ChessMovementEngine;
+	add: #KingMovementEngine;
+	add: #KnightMovementEngine;
+	add: #PawnMovementEngine;
+	add: #QueenMovementEngine;
+	add: #RookMovementEngine;
+	add: #SlidingPieceMovementEngine;
+	yourself.
+
+package methodNames
+	add: #Bishop -> #defaultMovementRuleClass;
+	add: #ChessPiece -> #currentChessSquare;
+	add: #ChessPiece -> #defaultMovementRuleClass;
+	add: #ChessPiece -> #newRule;
+	add: #ChessPiece -> #newRuleForVector:;
+	add: #King -> #defaultMovementRuleClass;
+	add: #Knight -> #defaultMovementRuleClass;
+	add: #Pawn -> #defaultMovementRuleClass;
+	add: #Queen -> #defaultMovementRuleClass;
+	add: #Rook -> #defaultMovementRuleClass;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'ChessBasicElements'
+	'..\Core\Object Arts\Dolphin\Base\Dolphin').
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #ChessMovementEngine
+	instanceVariableNames: 'vector piece squaresDictionary'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessMovementEngine subclass: #KingMovementEngine
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessMovementEngine subclass: #KnightMovementEngine
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessMovementEngine subclass: #PawnMovementEngine
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessMovementEngine subclass: #SlidingPieceMovementEngine
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SlidingPieceMovementEngine subclass: #BishopMovementEngine
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SlidingPieceMovementEngine subclass: #QueenMovementEngine
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SlidingPieceMovementEngine subclass: #RookMovementEngine
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Bishop methodsFor!
+
+defaultMovementRuleClass
+	^BishopMovementEngine! !
+!Bishop categoriesForMethods!
+defaultMovementRuleClass!public! !
+!
+
+!ChessPiece methodsFor!
+
+currentChessSquare
+
+	^chessSide currentChessSquareFor: self!
+
+defaultMovementRuleClass
+
+	self subclassResponsibility
+!
+
+newRule
+
+	^self defaultMovementRuleClass newFor: self !
+
+newRuleForVector: aChessSquareVector
+
+	^self defaultMovementRuleClass newFor: self vector: aChessSquareVector! !
+!ChessPiece categoriesForMethods!
+currentChessSquare!public! !
+defaultMovementRuleClass!public! !
+newRule!public! !
+newRuleForVector:!public! !
+!
+
+!King methodsFor!
+
+defaultMovementRuleClass
+	^KingMovementEngine! !
+!King categoriesForMethods!
+defaultMovementRuleClass!public! !
+!
+
+!Knight methodsFor!
+
+defaultMovementRuleClass
+	^KnightMovementEngine! !
+!Knight categoriesForMethods!
+defaultMovementRuleClass!public! !
+!
+
+!Pawn methodsFor!
+
+defaultMovementRuleClass
+	^PawnMovementEngine! !
+!Pawn categoriesForMethods!
+defaultMovementRuleClass!public! !
+!
+
+!Queen methodsFor!
+
+defaultMovementRuleClass
+	^QueenMovementEngine! !
+!Queen categoriesForMethods!
+defaultMovementRuleClass!public! !
+!
+
+!Rook methodsFor!
+
+defaultMovementRuleClass
+	^RookMovementEngine! !
+!Rook categoriesForMethods!
+defaultMovementRuleClass!public! !
+!
+
+"End of package definition"!
+

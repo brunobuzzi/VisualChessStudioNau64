@@ -1,0 +1,145 @@
+﻿| package |
+package := Package name: 'ChessEngineTacticSearcher'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #ChessAbsolutePinSearcher;
+	add: #ChessAbsoluteSkewerSearcher;
+	add: #ChessBatterySearcher;
+	add: #ChessCheckMateSearcher;
+	add: #ChessCheckSearcher;
+	add: #ChessDeflectionSearcher;
+	add: #ChessDiscoveredAttackSearcher;
+	add: #ChessForkSearcher;
+	add: #ChessInterferenceSearcher;
+	add: #ChessOverloadingSearcher;
+	add: #ChessPartialPinSearcher;
+	add: #ChessPinSearcher;
+	add: #ChessRelativePinSearcher;
+	add: #ChessRelativeSkewerSearcher;
+	add: #ChessSacrificeSearcher;
+	add: #ChessSituationalPinSearcher;
+	add: #ChessSkewerSearcher;
+	add: #ChessTacticMoveSearcher;
+	add: #ChessUnderminingSearcher;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #ChessTacticMoveSearcher
+	instanceVariableNames: 'chessboard'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticMoveSearcher subclass: #ChessBatterySearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticMoveSearcher subclass: #ChessCheckMateSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticMoveSearcher subclass: #ChessCheckSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticMoveSearcher subclass: #ChessDeflectionSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticMoveSearcher subclass: #ChessDiscoveredAttackSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticMoveSearcher subclass: #ChessForkSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticMoveSearcher subclass: #ChessInterferenceSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticMoveSearcher subclass: #ChessOverloadingSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticMoveSearcher subclass: #ChessPinSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticMoveSearcher subclass: #ChessSacrificeSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticMoveSearcher subclass: #ChessSkewerSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticMoveSearcher subclass: #ChessUnderminingSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessPinSearcher subclass: #ChessAbsolutePinSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessPinSearcher subclass: #ChessPartialPinSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessPinSearcher subclass: #ChessRelativePinSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessPinSearcher subclass: #ChessSituationalPinSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessSkewerSearcher subclass: #ChessAbsoluteSkewerSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessSkewerSearcher subclass: #ChessRelativeSkewerSearcher
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

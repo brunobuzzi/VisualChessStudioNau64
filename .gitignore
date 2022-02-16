@@ -1,0 +1,15 @@
+*.pac
+Redist.txt
+Nau64ChessDevEnv.*
+*.DS_Store
+._*
+Jade System Browser Layout.stb
+Jade/Connections/*.GSS
+*.ERRORS
+Nau64ChessDevEnv.xml
+gci*trace.log
+connections
+Nau64ChessDevEnv.exe
+Nau64ChessDevEnv.zip
+Nau64ChessDevEnv.log
+gciDebug.log

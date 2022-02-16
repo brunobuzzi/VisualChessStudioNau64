@@ -1,0 +1,137 @@
+﻿| package |
+package := Package name: 'ChessChessboardCalculations'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package methodNames
+	add: #ChessSide -> #allAttackedSquaresDo:;
+	add: #ChessSide -> #attackedSquaresByPieceKeysAndValuesDo:;
+	add: #ChessSide -> #forceNumberAt:;
+	add: #ChessSide -> #forceNumbers;
+	add: #ChessSide -> #oppositeSideAllAttackedSquaresDo:;
+	add: #ChessSide -> #oppositeSideAttackedSquaresByPieceKeysAndValuesDo:;
+	add: #ChessSide -> #validSquaresByPieceKeysAndValuesDo:;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'ChessBasicElements'
+	'..\Core\Object Arts\Dolphin\Base\Dolphin').
+
+package!
+
+"Class Definitions"!
+
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!ChessSide methodsFor!
+
+allAttackedSquaresDo: aBlock
+	| allAttackedSquares |
+
+	allAttackedSquares := Set new.
+	self piecesDo: [:piece | | movementRule |
+		movementRule := piece defaultMovementRuleClass newFor: piece vector: nil.
+		movementRule attackedSquaresOn: chessboard from: (chessboard squareFor: piece) do: [:square | allAttackedSquares add: square].
+	].
+
+	allAttackedSquares do: aBlock!
+
+attackedSquaresByPieceKeysAndValuesDo: aBlock
+	| allAttackedSquares |
+
+	allAttackedSquares := Dictionary new.
+	self piecesDo: [:piece | | movementRule |
+		(allAttackedSquares includesKey: piece) ifFalse: [allAttackedSquares at: piece put: Set new].
+		movementRule := piece defaultMovementRuleClass newFor: piece vector: nil.
+		movementRule attackedSquaresOn: chessboard from: (chessboard squareFor: piece) do: [:square | (allAttackedSquares at: piece) add: square].
+	].
+
+	allAttackedSquares keysAndValuesDo: aBlock!
+
+forceNumberAt: aChessSquare
+	| forceNumber |
+
+	forceNumber := 0.
+	self attackedSquaresByPieceKeysAndValuesDo: [:piece :squareCollection | 
+		(squareCollection includes: aChessSquare) ifTrue: [forceNumber := forceNumber + 1].
+	].
+
+	self oppositeSideAttackedSquaresByPieceKeysAndValuesDo: [:piece :squareCollection | 
+		(squareCollection includes: aChessSquare) ifTrue: [forceNumber := forceNumber - 1].
+	].
+
+	^forceNumber
+
+
+!
+
+forceNumbers
+	| forceNumbers |
+
+	forceNumbers := Dictionary new.
+	self chessboard squaresDo: [:square |
+			forceNumbers at: square put: (self forceNumberAt: square)
+		].
+
+	^forceNumbers
+
+!
+
+oppositeSideAllAttackedSquaresDo: aBlock
+	| allAttackedSquares |
+
+	allAttackedSquares := Set new.
+	self oppositePiecesDo: [:piece | | movementRule |
+		movementRule := piece defaultMovementRuleClass newFor: piece vector: nil.
+		movementRule attackedSquaresOn: chessboard from: (chessboard squareFor: piece) do: [:each | allAttackedSquares add: each].
+	].
+
+	allAttackedSquares do: aBlock!
+
+oppositeSideAttackedSquaresByPieceKeysAndValuesDo: aBlock
+	| allAttackedSquares |
+
+	allAttackedSquares := Dictionary new.
+	self oppositePiecesDo: [:piece | | movementRule |
+		(allAttackedSquares includesKey: piece) ifFalse: [allAttackedSquares at: piece put: Set new].
+		movementRule := piece defaultMovementRuleClass newFor: piece vector: nil.
+		movementRule attackedSquaresOn: chessboard from: (chessboard squareFor: piece) do: [:each | (allAttackedSquares at: piece) add: each].
+	].
+
+	allAttackedSquares keysAndValuesDo: aBlock!
+
+validSquaresByPieceKeysAndValuesDo: aBlock
+	| validSquares |
+
+	validSquares := Dictionary new.
+	self piecesDo: [:piece | | movementRule |
+		(validSquares includesKey: piece) ifFalse: [validSquares at: piece put: Set new].
+		movementRule := piece defaultMovementRuleClass newFor: piece vector: nil.
+		movementRule computeValidSquaresOn: chessboard from: piece currentChessSquare.
+		movementRule squaresDictionaryDo: [:square | (validSquares at: piece) add: square].
+	].
+
+	validSquares keysAndValuesDo: aBlock! !
+!ChessSide categoriesForMethods!
+allAttackedSquaresDo:!public! !
+attackedSquaresByPieceKeysAndValuesDo:!public! !
+forceNumberAt:!public! !
+forceNumbers!public! !
+oppositeSideAllAttackedSquaresDo:!public! !
+oppositeSideAttackedSquaresByPieceKeysAndValuesDo:!public! !
+validSquaresByPieceKeysAndValuesDo:!public! !
+!
+
+"End of package definition"!
+

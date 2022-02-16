@@ -1,0 +1,79 @@
+﻿"Filed out from Dolphin Smallalk"!
+
+Object subclass: #ChessSide
+	instanceVariableNames: 'chessboard'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessSide guid: (GUID fromString: '{40355e9d-4755-4839-85ec-7540b069cd63}')!
+ChessSide comment: ''!
+!ChessSide categoriesForClass!Unclassified! !
+!ChessSide methodsFor!
+
+chessboard
+	^chessboard!
+
+currentChessSquareFor: aChessPiece
+
+	^chessboard currentChessSquareFor: aChessPiece!
+
+isBlack
+	^false!
+
+isWhite
+	^false!
+
+oppositePiecesDo: aBlock
+
+	self subclassResponsibility!
+
+opppositeSlidingPiecesDo: aBlock
+
+	self oppositePiecesDo: [:piece | piece isSlidingPiece ifTrue: [aBlock value: piece]]!
+
+piecesDo: aBlock
+
+	self subclassResponsibility!
+
+setChessboard: aChessBoard
+
+	chessboard := aChessBoard.!
+
+slidingPiecesDo: aBlock
+
+	self piecesDo: [:piece | piece isSlidingPiece ifTrue: [aBlock value: piece]]!
+
+squareSize
+
+	^chessboard squareSize! !
+!ChessSide categoriesForMethods!
+chessboard!public! !
+currentChessSquareFor:!public! !
+isBlack!public! !
+isWhite!public! !
+oppositePiecesDo:!public! !
+opppositeSlidingPiecesDo:!public! !
+piecesDo:!public! !
+setChessboard:!private! !
+slidingPiecesDo:!public! !
+squareSize!public! !
+!
+
+!ChessSide class methodsFor!
+
+filePrefix
+
+	^'bblackcellw'!
+
+icon
+	^Boolean icon!
+
+newOn: aChessBoard
+
+	^self new setChessboard: aChessBoard! !
+!ChessSide class categoriesForMethods!
+filePrefix!public! !
+icon!public! !
+newOn:!public! !
+!
+

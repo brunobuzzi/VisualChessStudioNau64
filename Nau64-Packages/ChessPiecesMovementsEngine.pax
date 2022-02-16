@@ -20,7 +20,6 @@ package methodNames
 	add: #ChessPiece -> #currentChessSquare;
 	add: #ChessPiece -> #defaultMovementRuleClass;
 	add: #ChessPiece -> #newRule;
-	add: #ChessPiece -> #newRuleForVector:;
 	add: #King -> #defaultMovementRuleClass;
 	add: #Knight -> #defaultMovementRuleClass;
 	add: #Pawn -> #defaultMovementRuleClass;
@@ -109,16 +108,11 @@ defaultMovementRuleClass
 
 newRule
 
-	^self defaultMovementRuleClass newFor: self !
-
-newRuleForVector: aChessSquareVector
-
-	^self defaultMovementRuleClass newFor: self vector: aChessSquareVector! !
+	^self defaultMovementRuleClass newFor: self ! !
 !ChessPiece categoriesForMethods!
 currentChessSquare!public! !
 defaultMovementRuleClass!public! !
 newRule!public! !
-newRuleForVector:!public! !
 !
 
 !King methodsFor!

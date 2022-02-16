@@ -24,7 +24,6 @@ package classNames
 	add: #ChessSideWhite;
 	add: #ChessSouthOrientation;
 	add: #ChessSquare;
-	add: #ChessSquareVector;
 	add: #ChessWestOrientation;
 	add: #King;
 	add: #Knight;
@@ -35,7 +34,6 @@ package classNames
 	yourself.
 
 package methodNames
-	add: #Association -> #asChessVector;
 	add: #Symbol -> #asChessSquare;
 	yourself.
 
@@ -96,11 +94,6 @@ Object subclass: #ChessSide
 Object subclass: #ChessSquare
 	instanceVariableNames: 'file rank'
 	classVariableNames: 'AllSquares ValidMoves'
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-Object subclass: #ChessSquareVector
-	instanceVariableNames: 'originSquare targetSquare'
-	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #SquaresDictionary
@@ -183,15 +176,6 @@ ChessSide subclass: #ChessSideWhite
 
 
 "Loose Methods"!
-
-!Association methodsFor!
-
-asChessVector
-
-	^ChessSquareVector newFromSquareName: key toSquareName: value! !
-!Association categoriesForMethods!
-asChessVector!public! !
-!
 
 !Symbol methodsFor!
 

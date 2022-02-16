@@ -15,34 +15,19 @@ testEnPassant
 	self error: 'Not Implemented Yet'!
 
 testPawnMovementsOnChessboard
-	| vector rule blackPawn whitePawn |
+	| blackPawn whitePawn |
 
 	chessboard := Chessboard newWithAllPieces.
 	blackPawn := chessboard pieceAtCoordinate: #a7.
 	whitePawn := chessboard pieceAtCoordinate: #a2.
 
-	vector := (#a2-> #a3) asChessVector.
 	self assert: (whitePawn isValidMoveFromCoordinate: #a2 to: #a3).
+	self assert: (whitePawn isValidMoveFromCoordinate: #a2 to: #a4).
+	self deny: (whitePawn isValidMoveFromCoordinate: #a2 to: #a1).
 
-	vector := (#a2-> #a4) asChessVector.
-	rule := whitePawn newRuleForVector: vector.
-	self assert: (rule isValidOn: chessboard).
-
-	vector := (#a2-> #a1) asChessVector. 
-	rule := whitePawn newRuleForVector: vector.
-	self deny: (rule isValidOn: chessboard).
-
-	vector := (#a7-> #a6) asChessVector. 
-	rule := blackPawn newRuleForVector: vector.
-	self assert: (rule isValidOn: chessboard).
-
-	vector := (#a7-> #a5) asChessVector. 
-	rule := blackPawn newRuleForVector: vector.
-	self assert: (rule isValidOn: chessboard).
-
-	vector := (#a7-> #a8) asChessVector. 
-	rule := blackPawn newRuleForVector: vector.
-	self deny: (rule isValidOn: chessboard).
+	self assert: (blackPawn isValidMoveFromCoordinate: #a7 to: #a6).
+	self assert: (blackPawn isValidMoveFromCoordinate: #a7 to: #a5).
+	self deny: (blackPawn isValidMoveFromCoordinate: #a7 to: #a8).
 ! !
 !PawnMovementRuleTest categoriesForMethods!
 testEnPassant!public! !

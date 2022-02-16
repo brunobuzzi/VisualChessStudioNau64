@@ -75,13 +75,11 @@ isSlidingPiece
 	^false!
 
 isValidMoveFromCoordinate: originCoordinate to: targetCoordinate
-	| vector rule |
+	| rule |
 
-	vector := ChessSquareVector newFromSquareName: originCoordinate toSquareName: targetCoordinate.
+	rule := self defaultMovementRuleClass newFor: self.
 
-	rule := self defaultMovementRuleClass newFor: self vector: vector.
-
-	^rule isValidOn: chessSide chessboard
+	^rule isValidOn: chessSide chessboard from: originCoordinate asChessSquare to: targetCoordinate asChessSquare
 !
 
 isWhite

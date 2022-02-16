@@ -39,11 +39,11 @@ isCheckMatedOn: aChessboard
 
 	self shouldNotImplement!
 
-isValidOn: aChessboard
+isValidOn: aChessboard from: originChessSquare to: targetChessSquare
 	"^(self validSquaresOn: aChessboard from: vector originSquare) includes: vector targetSquare"
 
-	self computeValidSquaresOn: aChessboard from: vector originSquare.
-	^squaresDictionary squaresAnySatisfy: [:each | each = vector targetSquare]!
+	self computeValidSquaresOn: aChessboard from: originChessSquare.
+	^squaresDictionary squaresAnySatisfy: [:each | each = targetChessSquare]!
 
 orientationVectorFrom: sourceChessSquare to: targetChessSquare
 	| orientationVector |
@@ -99,7 +99,7 @@ hasDirectContactWith:on:from:!public! !
 includes:!public! !
 includesAllSquares:!public! !
 isCheckMatedOn:!public! !
-isValidOn:!public! !
+isValidOn:from:to:!public! !
 orientationVectorFrom:to:!public! !
 setPiece:vector:!private! !
 skeweredPieces:on:from:!public! !

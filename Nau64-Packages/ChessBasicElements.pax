@@ -3,6 +3,9 @@ package := Package name: 'ChessBasicElements'.
 package paxVersion: 1;
 	basicComment: ''.
 
+package basicScriptAt: #postinstall put: 'ChessFile initializeFiles.
+ChessRank initializeRanks.
+ChessSquare initializeAllSquares.'.
 
 package classNames
 	add: #Bishop;

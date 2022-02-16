@@ -15,13 +15,15 @@ computeAttackedSquaresForBlackOn: aChessboard from: aChessSquare
 	aChessSquare
 		nextFile: 1
 		nextRank: -1
-		onSuccessDo: [:square | (aChessboard  pieceAt: square) isWhite ifTrue: [squaresDictionary atSouthEastAdd: square]]
+		onSuccessDo: [:square | 
+			(aChessboard  pieceAt: square) ifNotNil: [:attackedPiece | attackedPiece isWhite ifTrue: [squaresDictionary atSouthEastAdd: square]]]
 		onErrorDo: [:ex | ].
 
 	aChessSquare
 		nextFile: -1
 		nextRank: -1
-		onSuccessDo: [:square | (aChessboard  pieceAt: square) isWhite ifTrue: [squaresDictionary atSouthWestAdd: square]]
+		onSuccessDo: [:square | 
+			(aChessboard  pieceAt: square) ifNotNil: [:attackedPiece | attackedPiece isWhite ifTrue: [squaresDictionary atSouthWestAdd: square]]]
 		onErrorDo: [:ex | ].!
 
 computeAttackedSquaresForWhiteOn: aChessboard from: aChessSquare
@@ -29,13 +31,15 @@ computeAttackedSquaresForWhiteOn: aChessboard from: aChessSquare
 	aChessSquare
 		nextFile: 1
 		nextRank: 1
-		onSuccessDo: [:square | (aChessboard  pieceAt: square) isBlack ifTrue: [squaresDictionary atNorthEastAdd: square]]
+		onSuccessDo: [:square | 
+			(aChessboard  pieceAt: square) ifNotNil: [:attackedPiece | attackedPiece isBlack ifTrue: [squaresDictionary atNorthEastAdd: square]]]
 		onErrorDo: [:ex | ].
 
 	aChessSquare
 		nextFile: -1
 		nextRank: 1
-		onSuccessDo: [:square | (aChessboard  pieceAt: square) isBlack ifTrue: [squaresDictionary atNorthWestAdd: square]]
+		onSuccessDo: [:square | 
+			(aChessboard  pieceAt: square) ifNotNil: [:attackedPiece | attackedPiece isBlack ifTrue: [squaresDictionary atNorthWestAdd: square]]]
 		onErrorDo: [:ex | ].!
 
 computeReachableSquaresForBlackOn: aChessboard from: aChessSquare 

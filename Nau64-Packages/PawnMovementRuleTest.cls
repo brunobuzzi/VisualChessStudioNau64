@@ -22,8 +22,7 @@ testPawnMovementsOnChessboard
 	whitePawn := chessboard pieceAtCoordinate: #a2.
 
 	vector := (#a2-> #a3) asChessVector.
-	rule := whitePawn newRuleForVector: vector.
-	self assert: (rule isValidOn: chessboard).
+	self assert: (whitePawn isValidMoveFromCoordinate: #a2 to: #a3).
 
 	vector := (#a2-> #a4) asChessVector.
 	rule := whitePawn newRuleForVector: vector.

@@ -15,8 +15,7 @@ fenString
 	^self isBlack ifTrue: ['k'] ifFalse: ['K']!
 
 isCheckMatedOn: aChessboard
-
-	^self newRule isCheckMatedOn: aChessboard!
+	^self newMovementEngine isCheckMatedOn: aChessboard!
 
 isKing
 

@@ -17,7 +17,7 @@ searchOnChessboardFor: aChessSide
 			[:piece :squareCollection |
 			squareCollection do: 
 					[:square |
-					(piece newRule
+					(piece newMovementEngine
 						skeweredPieces: 2
 						on: chessboard
 						from: square) do: 

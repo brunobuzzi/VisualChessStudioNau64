@@ -19,7 +19,7 @@ package methodNames
 	add: #Bishop -> #defaultMovementRuleClass;
 	add: #ChessPiece -> #currentChessSquare;
 	add: #ChessPiece -> #defaultMovementRuleClass;
-	add: #ChessPiece -> #newRule;
+	add: #ChessPiece -> #newMovementEngine;
 	add: #King -> #defaultMovementRuleClass;
 	add: #Knight -> #defaultMovementRuleClass;
 	add: #Pawn -> #defaultMovementRuleClass;
@@ -106,13 +106,12 @@ defaultMovementRuleClass
 	self subclassResponsibility
 !
 
-newRule
-
-	^self defaultMovementRuleClass newFor: self ! !
+newMovementEngine
+	^self defaultMovementRuleClass newFor: self! !
 !ChessPiece categoriesForMethods!
 currentChessSquare!public! !
 defaultMovementRuleClass!public! !
-newRule!public! !
+newMovementEngine!public! !
 !
 
 !King methodsFor!

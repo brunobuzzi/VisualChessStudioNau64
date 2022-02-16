@@ -110,27 +110,27 @@ computeReachableWestSquaresOn: aChessboard from: aChessSquare
 
 computeValidSquaresOn: aChessboard from: aChessSquare
 	| oppositeSide reachableSquaresBySlidingPiece |
-
 	super computeValidSquaresOn: aChessboard from: aChessSquare.
-
 	oppositeSide := aChessboard oppositeSideOf: piece.
-
-	oppositeSide piecesDo: [:oppPiece | | pieceRule |
-		pieceRule := oppPiece newRule.
-		pieceRule computeReachableSquaresOn: aChessboard from: oppPiece currentChessSquare.
-		pieceRule squaresDictionaryDo: [:sqDictionary | squaresDictionary := squaresDictionary difference: sqDictionary].
-	].
-
+	oppositeSide piecesDo: 
+			[:oppPiece |
+			| movEngine |
+			movEngine := oppPiece newMovementEngine.
+			movEngine computeReachableSquaresOn: aChessboard from: oppPiece currentChessSquare.
+			movEngine
+				squaresDictionaryDo: [:sqDictionary | squaresDictionary := squaresDictionary difference: sqDictionary]].
 	reachableSquaresBySlidingPiece := OrderedCollection new.
-	squaresDictionary squaresDo: [:square |
-		oppositeSide slidingPiecesDo: [:oppPiece | | pieceRule |
-			pieceRule := oppPiece newRule.
-			(pieceRule slidingPieceAt: oppPiece currentChessSquare canReachSkippingOnePiece: square on: aChessboard)
-			ifTrue: [reachableSquaresBySlidingPiece add: square].
-		].
-	].
-
-	reachableSquaresBySlidingPiece do: [:square | squaresDictionary remove: square].!
+	squaresDictionary squaresDo: 
+			[:square |
+			oppositeSide slidingPiecesDo: 
+					[:oppPiece |
+					| movEngine |
+					movEngine := oppPiece newMovementEngine.
+					(movEngine
+						slidingPieceAt: oppPiece currentChessSquare
+						canReachSkippingOnePiece: square
+						on: aChessboard) ifTrue: [reachableSquaresBySlidingPiece add: square]]].
+	reachableSquaresBySlidingPiece do: [:square | squaresDictionary remove: square]!
 
 isCheckMatedOn: aChessboard
 

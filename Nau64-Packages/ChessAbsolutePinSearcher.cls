@@ -13,12 +13,11 @@ ChessAbsolutePinSearcher comment: ''!
 searchOnChessboardFor: aChessSide
 	| pins |
 	pins := Dictionary new.
-	aChessSide piecesDo: [:piece | ].
 	aChessSide validSquaresByPieceKeysAndValuesDo: 
 			[:piece :squareCollection |
 			squareCollection do: 
 					[:square |
-					(piece newRule
+					(piece newMovementEngine
 						skeweredPieces: 2
 						on: chessboard
 						from: square) do: 

@@ -16,7 +16,7 @@ testSkewerPiece
 	chessboard := Chessboard newEmpty.
 	parser deployOn: chessboard.
 	piece := chessboard pieceAtCoordinate: #f4.
-	validSquares := piece newRule skewerPieceOn: chessboard from: #f4 asChessSquare.
+	validSquares := piece newMovementEngine skewerPieceOn: chessboard from: #f4 asChessSquare.
 	(#(#c7 #c1) collect: [:each | each asChessSquare])
 		do: [:square | self assert: (validSquares includes: square)].
 	self assert: validSquares size equals: 2!
@@ -27,7 +27,10 @@ testSkewerPieces
 	chessboard := Chessboard newEmpty.
 	parser deployOn: chessboard.
 	piece := chessboard pieceAtCoordinate: #f4.
-	validSquares := piece newRule skeweredPieces: 2 on: chessboard from: #f4 asChessSquare.
+	validSquares := piece newMovementEngine
+				skeweredPieces: 2
+				on: chessboard
+				from: #f4 asChessSquare.
 	(#(#b8 #c1) collect: [:each | each asChessSquare])
 		do: [:square | self assert: (validSquares includes: square)].
 	self assert: validSquares size equals: 2!
@@ -38,7 +41,10 @@ testSkewerPiecesAll
 	chessboard := Chessboard newEmpty.
 	parser deployOn: chessboard.
 	piece := chessboard pieceAtCoordinate: #a1.
-	validSquares := piece newRule skeweredPieces: 2 on: chessboard from: #a1 asChessSquare.
+	validSquares := piece newMovementEngine
+				skeweredPieces: 2
+				on: chessboard
+				from: #a1 asChessSquare.
 	(#(#d4 #f6 #g7 #h8) collect: [:each | each asChessSquare])
 		do: [:square | self assert: (validSquares includes: square)].
 	self assert: validSquares size equals: 4!
@@ -49,7 +55,7 @@ testSkewerPieceWithSpacedSquare
 	chessboard := Chessboard newEmpty.
 	parser deployOn: chessboard.
 	piece := chessboard pieceAtCoordinate: #f4.
-	validSquares := piece newRule skewerPieceOn: chessboard from: #f4 asChessSquare.
+	validSquares := piece newMovementEngine skewerPieceOn: chessboard from: #f4 asChessSquare.
 	(#(#b8 #c1) collect: [:each | each asChessSquare])
 		do: [:square | self assert: (validSquares includes: square)].
 	self assert: validSquares size equals: 2!
@@ -60,7 +66,7 @@ testValidSquares
 	chessboard := Chessboard newEmpty.
 	parser deployOn: chessboard.
 	piece := chessboard pieceAtCoordinate: #f4.
-	rule := piece newRule.
+	rule := piece newMovementEngine.
 	rule computeReachableSquaresOn: chessboard from: #f4 asChessSquare.
 	validSquares := #(#e5 #d6 #g5 #h6 #e3 #d2 #g3 #h2) collect: [:each | each asChessSquare].
 	self assert: (rule includesAllSquares: validSquares).

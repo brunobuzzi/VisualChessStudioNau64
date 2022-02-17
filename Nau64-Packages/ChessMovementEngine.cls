@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #ChessMovementEngine
-	instanceVariableNames: 'vector piece squaresDictionary'
+	instanceVariableNames: 'piece squaresDictionary'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -25,6 +25,13 @@ computeReachableSquaresOn: aChessboard from: aChessSquare
 computeValidSquaresOn: aChessboard from: aChessSquare
 
 	self computeReachableSquaresOn: aChessboard from: aChessSquare!
+
+detectedForksDo: aBlock
+	
+	piece chessSideDo: [:chessSide | | forkedSquares |
+		forkedSquares := squaresDictionary detectForkedSquaresFor: chessSide.
+		forkedSquares notEmpty ifTrue: [aBlock value: forkedSquares].
+	].!
 
 hasDirectContactWith: aChessPiece on: aChessboard from: aChessSquare
 !
@@ -58,10 +65,11 @@ orientationVectorFrom: sourceChessSquare to: targetChessSquare
 
 	^orientationVector!
 
-setPiece: aChessPiece vector: aChessSquareVector
+setPiece: aChessPiece 
+
 	piece := aChessPiece.
 	squaresDictionary := SquaresDictionary on: piece.
-	vector := aChessSquareVector!
+!
 
 skeweredPieces: anInteger on: aChessboard from: aChessSquare
 	^self skewerPieceOn: aChessboard from: aChessSquare!
@@ -85,30 +93,26 @@ validSquaresFrom: aChessSquare toFileShift: fileShift toRankShift: rankShift onS
 		nextFile: fileShift
 		nextRank: rankShift
 		onSuccessDo: monadicSuccessBlock
-		onErrorDo: monadicErrorBlock!
-
-vector: aChessSquareVector
-
-	vector := aChessSquareVector! !
+		onErrorDo: monadicErrorBlock! !
 !ChessMovementEngine categoriesForMethods!
 attackedSquaresOn:from:do:!public! !
 canBeMovedToValidCoordinate:on:!public! !
 computeReachableSquaresOn:from:!public! !
 computeValidSquaresOn:from:!public! !
+detectedForksDo:!public! !
 hasDirectContactWith:on:from:!public! !
 includes:!public! !
 includesAllSquares:!public! !
 isCheckMatedOn:!public! !
 isValidOn:from:to:!public! !
 orientationVectorFrom:to:!public! !
-setPiece:vector:!private! !
+setPiece:!private! !
 skeweredPieces:on:from:!public! !
 skewerPieceOn:from:!extended squares!public! !
 slidingPieceAt:canReachSkippingOnePiece:on:!public! !
 squaresDictionaryDo:!public! !
 squaresSize!public! !
 validSquaresFrom:toFileShift:toRankShift:onSucessDo:onErrorDo:!public! !
-vector:!private! !
 !
 
 !ChessMovementEngine class methodsFor!
@@ -120,19 +124,9 @@ icon
 
 newFor: aChessPiece
 
-	^self new setPiece: aChessPiece vector: nil!
-
-newFor: aChessPiece vector: aChessSquareVector
-
-	^self new setPiece: aChessPiece vector: aChessSquareVector!
-
-newForVector: aChessSquareVector
-
-	^self new vector: aChessSquareVector! !
+	^self new setPiece: aChessPiece! !
 !ChessMovementEngine class categoriesForMethods!
 icon!public! !
 newFor:!public! !
-newFor:vector:!public! !
-newForVector:!public! !
 !
 

@@ -42,7 +42,7 @@ package!
 "Class Definitions"!
 
 Object subclass: #ChessMovementEngine
-	instanceVariableNames: 'vector piece squaresDictionary'
+	instanceVariableNames: 'piece squaresDictionary'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

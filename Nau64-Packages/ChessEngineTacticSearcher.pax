@@ -12,6 +12,7 @@ package classNames
 	add: #ChessCheckSearcher;
 	add: #ChessDeflectionSearcher;
 	add: #ChessDiscoveredAttackSearcher;
+	add: #ChessFork;
 	add: #ChessForkSearcher;
 	add: #ChessInterferenceSearcher;
 	add: #ChessOverloadingSearcher;
@@ -22,6 +23,7 @@ package classNames
 	add: #ChessSacrificeSearcher;
 	add: #ChessSituationalPinSearcher;
 	add: #ChessSkewerSearcher;
+	add: #ChessTacticConcept;
 	add: #ChessTacticMoveSearcher;
 	add: #ChessUnderminingSearcher;
 	yourself.
@@ -40,8 +42,18 @@ package!
 
 "Class Definitions"!
 
+Object subclass: #ChessTacticConcept
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 Object subclass: #ChessTacticMoveSearcher
 	instanceVariableNames: 'chessboard'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticConcept subclass: #ChessFork
+	instanceVariableNames: 'from to'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

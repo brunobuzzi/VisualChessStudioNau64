@@ -74,6 +74,20 @@ atWestPut: aCollection
 
 	squares at: #west put: aCollection!
 
+detectForkedSquaresFor: aChessSide
+	| attackedPieces forkedSquares |
+
+	attackedPieces := 0.
+	forkedSquares := OrderedCollection new.
+	self squaresDo: [:square | 
+		aChessSide chessboardDo: [:chessboard |
+			((chessboard squareNotEmptyAtCoordinate: square coordinate) and:[(chessboard pieceAt: square) isOppositeTo: aChessSide]) ifTrue: [attackedPieces := attackedPieces + 1].
+			(attackedPieces > 1) ifTrue: [forkedSquares add: square].
+		]
+	].
+
+	^forkedSquares!
+
 difference: aSquaresDictionary
 	| newSquareDictionary |
 
@@ -205,6 +219,7 @@ atSouthWestAdd:!add element!public! !
 atSouthWestPut:!public!put collection! !
 atWestAdd:!add element!public! !
 atWestPut:!public!put collection! !
+detectForkedSquaresFor:!public! !
 difference:!public!set operations! !
 includes:!public!searching! !
 includesAll:!public!searching! !

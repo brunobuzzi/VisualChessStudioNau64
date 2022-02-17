@@ -10,41 +10,39 @@ ChessForkSearcher comment: ''!
 !ChessForkSearcher categoriesForClass!Unclassified! !
 !ChessForkSearcher methodsFor!
 
-getValidAttackSquaresFor: piece from: aChessSquare do: aBlock
-"	| currentSquare attackedSquares |
+createForkFrom: square to: forkedSquares
 
-	piece isPawn ifTrue: [^piece newRule possibleMovesOn: chessboard from: aChessSquare].
+	^ChessFork from: square to: forkedSquares!
+
+getValidAttackSquaresFor: piece from: aChessSquare do: aBlock
+	| currentSquare attackedSquares |
+
+	piece isPawn ifTrue: [^piece newMovementEngine possibleMovesOn: chessboard from: aChessSquare].
 
 	currentSquare := chessboard squareFor: piece.
 	^(chessboard squareIsEmptyAtCoordinate: aChessSquare coordinate)
 	ifTrue: [chessboard movePieceFromCoordiante: currentSquare coordinate to: aChessSquare coordinate.
-		attackedSquares := piece newRule attackedSquaresOn: chessboard from: aChessSquare.
+		attackedSquares := piece newMovementEngine attackedSquaresOn: chessboard from: aChessSquare.
 		chessboard movePieceFromCoordiante: aChessSquare coordinate to: currentSquare coordinate.
 		attackedSquares]
-	ifFalse: [piece newRule attackedSquaresOn: chessboard from: aChessSquare]"!
+	ifFalse: [piece newMovementEngine attackedSquaresOn: chessboard from: aChessSquare]!
 
 searchOnChessboardFor: aChessSide
 	| forks |
 	
 	forks := Dictionary new.
-	aChessSide validSquaresByPieceKeysAndValuesDo: 
-			[:piece :squareCollection |
-			squareCollection do: 
-					[:square |
-					| attackCount forkSquare |
-					attackCount := 0.
-					self getValidAttackSquaresFor: piece from: square do: 
-							[:each |
-							(each coordinate ~= square coordinate and:[((chessboard pieceAt: each) notNil and: [(chessboard pieceAt: each) isOppositeSideTo: piece])])
-								ifTrue: 
-									[attackCount := attackCount + 1.
-									forkSquare := square]].
-					attackCount > 1
-						ifTrue: 
-							[(forks includesKey: piece) ifFalse: [forks at: piece put: Set new].
-							(forks at: piece) add: forkSquare]]].
+	aChessSide validSquaresByPieceKeysAndValuesDo: [:piece :squareDictionary |
+		squareDictionary squaresDo: [:square | | newMoveEngine |
+			newMoveEngine := piece newMovementEngine.
+			newMoveEngine computeValidSquaresOn: chessboard from: square.
+			newMoveEngine detectedForksDo: [:forkedSquares | 
+				forks at: piece put: (self createForkFrom: square to: forkedSquares).
+			].
+		].
+	].
 	^forks! !
 !ChessForkSearcher categoriesForMethods!
+createForkFrom:to:!public! !
 getValidAttackSquaresFor:from:do:!public! !
 searchOnChessboardFor:!public! !
 !

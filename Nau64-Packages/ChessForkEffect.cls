@@ -18,8 +18,8 @@ drawOn: aCanvas
 		ifTrue: [chessboard blackSideDo: [:side | forks := forkSearcher searchOnChessboardFor: side]]
 		ifFalse: [chessboard whiteSideDo: [:side | forks := forkSearcher searchOnChessboardFor: side]].
 
-	forks keysAndValuesDo: [:piece :squareSet | 
-			squareSet do: [:square | 
+	forks keysAndValuesDo: [:piece :fork | 
+			fork targetSquaresDo: [:square | 
 				aCanvas graphics drawLineFrom: ((chessboard calculatePositionFor: (chessboard squareFor: piece)) + (chessboard halfSquareSize)) to: ((chessboard calculatePositionFor: square) + (chessboard halfSquareSize)) pen: self pen]
 	].! !
 !ChessForkEffect categoriesForMethods!

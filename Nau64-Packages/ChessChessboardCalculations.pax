@@ -41,7 +41,7 @@ allAttackedSquaresDo: aBlock
 
 	allAttackedSquares := Set new.
 	self piecesDo: [:piece | | movementRule |
-		movementRule := piece defaultMovementRuleClass newFor: piece vector: nil.
+		movementRule := piece defaultMovementRuleClass newFor: piece.
 		movementRule attackedSquaresOn: chessboard from: (chessboard squareFor: piece) do: [:square | allAttackedSquares add: square].
 	].
 
@@ -53,7 +53,7 @@ attackedSquaresByPieceKeysAndValuesDo: aBlock
 	allAttackedSquares := Dictionary new.
 	self piecesDo: [:piece | | movementRule |
 		(allAttackedSquares includesKey: piece) ifFalse: [allAttackedSquares at: piece put: Set new].
-		movementRule := piece defaultMovementRuleClass newFor: piece vector: nil.
+		movementRule := piece defaultMovementRuleClass newFor: piece.
 		movementRule attackedSquaresOn: chessboard from: (chessboard squareFor: piece) do: [:square | (allAttackedSquares at: piece) add: square].
 	].
 
@@ -93,7 +93,7 @@ oppositeSideAllAttackedSquaresDo: aBlock
 
 	allAttackedSquares := Set new.
 	self oppositePiecesDo: [:piece | | movementRule |
-		movementRule := piece defaultMovementRuleClass newFor: piece vector: nil.
+		movementRule := piece defaultMovementRuleClass newFor: piece.
 		movementRule attackedSquaresOn: chessboard from: (chessboard squareFor: piece) do: [:each | allAttackedSquares add: each].
 	].
 
@@ -105,7 +105,7 @@ oppositeSideAttackedSquaresByPieceKeysAndValuesDo: aBlock
 	allAttackedSquares := Dictionary new.
 	self oppositePiecesDo: [:piece | | movementRule |
 		(allAttackedSquares includesKey: piece) ifFalse: [allAttackedSquares at: piece put: Set new].
-		movementRule := piece defaultMovementRuleClass newFor: piece vector: nil.
+		movementRule := piece defaultMovementRuleClass newFor: piece.
 		movementRule attackedSquaresOn: chessboard from: (chessboard squareFor: piece) do: [:each | (allAttackedSquares at: piece) add: each].
 	].
 
@@ -116,10 +116,10 @@ validSquaresByPieceKeysAndValuesDo: aBlock
 
 	validSquares := Dictionary new.
 	self piecesDo: [:piece | | movementRule |
-		(validSquares includesKey: piece) ifFalse: [validSquares at: piece put: Set new].
-		movementRule := piece defaultMovementRuleClass newFor: piece vector: nil.
+		"(validSquares includesKey: piece) ifFalse: [validSquares at: piece put: Set new]."
+		movementRule := piece defaultMovementRuleClass newFor: piece.
 		movementRule computeValidSquaresOn: chessboard from: piece currentChessSquare.
-		movementRule squaresDictionaryDo: [:square | (validSquares at: piece) add: square].
+		movementRule squaresDictionaryDo: [:squaresDictionary | validSquares at: piece put: squaresDictionary].
 	].
 
 	validSquares keysAndValuesDo: aBlock! !

@@ -15,6 +15,10 @@ canBeMovedToValidCoordinate: symbolCoordinate on: aChessboard
 	^(aChessboard squareIsEmptyAtCoordinate: symbolCoordinate) or: 
 		[(aChessboard squareNotEmptyAtCoordinate: symbolCoordinate) and: [self isOppositeSideTo: (aChessboard pieceAtCoordinate: symbolCoordinate)]]!
 
+chessSideDo: aBlock
+
+	aBlock value: chessSide!
+
 fenString
 
 	self subclassResponsibility!
@@ -46,6 +50,10 @@ isKnight
 isOppositeSideTo: aChessPiece
 
 	^(aChessPiece isBlack and: [self isWhite]) or: [aChessPiece isWhite and: [self isBlack]]!
+
+isOppositeTo: aChessSide
+
+	^(chessSide == aChessSide) not!
 
 isPawn
 
@@ -102,6 +110,7 @@ systemRoot
 	^chessSide systemRoot! !
 !ChessPiece categoriesForMethods!
 canBeMovedToValidCoordinate:on:!public!testing! !
+chessSideDo:!public! !
 fenString!public! !
 forceNumberAt:!public! !
 isBishop!public!testing! !
@@ -110,6 +119,7 @@ isCheckMatedOn:!public! !
 isKing!public!testing! !
 isKnight!public!testing! !
 isOppositeSideTo:!public! !
+isOppositeTo:!public! !
 isPawn!public!testing! !
 isQueen!public!testing! !
 isRook!public!testing! !

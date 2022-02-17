@@ -13,6 +13,10 @@ ChessSide comment: ''!
 chessboard
 	^chessboard!
 
+chessboardDo: aBlock
+
+	aBlock value: chessboard!
+
 currentChessSquareFor: aChessPiece
 
 	^chessboard currentChessSquareFor: aChessPiece!
@@ -52,6 +56,7 @@ systemRoot
 	^chessboard systemRoot! !
 !ChessSide categoriesForMethods!
 chessboard!public! !
+chessboardDo:!public! !
 currentChessSquareFor:!public! !
 isBlack!public! !
 isWhite!public! !

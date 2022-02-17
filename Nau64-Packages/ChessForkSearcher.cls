@@ -10,9 +10,9 @@ ChessForkSearcher comment: ''!
 !ChessForkSearcher categoriesForClass!Unclassified! !
 !ChessForkSearcher methodsFor!
 
-createForkFrom: square to: forkedSquares
+createForkFor: aChessPiece from: square to: forkedSquares
 
-	^ChessFork from: square to: forkedSquares!
+	^ChessFork newFromCurrentSquare: aChessPiece currentChessSquare from: square to: forkedSquares!
 
 getValidAttackSquaresFor: piece from: aChessSquare do: aBlock
 	| currentSquare attackedSquares |
@@ -30,19 +30,19 @@ getValidAttackSquaresFor: piece from: aChessSquare do: aBlock
 searchOnChessboardFor: aChessSide
 	| forks |
 	
-	forks := Dictionary new.
+	forks := TacticDictionary new.
 	aChessSide validSquaresByPieceKeysAndValuesDo: [:piece :squareDictionary |
 		squareDictionary squaresDo: [:square | | newMoveEngine |
 			newMoveEngine := piece newMovementEngine.
 			newMoveEngine computeValidSquaresOn: chessboard from: square.
 			newMoveEngine detectedForksDo: [:forkedSquares | 
-				forks at: piece put: (self createForkFrom: square to: forkedSquares).
+				forks add: (self createForkFor: piece from: square to: forkedSquares) to: piece.
 			].
 		].
 	].
 	^forks! !
 !ChessForkSearcher categoriesForMethods!
-createForkFrom:to:!public! !
+createForkFor:from:to:!public! !
 getValidAttackSquaresFor:from:do:!public! !
 searchOnChessboardFor:!public! !
 !

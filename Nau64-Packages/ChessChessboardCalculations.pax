@@ -116,7 +116,6 @@ validSquaresByPieceKeysAndValuesDo: aBlock
 
 	validSquares := Dictionary new.
 	self piecesDo: [:piece | | movementRule |
-		"(validSquares includesKey: piece) ifFalse: [validSquares at: piece put: Set new]."
 		movementRule := piece defaultMovementRuleClass newFor: piece.
 		movementRule computeValidSquaresOn: chessboard from: piece currentChessSquare.
 		movementRule squaresDictionaryDo: [:squaresDictionary | validSquares at: piece put: squaresDictionary].

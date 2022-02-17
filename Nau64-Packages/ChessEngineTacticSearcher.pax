@@ -26,6 +26,7 @@ package classNames
 	add: #ChessTacticConcept;
 	add: #ChessTacticMoveSearcher;
 	add: #ChessUnderminingSearcher;
+	add: #TacticDictionary;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -52,8 +53,13 @@ Object subclass: #ChessTacticMoveSearcher
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+Object subclass: #TacticDictionary
+	instanceVariableNames: 'tactics'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 ChessTacticConcept subclass: #ChessFork
-	instanceVariableNames: 'from to'
+	instanceVariableNames: 'currentPieceSquare from to'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

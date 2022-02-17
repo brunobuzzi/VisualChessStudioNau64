@@ -24,6 +24,20 @@ pen
 		yourself.
 	^pen!
 
+penRed
+	| pen arrowCap |
+
+	arrowCap := (GdiplusAdjustableArrowCap height: 20 width: 10 isFilled: true)
+		middleInset: 5;
+		yourself.
+	pen := isBlack ifTrue: [GdiplusPen red] ifFalse: [GdiplusPen red].
+	pen
+		width: 2;
+		customStartCap: GdiplusCustomLineCap new;
+		customEndCap: arrowCap;
+		yourself.
+	^pen!
+
 setBlack
 
 	isBlack := true!
@@ -34,6 +48,7 @@ setChessboard: aChessboard
 	isBlack := false! !
 !ChessTacticEffect categoriesForMethods!
 pen!public! !
+penRed!public! !
 setBlack!public! !
 setChessboard:!private! !
 !

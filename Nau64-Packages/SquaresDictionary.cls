@@ -81,11 +81,12 @@ detectForkedSquaresFor: aChessSide
 	forkedSquares := OrderedCollection new.
 	self squaresDo: [:square | 
 		aChessSide chessboardDo: [:chessboard |
-			((chessboard squareNotEmptyAtCoordinate: square coordinate) and:[(chessboard pieceAt: square) isOppositeTo: aChessSide]) ifTrue: [attackedPieces := attackedPieces + 1].
-			(attackedPieces > 1) ifTrue: [forkedSquares add: square].
-		]
+			((chessboard squareNotEmptyAtCoordinate: square coordinate) and:[(chessboard pieceAt: square) isOppositeTo: aChessSide]) 
+			ifTrue: [attackedPieces := attackedPieces + 1.
+				forkedSquares add: square.].
+		].
 	].
-
+	(attackedPieces <= 1) ifTrue: [^#()].
 	^forkedSquares!
 
 difference: aSquaresDictionary

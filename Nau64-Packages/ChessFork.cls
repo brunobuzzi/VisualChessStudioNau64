@@ -10,17 +10,27 @@ ChessFork comment: ''!
 !ChessFork categoriesForClass!Unclassified! !
 !ChessFork methodsFor!
 
+originAndTargetSquaresDo: aBlock
+
+	aBlock value: from value: to!
+
 setFrom: originSquare to: targetSquares
 
 	from := originSquare.
 	to := targetSquares!
 
-targetSquaresDo: aBlock
+sourceSquareIs: aChessSquare
 
-	to do: aBlock! !
+	^from == aChessSquare!
+
+targetSquaresIncludes: aChessSquare
+
+	^to includes: aChessSquare! !
 !ChessFork categoriesForMethods!
+originAndTargetSquaresDo:!public! !
 setFrom:to:!private! !
-targetSquaresDo:!public! !
+sourceSquareIs:!public! !
+targetSquaresIncludes:!public! !
 !
 
 !ChessFork class methodsFor!

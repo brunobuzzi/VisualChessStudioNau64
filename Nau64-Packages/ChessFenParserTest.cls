@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
-TestCase subclass: #ChessFenParserTest
+ChessTest subclass: #ChessFenParserTest
 	instanceVariableNames: 'shell'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -19,22 +19,19 @@ tearDown
 
 testFen1
 	| model fenParser |
-	shell := ChessShell showOn: Chessboard newEmpty.
+	shell := ChessShell showOn: (Chessboard newEmptyOn: systemRoot).
 	model := shell model.
-	fenParser := ChessFenParser on: 'r1b1k1nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b'.
+	fenParser := ChessFenParser newOn: systemRoot fenString: 'r1b1k1nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b'.
 	fenParser deployOn: model.
-	shell renderChessboard
-	
-	!
+	shell renderChessboard!
 
 testFenInitialPosition
 	| model fenParser |
-	shell := ChessShell showOn: Chessboard newEmpty.
+	shell := ChessShell showOn: (Chessboard newEmptyOn: systemRoot).
 	model := shell model.
-	fenParser := ChessFenParser on: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'.
+	fenParser := ChessFenParser newOn: systemRoot fenString: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'.
 	fenParser deployOn: model.
-	shell renderChessboard
-	! !
+	shell renderChessboard! !
 !ChessFenParserTest categoriesForMethods!
 tearDown!public! !
 testFen1!public! !

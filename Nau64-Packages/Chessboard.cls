@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #Chessboard
-	instanceVariableNames: 'squares orientation squareSize blackSide whiteSide pieces'
+	instanceVariableNames: 'systemRoot squares orientation squareSize blackSide whiteSide pieces'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -60,7 +60,7 @@ blackSideDo: aBlock
 
 currentChessSquareFor: aChessPiece
 
-	pieces keysAndValuesDo: [:symbol :piece | (piece == aChessPiece) ifTrue: [^symbol asChessSquare]].
+	pieces keysAndValuesDo: [:symbol :piece | (piece == aChessPiece) ifTrue: [^symbol asChessSquareIn: systemRoot]].
 
 	self error: 'Piece not found'!
 
@@ -177,9 +177,15 @@ setPieces
 	self setWhitePieces.
 	self setBlackPieces.!
 
+setRoot: aNau64ChessSystemRoot 
+
+	systemRoot := aNau64ChessSystemRoot.
+
+	self setSquares.!
+
 setSquares
 
-	squares := ChessSquare allSquares.
+	squares := systemRoot allSquares.
 	orientation := #normal.
 	squareSize := 60.
 	pieces := Dictionary new.
@@ -215,7 +221,7 @@ setWhitePieces
 
 squareFor: aPiece
 
-	pieces keysAndValuesDo: [:symbol :piece | (aPiece == piece) ifTrue:[^symbol asChessSquare]].
+	pieces keysAndValuesDo: [:symbol :piece | (aPiece == piece) ifTrue:[^symbol asChessSquareIn: systemRoot]].
 
 	self error: 'No such Piece'!
 
@@ -233,6 +239,10 @@ squaresDo: aBlock
 
 squareSize
 	^squareSize!
+
+systemRoot
+
+	^systemRoot!
 
 toggleOrientation
 
@@ -313,6 +323,7 @@ setBlackPaws!private! !
 setBlackPieces!private! !
 setPawns!private! !
 setPieces!private! !
+setRoot:!public! !
 setSquares!private! !
 setWhitePaws!private! !
 setWhitePieces!private! !
@@ -321,6 +332,7 @@ squareIsEmptyAtCoordinate:!chessboard contents!public! !
 squareNotEmptyAtCoordinate:!chessboard contents!public! !
 squaresDo:!iteration!public! !
 squareSize!public! !
+systemRoot!private! !
 toggleOrientation!public! !
 whiteBishops!pieces-white!public! !
 whiteKing!pieces-white!public! !
@@ -339,19 +351,18 @@ whiteSideDo:!pieces-black!public! !
 icon
 	^Icon fromFile: (FileLocator imageRelative basePath, 'Ajedrez\chess_icon-icons.com_65163.ico')!
 
-newEmpty
+newEmptyOn: anObject
+	^super new setRoot: anObject!
 
-	^super new setSquares!
+newWithAllPiecesOn: aSystemRoot
+	^(self newEmptyOn: aSystemRoot) setPieces!
 
-newWithAllPieces
-	^self new setPieces!
-
-newWithPawns
-	^self newEmpty setPawns! !
+newWithPawnsOn: aSystemRoot
+	^(self newEmptyOn: aSystemRoot) setPawns! !
 !Chessboard class categoriesForMethods!
 icon!public! !
-newEmpty!public! !
-newWithAllPieces!public! !
-newWithPawns!public! !
+newEmptyOn:!public! !
+newWithAllPiecesOn:!public! !
+newWithPawnsOn:!public! !
 !
 

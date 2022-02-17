@@ -45,7 +45,11 @@ slidingPiecesDo: aBlock
 
 squareSize
 
-	^chessboard squareSize! !
+	^chessboard squareSize!
+
+systemRoot
+
+	^chessboard systemRoot! !
 !ChessSide categoriesForMethods!
 chessboard!public! !
 currentChessSquareFor:!public! !
@@ -57,6 +61,7 @@ piecesDo:!public! !
 setChessboard:!private! !
 slidingPiecesDo:!public! !
 squareSize!public! !
+systemRoot!private! !
 !
 
 !ChessSide class methodsFor!

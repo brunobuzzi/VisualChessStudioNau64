@@ -6,6 +6,7 @@ package paxVersion: 1;
 
 package classNames
 	add: #ChessFenParser;
+	add: #ChessParser;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -22,7 +23,12 @@ package!
 
 "Class Definitions"!
 
-Object subclass: #ChessFenParser
+Object subclass: #ChessParser
+	instanceVariableNames: 'systemRoot'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessParser subclass: #ChessFenParser
 	instanceVariableNames: 'fenStream entries map'
 	classVariableNames: ''
 	poolDictionaries: ''

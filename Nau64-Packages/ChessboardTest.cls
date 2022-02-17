@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
-TestCase subclass: #ChessboardTest
+ChessTest subclass: #ChessboardTest
 	instanceVariableNames: 'chessboard'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -11,7 +11,7 @@ ChessboardTest comment: ''!
 !ChessboardTest methodsFor!
 
 testChessboardWithAllPieces
-	chessboard := Chessboard newWithAllPieces.
+	chessboard := Chessboard newWithAllPiecesOn: systemRoot.
 
 	self assert: chessboard piecesSize = 32.
 	self assert: chessboard blackPiecesSize = 16.
@@ -19,7 +19,7 @@ testChessboardWithAllPieces
 !
 
 testChessboardWithPaws
-	chessboard := Chessboard newWithPawns.
+	chessboard := Chessboard newWithPawnsOn: systemRoot.
 
 	self assert: chessboard piecesSize = 16.
 	self assert: chessboard blackPiecesSize = 8.
@@ -29,10 +29,8 @@ testChessboardWithPaws
 	self assert: chessboard whitePawns size equals: 8.!
 
 testEmptyChessboard
-	chessboard := Chessboard newEmpty.
-
+	chessboard := Chessboard newEmptyOn: systemRoot.
 	chessboard piecesDo: [:each | self assert: false].
-
 	self assert: true! !
 !ChessboardTest categoriesForMethods!
 testChessboardWithAllPieces!public! !

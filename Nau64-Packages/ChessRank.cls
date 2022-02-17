@@ -20,11 +20,11 @@ isGreaterThan: anInteger
 
 next
 
-	^self class getRank: name + 1!
+	^self next: 1!
 
 next: anInteger
 
-	^self class getRank: name + anInteger!
+	^systemRoot getRank: name + anInteger!
 
 number
 
@@ -39,8 +39,9 @@ printOn: aStream
 
 	aStream nextPutAll: '[', name printString , ']'!
 
-setRank: anInteger
+setRank: anInteger root: aSystemRoot
 
+	systemRoot := aSystemRoot.
 	name := anInteger ! !
 !ChessRank categoriesForMethods!
 isEqualTo:!public! !
@@ -50,22 +51,10 @@ next:!public! !
 number!public! !
 printName!public! !
 printOn:!public! !
-setRank:!private! !
+setRank:root:!private! !
 !
 
 !ChessRank class methodsFor!
-
-eight
-
-	^self new setRank: 8!
-
-five
-
-	^self new setRank: 5!
-
-four
-
-	^self new setRank: 4!
 
 getRank: anInteger
 
@@ -76,49 +65,51 @@ icon
 	^Integer icon!
 
 initializeRanks
-
 	AllChessRanks := Dictionary new.
-	AllChessRanks 
-		at: 1 put: self one;
-		at: 2 put: self two;
-		at: 3 put: self three;
-		at: 4 put: self four;
-		at: 5 put: self five;
-		at: 6 put: self six;
-		at: 7 put: self seven;
-		at: 8 put: self eight.
-!
+	AllChessRanks
+		at: 1 put: (self new1On: self);
+		at: 2 put: (self new2On: self);
+		at: 3 put: (self new3On: self);
+		at: 4 put: (self new4On: self);
+		at: 5 put: (self new5On: self);
+		at: 6 put: (self new6On: self);
+		at: 7 put: (self new7On: self);
+		at: 8 put: (self new8On: self)!
 
-one
+new1On: anObject
+	^self new setRank: 1 root: anObject!
 
-	^self new setRank: 1!
+new2On: anObject
+	^self new setRank: 2 root: anObject!
 
-seven
+new3On: anObject
+	^self new setRank: 3 root: anObject!
 
-	^self new setRank: 7!
+new4On: anObject
+	^self new setRank: 4 root: anObject!
 
-six
+new5On: anObject
+	^self new setRank: 5 root: anObject!
 
-	^self new setRank: 6!
+new6On: anObject
+	^self new setRank: 6 root: anObject!
 
-three
+new7On: anObject
+	^self new setRank: 7 root: anObject!
 
-	^self new setRank: 3!
-
-two
-
-	^self new setRank: 2! !
+new8On: anObject
+	^self new setRank: 8 root: anObject! !
 !ChessRank class categoriesForMethods!
-eight!public! !
-five!public! !
-four!public! !
 getRank:!public! !
 icon!public! !
 initializeRanks!public! !
-one!public! !
-seven!public! !
-six!public! !
-three!public! !
-two!public! !
+new1On:!public! !
+new2On:!public! !
+new3On:!public! !
+new4On:!public! !
+new5On:!public! !
+new6On:!public! !
+new7On:!public! !
+new8On:!public! !
 !
 

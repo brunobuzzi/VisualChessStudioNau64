@@ -17,21 +17,21 @@ package globalAliases: (Set new
 
 package setPrerequisites: #(
 	'ChessBasicElements'
+	'ChessBasicElementsTests'
 	'ChessNau64-IDE'
 	'ChessParsers'
-	'..\Core\Object Arts\Dolphin\Base\Dolphin'
-	'..\Core\Contributions\Camp Smalltalk\SUnit\SUnit').
+	'..\Core\Object Arts\Dolphin\Base\Dolphin').
 
 package!
 
 "Class Definitions"!
 
-TestCase subclass: #ChessFenParserTest
+ChessTest subclass: #ChessFenParserTest
 	instanceVariableNames: 'shell'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-TestCase subclass: #ChessShellTest
+ChessTest subclass: #ChessShellTest
 	instanceVariableNames: 'shell'
 	classVariableNames: ''
 	poolDictionaries: ''

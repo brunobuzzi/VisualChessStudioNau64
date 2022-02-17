@@ -17,7 +17,7 @@ testEnPassant
 testPawnMovementsOnChessboard
 	| blackPawn whitePawn |
 
-	chessboard := Chessboard newWithAllPieces.
+	chessboard := Chessboard newWithAllPiecesOn: systemRoot.
 	blackPawn := chessboard pieceAtCoordinate: #a7.
 	whitePawn := chessboard pieceAtCoordinate: #a2.
 

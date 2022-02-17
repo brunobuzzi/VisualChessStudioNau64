@@ -23,14 +23,14 @@ package globalAliases: (Set new
 
 package setPrerequisites: #(
 	'ChessBasicElements'
-	'ChessParsers'
-	'..\Core\Contributions\Camp Smalltalk\SUnit\SUnit').
+	'ChessBasicElementsTests'
+	'ChessParsers').
 
 package!
 
 "Class Definitions"!
 
-TestCase subclass: #ChessMovementRuleTest
+ChessTest subclass: #ChessMovementRuleTest
 	instanceVariableNames: 'chessboard piece parser'
 	classVariableNames: ''
 	poolDictionaries: ''

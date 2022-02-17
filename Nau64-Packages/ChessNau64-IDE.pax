@@ -7,6 +7,8 @@ package paxVersion: 1;
 package classNames
 	add: #AttackedSquaresBySideEffect;
 	add: #ChessAbsolutePinEffect;
+	add: #ChessAbstractPresenter;
+	add: #ChessAbstractShell;
 	add: #ChessboardEffect;
 	add: #ChessboardPresenter;
 	add: #ChessCenterChunkEffect;
@@ -117,12 +119,22 @@ ChessPinEffect subclass: #ChessPartialPinEffect
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-Presenter subclass: #ChessboardPresenter
+Presenter subclass: #ChessAbstractPresenter
+	instanceVariableNames: 'systemRoot'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessAbstractPresenter subclass: #ChessboardPresenter
 	instanceVariableNames: 'chessboardImagePresenter isDisplayCoordinatesEnabled mouseTracker effects'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-Shell subclass: #ChessShell
+Shell subclass: #ChessAbstractShell
+	instanceVariableNames: 'systemRoot'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessAbstractShell subclass: #ChessShell
 	instanceVariableNames: 'chessboardPresenter'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -148,11 +160,11 @@ calculatePositionFor: aChessSquare
 
 calculatePositionForFile: aChessFile rank: aChessRank
 
-	^self calculatePositionFor: (ChessSquare file: aChessFile rank: aChessRank)!
+	^self calculatePositionFor: (systemRoot squareAtFile: aChessFile atRank: aChessRank)!
 
 drawOn: aCanvas isDisplayCoordinatesEnabled: aBoolean
 
-	ChessSquare allSquares do: [:each | each drawOn: aCanvas chessboard: self isDisplayCoordinatesEnabled: aBoolean].
+	systemRoot allSquares do: [:each | each drawOn: aCanvas chessboard: self isDisplayCoordinatesEnabled: aBoolean].
 
 	pieces keysAndValuesDo: [:coordinate :each | each drawOn: aCanvas chessboard: self at: coordinate isDisplayCoordinatesEnabled: aBoolean]!
 
@@ -192,7 +204,7 @@ canvasIconAt: aChessSquare
 drawOn: aCanvas chessboard: aChessboard at: symbolCoordinate  isDisplayCoordinatesEnabled: aBoolean
 	| canvasIcon image square squarePosition |
 
-	square := symbolCoordinate asChessSquare.
+	square := symbolCoordinate asChessSquareIn: self systemRoot.
 	squarePosition := square calculatePositionAt: aChessboard.
 	canvasIcon := self canvasIconAt: square.
 
@@ -318,7 +330,7 @@ canvasIconAt2: aChessSquare
 drawOn2: aCanvas chessboard: aChessboard at: symbolCoordinate  isDisplayCoordinatesEnabled: aBoolean
 	| canvasIcon image square squarePosition imageAtt |
 
-	square := symbolCoordinate asChessSquare.
+	square := symbolCoordinate asChessSquareIn: self systemRoot.
 	squarePosition := square calculatePositionAt: aChessboard.
 	canvasIcon := self canvasIconAt: square.
 

@@ -6,6 +6,7 @@ package paxVersion: 1;
 
 package classNames
 	add: #ChessboardTest;
+	add: #ChessTest;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -22,7 +23,12 @@ package!
 
 "Class Definitions"!
 
-TestCase subclass: #ChessboardTest
+TestCase subclass: #ChessTest
+	instanceVariableNames: 'systemRoot'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTest subclass: #ChessboardTest
 	instanceVariableNames: 'chessboard'
 	classVariableNames: ''
 	poolDictionaries: ''

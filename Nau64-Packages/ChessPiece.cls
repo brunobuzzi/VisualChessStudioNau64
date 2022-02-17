@@ -79,7 +79,7 @@ isValidMoveFromCoordinate: originCoordinate to: targetCoordinate
 
 	rule := self defaultMovementRuleClass newFor: self.
 
-	^rule isValidOn: chessSide chessboard from: originCoordinate asChessSquare to: targetCoordinate asChessSquare
+	^rule isValidOn: chessSide chessboard from: (originCoordinate asChessSquareIn: self systemRoot) to: (targetCoordinate asChessSquareIn: self systemRoot)
 !
 
 isWhite
@@ -95,7 +95,11 @@ setSide: aChessSide
 
 squareSize
 
-	^chessSide squareSize! !
+	^chessSide squareSize!
+
+systemRoot
+
+	^chessSide systemRoot! !
 !ChessPiece categoriesForMethods!
 canBeMovedToValidCoordinate:on:!public!testing! !
 fenString!public! !
@@ -117,6 +121,7 @@ isWhite!public!testing! !
 pieceCode!public! !
 setSide:!private! !
 squareSize!public! !
+systemRoot!private! !
 !
 
 !ChessPiece class methodsFor!

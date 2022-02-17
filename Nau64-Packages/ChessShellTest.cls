@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
-TestCase subclass: #ChessShellTest
+ChessTest subclass: #ChessShellTest
 	instanceVariableNames: 'shell'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -19,36 +19,37 @@ tearDown
 
 testChessboardEmpty
 	| model |
-	shell := ChessShell showOn: Chessboard newEmpty.
-	model := shell model.
-	
-!
+	shell := ChessShell showOn: (Chessboard newEmptyOn: systemRoot).
+	shell setRoot: systemRoot.
+	model := shell model!
 
 testChessboardEmptyWithCoordinates
 	| model |
-	shell := ChessShell showOn: Chessboard newEmpty.
+	shell := ChessShell showOn: (Chessboard newEmptyOn: systemRoot).
+	shell setRoot: systemRoot.
 	model := shell model.
-	shell toggleCoordinates.
-	
-!
+	shell toggleCoordinates!
 
 testChessboardWithPaws
 	| model |
-	shell := ChessShell showOn: Chessboard newWithPawns.
+	shell := ChessShell showOn: (Chessboard newWithPawnsOn: systemRoot).
+	shell setRoot: systemRoot.
 	model := shell model.
 	
 !
 
 testChessboardWithPieces
 	| model |
-	shell := ChessShell show.
+	shell := ChessShell showOn: (Chessboard newWithAllPiecesOn: systemRoot).
+	shell setRoot: systemRoot.
 	model := shell model.
 	
 !
 
 testReverseChessboard
 	| model |
-	shell := ChessShell show.
+	shell := ChessShell  showOn: (Chessboard newWithAllPiecesOn: systemRoot).
+	shell setRoot: systemRoot.
 	model := shell model.
 	[(Delay forMilliseconds: 400) wait.
 	shell reverseChessboard.] forkAt: 5.

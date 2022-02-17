@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
-TestCase subclass: #ChessMovementRuleTest
+ChessTest subclass: #ChessMovementRuleTest
 	instanceVariableNames: 'chessboard piece parser'
 	classVariableNames: ''
 	poolDictionaries: ''

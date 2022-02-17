@@ -28,7 +28,7 @@ next: anInteger
 	| nextCharacterValue nextCharacter |
 	nextCharacterValue := (name at: 1) asciiValue + anInteger.
 	nextCharacter := Character asciiValue: nextCharacterValue.
-	^self class getFile: nextCharacter asAnsiString!
+	^systemRoot getFile: nextCharacter asAnsiString!
 
 number
 
@@ -53,8 +53,9 @@ printOn: aStream
 
 	aStream nextPutAll: '[', name, ']'!
 
-setFile: anInteger
+setFile: anInteger root: aSystemRoot
 
+	systemRoot := aSystemRoot.
 	name := anInteger! !
 !ChessFile categoriesForMethods!
 isEqualTo:!public! !
@@ -64,67 +65,65 @@ next:!public! !
 number!public! !
 printName!public! !
 printOn:!public! !
-setFile:!private! !
+setFile:root:!private! !
 !
 
 !ChessFile class methodsFor!
 
-a
-	^self new setFile: 'a'!
-
-b
-	^self new setFile: 'b'!
-
-c
-	^self new setFile: 'c'!
-
-d
-	^self new setFile: 'd'!
-
-e
-	^self new setFile: 'e'!
-
-f
-	^self new setFile: 'f'!
-
-g
-	^self new setFile: 'g'!
-
 getFile: aString
 
 	^AllChessFiles at: aString ifAbsent: [self error: 'No Chess File [', aString , ']']!
-
-h
-	^self new setFile: 'h'!
 
 icon
 
 	^String icon!
 
 initializeFiles
-
 	AllChessFiles := Dictionary new.
-	AllChessFiles 
-		at: 'a' put: self a;
-		at: 'b' put: self b;
-		at: 'c' put: self c;
-		at: 'd' put: self d;
-		at: 'e' put: self e;
-		at: 'f' put: self f;
-		at: 'g' put: self g;
-		at: 'h' put: self h.
-! !
+	AllChessFiles
+		at: 'a' put: (self newAon: nil);
+		at: 'b' put: (self newBon: self);
+		at: 'c' put: (self newCon: self);
+		at: 'd' put: (self newDon: self);
+		at: 'e' put: (self newEon: self);
+		at: 'f' put: (self newFon: self);
+		at: 'g' put: (self newGon: self);
+		at: 'h' put: (self newHon: self)!
+
+newAon: anObject
+	^self new setFile: 'a' root: anObject!
+
+newBon: anObject
+	^self new setFile: 'b' root: anObject!
+
+newCon: anObject
+	^self new setFile: 'c' root: anObject!
+
+newDon: anObject
+	^self new setFile: 'd' root: anObject!
+
+newEon: anObject
+	^self new setFile: 'e' root: anObject!
+
+newFon: anObject
+	^self new setFile: 'f' root: anObject!
+
+newGon: anObject
+	^self new setFile: 'g' root: anObject!
+
+newHon: anObject
+	^self new setFile: 'h' root: anObject! !
 !ChessFile class categoriesForMethods!
-a!public! !
-b!public! !
-c!public! !
-d!public! !
-e!public! !
-f!public! !
-g!public! !
 getFile:!public! !
-h!public! !
 icon!public! !
 initializeFiles!public! !
+newAon:!public! !
+newBon:!public! !
+newCon:!public! !
+newDon:!public! !
+newEon:!public! !
+newFon:!public! !
+newGon:!public! !
+newHon:!public! !
 !
 

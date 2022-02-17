@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
-Object subclass: #ChessFenParser
+ChessParser subclass: #ChessFenParser
 	instanceVariableNames: 'fenStream entries map'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -17,7 +17,7 @@ deployOn: aChessboard
 
 	map keysAndValuesDo: [:symbolCoordinate :fenPiece |  | pieceClass |
 		pieceClass := self pieceClassFor: fenPiece.
-		aChessboard newPiece: pieceClass isBlack: fenPiece isLowerCase at: (ChessSquare squareAt: symbolCoordinate)
+		aChessboard newPiece: pieceClass isBlack: fenPiece isLowerCase at: (systemRoot squareAt: symbolCoordinate)
 	].!
 
 parse
@@ -52,8 +52,9 @@ pieceClassFor: aCharacter
 	self error: 'No fen piece code for [', aCharacter asString,']'
 !
 
-setFenString: aString
+setRoot: aSystemRoot fenString: aString
 
+	systemRoot := aSystemRoot.
 	fenStream := aString readStream.
 	entries := Dictionary new.
 	map := Dictionary new.
@@ -64,15 +65,15 @@ deployOn:!public! !
 parse!public! !
 parseLine:atRank:!public! !
 pieceClassFor:!public! !
-setFenString:!private! !
+setRoot:fenString:!private! !
 !
 
 !ChessFenParser class methodsFor!
 
-on: fenString
+newOn: aSystemRoot fenString: fenString
 
-	^self new setFenString: fenString! !
+	^self new setRoot: aSystemRoot fenString: fenString! !
 !ChessFenParser class categoriesForMethods!
-on:!public! !
+newOn:fenString:!public! !
 !
 

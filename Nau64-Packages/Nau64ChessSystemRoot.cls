@@ -19,14 +19,14 @@ fenSquares
 
 	all := self allSquares.
 	fenSquares := OrderedCollection new.
-	fenSquares add: (OrderedCollection withAll: (#(#a8 #b8 #c8 #d8 #e8 #f8 #g8 #h8) collect: [:each | all at: each]));
-		add: (OrderedCollection withAll: (#(#a7 #b7 #c7 #d7 #e7 #f7 #g7 #h7) collect: [:each | all at: each]));
-		add: (OrderedCollection withAll: (#(#a6 #b6 #c6 #d6 #e6 #f6 #g6 #h6) collect: [:each | all at: each]));
-		add: (OrderedCollection withAll: (#(#a5 #b5 #c5 #d5 #e5 #f5 #g5 #h5) collect: [:each | all at: each]));
-		add: (OrderedCollection withAll: (#(#a4 #b4 #c4 #d4 #e4 #f4 #g4 #h4) collect: [:each | all at: each]));
-		add: (OrderedCollection withAll: (#(#a3 #b3 #c3 #d3 #e3 #f3 #g3 #h3) collect: [:each | all at: each]));
-		add: (OrderedCollection withAll: (#(#a2 #b2 #c2 #d2 #e2 #f2 #g2 #h2) collect: [:each | all at: each]));
-		add: (OrderedCollection withAll: (#(#a1 #b1 #c1 #d1 #e1 #f1 #g1 #h1) collect: [:each | all at: each])).
+	fenSquares add: (OrderedCollection withAll: (self squaresAtRank: 8));
+		add: (OrderedCollection withAll: (self squaresAtRank: 7));
+		add: (OrderedCollection withAll: (self squaresAtRank: 6));
+		add: (OrderedCollection withAll: (self squaresAtRank: 5));
+		add: (OrderedCollection withAll: (self squaresAtRank: 4));
+		add: (OrderedCollection withAll: (self squaresAtRank: 3));
+		add: (OrderedCollection withAll: (self squaresAtRank: 2));
+		add: (OrderedCollection withAll: (self squaresAtRank: 1)).
 	^fenSquares!
 
 getFile: aString
@@ -48,15 +48,9 @@ setFiles
 		at: 'h' put: (ChessFile newHon: self)!
 
 setFilesRanksAndSquares
-
 	self setFiles.
 	self setRanks.
-
-	squares := Dictionary new.
-	#(#a1 #a2 #a3 #a4 #a5 #a6 #a7 #a8 #b1 #b2 #b3 #b4 #b5 #b6 #b7 #b8 #c1 #c2 #c3 #c4 #c5 #c6 #c7 #c8 #d1 #d2 #d3 #d4 #d5 #d6 #d7 #d8 #e1 #e2 #e3 #e4 #e5 #e6 #e7 #e8 #f1 #f2 #f3 #f4 #f5 #f6 #f7 #f8 #g1 #g2 #g3 #g4 #g5 #g6 #g7 #g8 #h1 #h2 #h3 #h4 #h5 #h6 #h7 #h8) 
-		do: [:symbolCoordinate | | square |
-			square := ChessSquare newFile: (self getFile: symbolCoordinate first asString) rank: (self getRank: (Integer fromString: symbolCoordinate second asString)) on: self.
-			squares at: symbolCoordinate put: square].!
+	self setSquares!
 
 setRanks
 	ranks := Dictionary new.
@@ -70,23 +64,49 @@ setRanks
 		at: 7 put: (ChessRank new7On: self);
 		at: 8 put: (ChessRank new8On: self)!
 
+setSquares
+	squares := Dictionary new.
+	self squaresSymbolsCollection do: 
+			[:symbolCoordinate |
+			| square |
+			square := ChessSquare
+						newFile: (self getFile: symbolCoordinate first asString)
+						rank: (self getRank: (Integer fromString: symbolCoordinate second asString))
+						on: self.
+			squares at: symbolCoordinate put: square]!
+
 squareAt: aSymbol
 
 	^squares at: aSymbol!
 
 squareAtFile: aChessFile atRank: aChessRank
 
-	^squares at: (aChessFile printName, aChessRank printName) asSymbol ifAbsent: [self error: 'ChessSquare does not exist']! !
+	^squares at: (aChessFile printName, aChessRank printName) asSymbol ifAbsent: [self error: 'ChessSquare does not exist']!
+
+squaresAtFile: fileName
+
+	^(squares select: [:chessSquare | chessSquare printFile = fileName]) asSortedCollection: [:a :b | a rankNumber <= b rankNumber]!
+
+squaresAtRank: rankNumber
+
+	^(squares select: [:chessSquare | chessSquare rankNumber = rankNumber]) asSortedCollection: [:a :b | a printFile <= b printFile]!
+
+squaresSymbolsCollection
+	^#(#a1 #a2 #a3 #a4 #a5 #a6 #a7 #a8 #b1 #b2 #b3 #b4 #b5 #b6 #b7 #b8 #c1 #c2 #c3 #c4 #c5 #c6 #c7 #c8 #d1 #d2 #d3 #d4 #d5 #d6 #d7 #d8 #e1 #e2 #e3 #e4 #e5 #e6 #e7 #e8 #f1 #f2 #f3 #f4 #f5 #f6 #f7 #f8 #g1 #g2 #g3 #g4 #g5 #g6 #g7 #g8 #h1 #h2 #h3 #h4 #h5 #h6 #h7 #h8)! !
 !Nau64ChessSystemRoot categoriesForMethods!
-allSquares!public! !
-fenSquares!public! !
-getFile:!public! !
-getRank:!public! !
-setFiles!private! !
+allSquares!public!squares! !
+fenSquares!public!squares! !
+getFile:!files and ranks!public! !
+getRank:!files and ranks!public! !
+setFiles!files and ranks!private! !
 setFilesRanksAndSquares!private! !
-setRanks!private! !
-squareAt:!public! !
-squareAtFile:atRank:!public! !
+setRanks!files and ranks!private! !
+setSquares!private!squares! !
+squareAt:!public!squares! !
+squareAtFile:atRank:!public!squares! !
+squaresAtFile:!public!squares! !
+squaresAtRank:!public!squares! !
+squaresSymbolsCollection!private!squares! !
 !
 
 !Nau64ChessSystemRoot class methodsFor!

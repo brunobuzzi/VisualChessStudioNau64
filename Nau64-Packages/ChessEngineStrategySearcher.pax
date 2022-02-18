@@ -6,6 +6,12 @@ package paxVersion: 1;
 
 package classNames
 	add: #ChessChunk;
+	add: #ChessKingSafety;
+	add: #ChessMaterialCount;
+	add: #ChessPawnStructure;
+	add: #ChessPieceActivity;
+	add: #ChessSideSpace;
+	add: #ChessStrategyConcept;
 	add: #ChessTemplate;
 	yourself.
 
@@ -28,8 +34,38 @@ Object subclass: #ChessChunk
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+Object subclass: #ChessStrategyConcept
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 Object subclass: #ChessTemplate
 	instanceVariableNames: 'chunks'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessStrategyConcept subclass: #ChessKingSafety
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessStrategyConcept subclass: #ChessMaterialCount
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessStrategyConcept subclass: #ChessPawnStructure
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessStrategyConcept subclass: #ChessPieceActivity
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessStrategyConcept subclass: #ChessSideSpace
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

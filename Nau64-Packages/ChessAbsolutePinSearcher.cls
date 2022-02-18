@@ -31,19 +31,19 @@ searchOnChessboardFor: aChessSide
 	^pins!
 
 searchOnChessboardFor2: aChessSide
-	| forks |
+	| pins |
 	
-	forks := TacticDictionary new.
+	pins := TacticDictionary new.
 	aChessSide validSquaresByPieceKeysAndValuesDo: [:piece :squareDictionary |
 		squareDictionary squaresDo: [:square | | newMoveEngine |
 			newMoveEngine := piece newMovementEngine.
 			newMoveEngine computeValidSquaresOn: chessboard from: square.
-			newMoveEngine detectedForksDo: [:forkedSquares | 
-				forks add: (self createForkFor: piece from: square to: forkedSquares) to: piece.
+			newMoveEngine detectedForksDo: [:pinSquares | 
+				pins add: (self createAbsolutePinFor: piece from: square to: pinSquares) to: piece.
 			].
 		].
 	].
-	^forks! !
+	^pins! !
 !ChessAbsolutePinSearcher categoriesForMethods!
 searchOnChessboardFor:!public! !
 searchOnChessboardFor2:!public! !

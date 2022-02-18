@@ -4,17 +4,6 @@ package paxVersion: 1;
 	basicComment: ''.
 
 
-package classNames
-	add: #BishopMovementRuleTest;
-	add: #ChessMovementRuleTest;
-	add: #KingMovementRuleTest;
-	add: #KnightMovementRuleTest;
-	add: #PawnMovementRuleTest;
-	add: #QueenMovementRuleTest;
-	add: #RookMovementRuleTest;
-	add: #SlidingPieceMovementEngineTest;
-	yourself.
-
 package binaryGlobalNames: (Set new
 	yourself).
 
@@ -22,54 +11,12 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-	'ChessBasicElements'
-	'ChessBasicElementsTests'
-	'ChessParsers').
+).
 
 package!
 
 "Class Definitions"!
 
-ChessTest subclass: #ChessMovementRuleTest
-	instanceVariableNames: 'chessboard piece parser'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ChessMovementRuleTest subclass: #KingMovementRuleTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ChessMovementRuleTest subclass: #KnightMovementRuleTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ChessMovementRuleTest subclass: #PawnMovementRuleTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ChessMovementRuleTest subclass: #SlidingPieceMovementEngineTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-SlidingPieceMovementEngineTest subclass: #BishopMovementRuleTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-SlidingPieceMovementEngineTest subclass: #QueenMovementRuleTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-SlidingPieceMovementEngineTest subclass: #RookMovementRuleTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 
 "Global Aliases"!
 

@@ -18,7 +18,13 @@ add: aChessTacticConcept to: aChessPiece
 
 detectForkFromCurrentSquare: aChessSquare from: forkSquare to: forkedSquares
 
-	^tactics detect: [:fork | (fork currentPieceSquareIs: aChessSquare) and: [(fork sourceSquareIs: forkSquare) and: [fork targetSquaresIncludesAll: forkedSquares]]] ifNone: []!
+	tactics keysAndValuesDo: [:piece :forkCollection | 
+		forkCollection do: [:fork | 
+			((fork currentPieceSquareIs: aChessSquare) and: [(fork sourceSquareIs: forkSquare) and: [fork targetSquaresIncludesAll: forkedSquares]]) ifTrue: [^fork].
+		]. 
+	].
+
+	^nil!
 
 detectTacticFrom: aChessSquare !
 
@@ -26,12 +32,17 @@ initialize
 
 	super initialize.
 
-	tactics := Dictionary new.! !
+	tactics := Dictionary new.!
+
+keysAndValuesDo: aBlock
+
+	tactics keysAndValuesDo: aBlock! !
 !TacticDictionary categoriesForMethods!
 add:to:!public! !
 detectForkFromCurrentSquare:from:to:!public! !
 detectTacticFrom:!public! !
 initialize!public! !
+keysAndValuesDo:!public! !
 !
 
 !TacticDictionary class methodsFor!

@@ -11,21 +11,14 @@ ChessForkEffect comment: ''!
 !ChessForkEffect methodsFor!
 
 drawOn: aCanvas
-	| forkSearcher forks |
-
+	| forkSearcher forksDictionary |
 	forkSearcher := ChessForkSearcher newOn: chessboard.
-	isBlack 
-		ifTrue: [chessboard blackSideDo: [:side | forks := forkSearcher searchOnChessboardFor: side]]
-		ifFalse: [chessboard whiteSideDo: [:side | forks := forkSearcher searchOnChessboardFor: side]].
-
-	forks keysAndValuesDo: [:piece :fork | 
-			fork originAndTargetSquaresDo: [:originSquare :targetSquares |
-				targetSquares do: [:square | 
-					aCanvas graphics drawLineFrom: (chessboard calculatePositionFor: piece currentChessSquare) + (chessboard halfSquareSize) to: (chessboard calculatePositionFor: originSquare) + (chessboard halfSquareSize) pen: self penRed.
-					aCanvas graphics drawLineFrom: ((chessboard calculatePositionFor: originSquare) + (chessboard halfSquareSize)) to: ((chessboard calculatePositionFor: square) + (chessboard halfSquareSize)) pen: self pen.
-				].
-			].
-	].! !
+	isBlack
+		ifTrue: [chessboard blackSideDo: [:side | forksDictionary := forkSearcher searchOnChessboardFor: side]]
+		ifFalse: 
+			[chessboard whiteSideDo: [:side | forksDictionary := forkSearcher searchOnChessboardFor: side]].
+	forksDictionary keysAndValuesDo: [:piece :forkCollection |
+			forkCollection do: [:fork | fork drawOn: aCanvas graphics on: chessboard pieceSquarePen: self penRed forkPen: self pen]]! !
 !ChessForkEffect categoriesForMethods!
 drawOn:!public! !
 !

@@ -28,6 +28,7 @@ package methodNames
 	add: #Chessboard -> #calculatePositionForFile:rank:;
 	add: #Chessboard -> #drawOn:isDisplayCoordinatesEnabled:;
 	add: #Chessboard -> #squareAt:;
+	add: #ChessFork -> #drawOn:on:pieceSquarePen:forkPen:;
 	add: #ChessPiece -> #canvasIconAt:;
 	add: #ChessPiece -> #drawOn:chessboard:at:isDisplayCoordinatesEnabled:;
 	add: #ChessSquare -> #drawNeutralOn:chessboard:isDisplayCoordinatesEnabled:;
@@ -183,6 +184,24 @@ calculatePositionFor:!public! !
 calculatePositionForFile:rank:!public! !
 drawOn:isDisplayCoordinatesEnabled:!public! !
 squareAt:!chessboard contents!public! !
+!
+
+!ChessFork methodsFor!
+
+drawOn: aGdiplusGraphics on: aChessboard  pieceSquarePen: pieceSquarePen forkPen: forkPen
+
+	aGdiplusGraphics
+		drawLineFrom: (aChessboard calculatePositionFor: currentPieceSquare) + aChessboard halfSquareSize
+		to: (aChessboard calculatePositionFor: from) + aChessboard halfSquareSize
+		pen: pieceSquarePen.
+
+	to do: [:forkedSquare | 
+		aGdiplusGraphics
+			drawLineFrom: (aChessboard calculatePositionFor: from) + aChessboard halfSquareSize
+			to: (aChessboard calculatePositionFor: forkedSquare) + aChessboard halfSquareSize
+			pen: forkPen].! !
+!ChessFork categoriesForMethods!
+drawOn:on:pieceSquarePen:forkPen:!public! !
 !
 
 !ChessPiece methodsFor!

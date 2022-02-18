@@ -12,7 +12,7 @@ SquaresDictionary comment: ''!
 
 atEastAdd: aChessSquare
 
-	(squares at: #east ifAbsentPut: [OrderedCollection new]) add: aChessSquare!
+	(squares at: #east ifAbsentPut: [Set new]) add: aChessSquare!
 
 atEastPut: aCollection
 
@@ -20,11 +20,11 @@ atEastPut: aCollection
 
 atNorthAdd: aChessSquare
 
-	(squares at: #north ifAbsentPut: [OrderedCollection new]) add: aChessSquare!
+	(squares at: #north ifAbsentPut: [Set new]) add: aChessSquare!
 
 atNorthEastAdd: aChessSquare
 
-	(squares at: #northEast ifAbsentPut: [OrderedCollection new]) add: aChessSquare!
+	(squares at: #northEast ifAbsentPut: [Set new]) add: aChessSquare!
 
 atNorthEastPut: aCollection
 
@@ -36,7 +36,7 @@ atNorthPut: aCollection
 
 atNorthWestAdd: aChessSquare
 
-	(squares at: #northWest ifAbsentPut: [OrderedCollection new]) add: aChessSquare!
+	(squares at: #northWest ifAbsentPut: [Set new]) add: aChessSquare!
 
 atNorthWestPut: aCollection
 
@@ -44,11 +44,11 @@ atNorthWestPut: aCollection
 
 atSouthAdd: aChessSquare
 
-	(squares at: #south ifAbsentPut: [OrderedCollection new]) add: aChessSquare!
+	(squares at: #south ifAbsentPut: [Set new]) add: aChessSquare!
 
 atSouthEastAdd: aChessSquare
 
-	(squares at: #southEast ifAbsentPut: [OrderedCollection new]) add: aChessSquare!
+	(squares at: #southEast ifAbsentPut: [Set new]) add: aChessSquare!
 
 atSouthEastPut: aCollection
 
@@ -60,7 +60,7 @@ atSouthPut: aCollection
 
 atSouthWestAdd: aChessSquare
 
-	(squares at: #southWest ifAbsentPut: [OrderedCollection new]) add: aChessSquare!
+	(squares at: #southWest ifAbsentPut: [Set new]) add: aChessSquare!
 
 atSouthWestPut: aCollection
 
@@ -68,7 +68,7 @@ atSouthWestPut: aCollection
 
 atWestAdd: aChessSquare
 
-	(squares at: #west ifAbsentPut: [OrderedCollection new]) add: aChessSquare!
+	(squares at: #west ifAbsentPut: [Set new]) add: aChessSquare!
 
 atWestPut: aCollection
 

@@ -11,20 +11,14 @@ package classNames
 	add: #Bishop;
 	add: #Chessboard;
 	add: #ChessCoordinate;
-	add: #ChessEastOrientation;
 	add: #ChessFile;
 	add: #ChessMove;
-	add: #ChessNorthOrientation;
-	add: #ChessOrientation;
-	add: #ChessOrientationVector;
 	add: #ChessPiece;
 	add: #ChessRank;
 	add: #ChessSide;
 	add: #ChessSideBlack;
 	add: #ChessSideWhite;
-	add: #ChessSouthOrientation;
 	add: #ChessSquare;
-	add: #ChessWestOrientation;
 	add: #King;
 	add: #Knight;
 	add: #Nau64ChessSystemRoot;
@@ -72,16 +66,6 @@ Object subclass: #ChessMove
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-Object subclass: #ChessOrientation
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-Object subclass: #ChessOrientationVector
-	instanceVariableNames: 'southOrNorth eastOrWest'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 Object subclass: #ChessPiece
 	instanceVariableNames: 'chessSide'
 	classVariableNames: ''
@@ -115,26 +99,6 @@ ChessCoordinate subclass: #ChessFile
 ChessCoordinate subclass: #ChessRank
 	instanceVariableNames: ''
 	classVariableNames: 'AllChessRanks'
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ChessOrientation subclass: #ChessEastOrientation
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ChessOrientation subclass: #ChessNorthOrientation
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ChessOrientation subclass: #ChessSouthOrientation
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ChessOrientation subclass: #ChessWestOrientation
-	instanceVariableNames: ''
-	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessPiece subclass: #Bishop

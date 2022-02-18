@@ -22,6 +22,7 @@ package classNames
 	add: #ChessRelativeSkewerSearcher;
 	add: #ChessSacrificeSearcher;
 	add: #ChessSituationalPinSearcher;
+	add: #ChessSkewer;
 	add: #ChessSkewerSearcher;
 	add: #ChessTacticInstance;
 	add: #ChessTacticMoveSearcher;
@@ -60,6 +61,11 @@ Object subclass: #TacticDictionary
 	classInstanceVariableNames: ''!
 ChessTacticInstance subclass: #ChessFork
 	instanceVariableNames: 'currentPieceSquare from to'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticInstance subclass: #ChessSkewer
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

@@ -22,12 +22,17 @@ isSlidingPiece
 
 	^true!
 
+movesAreCompatibleWith: aChessOrientationVector
+
+	^aChessOrientationVector isCompatibleWithRook!
+
 pieceCode
 	^'r'! !
 !Rook categoriesForMethods!
 fenString!public! !
 isRook!public!testing! !
 isSlidingPiece!public! !
+movesAreCompatibleWith:!public! !
 pieceCode!public! !
 !
 

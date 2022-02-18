@@ -94,6 +94,10 @@ isWhite
 
 	^chessSide isWhite!
 
+movesAreCompatibleWith: aChessOrientationVector
+
+	^false!
+
 pieceCode
 	self subclassResponsibility!
 
@@ -128,6 +132,7 @@ isSecureToAttack:on:!public! !
 isSlidingPiece!public! !
 isValidMoveFromCoordinate:to:!public! !
 isWhite!public!testing! !
+movesAreCompatibleWith:!public! !
 pieceCode!public! !
 setSide:!private! !
 squareSize!public! !

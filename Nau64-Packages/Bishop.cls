@@ -22,12 +22,17 @@ isSlidingPiece
 
 	^true!
 
+movesAreCompatibleWith: aChessOrientationVector
+
+	^aChessOrientationVector isCompatibleWithBishop!
+
 pieceCode
 	^'b'! !
 !Bishop categoriesForMethods!
 fenString!public! !
 isBishop!public!testing! !
 isSlidingPiece!public! !
+movesAreCompatibleWith:!public! !
 pieceCode!public! !
 !
 

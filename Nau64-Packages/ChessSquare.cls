@@ -82,21 +82,6 @@ oppositeBitmap
 		ifFalse: [Bitmap fromFile: FileLocator imageRelative basePath , 'Ajedrez\azul_escaqueNegro.bmp'] 
 		ifTrue: [Bitmap fromFile: FileLocator imageRelative basePath , 'Ajedrez\azul_escaqueBlanco.bmp']!
 
-orientationVectorTo: aChessSquare do: aBlock
-	| orientationVector |
-
-	orientationVector := ChessOrientationVector new.
-	(self isEqualTo: aChessSquare) ifTrue: [^self error: 'Cannot calculate direction for the same chess squares' ].
-	(self rankIsGreaterThan: aChessSquare) ifTrue: [orientationVector updateToSouth].
-	(aChessSquare rankIsGreaterThan: self) ifTrue: [orientationVector updateToNorth].
-
-	(self fileIsGreaterThan: aChessSquare) ifTrue: [orientationVector updateToEast].
-	(aChessSquare fileIsGreaterThan: self) ifTrue: [orientationVector updateToWest].
-
-	aBlock value: orientationVector
-
-!
-
 printFile
 
 	^file printName!
@@ -164,7 +149,6 @@ neutralBitmap!public! !
 nextFile:nextRank:onSuccessDo:onErrorDo:!public! !
 notEqualTo:!comparisons!public! !
 oppositeBitmap!public! !
-orientationVectorTo:do:!comparisons!public! !
 printFile!public! !
 printOn:!public! !
 printRank!public! !

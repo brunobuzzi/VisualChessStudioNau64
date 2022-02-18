@@ -125,6 +125,7 @@ computeValidSquaresOn: aChessboard from: aChessSquare
 			oppositeSide slidingPiecesDo: 
 					[:oppPiece |
 					| movEngine |
+self halt.
 					movEngine := oppPiece newMovementEngine.
 					(movEngine
 						slidingPieceAt: oppPiece currentChessSquare

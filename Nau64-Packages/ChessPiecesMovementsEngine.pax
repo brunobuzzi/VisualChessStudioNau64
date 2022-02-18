@@ -6,7 +6,13 @@ package paxVersion: 1;
 
 package classNames
 	add: #BishopMovementEngine;
+	add: #ChessEastOrientation;
 	add: #ChessMovementEngine;
+	add: #ChessNorthOrientation;
+	add: #ChessOrientation;
+	add: #ChessOrientationVector;
+	add: #ChessSouthOrientation;
+	add: #ChessWestOrientation;
 	add: #KingMovementEngine;
 	add: #KnightMovementEngine;
 	add: #PawnMovementEngine;
@@ -46,6 +52,16 @@ Object subclass: #ChessMovementEngine
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+Object subclass: #ChessOrientation
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessOrientationVector
+	instanceVariableNames: 'piece southOrNorth eastOrWest'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 ChessMovementEngine subclass: #KingMovementEngine
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -77,6 +93,26 @@ SlidingPieceMovementEngine subclass: #QueenMovementEngine
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 SlidingPieceMovementEngine subclass: #RookMovementEngine
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessOrientation subclass: #ChessEastOrientation
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessOrientation subclass: #ChessNorthOrientation
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessOrientation subclass: #ChessSouthOrientation
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessOrientation subclass: #ChessWestOrientation
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''

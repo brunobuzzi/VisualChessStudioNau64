@@ -13,11 +13,15 @@ ChessNorthOrientation comment: ''!
 fileSign
 	self shouldNotImplement!
 
+rankSign
+	^1!
+
 validSquaresOn: aSquareDictionary do: aBlock
 
 	aSquareDictionary squaresAtNorthDo: aBlock! !
 !ChessNorthOrientation categoriesForMethods!
 fileSign!public! !
+rankSign!public! !
 validSquaresOn:do:!public! !
 !
 

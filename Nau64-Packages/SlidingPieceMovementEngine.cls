@@ -226,6 +226,19 @@ computeReachableWestSquaresOn: aChessboard from: aChessSquare
 						ifFalse: [^self]]
 				onErrorDo: [:ex | ^self]]!
 
+orientationVectorFrom: sourceChessSquare to: targetChessSquare
+	| orientationVector |
+
+	orientationVector := ChessOrientationVector newFor: piece.
+	(sourceChessSquare isEqualTo: targetChessSquare) ifTrue: [^self error: 'An orientation vector for the same chess squares is useless' ].
+	(sourceChessSquare rankIsGreaterThan: targetChessSquare) ifTrue: [orientationVector updateToSouth].
+	(targetChessSquare rankIsGreaterThan: sourceChessSquare) ifTrue: [orientationVector updateToNorth].
+
+	(sourceChessSquare fileIsGreaterThan: targetChessSquare) ifTrue: [orientationVector updateToWest].
+	(targetChessSquare fileIsGreaterThan: sourceChessSquare) ifTrue: [orientationVector updateToEast].
+
+	^orientationVector!
+
 slidingPieceAt: sourceChessSquare canReachSkippingOnePiece: targetChessSquare on: aChessboard
 	| orientationVector reachedPieces |
 
@@ -252,6 +265,7 @@ computeReachableSouthSquaresOn:from:!normal squares!public! !
 computeReachableSouthWestSquaresOn:from:!public! !
 computeReachableSouthWestSquaresOn:from:skewerCountLimit:!extended squares!public! !
 computeReachableWestSquaresOn:from:!normal squares!public! !
+orientationVectorFrom:to:!public! !
 slidingPieceAt:canReachSkippingOnePiece:on:!public! !
 !
 

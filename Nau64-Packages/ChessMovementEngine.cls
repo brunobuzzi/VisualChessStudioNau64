@@ -52,19 +52,6 @@ isValidOn: aChessboard from: originChessSquare to: targetChessSquare
 	self computeValidSquaresOn: aChessboard from: originChessSquare.
 	^squaresDictionary squaresAnySatisfy: [:each | each = targetChessSquare]!
 
-orientationVectorFrom: sourceChessSquare to: targetChessSquare
-	| orientationVector |
-
-	orientationVector := ChessOrientationVector new.
-	(sourceChessSquare isEqualTo: targetChessSquare) ifTrue: [^self error: 'An orientation vector for the same chess squares is useless' ].
-	(sourceChessSquare rankIsGreaterThan: targetChessSquare) ifTrue: [orientationVector updateToSouth].
-	(targetChessSquare rankIsGreaterThan: sourceChessSquare) ifTrue: [orientationVector updateToNorth].
-
-	(sourceChessSquare fileIsGreaterThan: targetChessSquare) ifTrue: [orientationVector updateToWest].
-	(targetChessSquare fileIsGreaterThan: sourceChessSquare) ifTrue: [orientationVector updateToEast].
-
-	^orientationVector!
-
 setPiece: aChessPiece 
 
 	piece := aChessPiece.
@@ -105,7 +92,6 @@ includes:!public! !
 includesAllSquares:!public! !
 isCheckMatedOn:!public! !
 isValidOn:from:to:!public! !
-orientationVectorFrom:to:!public! !
 setPiece:!private! !
 skeweredPieces:on:from:!public! !
 skewerPieceOn:from:!extended squares!public! !

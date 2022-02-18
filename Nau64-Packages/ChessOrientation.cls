@@ -14,7 +14,7 @@ fileSign
 	self subclassResponsibility!
 
 rankSign
-	^1!
+	self subclassResponsibility!
 
 validSquaresOn: aSquareDictionary do: aBlock
 

@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
-ChessTacticConcept subclass: #ChessFork
+ChessTacticInstance subclass: #ChessFork
 	instanceVariableNames: 'currentPieceSquare from to'
 	classVariableNames: ''
 	poolDictionaries: ''

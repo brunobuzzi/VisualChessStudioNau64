@@ -5,7 +5,18 @@ package paxVersion: 1;
 
 
 package classNames
-	add: #ChessMatch;
+	add: #ChessCaptureMove;
+	add: #ChessCastleMove;
+	add: #ChessCheckMateMove;
+	add: #ChessCheckMove;
+	add: #ChessEnPassantMove;
+	add: #ChessGame;
+	add: #ChessKingSideCastleMove;
+	add: #ChessMove;
+	add: #ChessMoveList;
+	add: #ChessPlayer;
+	add: #ChessPromotionMove;
+	add: #ChessQueenSideCastleMove;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -15,13 +26,69 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-	'..\Core\Object Arts\Dolphin\Base\Dolphin').
+	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
 
 package!
 
 "Class Definitions"!
 
-Object subclass: #ChessMatch
+Object subclass: #ChessGame
+	instanceVariableNames: 'date whitePlayer blackPlayer moves'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessMove
+	instanceVariableNames: 'from to piece'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessMoveList
+	instanceVariableNames: 'game movesCollection lastMove'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessPlayer
+	instanceVariableNames: 'name surname currentElo games'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessMove subclass: #ChessCaptureMove
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessMove subclass: #ChessCastleMove
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessMove subclass: #ChessCheckMove
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessMove subclass: #ChessEnPassantMove
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessMove subclass: #ChessPromotionMove
+	instanceVariableNames: 'promotedPiece'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessCastleMove subclass: #ChessKingSideCastleMove
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessCastleMove subclass: #ChessQueenSideCastleMove
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessCheckMove subclass: #ChessCheckMateMove
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''

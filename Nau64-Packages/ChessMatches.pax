@@ -35,7 +35,7 @@ package!
 "Class Definitions"!
 
 Object subclass: #ChessGame
-	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialPosition'
+	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialPosition isWhiteCastleEnabled isBlackCastleEnabled'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

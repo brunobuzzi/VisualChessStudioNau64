@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #ChessGame
-	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialPosition'
+	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialPosition isWhiteCastleEnabled isBlackCastleEnabled'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -18,19 +18,12 @@ setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer
 
 	moves := ChessMoveList newOn: self.
 	dateTime := TimeStamp current.
-	initialPosition :=  fenString!
+	initialPosition :=  fenString.
 
-setWhiteChessPlayer: whiteChessPlayer black: blackChessPlayer  fenString: fenString
-
-	whitePlayer := whiteChessPlayer.
-	blackPlayer := blackChessPlayer.
-
-	moves := ChessMoveList newOn: self.
-	dateTime := TimeStamp current.
-	initialPosition :=  fenString! !
+	isWhiteCastleEnabled := true.
+	isBlackCastleEnabled := true.! !
 !ChessGame categoriesForMethods!
 setRoot:whitePlayer:blackPlayer:fenString:!private! !
-setWhiteChessPlayer:black:fenString:!private! !
 !
 
 !ChessGame class methodsFor!

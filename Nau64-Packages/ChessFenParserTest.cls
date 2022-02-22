@@ -19,7 +19,7 @@ tearDown
 
 testFen1
 	| model fenParser |
-	shell := ChessboardShell showOn: (Chessboard newEmptyOn: systemRoot).
+	shell := ChessboardPlaygroundShell showOn: (Chessboard newEmptyOn: systemRoot).
 	model := shell model.
 	fenParser := ChessFenParser newOn: systemRoot
 				fenString: 'r1b1k1nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b'.
@@ -28,7 +28,7 @@ testFen1
 
 testFenInitialPosition
 	| model fenParser |
-	shell := ChessboardShell showOn: (Chessboard newEmptyOn: systemRoot).
+	shell := ChessboardPlaygroundShell showOn: (Chessboard newEmptyOn: systemRoot).
 	model := shell model.
 	fenParser := ChessFenParser newOn: systemRoot
 				fenString: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'.

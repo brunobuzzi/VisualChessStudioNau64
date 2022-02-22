@@ -27,6 +27,7 @@ package globalAliases: (Set new
 
 package setPrerequisites: #(
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\Core\Object Arts\Dolphin\Base\Dolphin Legacy Date & Time'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
 
 package!
@@ -34,7 +35,7 @@ package!
 "Class Definitions"!
 
 Object subclass: #ChessGame
-	instanceVariableNames: 'date whitePlayer blackPlayer moves'
+	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialPosition'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -44,7 +45,7 @@ Object subclass: #ChessMove
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #ChessMoveList
-	instanceVariableNames: 'game movesCollection lastMove'
+	instanceVariableNames: 'game movesCollection lastMove hasWhiteCastled hasBlackCastled'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

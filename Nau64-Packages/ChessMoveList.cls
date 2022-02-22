@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #ChessMoveList
-	instanceVariableNames: 'game movesCollection lastMove'
+	instanceVariableNames: 'game movesCollection lastMove hasWhiteCastled hasBlackCastled'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -13,7 +13,9 @@ ChessMoveList comment: ''!
 setChessGame: aChessGame
 
 	game := aChessGame.
-	movesCollection := OrderedCollection new.! !
+	movesCollection := OrderedCollection new.
+	hasWhiteCastled := false.
+	hasBlackCastled := false.! !
 !ChessMoveList categoriesForMethods!
 setChessGame:!private! !
 !

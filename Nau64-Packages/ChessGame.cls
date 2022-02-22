@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #ChessGame
-	instanceVariableNames: 'date whitePlayer blackPlayer moves'
+	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialPosition'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -10,14 +10,27 @@ ChessGame comment: ''!
 !ChessGame categoriesForClass!Unclassified! !
 !ChessGame methodsFor!
 
-setWhiteChessPlayer: whiteChessPlayer black: blackChessPlayer
+setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer fenString: fenString
+
+	systemRoot := aSystemRoot.
+	whitePlayer := whiteChessPlayer.
+	blackPlayer := blackChessPlayer.
+
+	moves := ChessMoveList newOn: self.
+	dateTime := TimeStamp current.
+	initialPosition :=  fenString!
+
+setWhiteChessPlayer: whiteChessPlayer black: blackChessPlayer  fenString: fenString
 
 	whitePlayer := whiteChessPlayer.
 	blackPlayer := blackChessPlayer.
 
-	moves := ChessMoveList newOn: self.! !
+	moves := ChessMoveList newOn: self.
+	dateTime := TimeStamp current.
+	initialPosition :=  fenString! !
 !ChessGame categoriesForMethods!
-setWhiteChessPlayer:black:!private! !
+setRoot:whitePlayer:blackPlayer:fenString:!private! !
+setWhiteChessPlayer:black:fenString:!private! !
 !
 
 !ChessGame class methodsFor!
@@ -26,11 +39,16 @@ icon
 
 	^Icon fromId: 'Interactor.ico'!
 
-newWithWhite: whiteChessPlayer black: blackChessPlayer
+newOn: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer
 
-	^self setWhiteChessPlayer: whiteChessPlayer black: blackChessPlayer! !
+	^self newOn: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer fenString: nil!
+
+newOn: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer fenString: fenString
+
+	^self new setRoot:  aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer fenString: fenString! !
 !ChessGame class categoriesForMethods!
 icon!public! !
-newWithWhite:black:!private! !
+newOn:whitePlayer:blackPlayer:!public! !
+newOn:whitePlayer:blackPlayer:fenString:!public! !
 !
 

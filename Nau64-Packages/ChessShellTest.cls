@@ -19,32 +19,32 @@ tearDown
 
 testChessboardEmpty
 	| model |
-	shell := ChessboardShell showOn: (Chessboard newEmptyOn: systemRoot).
+	shell := ChessboardPlaygroundShell showOn: (Chessboard newEmptyOn: systemRoot).
 	shell setRoot: systemRoot.
 	model := shell model!
 
 testChessboardEmptyWithCoordinates
 	| model |
-	shell := ChessboardShell showOn: (Chessboard newEmptyOn: systemRoot).
+	shell := ChessboardPlaygroundShell showOn: (Chessboard newEmptyOn: systemRoot).
 	shell setRoot: systemRoot.
 	model := shell model.
 	shell toggleCoordinates!
 
 testChessboardWithPaws
 	| model |
-	shell := ChessboardShell showOn: (Chessboard newWithPawnsOn: systemRoot).
+	shell := ChessboardPlaygroundShell showOn: (Chessboard newWithPawnsOn: systemRoot).
 	shell setRoot: systemRoot.
 	model := shell model!
 
 testChessboardWithPieces
 	| model |
-	shell := ChessboardShell showOn: (Chessboard newWithAllPiecesOn: systemRoot).
+	shell := ChessboardPlaygroundShell showOn: (Chessboard newWithAllPiecesOn: systemRoot).
 	shell setRoot: systemRoot.
 	model := shell model!
 
 testReverseChessboard
 	| model |
-	shell := ChessboardShell showOn: (Chessboard newWithAllPiecesOn: systemRoot).
+	shell := ChessboardPlaygroundShell showOn: (Chessboard newWithAllPiecesOn: systemRoot).
 	shell setRoot: systemRoot.
 	model := shell model.
 	

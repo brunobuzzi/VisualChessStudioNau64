@@ -5,17 +5,20 @@ package paxVersion: 1;
 
 
 package classNames
+	add: #AbstractChessboardPresenter;
+	add: #AbstractChessboardShell;
 	add: #AttackedSquaresBySideEffect;
 	add: #ChessAbsolutePinEffect;
 	add: #ChessAbstractPresenter;
 	add: #ChessAbstractShell;
 	add: #ChessboardEffect;
-	add: #ChessboardPresenter;
-	add: #ChessboardShell;
+	add: #ChessboardPlaygroundPresenter;
+	add: #ChessboardPlaygroundShell;
 	add: #ChessCenterChunkEffect;
 	add: #ChessChunkEffect;
 	add: #ChessForkEffect;
 	add: #ChessFourChunkEffect;
+	add: #ChessgamePresenter;
 	add: #ChessPartialPinEffect;
 	add: #ChessPieceDroper;
 	add: #ChessPinEffect;
@@ -125,8 +128,18 @@ Presenter subclass: #ChessAbstractPresenter
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessAbstractPresenter subclass: #ChessboardPresenter
-	instanceVariableNames: 'chessboardImagePresenter isDisplayCoordinatesEnabled mouseTracker effects'
+ChessAbstractPresenter subclass: #AbstractChessboardPresenter
+	instanceVariableNames: 'chessboardImagePresenter mouseTracker'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AbstractChessboardPresenter subclass: #ChessboardPlaygroundPresenter
+	instanceVariableNames: 'isDisplayCoordinatesEnabled effects'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AbstractChessboardPresenter subclass: #ChessgamePresenter
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -135,7 +148,12 @@ Shell subclass: #ChessAbstractShell
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessAbstractShell subclass: #ChessboardShell
+ChessAbstractShell subclass: #AbstractChessboardShell
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AbstractChessboardShell subclass: #ChessboardPlaygroundShell
 	instanceVariableNames: 'chessboardPresenter'
 	classVariableNames: ''
 	poolDictionaries: ''

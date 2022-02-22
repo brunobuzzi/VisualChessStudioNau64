@@ -19,41 +19,37 @@ tearDown
 
 testChessboardEmpty
 	| model |
-	shell := ChessShell showOn: (Chessboard newEmptyOn: systemRoot).
+	shell := ChessboardShell showOn: (Chessboard newEmptyOn: systemRoot).
 	shell setRoot: systemRoot.
 	model := shell model!
 
 testChessboardEmptyWithCoordinates
 	| model |
-	shell := ChessShell showOn: (Chessboard newEmptyOn: systemRoot).
+	shell := ChessboardShell showOn: (Chessboard newEmptyOn: systemRoot).
 	shell setRoot: systemRoot.
 	model := shell model.
 	shell toggleCoordinates!
 
 testChessboardWithPaws
 	| model |
-	shell := ChessShell showOn: (Chessboard newWithPawnsOn: systemRoot).
+	shell := ChessboardShell showOn: (Chessboard newWithPawnsOn: systemRoot).
 	shell setRoot: systemRoot.
-	model := shell model.
-	
-!
+	model := shell model!
 
 testChessboardWithPieces
 	| model |
-	shell := ChessShell showOn: (Chessboard newWithAllPiecesOn: systemRoot).
+	shell := ChessboardShell showOn: (Chessboard newWithAllPiecesOn: systemRoot).
 	shell setRoot: systemRoot.
-	model := shell model.
-	
-!
+	model := shell model!
 
 testReverseChessboard
 	| model |
-	shell := ChessShell  showOn: (Chessboard newWithAllPiecesOn: systemRoot).
+	shell := ChessboardShell showOn: (Chessboard newWithAllPiecesOn: systemRoot).
 	shell setRoot: systemRoot.
 	model := shell model.
+	
 	[(Delay forMilliseconds: 400) wait.
-	shell reverseChessboard.] forkAt: 5.
-! !
+	shell reverseChessboard] forkAt: 5! !
 !ChessShellTest categoriesForMethods!
 tearDown!public! !
 testChessboardEmpty!public! !

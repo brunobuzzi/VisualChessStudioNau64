@@ -11,6 +11,7 @@ package classNames
 	add: #ChessAbstractShell;
 	add: #ChessboardEffect;
 	add: #ChessboardPresenter;
+	add: #ChessboardShell;
 	add: #ChessCenterChunkEffect;
 	add: #ChessChunkEffect;
 	add: #ChessForkEffect;
@@ -18,7 +19,6 @@ package classNames
 	add: #ChessPartialPinEffect;
 	add: #ChessPieceDroper;
 	add: #ChessPinEffect;
-	add: #ChessShell;
 	add: #ChessTacticEffect;
 	add: #ChessVisualEffectDefinition;
 	yourself.
@@ -135,7 +135,7 @@ Shell subclass: #ChessAbstractShell
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessAbstractShell subclass: #ChessShell
+ChessAbstractShell subclass: #ChessboardShell
 	instanceVariableNames: 'chessboardPresenter'
 	classVariableNames: ''
 	poolDictionaries: ''

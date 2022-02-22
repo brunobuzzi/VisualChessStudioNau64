@@ -173,7 +173,7 @@ squareAt: aPoint
 	| squaresCoordinates |
 
 	squaresCoordinates := Dictionary new.
-	squares do: [:each |
+	self squaresDo: [:each |
 		squaresCoordinates at: each put: (each calculatePositionAt: self)].
 
 	squaresCoordinates keysAndValuesDo: [:chessSquare :point | ((Rectangle origin: point extent: squareSize @ squareSize) containsPoint: aPoint) ifTrue: [^chessSquare]].

@@ -45,7 +45,7 @@ Object subclass: #ChessMove
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #ChessMoveList
-	instanceVariableNames: 'game movesCollection lastMove hasWhiteCastled hasBlackCastled'
+	instanceVariableNames: 'game movesCollection lastMove'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

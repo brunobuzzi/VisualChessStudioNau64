@@ -17,3 +17,12 @@ setRoot: aSystemRoot
 setRoot:!private! !
 !
 
+!ChessAbstractPresenter class methodsFor!
+
+newOn: aSystemRoot
+
+	^self new setRoot: aSystemRoot! !
+!ChessAbstractPresenter class categoriesForMethods!
+newOn:!public! !
+!
+

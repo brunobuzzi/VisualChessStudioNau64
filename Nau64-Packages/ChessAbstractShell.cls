@@ -17,3 +17,11 @@ setRoot: aSystemRoot
 setRoot:!private! !
 !
 
+!ChessAbstractShell class methodsFor!
+
+defaultModel
+	^Chessboard newWithAllPiecesOn: (Smalltalk at: #SystemRoot)! !
+!ChessAbstractShell class categoriesForMethods!
+defaultModel!public! !
+!
+

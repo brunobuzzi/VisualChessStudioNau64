@@ -18,7 +18,8 @@ package classNames
 	add: #ChessChunkEffect;
 	add: #ChessForkEffect;
 	add: #ChessFourChunkEffect;
-	add: #ChessgamePresenter;
+	add: #ChessGamePresenter;
+	add: #ChessGameShell;
 	add: #ChessPartialPinEffect;
 	add: #ChessPieceDroper;
 	add: #ChessPinEffect;
@@ -51,6 +52,7 @@ package globalAliases: (Set new
 package setPrerequisites: #(
 	'ChessBasicElements'
 	'ChessEngineTacticSearcher'
+	'ChessMatches'
 	'ChessParsers'
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
@@ -138,8 +140,8 @@ AbstractChessboardPresenter subclass: #ChessboardPlaygroundPresenter
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-AbstractChessboardPresenter subclass: #ChessgamePresenter
-	instanceVariableNames: ''
+AbstractChessboardPresenter subclass: #ChessGamePresenter
+	instanceVariableNames: 'chessGame'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -155,6 +157,11 @@ ChessAbstractShell subclass: #AbstractChessboardShell
 	classInstanceVariableNames: ''!
 AbstractChessboardShell subclass: #ChessboardPlaygroundShell
 	instanceVariableNames: 'chessboardPresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AbstractChessboardShell subclass: #ChessGameShell
+	instanceVariableNames: 'chessGamePresenter'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

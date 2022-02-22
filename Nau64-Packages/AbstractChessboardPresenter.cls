@@ -10,6 +10,11 @@ AbstractChessboardPresenter comment: ''!
 !AbstractChessboardPresenter categoriesForClass!Unclassified! !
 !AbstractChessboardPresenter methodsFor!
 
+cancelTrackingAt: arg1
+!
+
+continueTrackingAt: aPoint from: aPreviousPoint!
+
 copyPositionAsFenString
 	| fenStream |
 
@@ -41,7 +46,6 @@ createSchematicWiring
 
 	super createSchematicWiring.
 
-
 	chessboardImagePresenter
 		when: #drop: send: #onDropOver: to: self;
 		when: #dragOver: send: #onDragOver: to: self;
@@ -67,10 +71,30 @@ movePiece: aMouseEvent
 
 	self subclassResponsibility!
 
+onDragOver: session 
+	"The user is dragging over the class hierarchy pane.
+	Set the operation of the <DragDropSession>, session,
+	that would occur if a drop took place now of the objects in that session."
+	"Default the operation to nil to signal that we don't want the drop"
+
+	(session isFormatAvailable: #Piece) ifTrue: [session operation: session intendedOperation.^self]. 
+	^self.!
+
+onDropOver: aDragDropSession 
+	"Private - The drag operation described by the <DragDropSession>, session, would like 
+	to do a drop over the receiver's class pane."
+	"Implementation Note: If the drop fails then we must set the operation to nil in order that 
+	the DD session can detect the failure (as this is an event handler the return value is ignored)."
+!
+
 renderChessboard
 
-	self subclassResponsibility! !
+	self subclassResponsibility!
+
+startTrackingAt: aPoint! !
 !AbstractChessboardPresenter categoriesForMethods!
+cancelTrackingAt:!drag & drop!public! !
+continueTrackingAt:from:!drag & drop!public! !
 copyPositionAsFenString!public! !
 createComponents!public! !
 createSchematicWiring!public! !
@@ -79,6 +103,9 @@ gdiBitmap!public! !
 graphics!public! !
 imageModel:!public! !
 movePiece:!public! !
+onDragOver:!drag & drop!public! !
+onDropOver:!drag & drop!public! !
 renderChessboard!public!rendering-chessboard! !
+startTrackingAt:!drag & drop!public! !
 !
 

@@ -10,9 +10,6 @@ ChessSide comment: ''!
 !ChessSide categoriesForClass!Unclassified! !
 !ChessSide methodsFor!
 
-chessboard
-	^chessboard!
-
 chessboardDo: aBlock
 
 	aBlock value: chessboard!
@@ -55,7 +52,6 @@ systemRoot
 
 	^chessboard systemRoot! !
 !ChessSide categoriesForMethods!
-chessboard!public! !
 chessboardDo:!public! !
 currentChessSquareFor:!public! !
 isBlack!public! !

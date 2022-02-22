@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #Chessboard
-	instanceVariableNames: 'systemRoot squares orientation squareSize blackSide whiteSide pieces'
+	instanceVariableNames: 'systemRoot orientation squareSize blackSide whiteSide pieces'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -172,7 +172,6 @@ setPawns
 	self setBlackPaws.!
 
 setPieces
-	self setSquares.
 
 	self setWhitePieces.
 	self setBlackPieces.!
@@ -181,18 +180,12 @@ setRoot: aNau64ChessSystemRoot
 
 	systemRoot := aNau64ChessSystemRoot.
 
-	self setSquares.!
-
-setSquares
-
-	squares := systemRoot allSquares.
 	orientation := #normal.
 	squareSize := 60.
 	pieces := Dictionary new.
 
 	blackSide := ChessSideBlack newOn: self.
-	whiteSide := ChessSideWhite newOn: self.
-!
+	whiteSide := ChessSideWhite newOn: self.!
 
 setWhitePaws
 
@@ -235,7 +228,7 @@ squareNotEmptyAtCoordinate: symbolCoordinate
 
 squaresDo: aBlock
 
-	squares do: aBlock!
+	systemRoot squaresDo: aBlock!
 
 squareSize
 	^squareSize!
@@ -324,7 +317,6 @@ setBlackPieces!private! !
 setPawns!private! !
 setPieces!private! !
 setRoot:!public! !
-setSquares!private! !
 setWhitePaws!private! !
 setWhitePieces!private! !
 squareFor:!chessboard contents!public! !

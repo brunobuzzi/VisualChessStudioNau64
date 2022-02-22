@@ -2,7 +2,7 @@
 
 Object subclass: #ChessSquare
 	instanceVariableNames: 'systemRoot file rank'
-	classVariableNames: 'AllSquares ValidMoves'
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessSquare guid: (GUID fromString: '{8f251f63-d488-47a2-8a0c-9ef278194bb4}')!

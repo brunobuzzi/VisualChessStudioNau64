@@ -12,7 +12,6 @@ package classNames
 	add: #Chessboard;
 	add: #ChessCoordinate;
 	add: #ChessFile;
-	add: #ChessMove;
 	add: #ChessPiece;
 	add: #ChessRank;
 	add: #ChessSide;
@@ -52,17 +51,12 @@ package!
 "Class Definitions"!
 
 Object subclass: #Chessboard
-	instanceVariableNames: 'systemRoot squares orientation squareSize blackSide whiteSide pieces'
+	instanceVariableNames: 'systemRoot orientation squareSize blackSide whiteSide pieces'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #ChessCoordinate
 	instanceVariableNames: 'systemRoot name'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-Object subclass: #ChessMove
-	instanceVariableNames: 'vector piece'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -78,7 +72,7 @@ Object subclass: #ChessSide
 	classInstanceVariableNames: ''!
 Object subclass: #ChessSquare
 	instanceVariableNames: 'systemRoot file rank'
-	classVariableNames: 'AllSquares ValidMoves'
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #Nau64ChessSystemRoot

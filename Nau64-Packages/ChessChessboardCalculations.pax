@@ -80,7 +80,7 @@ forceNumbers
 	| forceNumbers |
 
 	forceNumbers := Dictionary new.
-	self chessboard squaresDo: [:square |
+	chessboard squaresDo: [:square |
 			forceNumbers at: square put: (self forceNumberAt: square)
 		].
 

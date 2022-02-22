@@ -68,8 +68,16 @@ imageModel: aModel
 	chessboardImagePresenter model: aModel!
 
 movePiece: aMouseEvent
+	| square piece cursor |
 
-	self subclassResponsibility!
+	square := model squareAt: aMouseEvent position.
+	square ifNil: [^self].
+	piece := model pieceAt: square.
+	piece ifNil: [^self].
+	mouseTracker :=  MouseTracker forPresenter: self startingAt: aMouseEvent position.
+	cursor := Cursor hand.
+	cursor showWhile: [mouseTracker startTracking: self].
+!
 
 onDragOver: session 
 	"The user is dragging over the class hierarchy pane.

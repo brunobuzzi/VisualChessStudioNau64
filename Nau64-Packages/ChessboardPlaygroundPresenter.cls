@@ -126,17 +126,6 @@ endTrackingAt: aPoint
 	self renderChessboard.
 !
 
-movePiece: aMouseEvent
-	| square piece cursor |
-
-	square := model squareAt: aMouseEvent position.
-	square ifNil: [^self].
-	piece := model pieceAt: square.
-	piece ifNil: [^self].
-	mouseTracker :=  MouseTracker forPresenter: self startingAt: aMouseEvent position.
-	cursor := Cursor hand.
-	cursor showWhile: [mouseTracker startTracking: self].	!
-
 newChessboard
 
 	effects := OrderedCollection new.
@@ -263,7 +252,6 @@ dropWhitePawn!drop pieces!public! !
 dropWhiteQueen!drop pieces!public! !
 dropWhiteRook!drop pieces!public! !
 endTrackingAt:!drag & drop!public! !
-movePiece:!public! !
 newChessboard!public!rendering-effects! !
 newChessboardFromFEN!public! !
 newEmptyChessboard!public!rendering-effects! !

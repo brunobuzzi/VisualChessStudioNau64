@@ -11,12 +11,20 @@ ChessGamePresenter comment: ''!
 !ChessGamePresenter methodsFor!
 
 endTrackingAt: aPoint 
+	| originSquare targetSquare piece |
 
-	self halt!
+	originSquare := model squareAt: mouseTracker startPoint.
+	targetSquare := model squareAt: (mouseTracker sumStartLocalPointTo: aPoint).
+	(originSquare isNil or: [targetSquare isNil]) ifTrue: [^nil].
 
-movePiece: aMouseEvent
+	piece := model pieceAt: originSquare.
+self halt.
+	(piece isValidMoveFromCoordinate: originSquare coordinate to: targetSquare coordinate) 
+	ifFalse: [^MessageBubble notify: ('Invalid move from [',  originSquare coordinate, '] to [',  targetSquare coordinate, ']') caption: 'Nau64' ].
 
-	self halt!
+	model movePieceFromCoordiante: originSquare coordinate to: targetSquare coordinate.
+
+	self renderChessboard.!
 
 onViewOpened
 	super onViewOpened.
@@ -36,7 +44,6 @@ setRoot: aSystemRoot
 	chessGame := ChessGame newOn: aSystemRoot whitePlayer: nil blackPlayer: nil.! !
 !ChessGamePresenter categoriesForMethods!
 endTrackingAt:!drag & drop!public! !
-movePiece:!public! !
 onViewOpened!public! !
 renderChessboard!public!rendering-chessboard! !
 setRoot:!private! !

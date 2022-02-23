@@ -19,6 +19,8 @@ annotateAndMovePieceFrom: originSymbolCoordiante to: targetSymbolCoordinate on: 
 
 	moves annotateMove: move.
 
+	move isEnPassant ifTrue: [aChessboard removeEnPassantPawn: targetSymbolCoordinate].
+
 	aChessboard movePieceFromCoordiante: originSymbolCoordiante to: targetSymbolCoordinate!
 
 initialSideToMove

@@ -12,6 +12,11 @@ ChessMoveList comment: ''!
 
 annotateMove: aChessMove
 
+	lastMove ifNotNil: [
+		(self lastMoveIsBlackEnPassantEnablerFrom: aChessMove from to: aChessMove to) ifTrue: [aChessMove addEnPassantCategory].
+		(self lastMoveIsWhiteEnPassantEnablerFrom: aChessMove from to: aChessMove to) ifTrue: [aChessMove addEnPassantCategory].
+	].
+	
 	movesCollection add: aChessMove.
 
 	lastMove := aChessMove.!

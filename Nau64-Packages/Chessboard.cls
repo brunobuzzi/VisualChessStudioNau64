@@ -132,6 +132,13 @@ piecesSize
 
 printEncoded!
 
+removeEnPassantPawn: targetSymbolCoordinate
+
+	(targetSymbolCoordinate second = $6) ifTrue: [self removePieceAtCoordiante: (targetSymbolCoordinate first asString, '5') asSymbol].
+
+	(targetSymbolCoordinate second = $3) ifTrue: [self removePieceAtCoordiante: (targetSymbolCoordinate first asString, '4') asSymbol].
+!
+
 removePieceAt: aChessSquare
 
 	^pieces removeKey: aChessSquare name ifAbsent: []!
@@ -310,6 +317,7 @@ pieceAtCoordinate:put:!chessboard contents!public! !
 piecesDo:!iteration!public! !
 piecesSize!public! !
 printEncoded!public! !
+removeEnPassantPawn:!public! !
 removePieceAt:!chessboard contents!public! !
 removePieceAtCoordiante:!chessboard contents!public! !
 setBlackPaws!private! !

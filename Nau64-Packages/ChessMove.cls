@@ -10,6 +10,14 @@ ChessMove comment: ''!
 !ChessMove categoriesForClass!Kernel-Objects! !
 !ChessMove methodsFor!
 
+addEnPassantCategory
+
+	categories add: ChessEnPassantMove new!
+
+from
+
+	^from!
+
 isBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate
 
 	^((from second = $2 and: [to second = $4]) and: [((originCoordinate first asciiValue - 1) = to first asciiValue) or: [(originCoordinate first asciiValue + 1) = to first asciiValue]]) and: [targetCoordinate first = to first]!
@@ -17,6 +25,10 @@ isBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate
 isBlackOn: aChessboard
 
 	^(aChessboard pieceAtCoordinate: to) isBlack!
+
+isEnPassant
+
+	^categories anySatisfy: [:each | each isEnPassant]!
 
 isWhiteEnPassantEnablerFrom: originCoordinate to: targetCoordinate
 
@@ -54,14 +66,22 @@ setList: aChessMoveList from: originCoordinate to: targetCoordinate
 	list := aChessMoveList.
 	from := originCoordinate.
 	to := targetCoordinate.
-	categories := OrderedCollection new.! !
+	categories := OrderedCollection new.!
+
+to
+
+	^to! !
 !ChessMove categoriesForMethods!
+addEnPassantCategory!public! !
+from!public! !
 isBlackEnPassantEnablerFrom:to:!public! !
 isBlackOn:!public! !
+isEnPassant!public! !
 isWhiteEnPassantEnablerFrom:to:!public! !
 printOn:!public! !
 setCategoriesFrom:!public! !
 setList:from:to:!public! !
+to!public! !
 !
 
 !ChessMove class methodsFor!

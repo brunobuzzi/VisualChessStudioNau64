@@ -8,3 +8,12 @@ ChessMoveCategory subclass: #ChessEnPassantMove
 ChessEnPassantMove guid: (GUID fromString: '{2ddfbebc-d9c8-44f3-b38d-efee6596b782}')!
 ChessEnPassantMove comment: ''!
 !ChessEnPassantMove categoriesForClass!Unclassified! !
+!ChessEnPassantMove methodsFor!
+
+isEnPassant
+
+	^true! !
+!ChessEnPassantMove categoriesForMethods!
+isEnPassant!public! !
+!
+

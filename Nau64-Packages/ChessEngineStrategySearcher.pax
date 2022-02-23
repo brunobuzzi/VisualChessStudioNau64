@@ -5,7 +5,7 @@ package paxVersion: 1;
 
 
 package classNames
-	add: #ChessChunk;
+	add: #ChessboardChunk;
 	add: #ChessKingSafety;
 	add: #ChessMaterialCount;
 	add: #ChessPawnStructure;
@@ -29,8 +29,8 @@ package!
 
 "Class Definitions"!
 
-Object subclass: #ChessChunk
-	instanceVariableNames: 'code chessboard pieces'
+Object subclass: #ChessboardChunk
+	instanceVariableNames: 'code chessGame moveIndex'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

@@ -25,10 +25,16 @@ package methodNames
 	add: #Bishop -> #defaultMovementRuleClass;
 	add: #ChessPiece -> #currentChessSquare;
 	add: #ChessPiece -> #defaultMovementRuleClass;
+	add: #ChessPiece -> #isValidMoveFromCoordinate:to:;
+	add: #ChessPiece -> #isValidMoveFromCoordinate:to:on:;
 	add: #ChessPiece -> #newMovementEngine;
 	add: #King -> #defaultMovementRuleClass;
+	add: #King -> #isValidCastleMoveFrom:to:on:;
+	add: #King -> #isValidMoveFromCoordinate:to:on:;
 	add: #Knight -> #defaultMovementRuleClass;
 	add: #Pawn -> #defaultMovementRuleClass;
+	add: #Pawn -> #isValidEnPassantMoveFrom:to:on:;
+	add: #Pawn -> #isValidMoveFromCoordinate:to:on:;
 	add: #Queen -> #defaultMovementRuleClass;
 	add: #Rook -> #defaultMovementRuleClass;
 	yourself.
@@ -142,20 +148,47 @@ defaultMovementRuleClass
 	self subclassResponsibility
 !
 
+isValidMoveFromCoordinate: originCoordinate to: targetCoordinate
+	| rule isValid |
+
+	rule := self defaultMovementRuleClass newFor: self.
+
+	chessSide chessboardDo: [:chessboard | 
+		isValid := rule isValidOn: chessboard from: (originCoordinate asChessSquareIn: self systemRoot) to: (targetCoordinate asChessSquareIn: self systemRoot)].
+
+	^isValid
+!
+
+isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessGame
+
+	^self isValidMoveFromCoordinate: originCoordinate to: targetCoordinate!
+
 newMovementEngine
 	^self defaultMovementRuleClass newFor: self! !
 !ChessPiece categoriesForMethods!
 currentChessSquare!public! !
 defaultMovementRuleClass!public! !
+isValidMoveFromCoordinate:to:!public! !
+isValidMoveFromCoordinate:to:on:!public! !
 newMovementEngine!public! !
 !
 
 !King methodsFor!
 
 defaultMovementRuleClass
-	^KingMovementEngine! !
+	^KingMovementEngine!
+
+isValidCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessGame
+
+	self halt!
+
+isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessGame
+
+	^(super isValidMoveFromCoordinate: originCoordinate to: targetCoordinate) or: [self isValidCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessGame]! !
 !King categoriesForMethods!
 defaultMovementRuleClass!public! !
+isValidCastleMoveFrom:to:on:!public! !
+isValidMoveFromCoordinate:to:on:!public! !
 !
 
 !Knight methodsFor!
@@ -169,9 +202,19 @@ defaultMovementRuleClass!public! !
 !Pawn methodsFor!
 
 defaultMovementRuleClass
-	^PawnMovementEngine! !
+	^PawnMovementEngine!
+
+isValidEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame
+
+	self halt.!
+
+isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessGame
+
+	^(super isValidMoveFromCoordinate: originCoordinate to: targetCoordinate) or: [self isValidEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame]! !
 !Pawn categoriesForMethods!
 defaultMovementRuleClass!public! !
+isValidEnPassantMoveFrom:to:on:!public! !
+isValidMoveFromCoordinate:to:on:!public! !
 !
 
 !Queen methodsFor!

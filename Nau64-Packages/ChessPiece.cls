@@ -82,17 +82,6 @@ isSlidingPiece
 
 	^false!
 
-isValidMoveFromCoordinate: originCoordinate to: targetCoordinate
-	| rule isValid |
-
-	rule := self defaultMovementRuleClass newFor: self.
-
-	chessSide chessboardDo: [:chessboard | 
-		isValid := rule isValidOn: chessboard from: (originCoordinate asChessSquareIn: self systemRoot) to: (targetCoordinate asChessSquareIn: self systemRoot)].
-
-	^isValid
-!
-
 isWhite
 
 	^chessSide isWhite!
@@ -133,7 +122,6 @@ isRook!public!testing! !
 isSameSideTo:!public! !
 isSecureToAttack:on:!public! !
 isSlidingPiece!public! !
-isValidMoveFromCoordinate:to:!public! !
 isWhite!public!testing! !
 movesAreCompatibleWith:!public! !
 pieceCode!public! !

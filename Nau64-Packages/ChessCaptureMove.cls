@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
-ChessMove subclass: #ChessCaptureMove
+ChessMoveCategory subclass: #ChessCaptureMove
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''

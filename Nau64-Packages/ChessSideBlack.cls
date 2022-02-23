@@ -10,6 +10,12 @@ ChessSideBlack comment: ''!
 !ChessSideBlack categoriesForClass!Unclassified! !
 !ChessSideBlack methodsFor!
 
+anyBlackPawnAtEnPassantMoveFrom: aSymbol 
+
+	self piecesDo: [:piece | piece currentChessSquare isBlackEnPassantRank ifTrue: [^true]].
+
+	^false!
+
 isBlack
 	^true!
 
@@ -21,6 +27,7 @@ piecesDo: aBlock
 
 	chessboard blackPiecesDo: aBlock! !
 !ChessSideBlack categoriesForMethods!
+anyBlackPawnAtEnPassantMoveFrom:!public! !
 isBlack!public! !
 oppositePiecesDo:!public! !
 piecesDo:!public! !

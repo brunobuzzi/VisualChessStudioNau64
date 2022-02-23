@@ -13,6 +13,7 @@ package classNames
 	add: #ChessGame;
 	add: #ChessKingSideCastleMove;
 	add: #ChessMove;
+	add: #ChessMoveCategory;
 	add: #ChessMoveList;
 	add: #ChessPlayer;
 	add: #ChessPromotionMove;
@@ -40,7 +41,12 @@ Object subclass: #ChessGame
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #ChessMove
-	instanceVariableNames: 'from to'
+	instanceVariableNames: 'list from to categories'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessMoveCategory
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -54,27 +60,27 @@ Object subclass: #ChessPlayer
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessMove subclass: #ChessCaptureMove
+ChessMoveCategory subclass: #ChessCaptureMove
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessMove subclass: #ChessCastleMove
+ChessMoveCategory subclass: #ChessCastleMove
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessMove subclass: #ChessCheckMove
+ChessMoveCategory subclass: #ChessCheckMove
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessMove subclass: #ChessEnPassantMove
+ChessMoveCategory subclass: #ChessEnPassantMove
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessMove subclass: #ChessPromotionMove
+ChessMoveCategory subclass: #ChessPromotionMove
 	instanceVariableNames: 'promotedPiece'
 	classVariableNames: ''
 	poolDictionaries: ''

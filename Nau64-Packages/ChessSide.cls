@@ -10,6 +10,12 @@ ChessSide comment: ''!
 !ChessSide categoriesForClass!Unclassified! !
 !ChessSide methodsFor!
 
+anyPawnAtEnPassantMoveFrom: aSymbol 
+	
+	^self isBlack 
+	ifTrue: [self anyBlackPawnAtEnPassantMoveFrom: aSymbol] 
+	ifFalse: [self anyWhitePawnAtEnPassantMoveFrom: aSymbol]!
+
 chessboardDo: aBlock
 
 	aBlock value: chessboard!
@@ -52,6 +58,7 @@ systemRoot
 
 	^chessboard systemRoot! !
 !ChessSide categoriesForMethods!
+anyPawnAtEnPassantMoveFrom:!public! !
 chessboardDo:!public! !
 currentChessSquareFor:!public! !
 isBlack!public! !

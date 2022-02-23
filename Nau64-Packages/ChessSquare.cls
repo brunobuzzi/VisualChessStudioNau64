@@ -49,6 +49,10 @@ isBlack
 
 !
 
+isBlackEnPassantRank
+
+	^self rankNumber = 5!
+
 isEqualTo: aChessSquare
 
 	^self printFile = aChessSquare printFile and:[self rankNumber = aChessSquare rankNumber]!
@@ -58,6 +62,10 @@ isWhite
 	^self isBlack not
 
 !
+
+isWhiteEnPassantRank
+
+	^self rankNumber = 4!
 
 name
 	^self printFile, self printRank!
@@ -142,8 +150,10 @@ fileIsEqualTo:!comparisons!public! !
 fileIsGreaterThan:!comparisons!public! !
 fileNumber!public! !
 isBlack!public! !
+isBlackEnPassantRank!public! !
 isEqualTo:!comparisons!public! !
 isWhite!public! !
+isWhiteEnPassantRank!public! !
 name!public! !
 neutralBitmap!public! !
 nextFile:nextRank:onSuccessDo:onErrorDo:!public! !

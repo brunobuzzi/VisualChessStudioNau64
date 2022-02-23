@@ -23,7 +23,6 @@ endTrackingAt: aPoint
 	ifFalse: [^MessageBubble notify: ('Invalid move from [',  originSquare coordinate, '] to [',  targetSquare coordinate, ']') caption: 'Nau64' ].
 
 	chessGame annotateAndMovePieceFrom: originSquare coordinate to: targetSquare coordinate on: model.
-	model movePieceFromCoordiante: originSquare coordinate to: targetSquare coordinate.
 
 	self renderChessboard.!
 

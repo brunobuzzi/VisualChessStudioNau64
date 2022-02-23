@@ -22,12 +22,28 @@ isPawn
 
 	^true!
 
+isValidBlackEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame 
+
+	self oppositeSideDo: [:side | (side anyPawnAtEnPassantMoveFrom: originCoordinate) ifFalse: [^false]].
+
+	^aChessGame lastMoveIsBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate
+	!
+
+isValidWhiteEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame 
+
+	self oppositeSideDo: [:side | (side anyPawnAtEnPassantMoveFrom: originCoordinate) ifFalse: [^false]].
+
+	^aChessGame lastMoveIsWhiteEnPassantEnablerFrom: originCoordinate to: targetCoordinate
+	!
+
 pieceCode
 	^'p'! !
 !Pawn categoriesForMethods!
 canBeMovedToValidCoordinate:on:!public!testing! !
 fenString!public! !
 isPawn!public!testing! !
+isValidBlackEnPassantMoveFrom:to:on:!public! !
+isValidWhiteEnPassantMoveFrom:to:on:!public! !
 pieceCode!public! !
 !
 

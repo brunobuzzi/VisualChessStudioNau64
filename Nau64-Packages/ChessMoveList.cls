@@ -10,6 +10,20 @@ ChessMoveList comment: ''!
 !ChessMoveList categoriesForClass!Unclassified! !
 !ChessMoveList methodsFor!
 
+annotateMove: aChessMove
+
+	movesCollection add: aChessMove.
+
+	lastMove := aChessMove.!
+
+lastMoveIsBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate
+
+	^lastMove isBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate!
+
+lastMoveIsWhiteEnPassantEnablerFrom: originCoordinate to: targetCoordinate
+
+	^lastMove isWhiteEnPassantEnablerFrom: originCoordinate to: targetCoordinate!
+
 nextSideToMoveOn: aChessboard
 
 	^(lastMove isBlackOn: aChessboard) ifTrue: [#white] ifFalse: [#black]!
@@ -19,6 +33,9 @@ setChessGame: aChessGame
 	movesCollection := OrderedCollection new.
 ! !
 !ChessMoveList categoriesForMethods!
+annotateMove:!public! !
+lastMoveIsBlackEnPassantEnablerFrom:to:!public! !
+lastMoveIsWhiteEnPassantEnablerFrom:to:!public! !
 nextSideToMoveOn:!public! !
 setChessGame:!private! !
 !

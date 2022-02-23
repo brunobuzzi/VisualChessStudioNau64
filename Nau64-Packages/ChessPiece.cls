@@ -90,6 +90,12 @@ movesAreCompatibleWith: aChessOrientationVector
 
 	^false!
 
+oppositeSideDo: aMonadicValuable 
+
+	self isBlack 
+	ifTrue: [chessSide chessboardDo: [:chessboard | chessboard whiteSideDo: aMonadicValuable]] 
+	ifFalse: [chessSide chessboardDo: [:chessboard | chessboard blackSideDo: aMonadicValuable]]!
+
 pieceCode
 	self subclassResponsibility!
 
@@ -124,6 +130,7 @@ isSecureToAttack:on:!public! !
 isSlidingPiece!public! !
 isWhite!public!testing! !
 movesAreCompatibleWith:!public! !
+oppositeSideDo:!public! !
 pieceCode!public! !
 setSide:!private! !
 squareSize!public! !

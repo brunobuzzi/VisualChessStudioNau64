@@ -11,8 +11,13 @@ ChessGame comment: ''!
 !ChessGame methodsFor!
 
 annotateAndMovePieceFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard
+	| move |
 
-	self halt.
+	move := ChessMove newOn: moves from: originSymbolCoordiante to: targetSymbolCoordinate.
+
+	move setCategoriesFrom: aChessboard.
+
+	moves annotateMove: move.
 
 	aChessboard movePieceFromCoordiante: originSymbolCoordiante to: targetSymbolCoordinate!
 
@@ -21,6 +26,14 @@ initialSideToMove
 	initialFenPosition ifNil: [^#white].
 
 	^initialSideToMove!
+
+lastMoveIsBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate
+
+	^moves lastMoveIsBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate!
+
+lastMoveIsWhiteEnPassantEnablerFrom: originCoordinate to: targetCoordinate
+
+	^moves lastMoveIsWhiteEnPassantEnablerFrom: originCoordinate to: targetCoordinate!
 
 nextSideToMoveOn: aChessboard
 
@@ -56,6 +69,8 @@ setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer
 !ChessGame categoriesForMethods!
 annotateAndMovePieceFrom:to:on:!public! !
 initialSideToMove!public! !
+lastMoveIsBlackEnPassantEnablerFrom:to:!public! !
+lastMoveIsWhiteEnPassantEnablerFrom:to:!public! !
 nextSideToMoveOn:!public! !
 setInitialMoveToBlack!public! !
 setInitialMoveToWhite!public! !

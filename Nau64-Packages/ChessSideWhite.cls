@@ -10,6 +10,12 @@ ChessSideWhite comment: ''!
 !ChessSideWhite categoriesForClass!Unclassified! !
 !ChessSideWhite methodsFor!
 
+anyWhitePawnAtEnPassantMoveFrom: aSymbol 
+
+	self piecesDo: [:piece | piece currentChessSquare isWhiteEnPassantRank ifTrue: [^true]].
+
+	^false!
+
 isWhite
 	^true!
 
@@ -21,6 +27,7 @@ piecesDo: aBlock
 
 	chessboard whitePiecesDo: aBlock! !
 !ChessSideWhite categoriesForMethods!
+anyWhitePawnAtEnPassantMoveFrom:!public! !
 isWhite!public! !
 oppositePiecesDo:!public! !
 piecesDo:!public! !

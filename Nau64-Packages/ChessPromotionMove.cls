@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
-ChessMove subclass: #ChessPromotionMove
+ChessMoveCategory subclass: #ChessPromotionMove
 	instanceVariableNames: 'promotedPiece'
 	classVariableNames: ''
 	poolDictionaries: ''

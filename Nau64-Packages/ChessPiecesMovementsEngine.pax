@@ -206,7 +206,9 @@ defaultMovementRuleClass
 
 isValidEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame
 
-	self halt.!
+	^self isBlack 
+	ifTrue: [self isValidBlackEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame] 
+	ifFalse: [self isValidWhiteEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame]!
 
 isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessGame
 

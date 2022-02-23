@@ -10,11 +10,16 @@ ChessMoveList comment: ''!
 !ChessMoveList categoriesForClass!Unclassified! !
 !ChessMoveList methodsFor!
 
+nextSideToMoveOn: aChessboard
+
+	^(lastMove isBlackOn: aChessboard) ifTrue: [#white] ifFalse: [#black]!
+
 setChessGame: aChessGame
 	game := aChessGame.
 	movesCollection := OrderedCollection new.
 ! !
 !ChessMoveList categoriesForMethods!
+nextSideToMoveOn:!public! !
 setChessGame:!private! !
 !
 

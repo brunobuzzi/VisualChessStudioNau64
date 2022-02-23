@@ -18,10 +18,11 @@ endTrackingAt: aPoint
 	(originSquare isNil or: [targetSquare isNil]) ifTrue: [^nil].
 
 	piece := model pieceAt: originSquare.
-self halt.
-	(piece isValidMoveFromCoordinate: originSquare coordinate to: targetSquare coordinate) 
+
+	(piece isValidMoveFromCoordinate: originSquare coordinate to: targetSquare coordinate on: chessGame) 
 	ifFalse: [^MessageBubble notify: ('Invalid move from [',  originSquare coordinate, '] to [',  targetSquare coordinate, ']') caption: 'Nau64' ].
 
+	chessGame annotateAndMovePieceFrom: originSquare coordinate to: targetSquare coordinate on: model.
 	model movePieceFromCoordiante: originSquare coordinate to: targetSquare coordinate.
 
 	self renderChessboard.!
@@ -39,14 +40,19 @@ renderChessboard
 
 setRoot: aSystemRoot
 
+	self setRoot: aSystemRoot fenString: nil!
+
+setRoot: aSystemRoot fenString: fenString
+
 	super setRoot: aSystemRoot.
 
-	chessGame := ChessGame newOn: aSystemRoot whitePlayer: nil blackPlayer: nil.! !
+	chessGame := ChessGame newOn: aSystemRoot whitePlayer: nil blackPlayer: nil fenString: fenString.! !
 !ChessGamePresenter categoriesForMethods!
 endTrackingAt:!drag & drop!public! !
 onViewOpened!public! !
 renderChessboard!public!rendering-chessboard! !
 setRoot:!private! !
+setRoot:fenString:!private! !
 !
 
 !ChessGamePresenter class methodsFor!

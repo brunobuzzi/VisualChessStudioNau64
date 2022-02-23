@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #ChessGame
-	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialPosition isWhiteCastleEnabled isBlackCastleEnabled'
+	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialFenPosition initialSideToMove isWhiteCastleEnabled isBlackCastleEnabled'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -10,19 +10,55 @@ ChessGame comment: ''!
 !ChessGame categoriesForClass!Unclassified! !
 !ChessGame methodsFor!
 
+annotateAndMovePieceFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard
+
+	self halt.
+
+	aChessboard movePieceFromCoordiante: originSymbolCoordiante to: targetSymbolCoordinate!
+
+initialSideToMove
+
+	initialFenPosition ifNil: [^#white].
+
+	^initialSideToMove!
+
+nextSideToMoveOn: aChessboard
+
+	(moves isEmpty and: [initialFenPosition notEmpty]) ifTrue: [^initialSideToMove].
+
+	(moves isEmpty and: [initialFenPosition isEmpty]) ifTrue: [^#white].
+
+	^moves nextSideToMoveOn: aChessboard
+!
+
+setInitialMoveToBlack
+	initialFenPosition ifNil: [self error: 'White always move first when there is NO position setup'].
+	initialSideToMove := #black!
+
+setInitialMoveToWhite
+	initialFenPosition ifNil: [self error: 'White always move first when there is NO position setup'].
+	initialSideToMove := #white!
+
 setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer fenString: fenString
 
 	systemRoot := aSystemRoot.
+
 	whitePlayer := whiteChessPlayer.
 	blackPlayer := blackChessPlayer.
 
 	moves := ChessMoveList newOn: self.
 	dateTime := TimeStamp current.
-	initialPosition :=  fenString.
+
+	initialFenPosition := fenString.
 
 	isWhiteCastleEnabled := true.
-	isBlackCastleEnabled := true.! !
+	isBlackCastleEnabled := true! !
 !ChessGame categoriesForMethods!
+annotateAndMovePieceFrom:to:on:!public! !
+initialSideToMove!public! !
+nextSideToMoveOn:!public! !
+setInitialMoveToBlack!public! !
+setInitialMoveToWhite!public! !
 setRoot:whitePlayer:blackPlayer:fenString:!private! !
 !
 

@@ -23,12 +23,17 @@ model: anObject
 
 setRoot: aSystemRoot
 
+	self setRoot: aSystemRoot fenString: nil!
+
+setRoot: aSystemRoot fenString: fenString
+
 	systemRoot := aSystemRoot.
-	chessGamePresenter setRoot: aSystemRoot.! !
+	chessGamePresenter setRoot: aSystemRoot fenString: fenString.! !
 !ChessGameShell categoriesForMethods!
 createComponents!public! !
 model:!public! !
 setRoot:!private! !
+setRoot:fenString:!private! !
 !
 
 !ChessGameShell class methodsFor!
@@ -50,9 +55,19 @@ showOn: aSystemRoot
 	shell := super showOn: chessboard.
 	shell setRoot: aSystemRoot.
 	^shell
-	! !
+	!
+
+showWithFenString: fenString on: aSystemRoot
+	| chessboard shell |
+
+	chessboard := Chessboard newEmptyOn: aSystemRoot.
+	(ChessFenParser newOn: aSystemRoot fenString: fenString) deployOn: chessboard.
+	shell := super showOn: chessboard.
+	shell setRoot: aSystemRoot fenString: fenString.
+	^shell! !
 !ChessGameShell class categoriesForMethods!
 resource_Default_view!public!resources-views! !
 showOn:!public! !
+showWithFenString:on:!public! !
 !
 

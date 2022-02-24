@@ -7,6 +7,7 @@ package paxVersion: 1;
 package classNames
 	add: #ChessCaptureMove;
 	add: #ChessCastleMove;
+	add: #ChessCastleStatus;
 	add: #ChessCheckMateMove;
 	add: #ChessCheckMove;
 	add: #ChessEnPassantMove;
@@ -35,8 +36,13 @@ package!
 
 "Class Definitions"!
 
+Object subclass: #ChessCastleStatus
+	instanceVariableNames: 'game isQueenSideClastleEnabled isKingSideClastleEnabled'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 Object subclass: #ChessGame
-	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialFenPosition initialSideToMove isWhiteCastleEnabled isBlackCastleEnabled'
+	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialFenPosition initialSideToMove whiteCastleStatus blackCastleStatus'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

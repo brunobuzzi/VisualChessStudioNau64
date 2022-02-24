@@ -21,6 +21,10 @@ annotateMove: aChessMove
 
 	lastMove := aChessMove.!
 
+isEmpty
+
+	^movesCollection isEmpty!
+
 lastMoveIsBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate
 
 	^lastMove isBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate!
@@ -39,6 +43,7 @@ setChessGame: aChessGame
 ! !
 !ChessMoveList categoriesForMethods!
 annotateMove:!public! !
+isEmpty!public! !
 lastMoveIsBlackEnPassantEnablerFrom:to:!public! !
 lastMoveIsWhiteEnPassantEnablerFrom:to:!public! !
 nextSideToMoveOn:!public! !

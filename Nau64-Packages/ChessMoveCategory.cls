@@ -10,10 +10,15 @@ ChessMoveCategory comment: ''!
 !ChessMoveCategory categoriesForClass!Unclassified! !
 !ChessMoveCategory methodsFor!
 
+isCastle
+
+	^false!
+
 isEnPassant
 
 	^false! !
 !ChessMoveCategory categoriesForMethods!
+isCastle!public! !
 isEnPassant!public! !
 !
 

@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #ChessGame
-	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialFenPosition initialSideToMove isWhiteCastleEnabled isBlackCastleEnabled'
+	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialFenPosition initialSideToMove whiteCastleStatus blackCastleStatus'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -21,7 +21,28 @@ annotateAndMovePieceFrom: originSymbolCoordiante to: targetSymbolCoordinate on: 
 
 	move isEnPassant ifTrue: [aChessboard removeEnPassantPawn: targetSymbolCoordinate].
 
-	aChessboard movePieceFromCoordiante: originSymbolCoordiante to: targetSymbolCoordinate!
+	move isCastle
+	ifFalse: [aChessboard movePieceFromCoordiante: originSymbolCoordiante to: targetSymbolCoordinate]
+	ifTrue: [self performCastleMove: move on: aChessboard].
+
+	self halt. "check if a Rook or King has been moved --> disable castle"
+	!
+
+ifBlackKindSideCastleNotEnabled: aNiladicValuable 
+
+	blackCastleStatus ifKindSideCastleNotEnabled: aNiladicValuable !
+
+ifBlackQueenSideCastleNotEnabled: aNiladicValuable 
+
+	blackCastleStatus ifQueenSideCastleNotEnabled: aNiladicValuable !
+
+ifWhiteKindSideCastleNotEnabled: aNiladicValuable 
+
+	whiteCastleStatus ifKindSideCastleNotEnabled: aNiladicValuable.!
+
+ifWhiteQueenSideCastleNotEnabled: aNiladicValuable 
+
+	whiteCastleStatus ifQueenSideCastleNotEnabled: aNiladicValuable !
 
 initialSideToMove
 
@@ -46,6 +67,24 @@ nextSideToMoveOn: aChessboard
 	^moves nextSideToMoveOn: aChessboard
 !
 
+performBlackCastleMove: aChessMove on: aChessboard 
+
+	aChessMove performBlackCastleOn: aChessboard.
+
+	blackCastleStatus disableCastle.!
+
+performCastleMove: aChessMove on: aChessboard 
+
+	(aChessMove isBlackCurrentSideMovingOn: aChessboard) 
+	ifTrue: [self performBlackCastleMove: aChessMove on: aChessboard] 
+	ifFalse: [self performWhiteCastleMove: aChessMove on: aChessboard]!
+
+performWhiteCastleMove: aChessMove on: aChessboard 
+
+	aChessMove performWhiteCastleOn: aChessboard.
+
+	whiteCastleStatus disableCastle.!
+
 setInitialMoveToBlack
 	initialFenPosition ifNil: [self error: 'White always move first when there is NO position setup'].
 	initialSideToMove := #black!
@@ -66,14 +105,22 @@ setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer
 
 	initialFenPosition := fenString.
 
-	isWhiteCastleEnabled := true.
-	isBlackCastleEnabled := true! !
+	whiteCastleStatus := ChessCastleStatus newOn: self.
+	blackCastleStatus := ChessCastleStatus newOn: self.
+! !
 !ChessGame categoriesForMethods!
 annotateAndMovePieceFrom:to:on:!public! !
+ifBlackKindSideCastleNotEnabled:!public! !
+ifBlackQueenSideCastleNotEnabled:!public! !
+ifWhiteKindSideCastleNotEnabled:!public! !
+ifWhiteQueenSideCastleNotEnabled:!public! !
 initialSideToMove!public! !
 lastMoveIsBlackEnPassantEnablerFrom:to:!public! !
 lastMoveIsWhiteEnPassantEnablerFrom:to:!public! !
 nextSideToMoveOn:!public! !
+performBlackCastleMove:on:!public! !
+performCastleMove:on:!public! !
+performWhiteCastleMove:on:!public! !
 setInitialMoveToBlack!public! !
 setInitialMoveToWhite!public! !
 setRoot:whitePlayer:blackPlayer:fenString:!private! !

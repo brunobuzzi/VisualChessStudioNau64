@@ -19,7 +19,7 @@ endTrackingAt: aPoint
 
 	piece := model pieceAt: originSquare.
 
-	(piece isValidMoveFromCoordinate: originSquare coordinate to: targetSquare coordinate on: chessGame) 
+	(piece isValidMoveFromCoordinate: originSquare coordinate to: targetSquare coordinate on: model on: chessGame) 
 	ifFalse: [^MessageBubble notify: ('Invalid move from [',  originSquare coordinate, '] to [',  targetSquare coordinate, ']') caption: 'Nau64' ].
 
 	chessGame annotateAndMovePieceFrom: originSquare coordinate to: targetSquare coordinate on: model.

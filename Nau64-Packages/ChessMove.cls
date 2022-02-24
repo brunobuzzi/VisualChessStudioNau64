@@ -14,9 +14,16 @@ addEnPassantCategory
 
 	categories add: ChessEnPassantMove new!
 
+castle
+	^categories detect: [:each | each isCastle] ifNone: [self error: 'No castle found']!
+
 from
 
 	^from!
+
+isBlackCurrentSideMovingOn: aChessboard
+
+	^(aChessboard pieceAtCoordinate: from) isBlack!
 
 isBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate
 
@@ -26,6 +33,9 @@ isBlackOn: aChessboard
 
 	^(aChessboard pieceAtCoordinate: to) isBlack!
 
+isCastle
+	^categories anySatisfy: [:each | each isCastle]!
+
 isEnPassant
 
 	^categories anySatisfy: [:each | each isEnPassant]!
@@ -33,6 +43,14 @@ isEnPassant
 isWhiteEnPassantEnablerFrom: originCoordinate to: targetCoordinate
 
 	^((from second = $7 and: [to second = $5]) and: [((originCoordinate first asciiValue - 1) = to first asciiValue) or: [(originCoordinate first asciiValue + 1) = to first asciiValue]]) and: [targetCoordinate first = to first]!
+
+performBlackCastleOn: aChessboard 
+
+	self castle performBlackCastleOn: aChessboard !
+
+performWhiteCastleOn: aChessboard 
+
+	self castle performWhiteCastleOn: aChessboard !
 
 printOn: aStream
 
@@ -73,11 +91,16 @@ to
 	^to! !
 !ChessMove categoriesForMethods!
 addEnPassantCategory!public! !
+castle!public! !
 from!public! !
+isBlackCurrentSideMovingOn:!public! !
 isBlackEnPassantEnablerFrom:to:!public! !
 isBlackOn:!public! !
+isCastle!public! !
 isEnPassant!public! !
 isWhiteEnPassantEnablerFrom:to:!public! !
+performBlackCastleOn:!public! !
+performWhiteCastleOn:!public! !
 printOn:!public! !
 setCategoriesFrom:!public! !
 setList:from:to:!public! !

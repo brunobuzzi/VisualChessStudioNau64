@@ -97,6 +97,18 @@ oppositeSideOf: aChessPiece
 
 	^aChessPiece isWhite ifTrue: [blackSide] ifFalse: [whiteSide]!
 
+oppositeSideOfSideNamed: aSymbol do: aBlock
+
+	(aSymbol = #white) ifTrue: [^self blackSideDo: [:side | aBlock value: side]].
+
+	(aSymbol = #black) ifTrue: [^self whiteSideDo: [:side | aBlock value: side]].
+
+	self error: 'Not calid side named [', aSymbol, ']'
+
+	
+
+	!
+
 pieceAt: aChessSquare
 
 	^self pieceAt: aChessSquare ifAbsent: []!
@@ -308,6 +320,7 @@ isReversed!public! !
 movePieceFromCoordiante:to:!chessboard contents!public! !
 newPiece:isBlack:at:!public! !
 oppositeSideOf:!iteration!public! !
+oppositeSideOfSideNamed:do:!public! !
 pieceAt:!chessboard contents!public! !
 pieceAt:do:ifAbsent:!public! !
 pieceAt:ifAbsent:!chessboard contents!public! !

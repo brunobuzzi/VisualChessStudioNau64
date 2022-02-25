@@ -10,10 +10,22 @@ ChessCastleMove comment: ''!
 !ChessCastleMove categoriesForClass!Unclassified! !
 !ChessCastleMove methodsFor!
 
-isCastle
+performBlackCastleOn: aChessboard withPostActionOn: aChessGame
 
-	^true! !
+	self subclassResponsibility!
+
+performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: aChessGame
+
+	(move isBlackCurrentSideMovingOn: aChessboard)
+	ifTrue: [self performBlackCastleOn: aChessboard withPostActionOn: aChessGame] 
+	ifFalse: [self performWhiteCastleOn: aChessboard withPostActionOn: aChessGame]!
+
+performWhiteCastleOn: aChessboard withPostActionOn: aChessGame
+
+	self subclassResponsibility! !
 !ChessCastleMove categoriesForMethods!
-isCastle!public! !
+performBlackCastleOn:withPostActionOn:!public! !
+performPieceSwitchFrom:to:on:withPostActionOn:!public! !
+performWhiteCastleOn:withPostActionOn:!public! !
 !
 

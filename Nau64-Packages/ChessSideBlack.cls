@@ -23,14 +23,24 @@ oppositePiecesDo: aBlock
 
 	chessboard whitePiecesDo: aBlock!
 
+oppositeSideName
+
+	^#white!
+
 piecesDo: aBlock
 
-	chessboard blackPiecesDo: aBlock! !
+	chessboard blackPiecesDo: aBlock!
+
+sideName
+
+	^#black! !
 !ChessSideBlack categoriesForMethods!
 anyBlackPawnAtEnPassantMoveFrom:!public! !
 isBlack!public! !
 oppositePiecesDo:!public! !
+oppositeSideName!public! !
 piecesDo:!public! !
+sideName!public! !
 !
 
 !ChessSideBlack class methodsFor!

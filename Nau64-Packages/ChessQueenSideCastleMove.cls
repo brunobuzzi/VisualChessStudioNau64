@@ -10,19 +10,21 @@ ChessQueenSideCastleMove comment: ''!
 !ChessQueenSideCastleMove categoriesForClass!Unclassified! !
 !ChessQueenSideCastleMove methodsFor!
 
-performBlackCastleOn: aChessboard 
+performBlackCastleOn: aChessboard withPostActionOn: aChessGame
 
 	aChessboard movePieceFromCoordiante: #e8 to: #c8.
 	aChessboard movePieceFromCoordiante: #a8 to: #d8.
-!
 
-performWhiteCastleOn: aChessboard 
+	aChessGame disableBlackCastle.!
+
+performWhiteCastleOn: aChessboard withPostActionOn: aChessGame
 
 	aChessboard movePieceFromCoordiante: #e1 to: #c1.
 	aChessboard movePieceFromCoordiante: #a1 to: #d1.
-! !
+
+	aChessGame disableWhiteCastle.! !
 !ChessQueenSideCastleMove categoriesForMethods!
-performBlackCastleOn:!public! !
-performWhiteCastleOn:!public! !
+performBlackCastleOn:withPostActionOn:!public! !
+performWhiteCastleOn:withPostActionOn:!public! !
 !
 

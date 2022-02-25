@@ -52,7 +52,7 @@ Object subclass: #ChessMove
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #ChessMoveCategory
-	instanceVariableNames: ''
+	instanceVariableNames: 'move'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

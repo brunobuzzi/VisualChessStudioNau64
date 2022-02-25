@@ -19,8 +19,11 @@ endTrackingAt: aPoint
 
 	piece := model pieceAt: originSquare.
 
+	(chessGame isCorrectSideToMove: piece on: model)
+	ifFalse: [^MessageBubble notify: ('Wrong Side to move, it must mode: [', piece oppositeSideName ,']') caption: 'Nau64'].
+
 	(piece isValidMoveFromCoordinate: originSquare coordinate to: targetSquare coordinate on: model on: chessGame) 
-	ifFalse: [^MessageBubble notify: ('Invalid move from [',  originSquare coordinate, '] to [',  targetSquare coordinate, ']') caption: 'Nau64' ].
+	ifFalse: [^MessageBubble notify: ('Invalid move from [',  originSquare coordinate, '] to [',  targetSquare coordinate, ']') caption: 'Nau64'].
 
 	chessGame annotateAndMovePieceFrom: originSquare coordinate to: targetSquare coordinate on: model.
 

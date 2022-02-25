@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #ChessMoveCategory
-	instanceVariableNames: ''
+	instanceVariableNames: 'move'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -10,24 +10,29 @@ ChessMoveCategory comment: ''!
 !ChessMoveCategory categoriesForClass!Unclassified! !
 !ChessMoveCategory methodsFor!
 
-isCastle
+performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: aChessGame
 
-	^false!
+	self subclassResponsibility!
 
-isEnPassant
+setMove: aChessMove
 
-	^false! !
+	move := aChessMove! !
 !ChessMoveCategory categoriesForMethods!
-isCastle!public! !
-isEnPassant!public! !
+performPieceSwitchFrom:to:on:withPostActionOn:!public! !
+setMove:!private! !
 !
 
 !ChessMoveCategory class methodsFor!
 
 icon
 
-	^Icon fromId: 'STON.ico'! !
+	^Icon fromId: 'STON.ico'!
+
+newOn: aChessMove
+
+	^self new setMove: aChessMove! !
 !ChessMoveCategory class categoriesForMethods!
 icon!public! !
+newOn:!public! !
 !
 

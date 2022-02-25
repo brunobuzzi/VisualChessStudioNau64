@@ -36,8 +36,10 @@ package methodNames
 	add: #King -> #isValidWhiteCastleMoveFrom:to:on:on:;
 	add: #Knight -> #defaultMovementRuleClass;
 	add: #Pawn -> #defaultMovementRuleClass;
+	add: #Pawn -> #isValidBlackEnPassantMoveFrom:to:on:;
 	add: #Pawn -> #isValidEnPassantMoveFrom:to:on:;
 	add: #Pawn -> #isValidMoveFromCoordinate:to:on:;
+	add: #Pawn -> #isValidWhiteEnPassantMoveFrom:to:on:;
 	add: #Queen -> #defaultMovementRuleClass;
 	add: #Rook -> #defaultMovementRuleClass;
 	yourself.
@@ -197,8 +199,8 @@ isValidBlackCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboar
 	aChessboard oppositeSideOfSideNamed: (aChessGame nextSideToMoveOn: aChessboard) do: [:side | 
 		side allAttackedSquaresDo: [:square |  | castleSquareCollection |
 			castleSquareCollection := (targetCoordinate = #g1)
-				ifTrue: [#(#f8 #g8)]
-				ifFalse: [#(#d8 #c8 #b8)].
+				ifTrue: [#(#e8 #f8 #g8)]
+				ifFalse: [#(#e8#d8 #c8 #b8)].
 			(castleSquareCollection includes: square coordinate) ifTrue: [^false].
 		].
 	].
@@ -226,8 +228,8 @@ isValidWhiteCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboar
 	aChessboard oppositeSideOfSideNamed: (aChessGame nextSideToMoveOn: aChessboard) do: [:side | 
 		side allAttackedSquaresDo: [:square |  | castleSquareCollection |
 			castleSquareCollection := (targetCoordinate = #g1)
-				ifTrue: [#(#f1 #g1)]
-				ifFalse: [#(#d1 #c1 #b1)].
+				ifTrue: [#(#e1 #f1 #g1)]
+				ifFalse: [#(#e1#d1 #c1 #b1)].
 			(castleSquareCollection includes: square coordinate) ifTrue: [^false].
 		].
 	].
@@ -254,6 +256,13 @@ defaultMovementRuleClass!public! !
 defaultMovementRuleClass
 	^PawnMovementEngine!
 
+isValidBlackEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame 
+
+	self oppositeSideDo: [:side | (side anyPawnAtEnPassantMoveFrom: originCoordinate) ifFalse: [^false]].
+
+	^aChessGame lastMoveIsBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate
+	!
+
 isValidEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame
 
 	^self isBlack 
@@ -262,11 +271,20 @@ isValidEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame
 
 isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessGame
 
-	^(super isValidMoveFromCoordinate: originCoordinate to: targetCoordinate) or: [self isValidEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame]! !
+	^(super isValidMoveFromCoordinate: originCoordinate to: targetCoordinate) or: [self isValidEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame]!
+
+isValidWhiteEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame 
+
+	self oppositeSideDo: [:side | (side anyPawnAtEnPassantMoveFrom: originCoordinate) ifFalse: [^false]].
+
+	^aChessGame lastMoveIsWhiteEnPassantEnablerFrom: originCoordinate to: targetCoordinate
+	! !
 !Pawn categoriesForMethods!
 defaultMovementRuleClass!public! !
+isValidBlackEnPassantMoveFrom:to:on:!public! !
 isValidEnPassantMoveFrom:to:on:!public! !
 isValidMoveFromCoordinate:to:on:!public! !
+isValidWhiteEnPassantMoveFrom:to:on:!public! !
 !
 
 !Queen methodsFor!

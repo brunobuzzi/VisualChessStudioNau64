@@ -10,10 +10,11 @@ ChessEnPassantMove comment: ''!
 !ChessEnPassantMove categoriesForClass!Unclassified! !
 !ChessEnPassantMove methodsFor!
 
-isEnPassant
+performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGame
 
-	^true! !
+	aChessboard movePieceFromCoordiante: originCoordinateSymbol to: targetCoordinateSymbol.
+	aChessboard removeEnPassantPawn: targetCoordinateSymbol! !
 !ChessEnPassantMove categoriesForMethods!
-isEnPassant!public! !
+performPieceSwitchFrom:to:on:withPostActionOn:!public! !
 !
 

@@ -34,6 +34,10 @@ oppositePiecesDo: aBlock
 
 	self subclassResponsibility!
 
+oppositeSideName
+
+	^self subclassResponsibility!
+
 opppositeSlidingPiecesDo: aBlock
 
 	self oppositePiecesDo: [:piece | piece isSlidingPiece ifTrue: [aBlock value: piece]]!
@@ -45,6 +49,10 @@ piecesDo: aBlock
 setChessboard: aChessBoard
 
 	chessboard := aChessBoard.!
+
+sideName
+
+	^self subclassResponsibility!
 
 slidingPiecesDo: aBlock
 
@@ -64,9 +72,11 @@ currentChessSquareFor:!public! !
 isBlack!public! !
 isWhite!public! !
 oppositePiecesDo:!public! !
+oppositeSideName!public! !
 opppositeSlidingPiecesDo:!public! !
 piecesDo:!public! !
 setChessboard:!private! !
+sideName!public! !
 slidingPiecesDo:!public! !
 squareSize!public! !
 systemRoot!private! !

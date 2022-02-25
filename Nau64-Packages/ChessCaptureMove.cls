@@ -8,3 +8,12 @@ ChessMoveCategory subclass: #ChessCaptureMove
 ChessCaptureMove guid: (GUID fromString: '{6b496f80-75e0-418f-8df1-66c8d6339c61}')!
 ChessCaptureMove comment: ''!
 !ChessCaptureMove categoriesForClass!Unclassified! !
+!ChessCaptureMove methodsFor!
+
+performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGame
+
+	aChessboard movePieceFromCoordiante: originCoordinateSymbol to: targetCoordinateSymbol! !
+!ChessCaptureMove categoriesForMethods!
+performPieceSwitchFrom:to:on:withPostActionOn:!public! !
+!
+

@@ -96,12 +96,18 @@ oppositeSideDo: aMonadicValuable
 	ifTrue: [chessSide chessboardDo: [:chessboard | chessboard whiteSideDo: aMonadicValuable]] 
 	ifFalse: [chessSide chessboardDo: [:chessboard | chessboard blackSideDo: aMonadicValuable]]!
 
+oppositeSideName
+	^chessSide oppositeSideName!
+
 pieceCode
 	self subclassResponsibility!
 
 setSide: aChessSide
 
 	chessSide := aChessSide!
+
+sideName
+	^chessSide sideName!
 
 squareSize
 
@@ -131,8 +137,10 @@ isSlidingPiece!public! !
 isWhite!public!testing! !
 movesAreCompatibleWith:!public! !
 oppositeSideDo:!public! !
+oppositeSideName!public! !
 pieceCode!public! !
 setSide:!private! !
+sideName!public! !
 squareSize!public! !
 systemRoot!private! !
 !

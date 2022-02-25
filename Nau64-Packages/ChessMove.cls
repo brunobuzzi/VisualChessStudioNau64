@@ -58,7 +58,7 @@ setCategoriesFrom: aChessboard
 
 	originPiece := aChessboard pieceAtCoordinate: from.
 	targetPiece := aChessboard pieceAtCoordinate: to.
-	targetPiece ifNotNil: [categories add: ChessCaptureMove new].
+	targetPiece ifNotNil: [categories add: (ChessCaptureMove newOn: self capturedPiece: targetPiece)].
 
 	(from = #e1 and: [originPiece isKing and:[originPiece isWhite and:[to = #g1]]]) ifTrue: [categories add: (ChessKingSideCastleMove newOn: self)].
 	(from = #e1 and: [originPiece isKing and:[originPiece isWhite and:[to = #c1]]]) ifTrue: [categories add: ChessQueenSideCastleMove new].

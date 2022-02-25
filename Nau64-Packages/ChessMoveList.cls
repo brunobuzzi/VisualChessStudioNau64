@@ -46,7 +46,15 @@ nextSideToMoveOn: aChessboard
 setChessGame: aChessGame
 	game := aChessGame.
 	movesCollection := OrderedCollection new.
-! !
+!
+
+undoLastMove
+	| moveToRemove |
+self halt.
+	moveToRemove := lastMove.
+	moveToRemove undo.
+	movesCollection removeLast.
+	movesCollection notEmpty ifTrue: [lastMove := movesCollection last].! !
 !ChessMoveList categoriesForMethods!
 annotateMove:on:!public! !
 isEmpty!public! !
@@ -55,6 +63,7 @@ lastMoveIsWhiteEnPassantEnablerFrom:to:!public! !
 lastSideToMoveOn:!public! !
 nextSideToMoveOn:!public! !
 setChessGame:!private! !
+undoLastMove!public! !
 !
 
 !ChessMoveList class methodsFor!

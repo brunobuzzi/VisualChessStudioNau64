@@ -120,7 +120,11 @@ setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer
 
 	whiteCastleStatus := ChessCastleStatus newOn: self.
 	blackCastleStatus := ChessCastleStatus newOn: self.
-! !
+!
+
+undoLastMove
+
+	moves undoLastMove! !
 !ChessGame categoriesForMethods!
 annotateAndMovePieceFrom:to:on:!public! !
 disableBlackCastle!castle!public! !
@@ -141,6 +145,7 @@ nextSideToMoveOn:!public! !
 setInitialMoveToBlack!public! !
 setInitialMoveToWhite!public! !
 setRoot:whitePlayer:blackPlayer:fenString:!private! !
+undoLastMove!public! !
 !
 
 !ChessGame class methodsFor!

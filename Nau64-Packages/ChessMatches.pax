@@ -67,7 +67,7 @@ Object subclass: #ChessPlayer
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessMoveCategory subclass: #ChessCaptureMove
-	instanceVariableNames: ''
+	instanceVariableNames: 'capturedPieceCode'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -87,7 +87,7 @@ ChessMoveCategory subclass: #ChessEnPassantMove
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessMoveCategory subclass: #ChessPromotionMove
-	instanceVariableNames: 'promotedPiece'
+	instanceVariableNames: 'selectedPieceCode'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

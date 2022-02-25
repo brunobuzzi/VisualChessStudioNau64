@@ -35,7 +35,7 @@ moveRedo
 
 moveUndo
 
-	self halt!
+	chessGame undoLastMove!
 
 onViewOpened
 	super onViewOpened.

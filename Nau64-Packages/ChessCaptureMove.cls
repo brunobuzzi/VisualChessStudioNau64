@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 ChessMoveCategory subclass: #ChessCaptureMove
-	instanceVariableNames: ''
+	instanceVariableNames: 'capturedPieceCode'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -12,8 +12,23 @@ ChessCaptureMove comment: ''!
 
 performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGame
 
-	aChessboard movePieceFromCoordiante: originCoordinateSymbol to: targetCoordinateSymbol! !
+	aChessboard movePieceFromCoordiante: originCoordinateSymbol to: targetCoordinateSymbol!
+
+setMove: aChessMove capturedPiece: code
+
+	move := aChessMove.
+	capturedPieceCode := code! !
 !ChessCaptureMove categoriesForMethods!
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
+setMove:capturedPiece:!public! !
+!
+
+!ChessCaptureMove class methodsFor!
+
+newOn: aChessMove capturedPiece: aChessPiece
+
+	^self new setMove: aChessMove capturedPiece: aChessPiece pieceCode! !
+!ChessCaptureMove class categoriesForMethods!
+newOn:capturedPiece:!public! !
 !
 

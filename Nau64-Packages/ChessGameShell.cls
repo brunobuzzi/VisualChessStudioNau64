@@ -21,6 +21,15 @@ model: anObject
 
 	chessGamePresenter model: anObject!
 
+moveRedo
+
+	chessGamePresenter moveRedo
+!
+
+moveUndo
+
+	chessGamePresenter moveUndo!
+
 setRoot: aSystemRoot
 
 	self setRoot: aSystemRoot fenString: nil!
@@ -32,6 +41,8 @@ setRoot: aSystemRoot fenString: fenString
 !ChessGameShell categoriesForMethods!
 createComponents!public! !
 model:!public! !
+moveRedo!public! !
+moveUndo!public! !
 setRoot:!private! !
 setRoot:fenString:!private! !
 !

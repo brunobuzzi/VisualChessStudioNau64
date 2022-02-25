@@ -24,35 +24,28 @@ annotateAndMovePieceFrom: originSymbolCoordiante to: targetSymbolCoordinate on: 
 
 disableBlackCastle
 
-	whiteCastleStatus disableCastle!
+	blackCastleStatus disableCastle!
 
-disableCastleForBlackPieceMovedFrom: originSymbolCoordiante on: aChessboard
-
-	(originSymbolCoordiante = #e8) ifTrue: [^self disableWhiteCastle].
-
-	(originSymbolCoordiante = #a8) ifTrue: [^blackCastleStatus disableQueenSideCastle].
-	(originSymbolCoordiante = #h8) ifTrue: [^blackCastleStatus disableKingSideCastle].
-!
+disableBlackCastleForPieceMovedFrom: originSymbolCoordiante on: aChessboard
+	originSymbolCoordiante = #e8 ifTrue: [^self disableWhiteCastle].
+	originSymbolCoordiante = #a8 ifTrue: [^blackCastleStatus disableQueenSideCastle].
+	originSymbolCoordiante = #h8 ifTrue: [^blackCastleStatus disableKingSideCastle]!
 
 disableCastleForPieceMovedFrom: originSymbolCoordiante on: aChessboard
-
-	((moves lastSideToMoveOn: aChessboard) = #white) ifTrue: [^self disableCastleForWhitePieceMovedFrom: originSymbolCoordiante on: aChessboard].
-
-	((moves lastSideToMoveOn: aChessboard) = #black) ifTrue: [^self disableCastleForBlackPieceMovedFrom: originSymbolCoordiante on: aChessboard].
-
+	(moves lastSideToMoveOn: aChessboard) = #white
+		ifTrue: [^self disableWhiteCastleForPieceMovedFrom: originSymbolCoordiante on: aChessboard].
+	(moves lastSideToMoveOn: aChessboard) = #black
+		ifTrue: [^self disableBlackCastleForPieceMovedFrom: originSymbolCoordiante on: aChessboard].
 	self error: 'No such side'!
-
-disableCastleForWhitePieceMovedFrom: originSymbolCoordiante on: aChessboard
-
-	(originSymbolCoordiante = #e1) ifTrue: [^self disableWhiteCastle].
-
-	(originSymbolCoordiante = #a1) ifTrue: [^whiteCastleStatus disableQueenSideCastle].
-	(originSymbolCoordiante = #h1) ifTrue: [^whiteCastleStatus disableKingSideCastle].
-!
 
 disableWhiteCastle
 
 	whiteCastleStatus disableCastle!
+
+disableWhiteCastleForPieceMovedFrom: originSymbolCoordiante on: aChessboard
+	originSymbolCoordiante = #e1 ifTrue: [^self disableWhiteCastle].
+	originSymbolCoordiante = #a1 ifTrue: [^whiteCastleStatus disableQueenSideCastle].
+	originSymbolCoordiante = #h1 ifTrue: [^whiteCastleStatus disableKingSideCastle]!
 
 ifBlackKindSideCastleNotEnabled: aNiladicValuable 
 
@@ -131,10 +124,10 @@ setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer
 !ChessGame categoriesForMethods!
 annotateAndMovePieceFrom:to:on:!public! !
 disableBlackCastle!castle!public! !
-disableCastleForBlackPieceMovedFrom:on:!castle!public! !
+disableBlackCastleForPieceMovedFrom:on:!castle!public! !
 disableCastleForPieceMovedFrom:on:!castle!public! !
-disableCastleForWhitePieceMovedFrom:on:!castle!public! !
 disableWhiteCastle!castle!public! !
+disableWhiteCastleForPieceMovedFrom:on:!castle!public! !
 ifBlackKindSideCastleNotEnabled:!castle!public! !
 ifBlackQueenSideCastleNotEnabled:!castle!public! !
 ifWhiteKindSideCastleNotEnabled:!castle!public! !

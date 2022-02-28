@@ -15,7 +15,6 @@ package classNames
 	add: #ChessKingSideCastleMove;
 	add: #ChessMove;
 	add: #ChessMoveCategory;
-	add: #ChessMoveList;
 	add: #ChessMoveNode;
 	add: #ChessMoveTreeList;
 	add: #ChessPlayer;
@@ -55,11 +54,6 @@ Object subclass: #ChessMove
 	classInstanceVariableNames: ''!
 Object subclass: #ChessMoveCategory
 	instanceVariableNames: 'move'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-Object subclass: #ChessMoveList
-	instanceVariableNames: 'game movesCollection lastMove'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

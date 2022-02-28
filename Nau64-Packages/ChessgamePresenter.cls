@@ -45,6 +45,20 @@ moveUndoOn: aChessboard
 
 	self renderChessboard.!
 
+newChessboardFromFEN
+	| fenString |
+
+	self newEmptyChessboard.
+	fenString := Prompter prompt: 'Enter PEM String' caption: 'Chess Studio'.
+	(ChessFenParser newOn: systemRoot fenString: fenString) deployOn: model.
+	chessGame := ChessGame newOn: systemRoot whitePlayer: nil blackPlayer: nil fenString: fenString.
+	self renderChessboard.!
+
+newEmptyChessboard
+
+	self model: (Chessboard newEmptyOn: systemRoot).
+	self renderChessboard!
+
 onViewOpened
 	super onViewOpened.
 	self topShell view extent: 657 @ 607.
@@ -70,6 +84,8 @@ endTrackingAt:!drag & drop!public! !
 moveRedo!public! !
 moveRedoOn:!public! !
 moveUndoOn:!public! !
+newChessboardFromFEN!public! !
+newEmptyChessboard!public! !
 onViewOpened!public! !
 renderChessboard!public!rendering-chessboard! !
 setRoot:!private! !

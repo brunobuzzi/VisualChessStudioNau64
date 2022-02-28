@@ -22,7 +22,8 @@ testFen1
 	shell := ChessboardPlaygroundShell showOn: (Chessboard newEmptyOn: systemRoot).
 	model := shell model.
 	fenParser := ChessFenParser newOn: systemRoot
-				fenString: 'r1b1k1nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b'.
+				fenString: 'r1b1k1nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b w KQkq - 0 1'.
+	self assert: fenParser sideToMove equals: #white.
 	fenParser deployOn: model.
 	shell renderChessboard!
 
@@ -31,8 +32,9 @@ testFenInitialPosition
 	shell := ChessboardPlaygroundShell showOn: (Chessboard newEmptyOn: systemRoot).
 	model := shell model.
 	fenParser := ChessFenParser newOn: systemRoot
-				fenString: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'.
+				fenString: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 1'.
 	fenParser deployOn: model.
+	self assert: fenParser sideToMove equals: #black.
 	shell renderChessboard! !
 !ChessFenParserTest categoriesForMethods!
 tearDown!public! !

@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 ChessParser subclass: #ChessFenParser
-	instanceVariableNames: 'fenStream entries map'
+	instanceVariableNames: 'fenStream entries map properties'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -21,11 +21,36 @@ deployOn: aChessboard
 	].!
 
 parse
-	| ranks |
+	| fenFields |
 
-	ranks := (fenStream contents subStrings: '/') reverse.
-	self assertFormat: [ranks size = 8].
-	ranks keysAndValuesDo: [:rank :line | self parseLine: line atRank: rank].!
+	fenFields := fenStream contents subStrings: ' '.
+	self assert: [fenFields size = 6].
+	
+	self parsePiecesFrom: (fenFields at: 1).
+	self parseSideToMoveFrom: (fenFields at: 2).
+	self parseCastleAvailabilityFrom: (fenFields at: 3).
+	self parseEnPassantTargetFrom: (fenFields at: 4).
+	self parseHalfmoveClockFrom: (fenFields at: 5).
+	self parseFullmoveNnumberFrom: (fenFields at: 6).
+
+
+!
+
+parseCastleAvailabilityFrom: aString
+
+	self halt!
+
+parseEnPassantTargetFrom: aString
+
+	self halt!
+
+parseFullmoveNnumberFrom: aString
+
+	self halt!
+
+parseHalfmoveClockFrom: aString
+
+	self halt!
 
 parseLine: fenRankString atRank: integerRank
 	| squares files |
@@ -41,6 +66,21 @@ parseLine: fenRankString atRank: integerRank
 			map at: (file, integerRank printString) asSymbol put: char.
 		]
 	].!
+
+parsePiecesFrom: aString
+	| ranks |
+
+	ranks := (aString subStrings: '/') reverse.
+	self assertFormat: [ranks size = 8].
+	ranks keysAndValuesDo: [:rank :line | self parseLine: line atRank: rank].!
+
+parseSideToMoveFrom: aString
+
+	self assert: [aString = 'w' or: [aString = 'b']].
+
+	(aString = 'w') ifTrue: [properties at: #sideToMove put: #white].
+	(aString = 'b') ifTrue: [properties at: #sideToMove put: #black].
+!
 
 pieceClassFor: aCharacter 
 	(aCharacter asUppercase = $P) ifTrue: [^Pawn].
@@ -58,14 +98,26 @@ setRoot: aSystemRoot fenString: aString
 	fenStream := aString readStream.
 	entries := Dictionary new.
 	map := Dictionary new.
-	self parse.! !
+	properties := Dictionary new.
+	self parse.!
+
+sideToMove
+
+	^properties at: #sideToMove ifAbsent: [self error: 'no side to move']! !
 !ChessFenParser categoriesForMethods!
 assertFormat:!public! !
 deployOn:!public! !
 parse!public! !
+parseCastleAvailabilityFrom:!public! !
+parseEnPassantTargetFrom:!public! !
+parseFullmoveNnumberFrom:!public! !
+parseHalfmoveClockFrom:!public! !
 parseLine:atRank:!public! !
+parsePiecesFrom:!public! !
+parseSideToMoveFrom:!public! !
 pieceClassFor:!public! !
 setRoot:fenString:!private! !
+sideToMove!public! !
 !
 
 !ChessFenParser class methodsFor!

@@ -29,6 +29,10 @@ moveUndo
 
 	chessGamePresenter moveUndoOn: model!
 
+newChessboardFromFEN
+
+	chessGamePresenter newChessboardFromFEN!
+
 setRoot: aSystemRoot
 
 	self setRoot: aSystemRoot fenString: nil!
@@ -42,6 +46,7 @@ createComponents!public! !
 model:!public! !
 moveRedo!public! !
 moveUndo!public! !
+newChessboardFromFEN!public! !
 setRoot:!private! !
 setRoot:fenString:!private! !
 !

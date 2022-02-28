@@ -30,7 +30,7 @@ Object subclass: #ChessParser
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessParser subclass: #ChessFenParser
-	instanceVariableNames: 'fenStream entries map'
+	instanceVariableNames: 'fenStream entries map properties'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

@@ -97,6 +97,10 @@ nextSideToMoveOn: aChessboard
 	^moves nextSideToMoveOn: aChessboard
 !
 
+redoNextMoveOn: aChessboard 
+
+	moves redoNextMoveOn: aChessboard !
+
 setInitialMoveToBlack
 	initialFenPosition ifNil: [self error: 'White always move first when there is NO position setup'].
 	initialSideToMove := #black!
@@ -112,7 +116,8 @@ setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer
 	whitePlayer := whiteChessPlayer.
 	blackPlayer := blackChessPlayer.
 
-	moves := ChessMoveList newOn: self.
+	"moves := ChessMoveList newOn: self."
+	moves := ChessMoveTreeList newOn: self.
 	dateTime := TimeStamp current.
 
 	initialSideToMove := #white.
@@ -122,9 +127,9 @@ setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer
 	blackCastleStatus := ChessCastleStatus newOn: self.
 !
 
-undoLastMove
+undoLastMoveOn: aChessboard
 
-	moves undoLastMove! !
+	moves undoLastMoveOn: aChessboard! !
 !ChessGame categoriesForMethods!
 annotateAndMovePieceFrom:to:on:!public! !
 disableBlackCastle!castle!public! !
@@ -142,10 +147,11 @@ lastMoveIsBlackEnPassantEnablerFrom:to:!en passant!public! !
 lastMoveIsWhiteEnPassantEnablerFrom:to:!en passant!public! !
 lastSideToMoveOn:!public! !
 nextSideToMoveOn:!public! !
+redoNextMoveOn:!public! !
 setInitialMoveToBlack!public! !
 setInitialMoveToWhite!public! !
 setRoot:whitePlayer:blackPlayer:fenString:!private! !
-undoLastMove!public! !
+undoLastMoveOn:!public! !
 !
 
 !ChessGame class methodsFor!

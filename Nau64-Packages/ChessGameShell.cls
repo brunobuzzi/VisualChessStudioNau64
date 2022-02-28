@@ -23,12 +23,11 @@ model: anObject
 
 moveRedo
 
-	chessGamePresenter moveRedo
-!
+	chessGamePresenter moveRedoOn: model!
 
 moveUndo
 
-	chessGamePresenter moveUndo!
+	chessGamePresenter moveUndoOn: model!
 
 setRoot: aSystemRoot
 

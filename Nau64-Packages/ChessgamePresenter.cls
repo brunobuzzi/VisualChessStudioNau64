@@ -33,9 +33,17 @@ moveRedo
 
 	self halt!
 
-moveUndo
+moveRedoOn: aChessboard 
 
-	chessGame undoLastMove!
+	chessGame redoNextMoveOn: aChessboard.
+
+	self renderChessboard.!
+
+moveUndoOn: aChessboard
+
+	chessGame undoLastMoveOn: aChessboard.
+
+	self renderChessboard.!
 
 onViewOpened
 	super onViewOpened.
@@ -60,7 +68,8 @@ setRoot: aSystemRoot fenString: fenString
 !ChessGamePresenter categoriesForMethods!
 endTrackingAt:!drag & drop!public! !
 moveRedo!public! !
-moveUndo!public! !
+moveRedoOn:!public! !
+moveUndoOn:!public! !
 onViewOpened!public! !
 renderChessboard!public!rendering-chessboard! !
 setRoot:!private! !

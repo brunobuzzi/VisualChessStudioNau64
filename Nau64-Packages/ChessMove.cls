@@ -53,6 +53,12 @@ printOn: aStream
 
 	aStream nextPutAll: '[', from, '>>', to, ']'!
 
+redoOn: aChessboard 
+
+	categories isEmpty ifTrue: [^aChessboard movePieceFromCoordiante: from to: to].
+
+	self halt!
+
 setCategoriesFrom: aChessboard 
 	| originPiece targetPiece |
 
@@ -83,7 +89,14 @@ setList: aChessMoveList from: originCoordinate to: targetCoordinate
 
 to
 
-	^to! !
+	^to!
+
+undoOn: aChessboard
+
+	categories isEmpty ifTrue: [^aChessboard movePieceFromCoordiante: to to: from].
+
+	self halt
+! !
 !ChessMove categoriesForMethods!
 addEnPassantCategory!public! !
 from!public! !
@@ -93,9 +106,11 @@ isBlackOn:!public! !
 isWhiteEnPassantEnablerFrom:to:!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
 printOn:!public! !
+redoOn:!public! !
 setCategoriesFrom:!public! !
 setList:from:to:!public! !
 to!public! !
+undoOn:!public! !
 !
 
 !ChessMove class methodsFor!

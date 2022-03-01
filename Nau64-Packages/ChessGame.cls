@@ -109,6 +109,24 @@ setInitialMoveToWhite
 	initialFenPosition ifNil: [self error: 'White always move first when there is NO position setup'].
 	initialSideToMove := #white!
 
+setOptionFromFenParser:  aChessFenParser
+
+	initialSideToMove := aChessFenParser sideToMove.
+	aChessFenParser isEnabledWhiteKingSideCastle 
+		ifTrue: [whiteCastleStatus enableKingSideCastle]
+		ifFalse: [whiteCastleStatus disableKingSideCastle].
+	aChessFenParser isEnabledWhiteQueenSideCastle 
+		ifTrue: [whiteCastleStatus enableQueenSideCastle ] 
+		ifFalse: [whiteCastleStatus disableQueenSideCastle].
+	aChessFenParser isEnabledBlackKingSideCastle 
+		ifTrue: [blackCastleStatus enableKingSideCastle]
+		ifFalse: [blackCastleStatus disableKingSideCastle].
+	aChessFenParser isEnabledWhiteQueenSideCastle 
+		ifTrue: [blackCastleStatus enableQueenSideCastle ] 
+		ifFalse: [blackCastleStatus disableQueenSideCastle].
+
+!
+
 setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer fenString: fenString
 
 	systemRoot := aSystemRoot.
@@ -150,6 +168,7 @@ nextSideToMoveOn:!public! !
 redoNextMoveOn:!public! !
 setInitialMoveToBlack!public! !
 setInitialMoveToWhite!public! !
+setOptionFromFenParser:!parser-fen!public! !
 setRoot:whitePlayer:blackPlayer:fenString:!private! !
 undoLastMoveOn:!public! !
 !

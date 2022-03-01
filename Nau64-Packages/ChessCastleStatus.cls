@@ -23,6 +23,14 @@ disableQueenSideCastle
 
 	isQueenSideClastleEnabled := false!
 
+enableKingSideCastle
+
+	isKingSideClastleEnabled := true!
+
+enableQueenSideCastle
+
+	isQueenSideClastleEnabled := true!
+
 ifKindSideCastleNotEnabled: aNiladicValuable 
 
 	isKingSideClastleEnabled ifFalse: aNiladicValuable!
@@ -43,6 +51,8 @@ setChessGame: aChessGame
 disableCastle!public! !
 disableKingSideCastle!public! !
 disableQueenSideCastle!public! !
+enableKingSideCastle!public! !
+enableQueenSideCastle!public! !
 ifKindSideCastleNotEnabled:!public! !
 ifQueenSideCastleNotEnabled:!public! !
 ifWhiteCastleNotEnabled:!public! !

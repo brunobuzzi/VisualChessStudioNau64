@@ -29,6 +29,11 @@ endTrackingAt: aPoint
 
 	self renderChessboard.!
 
+model: aModel
+
+	super model: aModel.
+!
+
 moveRedo
 
 	self halt!
@@ -60,9 +65,11 @@ newEmptyChessboard
 	self renderChessboard!
 
 onViewOpened
+
 	super onViewOpened.
 	self topShell view extent: 657 @ 607.
-	self renderChessboard!
+
+	self renderChessboard.!
 
 renderChessboard
 	| gdiBitmap |
@@ -78,9 +85,16 @@ setRoot: aSystemRoot fenString: fenString
 
 	super setRoot: aSystemRoot.
 
-	chessGame := ChessGame newOn: aSystemRoot whitePlayer: nil blackPlayer: nil fenString: fenString.! !
+	chessGame := ChessGame newOn: aSystemRoot whitePlayer: nil blackPlayer: nil fenString: fenString.
+
+	fenString ifNotNil: [ | parser |
+		parser := ChessFenParser newOn: aSystemRoot fenString: fenString.
+		chessGame setOptionFromFenParser: parser.
+		parser deployOn: self model.
+	].! !
 !ChessGamePresenter categoriesForMethods!
 endTrackingAt:!drag & drop!public! !
+model:!public! !
 moveRedo!public! !
 moveRedoOn:!public! !
 moveUndoOn:!public! !

@@ -33,6 +33,10 @@ newChessboardFromFEN
 
 	chessGamePresenter newChessboardFromFEN!
 
+renderChessboard
+
+	chessGamePresenter renderChessboard!
+
 setRoot: aSystemRoot
 
 	self setRoot: aSystemRoot fenString: nil!
@@ -47,6 +51,7 @@ model:!public! !
 moveRedo!public! !
 moveUndo!public! !
 newChessboardFromFEN!public! !
+renderChessboard!public! !
 setRoot:!private! !
 setRoot:fenString:!private! !
 !
@@ -76,7 +81,16 @@ showWithFenString: fenString on: aSystemRoot
 	| chessboard shell |
 
 	chessboard := Chessboard newEmptyOn: aSystemRoot.
-	(ChessFenParser newOn: aSystemRoot fenString: fenString) deployOn: chessboard.
+	shell := self createOn: chessboard.
+	shell setRoot: aSystemRoot fenString: fenString.
+	shell show;
+		renderChessboard.
+	^shell!
+
+showWithFenString2: fenString on: aSystemRoot
+	| chessboard shell |
+
+	chessboard := Chessboard newEmptyOn: aSystemRoot.
 	shell := super showOn: chessboard.
 	shell setRoot: aSystemRoot fenString: fenString.
 	^shell! !
@@ -84,5 +98,6 @@ showWithFenString: fenString on: aSystemRoot
 resource_Default_view!public!resources-views! !
 showOn:!public! !
 showWithFenString:on:!public! !
+showWithFenString2:on:!public! !
 !
 

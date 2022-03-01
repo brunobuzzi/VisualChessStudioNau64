@@ -117,3 +117,12 @@ renderChessboard!public!rendering-chessboard! !
 startTrackingAt:!drag & drop!public! !
 !
 
+!AbstractChessboardPresenter class methodsFor!
+
+defaultModel
+
+	^Chessboard new! !
+!AbstractChessboardPresenter class categoriesForMethods!
+defaultModel!public! !
+!
+

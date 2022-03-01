@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 ChessAbstractPresenter subclass: #AbstractChessboardPresenter
-	instanceVariableNames: 'chessboardImagePresenter mouseTracker'
+	instanceVariableNames: 'chessboardImagePresenter mouseTracker isDisplayCoordinatesEnabled'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -95,11 +95,31 @@ onDropOver: aDragDropSession
 	the DD session can detect the failure (as this is an event handler the return value is ignored)."
 !
 
+onViewOpened
+
+	super onViewOpened.
+
+	isDisplayCoordinatesEnabled := false.
+	self topShell view extent: 657 @ 607.
+	self renderChessboard.!
+
 renderChessboard
 
 	self subclassResponsibility!
 
-startTrackingAt: aPoint! !
+reverseChessboard
+
+	model toggleOrientation.
+
+	self renderChessboard.!
+
+startTrackingAt: aPoint!
+
+toggleCoordinates
+
+	isDisplayCoordinatesEnabled := isDisplayCoordinatesEnabled not.
+
+	self renderChessboard.! !
 !AbstractChessboardPresenter categoriesForMethods!
 cancelTrackingAt:!drag & drop!public! !
 continueTrackingAt:from:!drag & drop!public! !
@@ -113,8 +133,11 @@ imageModel:!public! !
 movePiece:!public! !
 onDragOver:!drag & drop!public! !
 onDropOver:!drag & drop!public! !
+onViewOpened!public! !
 renderChessboard!public!rendering-chessboard! !
+reverseChessboard!public!rendering-effects! !
 startTrackingAt:!drag & drop!public! !
+toggleCoordinates!public!rendering-effects! !
 !
 
 !AbstractChessboardPresenter class methodsFor!

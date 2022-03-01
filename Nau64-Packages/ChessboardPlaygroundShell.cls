@@ -24,6 +24,10 @@ createComponents
 	chessboardPresenter := self add: (ChessboardPlaygroundPresenter newOn: systemRoot)
 				name: 'chessboard'!
 
+defaultChessPresenter
+
+	^chessboardPresenter!
+
 dropBlackBishop
 
 	chessboardPresenter dropBlackBishop!
@@ -90,25 +94,6 @@ newEmptyChessboard
 
 	chessboardPresenter newEmptyChessboard!
 
-queryCommand: aCommandQuery
-	| cmd |
-
-	cmd := aCommandQuery commandSymbol.
-
-	(cmd == #toggleCoordinates) ifTrue: [aCommandQuery isEnabled: true. ^true].
-
-	(cmd == #reverseChessboard) ifTrue: [aCommandQuery isEnabled: true. ^true].
-	
-	^super queryCommand: aCommandQuery!
-
-renderChessboard
-
-	chessboardPresenter renderChessboard!
-
-reverseChessboard
-
-	^chessboardPresenter reverseChessboard!
-
 setRoot: aSystemRoot
 
 	systemRoot := aSystemRoot.
@@ -135,10 +120,6 @@ showPinsForBlack
 showPinsForWhite
 	chessboardPresenter showPinsForWhite!
 
-toggleCoordinates
-
-	^chessboardPresenter toggleCoordinates!
-
 toggleFourChessChunks
 
 	chessboardPresenter toggleFourChessChunks!
@@ -150,6 +131,7 @@ toogleCenterChunk
 clearEffects!public! !
 copyPositionAsFenString!public! !
 createComponents!public! !
+defaultChessPresenter!public! !
 dropBlackBishop!public! !
 dropBlackKing!public! !
 dropBlackKnight!public! !
@@ -166,9 +148,6 @@ model:!public! !
 newChessboard!public! !
 newChessboardFromFEN!public! !
 newEmptyChessboard!public! !
-queryCommand:!public! !
-renderChessboard!public! !
-reverseChessboard!public! !
 setRoot:!private! !
 showAttackedSquaresBySide!public! !
 showForksForBlack!public! !
@@ -177,7 +156,6 @@ showPartialPinsForBlack!public! !
 showPartialPinsForWhite!public! !
 showPinsForBlack!public! !
 showPinsForWhite!public! !
-toggleCoordinates!public! !
 toggleFourChessChunks!public! !
 toogleCenterChunk!public! !
 !

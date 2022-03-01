@@ -74,6 +74,7 @@ nextSideToMoveOn: aChessboard
 
 redoFirstMoveOn: aChessboard 
 
+	treeRoots isEmpty ifTrue: [^self].
 	treeRoots first move redoOn: aChessboard.
 	lastMove := treeRoots first move.!
 

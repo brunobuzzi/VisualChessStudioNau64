@@ -15,6 +15,10 @@ createComponents
 	chessGamePresenter := self add: (ChessGamePresenter newOn: systemRoot)
 				name: 'chessboard'!
 
+defaultChessPresenter
+
+	^chessGamePresenter!
+
 model: anObject
 
 	super model: anObject.
@@ -47,6 +51,7 @@ setRoot: aSystemRoot fenString: fenString
 	chessGamePresenter setRoot: aSystemRoot fenString: fenString.! !
 !ChessGameShell categoriesForMethods!
 createComponents!public! !
+defaultChessPresenter!public! !
 model:!public! !
 moveRedo!public! !
 moveUndo!public! !

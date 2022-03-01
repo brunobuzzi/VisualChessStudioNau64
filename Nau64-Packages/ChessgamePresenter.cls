@@ -20,7 +20,7 @@ endTrackingAt: aPoint
 	piece := model pieceAt: originSquare.
 
 	(chessGame isCorrectSideToMove: piece on: model)
-	ifFalse: [^MessageBubble notify: ('Wrong Side to move, it must mode: [', piece oppositeSideName ,']') caption: 'Nau64'].
+	ifFalse: [^MessageBubble notify: ('Wrong Side to move, it must move: [', piece oppositeSideName ,']') caption: 'Nau64'].
 
 	(piece isValidMoveFromCoordinate: originSquare coordinate to: targetSquare coordinate on: model on: chessGame) 
 	ifFalse: [^MessageBubble notify: ('Invalid move from [',  originSquare coordinate, '] to [',  targetSquare coordinate, ']') caption: 'Nau64'].
@@ -67,14 +67,12 @@ newEmptyChessboard
 onViewOpened
 
 	super onViewOpened.
-	self topShell view extent: 657 @ 607.
-
-	self renderChessboard.!
+!
 
 renderChessboard
 	| gdiBitmap |
 	gdiBitmap := GdiplusBitmap extent: DesktopView current extent.
-	model drawOn: gdiBitmap isDisplayCoordinatesEnabled: false .
+	model drawOn: gdiBitmap isDisplayCoordinatesEnabled: isDisplayCoordinatesEnabled.
 	self imageModel: gdiBitmap asValue!
 
 setRoot: aSystemRoot

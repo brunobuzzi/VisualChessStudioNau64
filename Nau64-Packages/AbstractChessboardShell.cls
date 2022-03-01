@@ -10,11 +10,38 @@ AbstractChessboardShell comment: ''!
 !AbstractChessboardShell categoriesForClass!Unclassified! !
 !AbstractChessboardShell methodsFor!
 
+defaultChessPresenter
+
+	self subclassResponsibility!
+
+queryCommand: aCommandQuery
+	| cmd |
+
+	cmd := aCommandQuery commandSymbol.
+
+	(cmd == #toggleCoordinates) ifTrue: [aCommandQuery isEnabled: true. ^true].
+
+	(cmd == #reverseChessboard) ifTrue: [aCommandQuery isEnabled: true. ^true].
+	
+	^super queryCommand: aCommandQuery!
+
 renderChessboard
 
-	self subclassResponsibility! !
+	self defaultChessPresenter renderChessboard!
+
+reverseChessboard
+
+	self defaultChessPresenter reverseChessboard!
+
+toggleCoordinates
+
+	^self defaultChessPresenter toggleCoordinates! !
 !AbstractChessboardShell categoriesForMethods!
+defaultChessPresenter!public! !
+queryCommand:!public! !
 renderChessboard!public! !
+reverseChessboard!public! !
+toggleCoordinates!public! !
 !
 
 !AbstractChessboardShell class methodsFor!

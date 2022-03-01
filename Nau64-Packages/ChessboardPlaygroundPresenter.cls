@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 AbstractChessboardPresenter subclass: #ChessboardPlaygroundPresenter
-	instanceVariableNames: 'isDisplayCoordinatesEnabled effects'
+	instanceVariableNames: 'effects'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -168,10 +168,8 @@ self halt.
 
 onViewOpened
 	super onViewOpened.
-	self topShell view extent: 657 @ 607.
-	isDisplayCoordinatesEnabled := false.
 	effects := OrderedCollection new.
-	self renderChessboard!
+!
 
 renderChessboard
 	| gdiBitmap |
@@ -179,12 +177,6 @@ renderChessboard
 	model drawOn: gdiBitmap isDisplayCoordinatesEnabled: isDisplayCoordinatesEnabled.
 	effects do: [:chessboardEffect | chessboardEffect drawOn: gdiBitmap].
 	self imageModel: gdiBitmap asValue!
-
-reverseChessboard
-
-	model toggleOrientation.
-
-	self renderChessboard.!
 
 showAttackedSquaresBySide
 	effects add: (AttackedSquaresBySideEffect newOn: model).
@@ -220,12 +212,6 @@ showPinsForWhite
 	effects add: (ChessAbsolutePinEffect newOn: model).
 	self renderChessboard.!
 
-toggleCoordinates
-
-	isDisplayCoordinatesEnabled := isDisplayCoordinatesEnabled not.
-
-	self renderChessboard.!
-
 toggleFourChessChunks
 
 	effects add: (ChessFourChunkEffect newOn: model).
@@ -258,7 +244,6 @@ newEmptyChessboard!public!rendering-effects! !
 onDropOver:!drag & drop!public! !
 onViewOpened!public! !
 renderChessboard!public!rendering-chessboard! !
-reverseChessboard!public!rendering-effects! !
 showAttackedSquaresBySide!public!rendering-effects! !
 showForksForBlack!public! !
 showForksForWhite!public! !
@@ -266,7 +251,6 @@ showPartialPinsForBlack!public! !
 showPartialPinsForWhite!public! !
 showPinsForBlack!public! !
 showPinsForWhite!public! !
-toggleCoordinates!public!rendering-effects! !
 toggleFourChessChunks!public! !
 toogleCenterChunk!public! !
 !

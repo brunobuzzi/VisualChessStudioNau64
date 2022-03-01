@@ -125,7 +125,6 @@ undoLastMoveOn: aChessboard
 	moveToRemove undoOn: aChessboard.
 
 	node := self lookupNode: moveToRemove.
-"	self remove: moveToRemove ifAbsent: [self error: 'Move not found']."
 	node parentNodeDo: [:parentNode | 
 		parentNode ifNotNil: [lastMove := parentNode move] ifNil: [lastMove := nil].
 	]

@@ -22,8 +22,14 @@ testFen1
 	shell := ChessboardPlaygroundShell showOn: (Chessboard newEmptyOn: systemRoot).
 	model := shell model.
 	fenParser := ChessFenParser newOn: systemRoot
-				fenString: 'r1b1k1nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b w KQkq - 0 1'.
+				fenString: 'r1b1k1nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b w KQkq - 2 20'.
 	self assert: fenParser sideToMove equals: #white.
+	self assert: fenParser isEnabledWhiteQueenSideCastle.
+	self assert: fenParser isEnabledWhiteKingSideCastle.
+	self assert: fenParser isEnabledBlackQueenSideCastle.
+	self assert: fenParser isEnabledBlackKingSideCastle.
+	self assert: fenParser halfMoveClock equals: 2.
+	self assert: fenParser fullMoveNumber equals: 20.
 	fenParser deployOn: model.
 	shell renderChessboard!
 
@@ -32,9 +38,16 @@ testFenInitialPosition
 	shell := ChessboardPlaygroundShell showOn: (Chessboard newEmptyOn: systemRoot).
 	model := shell model.
 	fenParser := ChessFenParser newOn: systemRoot
-				fenString: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 1'.
-	fenParser deployOn: model.
+				fenString: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b Kq e3 0 1'.
 	self assert: fenParser sideToMove equals: #black.
+	self deny: fenParser isEnabledWhiteQueenSideCastle.
+	self assert: fenParser isEnabledWhiteKingSideCastle.
+	self assert: fenParser isEnabledBlackQueenSideCastle.
+	self deny: fenParser isEnabledBlackKingSideCastle.
+	self assert: fenParser enPassantTargetSquare equals: #e3.
+	self assert: fenParser halfMoveClock equals: 0.
+	self assert: fenParser fullMoveNumber equals: 1.
+	fenParser deployOn: model.
 	shell renderChessboard! !
 !ChessFenParserTest categoriesForMethods!
 tearDown!public! !

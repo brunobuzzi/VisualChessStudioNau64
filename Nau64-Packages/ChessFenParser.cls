@@ -20,6 +20,34 @@ deployOn: aChessboard
 		aChessboard newPiece: pieceClass isBlack: fenPiece isLowerCase at: (systemRoot squareAt: symbolCoordinate)
 	].!
 
+enPassantTargetSquare
+
+	^properties at: #enPassantSquare ifAbsent: []!
+
+fullMoveNumber
+
+	^properties at: #fullMoveNumber ifAbsent: [0]!
+
+halfMoveClock
+
+	^properties at: #halfMoveClock ifAbsent: [0]!
+
+isEnabledBlackKingSideCastle
+
+	^properties at: #blackKingSideCastle ifAbsent: [false]!
+
+isEnabledBlackQueenSideCastle
+
+	^properties at: #blackQueenSideCastle ifAbsent: [false]!
+
+isEnabledWhiteKingSideCastle
+
+	^properties at: #whiteKingSideCastle ifAbsent: [false]!
+
+isEnabledWhiteQueenSideCastle
+
+	^properties at: #whiteQueenSideCastle ifAbsent: [false]!
+
 parse
 	| fenFields |
 
@@ -30,27 +58,31 @@ parse
 	self parseSideToMoveFrom: (fenFields at: 2).
 	self parseCastleAvailabilityFrom: (fenFields at: 3).
 	self parseEnPassantTargetFrom: (fenFields at: 4).
-	self parseHalfmoveClockFrom: (fenFields at: 5).
-	self parseFullmoveNnumberFrom: (fenFields at: 6).
+	self parseHalfMoveClockFrom: (fenFields at: 5).
+	self parseFullMoveNumberFrom: (fenFields at: 6).
 
 
 !
 
 parseCastleAvailabilityFrom: aString
 
-	self halt!
+	(aString includes: $K) ifTrue: [properties at: #whiteKingSideCastle put: true].
+	(aString includes: $Q) ifTrue: [properties at: #whiteQueenSideCastle put: true].
+	
+	(aString includes: $k) ifTrue: [properties at: #blackKingSideCastle put: true].
+	(aString includes: $q) ifTrue: [properties at: #blackQueenSideCastle put: true].!
 
 parseEnPassantTargetFrom: aString
 
-	self halt!
+	(aString ~= '-') ifTrue: [properties at: #enPassantSquare put: aString asSymbol]!
 
-parseFullmoveNnumberFrom: aString
+parseFullMoveNumberFrom: aString
 
-	self halt!
+	properties at: #fullMoveNumber put: (Integer fromString: aString)!
 
-parseHalfmoveClockFrom: aString
+parseHalfMoveClockFrom: aString
 
-	self halt!
+	properties at: #halfMoveClock put: (Integer fromString: aString)!
 
 parseLine: fenRankString atRank: integerRank
 	| squares files |
@@ -107,11 +139,18 @@ sideToMove
 !ChessFenParser categoriesForMethods!
 assertFormat:!public! !
 deployOn:!public! !
+enPassantTargetSquare!properties!public! !
+fullMoveNumber!properties!public! !
+halfMoveClock!properties!public! !
+isEnabledBlackKingSideCastle!properties!public! !
+isEnabledBlackQueenSideCastle!properties!public! !
+isEnabledWhiteKingSideCastle!properties!public! !
+isEnabledWhiteQueenSideCastle!properties!public! !
 parse!public! !
 parseCastleAvailabilityFrom:!public! !
 parseEnPassantTargetFrom:!public! !
-parseFullmoveNnumberFrom:!public! !
-parseHalfmoveClockFrom:!public! !
+parseFullMoveNumberFrom:!public! !
+parseHalfMoveClockFrom:!public! !
 parseLine:atRank:!public! !
 parsePiecesFrom:!public! !
 parseSideToMoveFrom:!public! !

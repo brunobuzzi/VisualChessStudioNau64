@@ -112,8 +112,10 @@ setInitialMoveToWhite
 setOptionFromFenParser: aChessFenParser
 
 	initialSideToMove := aChessFenParser sideToMove.
-	whiteCastleStatus setWhiteCastleOptionsFromFenParser: aChessFenParser.
-	blackCastleStatus setBlackCastleOptionsFromFenParser: aChessFenParser.
+
+	whiteCastleStatus setQueenCastle: aChessFenParser isEnabledWhiteQueenSideCastle kingCastle: aChessFenParser isEnabledWhiteKingSideCastle.
+	
+	blackCastleStatus setQueenCastle: aChessFenParser isEnabledBlackQueenSideCastle kingCastle: aChessFenParser isEnabledBlackKingSideCastle.
 
 
 !

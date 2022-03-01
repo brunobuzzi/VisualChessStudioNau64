@@ -42,29 +42,19 @@ ifQueenSideCastleNotEnabled: aNiladicValuable
 ifWhiteCastleNotEnabled: aNiladicValuable 
 	^Error notYetImplemented!
 
-setBlackCastleOptionsFromFenParser: aChessFenParser
-
-	aChessFenParser isEnabledBlackKingSideCastle 
-		ifTrue: [self enableKingSideCastle]
-		ifFalse: [self disableKingSideCastle].
-
-	aChessFenParser isEnabledBlackQueenSideCastle 
-		ifTrue: [self enableQueenSideCastle ] 
-		ifFalse: [self disableQueenSideCastle].!
-
 setChessGame: aChessGame
 
 	game := aChessGame.
 	isKingSideClastleEnabled := true.
 	isQueenSideClastleEnabled := true.!
 
-setWhiteCastleOptionsFromFenParser: aChessFenParser
+setQueenCastle: queenCastleBoolean kingCastle: kingCastleBoolean
 
-	aChessFenParser isEnabledWhiteKingSideCastle 
+	kingCastleBoolean 
 		ifTrue: [self enableKingSideCastle]
 		ifFalse: [self disableKingSideCastle].
 
-	aChessFenParser isEnabledWhiteQueenSideCastle 
+	queenCastleBoolean 
 		ifTrue: [self enableQueenSideCastle ] 
 		ifFalse: [self disableQueenSideCastle].! !
 !ChessCastleStatus categoriesForMethods!
@@ -76,9 +66,8 @@ enableQueenSideCastle!public! !
 ifKindSideCastleNotEnabled:!public! !
 ifQueenSideCastleNotEnabled:!public! !
 ifWhiteCastleNotEnabled:!public! !
-setBlackCastleOptionsFromFenParser:!public! !
 setChessGame:!private! !
-setWhiteCastleOptionsFromFenParser:!public! !
+setQueenCastle:kingCastle:!public! !
 !
 
 !ChessCastleStatus class methodsFor!

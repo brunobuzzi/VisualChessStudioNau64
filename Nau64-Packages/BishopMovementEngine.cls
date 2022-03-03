@@ -136,21 +136,7 @@ skewerPieceOn: aChessboard from: aChessSquare
 	^self
 		skeweredPieces: 1
 		on: aChessboard
-		from: aChessSquare!
-
-slidingPieceAt: sourceChessSquare canReachSkippingOnePiece: targetChessSquare on: aChessboard
-	| orientationVector reachedPieces |
-
-	reachedPieces := 0.
-	orientationVector := self orientationVectorFrom: sourceChessSquare to: targetChessSquare.
-
-	orientationVector nextSquaresFrom: sourceChessSquare do: [:square | 
-		(aChessboard squareNotEmptyAtCoordinate: square coordinate) ifTrue: [reachedPieces := reachedPieces + 1].
-		(reachedPieces <= 1 and: [square = targetChessSquare]) ifTrue: [^true].
-		reachedPieces > 1 ifTrue: [^false].
-	].
-
-	^false! !
+		from: aChessSquare! !
 !BishopMovementEngine categoriesForMethods!
 addTo:validNorthEastSquaresOn:from:skewerCountLimit:!extended squares!public! !
 addTo:validNorthWestSquaresOn:from:skewerCountLimit:!extended squares!public! !
@@ -160,7 +146,6 @@ computeReachableSquaresOn:from:!public! !
 skeweredPieces:on:from:!extended squares!public! !
 skeweredPiecesOn:from:skewerCountLimit:do:!extended squares!public! !
 skewerPieceOn:from:!extended squares!public! !
-slidingPieceAt:canReachSkippingOnePiece:on:!public! !
 !
 
 !BishopMovementEngine class methodsFor!

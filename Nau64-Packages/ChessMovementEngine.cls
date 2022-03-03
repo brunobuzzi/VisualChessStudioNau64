@@ -79,6 +79,7 @@ skewerPieceOn: aChessboard from: aChessSquare
 	^#()!
 
 slidingPieceAt: sourceChessSquare canReachSkippingOnePiece: targetChessSquare on: aChessboard
+	(sourceChessSquare = targetChessSquare) ifTrue: [^false].
 	self computeReachableSquaresOn: aChessboard from: sourceChessSquare.
 	^squaresDictionary includes: targetChessSquare!
 

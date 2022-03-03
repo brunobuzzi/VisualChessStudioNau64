@@ -290,6 +290,8 @@ skewerPieceOn: aChessboard from: aChessSquare do: aBlock
 slidingPieceAt: sourceChessSquare canReachSkippingOnePiece: targetChessSquare on: aChessboard
 	| orientationVector reachedPieces |
 
+	(sourceChessSquare isEqualTo: targetChessSquare) ifTrue: [^false].
+
 	reachedPieces := 0.
 	orientationVector := self orientationVectorFrom: sourceChessSquare to: targetChessSquare.
 

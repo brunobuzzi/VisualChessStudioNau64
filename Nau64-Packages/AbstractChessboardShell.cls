@@ -10,6 +10,10 @@ AbstractChessboardShell comment: ''!
 !AbstractChessboardShell categoriesForClass!Unclassified! !
 !AbstractChessboardShell methodsFor!
 
+copyPositionAsFenString
+
+	self defaultChessPresenter copyPositionAsFenString!
+
 defaultChessPresenter
 
 	self subclassResponsibility!
@@ -37,6 +41,7 @@ toggleCoordinates
 
 	^self defaultChessPresenter toggleCoordinates! !
 !AbstractChessboardShell categoriesForMethods!
+copyPositionAsFenString!public! !
 defaultChessPresenter!public! !
 queryCommand:!public! !
 renderChessboard!public! !

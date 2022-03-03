@@ -108,16 +108,6 @@ setGame: aChessGame
 
 !
 
-setGame: aChessGame roots: anOrderedCollectionOfChessMove
-
-	game := aChessGame.
-	treeRoots := OrderedCollection new.
-	objectNodeMap := Dictionary new.
-
-	anOrderedCollectionOfChessMove do: [:each | self addChild: each parentNode: (self newNodeParent: nil move: each)].
-
-!
-
 undoLastMoveOn: aChessboard
 	| moveToRemove node |
 
@@ -146,7 +136,6 @@ redoFirstMoveOn:!public! !
 redoNextMoveOn:!public! !
 remove:ifAbsent:!public!tree operations! !
 setGame:!private! !
-setGame:roots:!private! !
 undoLastMoveOn:!move operations!public! !
 !
 
@@ -158,14 +147,9 @@ icon
 
 newOn: aChessGame
 
-	^self new setGame: aChessGame !
-
-newOn: aChessGame withRoots: anOrderedCollectionOfChessMove
-
-	^self new setGame: aChessGame roots: anOrderedCollectionOfChessMove! !
+	^self new setGame: aChessGame ! !
 !ChessMoveTreeList class categoriesForMethods!
 icon!public! !
 newOn:!public! !
-newOn:withRoots:!public! !
 !
 

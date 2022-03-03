@@ -15,10 +15,6 @@ clearEffects
 	chessboardPresenter clearEffects.
 	view invalidate.!
 
-copyPositionAsFenString
-
-	chessboardPresenter copyPositionAsFenString!
-
 createComponents
 	super createComponents.
 	chessboardPresenter := self add: (ChessboardPlaygroundPresenter newOn: systemRoot)
@@ -129,7 +125,6 @@ toogleCenterChunk
 	chessboardPresenter toogleCenterChunk! !
 !ChessboardPlaygroundShell categoriesForMethods!
 clearEffects!public! !
-copyPositionAsFenString!public! !
 createComponents!public! !
 defaultChessPresenter!public! !
 dropBlackBishop!public! !

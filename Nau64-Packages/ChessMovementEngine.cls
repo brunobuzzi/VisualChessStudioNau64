@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #ChessMovementEngine
-	instanceVariableNames: 'piece squaresDictionary'
+	instanceVariableNames: 'tree piece squaresDictionary'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -25,6 +25,13 @@ computeReachableSquaresOn: aChessboard from: aChessSquare
 computeValidSquaresOn: aChessboard from: aChessSquare
 
 	self computeReachableSquaresOn: aChessboard from: aChessSquare!
+
+detectedAbsolutePinsDo: aBlock
+
+	piece chessSideDo: [:chessSide | | pinnedSquares |
+		pinnedSquares := squaresDictionary detectAbsolutePinSquaresFor: chessSide.
+		pinnedSquares notEmpty ifTrue: [aBlock value: pinnedSquares]
+	].!
 
 detectedForksDo: aBlock
 	
@@ -58,6 +65,13 @@ setPiece: aChessPiece
 	squaresDictionary := SquaresDictionary on: piece.
 !
 
+setPiece: aChessPiece  tree: aChessMovementEngineStackTree
+
+	piece := aChessPiece.
+	squaresDictionary := SquaresDictionary on: piece.
+	tree := aChessMovementEngineStackTree
+!
+
 skeweredPieces: anInteger on: aChessboard from: aChessSquare
 	^self skewerPieceOn: aChessboard from: aChessSquare!
 
@@ -86,6 +100,7 @@ attackedSquaresOn:from:do:!public! !
 canBeMovedToValidCoordinate:on:!public! !
 computeReachableSquaresOn:from:!public! !
 computeValidSquaresOn:from:!public! !
+detectedAbsolutePinsDo:!public! !
 detectedForksDo:!public! !
 hasDirectContactWith:on:from:!public! !
 includes:!public! !
@@ -93,6 +108,7 @@ includesAllSquares:!public! !
 isCheckMatedOn:!public! !
 isValidOn:from:to:!public! !
 setPiece:!private! !
+setPiece:tree:!private! !
 skeweredPieces:on:from:!public! !
 skewerPieceOn:from:!extended squares!public! !
 slidingPieceAt:canReachSkippingOnePiece:on:!public! !
@@ -110,9 +126,14 @@ icon
 
 newFor: aChessPiece
 
-	^self new setPiece: aChessPiece! !
+	^self new setPiece: aChessPiece!
+
+newFor: aChessPiece tree: aChessMovementEngineStackTree
+
+	^self new setPiece: aChessPiece tree: aChessMovementEngineStackTree! !
 !ChessMovementEngine class categoriesForMethods!
 icon!public! !
 newFor:!public! !
+newFor:tree:!public! !
 !
 

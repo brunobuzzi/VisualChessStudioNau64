@@ -10,6 +10,27 @@ SlidingPieceMovementEngine comment: ''!
 !SlidingPieceMovementEngine categoriesForClass!Unclassified! !
 !SlidingPieceMovementEngine methodsFor!
 
+basicSkeweredPiecesOn: aChessboard from: aChessSquare rankShift: rankShiftSign fileShift: fileShiftSign skewerCountLimit: anInteger do: aBlock
+	| oppositePieces |
+	oppositePieces := -1.
+	1 to: 7
+		do: 
+			[:shift |
+			self
+				validSquaresFrom: aChessSquare
+				toFileShift: (shift * fileShiftSign)
+				toRankShift: (shift * rankShiftSign)
+				onSucessDo: 
+					[:square |
+					((aChessboard squareNotEmptyAtCoordinate: square coordinate)
+						and: [(aChessboard pieceAt: square) isOppositeSideTo: piece])
+							ifTrue: [oppositePieces := oppositePieces + 1].
+					(((aChessboard squareNotEmptyAtCoordinate: square coordinate)
+						and: [(aChessboard pieceAt: square) isOppositeSideTo: piece]) and: [oppositePieces >= anInteger])
+						ifTrue: [aBlock value: (aChessboard pieceAt: square)].
+				]
+				onErrorDo: [:ex | ^self]]!
+
 computeReachableEastSquaresOn: aChessboard from: aChessSquare
 	1 to: 7
 		do: 
@@ -239,6 +260,33 @@ orientationVectorFrom: sourceChessSquare to: targetChessSquare
 
 	^orientationVector!
 
+skeweredPiecesAtNorthEastSquaresOn: aChessboard from: aChessSquare skewerCountLimit: anInteger do: aBlock
+
+	self basicSkeweredPiecesOn: aChessboard from: aChessSquare rankShift: 1 fileShift: 1 skewerCountLimit: anInteger do: aBlock!
+
+skeweredPiecesAtNorthWestSquaresOn: aChessboard from: aChessSquare skewerCountLimit: anInteger do: aBlock
+
+	self basicSkeweredPiecesOn: aChessboard from: aChessSquare rankShift: 1 fileShift: -1 skewerCountLimit: anInteger do: aBlock!
+
+skeweredPiecesAtSouthEastSquaresOn: aChessboard from: aChessSquare skewerCountLimit: anInteger do: aBlock
+
+	self basicSkeweredPiecesOn: aChessboard from: aChessSquare rankShift: -1 fileShift: 1 skewerCountLimit: anInteger do: aBlock!
+
+skeweredPiecesAtSouthWestSquaresOn: aChessboard from: aChessSquare skewerCountLimit: anInteger do: aBlock
+
+	self basicSkeweredPiecesOn: aChessboard from: aChessSquare rankShift: -1 fileShift: -1 skewerCountLimit: anInteger do: aBlock!
+
+skeweredPiecesOn: aChessboard from: aChessSquare skewerCountLimit: anInteger do: aBlock
+
+	self subclassResponsibility!
+
+skewerPieceOn: aChessboard from: aChessSquare do: aBlock
+	^self
+		skeweredPieces: 1
+		on: aChessboard
+		from: aChessSquare
+		do: aBlock!
+
 slidingPieceAt: sourceChessSquare canReachSkippingOnePiece: targetChessSquare on: aChessboard
 	| orientationVector reachedPieces |
 
@@ -253,6 +301,7 @@ slidingPieceAt: sourceChessSquare canReachSkippingOnePiece: targetChessSquare on
 
 	^false! !
 !SlidingPieceMovementEngine categoriesForMethods!
+basicSkeweredPiecesOn:from:rankShift:fileShift:skewerCountLimit:do:!public!skewer! !
 computeReachableEastSquaresOn:from:!normal squares!public! !
 computeReachableNorthEastSquaresOn:from:!public! !
 computeReachableNorthEastSquaresOn:from:skewerCountLimit:!extended squares!public! !
@@ -266,6 +315,12 @@ computeReachableSouthWestSquaresOn:from:!public! !
 computeReachableSouthWestSquaresOn:from:skewerCountLimit:!extended squares!public! !
 computeReachableWestSquaresOn:from:!normal squares!public! !
 orientationVectorFrom:to:!public! !
+skeweredPiecesAtNorthEastSquaresOn:from:skewerCountLimit:do:!public!skewer! !
+skeweredPiecesAtNorthWestSquaresOn:from:skewerCountLimit:do:!public!skewer! !
+skeweredPiecesAtSouthEastSquaresOn:from:skewerCountLimit:do:!public!skewer! !
+skeweredPiecesAtSouthWestSquaresOn:from:skewerCountLimit:do:!public!skewer! !
+skeweredPiecesOn:from:skewerCountLimit:do:!public!skewer! !
+skewerPieceOn:from:do:!public!skewer! !
 slidingPieceAt:canReachSkippingOnePiece:on:!public! !
 !
 

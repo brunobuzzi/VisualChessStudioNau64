@@ -233,11 +233,25 @@ skeweredPieces: anInteger on: aChessboard from: aChessSquare
 		skewerCountLimit: anInteger.
 	^validSquares!
 
+skeweredPiecesOn: aChessboard from: aChessSquare skewerCountLimit: anInteger do: aBlock
+
+	self skeweredPiecesAtNorthEastSquaresOn: aChessboard from: aChessSquare skewerCountLimit: anInteger do: aBlock.
+	self skeweredPiecesAtNorthWestSquaresOn: aChessboard from: aChessSquare skewerCountLimit: anInteger do: aBlock.
+	self skeweredPiecesAtSouthEastSquaresOn: aChessboard from: aChessSquare skewerCountLimit: anInteger do: aBlock.
+	self skeweredPiecesAtSouthWestSquaresOn: aChessboard from: aChessSquare skewerCountLimit: anInteger do: aBlock.!
+
 skewerPieceOn: aChessboard from: aChessSquare
 	^self
 		skeweredPieces: 1
 		on: aChessboard
-		from: aChessSquare! !
+		from: aChessSquare!
+
+skewerPieceOn: aChessboard from: aChessSquare do: aBlock
+	^self
+		skeweredPieces: 1
+		on: aChessboard
+		from: aChessSquare
+		do: aBlock! !
 !QueenMovementEngine categoriesForMethods!
 addTo:validEastSquaresOn:from:skewerCountLimit:!extended squares!public! !
 addTo:validNorthEastSquaresOn:from:skewerCountLimit:!extended squares!public! !
@@ -249,7 +263,9 @@ addTo:validSouthWestSquaresOn:from:skewerCountLimit:!extended squares!public! !
 addTo:validWestSquaresOn:from:skewerCountLimit:!extended squares!public! !
 computeReachableSquaresOn:from:!public! !
 skeweredPieces:on:from:!extended squares!public! !
+skeweredPiecesOn:from:skewerCountLimit:do:!extended squares!public! !
 skewerPieceOn:from:!extended squares!public! !
+skewerPieceOn:from:do:!extended squares!public! !
 !
 
 !QueenMovementEngine class methodsFor!

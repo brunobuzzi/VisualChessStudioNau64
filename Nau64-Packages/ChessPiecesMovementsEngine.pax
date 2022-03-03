@@ -8,6 +8,8 @@ package classNames
 	add: #BishopMovementEngine;
 	add: #ChessEastOrientation;
 	add: #ChessMovementEngine;
+	add: #ChessMovementEngineStackTree;
+	add: #ChessMovementEngineStackTreeNode;
 	add: #ChessNorthOrientation;
 	add: #ChessOrientation;
 	add: #ChessOrientationVector;
@@ -29,6 +31,7 @@ package methodNames
 	add: #ChessPiece -> #isValidMoveFromCoordinate:to:on:;
 	add: #ChessPiece -> #isValidMoveFromCoordinate:to:on:on:;
 	add: #ChessPiece -> #newMovementEngine;
+	add: #ChessPiece -> #newMovementEngineOn:;
 	add: #King -> #defaultMovementRuleClass;
 	add: #King -> #isValidBlackCastleMoveFrom:to:on:on:;
 	add: #King -> #isValidCastleMoveFrom:to:on:on:;
@@ -59,7 +62,17 @@ package!
 "Class Definitions"!
 
 Object subclass: #ChessMovementEngine
-	instanceVariableNames: 'piece squaresDictionary'
+	instanceVariableNames: 'tree piece squaresDictionary'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessMovementEngineStackTree
+	instanceVariableNames: 'piece originSquare chessboard roots'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessMovementEngineStackTreeNode
+	instanceVariableNames: 'tree movementEngine parentNode children'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -173,7 +186,11 @@ isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessbord 
 	^self isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessGame!
 
 newMovementEngine
-	^self defaultMovementRuleClass newFor: self! !
+	^self defaultMovementRuleClass newFor: self!
+
+newMovementEngineOn: aChessMovementEngineStackTree
+
+	^self defaultMovementRuleClass newFor: self tree: aChessMovementEngineStackTree! !
 !ChessPiece categoriesForMethods!
 currentChessSquare!public! !
 defaultMovementRuleClass!public! !
@@ -181,6 +198,7 @@ isValidMoveFromCoordinate:to:!public! !
 isValidMoveFromCoordinate:to:on:!public! !
 isValidMoveFromCoordinate:to:on:on:!public! !
 newMovementEngine!public! !
+newMovementEngineOn:!public! !
 !
 
 !King methodsFor!

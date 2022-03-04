@@ -55,7 +55,8 @@ package globalAliases: (Set new
 
 package setPrerequisites: #(
 	'ChessBasicElements'
-	'..\Core\Object Arts\Dolphin\Base\Dolphin').
+	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models').
 
 package!
 
@@ -67,12 +68,12 @@ Object subclass: #ChessMovementEngine
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #ChessMovementEngineStackTree
-	instanceVariableNames: 'piece originSquare chessboard roots'
+	instanceVariableNames: 'piece originSquare chessboard roots objectNodeMap'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #ChessMovementEngineStackTreeNode
-	instanceVariableNames: 'tree movementEngine parentNode children'
+	instanceVariableNames: 'tree square movementEngine parentNode children'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

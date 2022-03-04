@@ -87,6 +87,10 @@ squaresDictionaryDo: aBlock
 
 	aBlock value: squaresDictionary!
 
+squaresDo: aBlock
+
+	self squaresDictionaryDo: [:sqDictionary | sqDictionary squaresDo: aBlock]!
+
 squaresSize
 	^squaresDictionary squaresSize!
 
@@ -114,6 +118,7 @@ skeweredPieces:on:from:!public! !
 skewerPieceOn:from:!extended squares!public! !
 slidingPieceAt:canReachSkippingOnePiece:on:!public! !
 squaresDictionaryDo:!public! !
+squaresDo:!public! !
 squaresSize!public! !
 validSquaresFrom:toFileShift:toRankShift:onSucessDo:onErrorDo:!public! !
 !

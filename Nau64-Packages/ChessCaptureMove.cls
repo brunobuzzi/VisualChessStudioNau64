@@ -17,10 +17,23 @@ performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aC
 setMove: aChessMove capturedPiece: code
 
 	move := aChessMove.
-	capturedPieceCode := code! !
+	capturedPieceCode := code!
+
+undoOn: aChessboard 
+	| killerPiece capturedPieceClass capturedPiece |
+
+	killerPiece := aChessboard pieceAtCoordinate: move to.
+	capturedPieceClass :=ChessPiece allSubclasses detect: [:each | each pieceCode = capturedPieceCode] ifNone: [self error: 'Move Undo failed'].
+
+	killerPiece oppositeSideDo: [:opSide | capturedPiece := capturedPieceClass  newOn: opSide].
+
+	aChessboard movePieceFromCoordiante: move to to: move from.
+
+	aChessboard pieceAtCoordinate: move to put: capturedPiece! !
 !ChessCaptureMove categoriesForMethods!
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
 setMove:capturedPiece:!public! !
+undoOn:!public! !
 !
 
 !ChessCaptureMove class methodsFor!

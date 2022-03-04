@@ -24,16 +24,12 @@ isSlidingPiece
 
 movesAreCompatibleWith: aChessOrientationVector
 
-	^aChessOrientationVector isCompatibleWithRook!
-
-pieceCode
-	^'r'! !
+	^aChessOrientationVector isCompatibleWithRook! !
 !Rook categoriesForMethods!
 fenString!public! !
 isRook!public!testing! !
 isSlidingPiece!public! !
 movesAreCompatibleWith:!public! !
-pieceCode!public! !
 !
 
 !Rook class methodsFor!
@@ -41,8 +37,12 @@ pieceCode!public! !
 filePrefix
 	" r - rook "
 
+	^'r'!
+
+pieceCode
 	^'r'! !
 !Rook class categoriesForMethods!
 filePrefix!public! !
+pieceCode!public! !
 !
 

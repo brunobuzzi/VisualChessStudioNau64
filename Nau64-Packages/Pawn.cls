@@ -20,15 +20,11 @@ fenString
 
 isPawn
 
-	^true!
-
-pieceCode
-	^'p'! !
+	^true! !
 !Pawn categoriesForMethods!
 canBeMovedToValidCoordinate:on:!public!testing! !
 fenString!public! !
 isPawn!public!testing! !
-pieceCode!public! !
 !
 
 !Pawn class methodsFor!
@@ -36,8 +32,12 @@ pieceCode!public! !
 filePrefix
 	" p - pawn "
 
+	^'p'!
+
+pieceCode
 	^'p'! !
 !Pawn class categoriesForMethods!
 filePrefix!public! !
+pieceCode!public! !
 !
 

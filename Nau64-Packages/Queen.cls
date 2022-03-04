@@ -24,16 +24,12 @@ isSlidingPiece
 
 movesAreCompatibleWith: aChessOrientationVector
 
-	^aChessOrientationVector isCompatibleWithQueen!
-
-pieceCode
-	^'q'! !
+	^aChessOrientationVector isCompatibleWithQueen! !
 !Queen categoriesForMethods!
 fenString!public! !
 isQueen!public!testing! !
 isSlidingPiece!public! !
 movesAreCompatibleWith:!public! !
-pieceCode!public! !
 !
 
 !Queen class methodsFor!
@@ -41,8 +37,12 @@ pieceCode!public! !
 filePrefix
 	" q - queen "
 
+	^'q'!
+
+pieceCode
 	^'q'! !
 !Queen class categoriesForMethods!
 filePrefix!public! !
+pieceCode!public! !
 !
 

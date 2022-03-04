@@ -19,15 +19,11 @@ isCheckMatedOn: aChessboard
 
 isKing
 
-	^true!
-
-pieceCode
-	^'k'! !
+	^true! !
 !King categoriesForMethods!
 fenString!public! !
 isCheckMatedOn:!public! !
 isKing!public!testing! !
-pieceCode!public! !
 !
 
 !King class methodsFor!
@@ -35,8 +31,12 @@ pieceCode!public! !
 filePrefix
 	" k - king "
 
+	^'k'!
+
+pieceCode
 	^'k'! !
 !King class categoriesForMethods!
 filePrefix!public! !
+pieceCode!public! !
 !
 

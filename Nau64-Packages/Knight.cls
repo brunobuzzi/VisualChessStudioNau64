@@ -16,14 +16,10 @@ fenString
 
 isKnight
 
-	^true!
-
-pieceCode
-	^'n'! !
+	^true! !
 !Knight categoriesForMethods!
 fenString!public! !
 isKnight!public!testing! !
-pieceCode!public! !
 !
 
 !Knight class methodsFor!
@@ -31,8 +27,12 @@ pieceCode!public! !
 filePrefix
 	" n - Knight "
 
+	^'n'!
+
+pieceCode
 	^'n'! !
 !Knight class categoriesForMethods!
 filePrefix!public! !
+pieceCode!public! !
 !
 

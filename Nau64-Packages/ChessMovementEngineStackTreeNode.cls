@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #ChessMovementEngineStackTreeNode
-	instanceVariableNames: 'tree movementEngine parentNode children'
+	instanceVariableNames: 'tree square movementEngine parentNode children'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -10,22 +10,54 @@ ChessMovementEngineStackTreeNode comment: ''!
 !ChessMovementEngineStackTreeNode categoriesForClass!Unclassified! !
 !ChessMovementEngineStackTreeNode methodsFor!
 
-setTree: aChessMovementEngineStackTree movementEngine: aChessMovementEngine parentNode: treeNode
+children
+
+	^children!
+
+expand
+
+	children notEmpty ifTrue: [^self].
+
+	self halt.!
+
+parentNode
+
+	^parentNode!
+
+printOn: aStream
+
+	super printOn: aStream.
+
+	aStream nextPutAll: '[', square printName, ']'!
+
+setTree: aChessMovementEngineStackTree from: aChessSquare movementEngine: aChessMovementEngine parentNode: treeNode
 
 	tree := aChessMovementEngineStackTree.
 	movementEngine := aChessMovementEngine.
 	parentNode := treeNode.
-	children := OrderedCollection new.! !
+	children := OrderedCollection new.
+	square := aChessSquare
+
+!
+
+square
+
+	^square! !
 !ChessMovementEngineStackTreeNode categoriesForMethods!
-setTree:movementEngine:parentNode:!private! !
+children!public! !
+expand!public! !
+parentNode!public! !
+printOn:!public! !
+setTree:from:movementEngine:parentNode:!private! !
+square!public! !
 !
 
 !ChessMovementEngineStackTreeNode class methodsFor!
 
-newOn: aChessMovementEngineStackTree movementEngine: aChessMovementEngint parentNode: treeNode
+newOn: aChessMovementEngineStackTree from: aChessSquare movementEngine: aChessMovementEngint parentNode: treeNode
 
-	^self new setTree: aChessMovementEngineStackTree movementEngine: aChessMovementEngint parentNode: treeNode! !
+	^self new setTree: aChessMovementEngineStackTree from: aChessSquare  movementEngine: aChessMovementEngint parentNode: treeNode! !
 !ChessMovementEngineStackTreeNode class categoriesForMethods!
-newOn:movementEngine:parentNode:!public! !
+newOn:from:movementEngine:parentNode:!public! !
 !
 

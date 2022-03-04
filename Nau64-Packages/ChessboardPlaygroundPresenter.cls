@@ -178,6 +178,12 @@ renderChessboard
 	effects do: [:chessboardEffect | chessboardEffect drawOn: gdiBitmap].
 	self imageModel: gdiBitmap asValue!
 
+setRoot: aSystemRoot
+
+	super setRoot: aSystemRoot.
+
+	effects := OrderedCollection new.!
+
 showAttackedSquaresBySide
 	effects add: (AttackedSquaresBySideEffect newOn: model).
 	self renderChessboard.!
@@ -244,6 +250,7 @@ newEmptyChessboard!public!rendering-effects! !
 onDropOver:!drag & drop!public! !
 onViewOpened!public! !
 renderChessboard!public!rendering-chessboard! !
+setRoot:!private! !
 showAttackedSquaresBySide!public!rendering-effects! !
 showForksForBlack!public! !
 showForksForWhite!public! !

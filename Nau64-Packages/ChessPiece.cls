@@ -100,7 +100,7 @@ oppositeSideName
 	^chessSide oppositeSideName!
 
 pieceCode
-	self subclassResponsibility!
+	^self class pieceCode!
 
 setSide: aChessSide
 
@@ -156,10 +156,15 @@ icon
 
 newOn: aChessSide
 
-	^self new setSide: aChessSide! !
+	^self new setSide: aChessSide!
+
+pieceCode
+
+	self subclassResponsibility! !
 !ChessPiece class categoriesForMethods!
 filePrefix!public! !
 icon!public! !
 newOn:!public! !
+pieceCode!public! !
 !
 

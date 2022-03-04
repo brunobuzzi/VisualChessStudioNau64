@@ -94,11 +94,14 @@ printFile
 
 	^file printName!
 
+printName
+	^self printFile, self printRank!
+
 printOn: aStream
 
 	super printOn: aStream.
 
-	aStream nextPutAll: '[', self printFile, self printRank, ']'!
+	aStream nextPutAll: '[', self printName, ']'!
 
 printRank
 
@@ -160,6 +163,7 @@ nextFile:nextRank:onSuccessDo:onErrorDo:!public! !
 notEqualTo:!comparisons!public! !
 oppositeBitmap!public! !
 printFile!public! !
+printName!public! !
 printOn:!public! !
 printRank!public! !
 rankIsEqualTo:!comparisons!public! !

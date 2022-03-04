@@ -95,8 +95,7 @@ undoOn: aChessboard
 
 	categories isEmpty ifTrue: [^aChessboard movePieceFromCoordiante: to to: from].
 
-	self halt
-! !
+	categories do: [:each | each undoOn: aChessboard]! !
 !ChessMove categoriesForMethods!
 addEnPassantCategory!public! !
 from!public! !

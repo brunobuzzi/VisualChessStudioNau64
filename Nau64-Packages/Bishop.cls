@@ -24,16 +24,12 @@ isSlidingPiece
 
 movesAreCompatibleWith: aChessOrientationVector
 
-	^aChessOrientationVector isCompatibleWithBishop!
-
-pieceCode
-	^'b'! !
+	^aChessOrientationVector isCompatibleWithBishop! !
 !Bishop categoriesForMethods!
 fenString!public! !
 isBishop!public!testing! !
 isSlidingPiece!public! !
 movesAreCompatibleWith:!public! !
-pieceCode!public! !
 !
 
 !Bishop class methodsFor!
@@ -41,8 +37,12 @@ pieceCode!public! !
 filePrefix
 	" b - bishop "
 
+	^'b'!
+
+pieceCode
 	^'b'! !
 !Bishop class categoriesForMethods!
 filePrefix!public! !
+pieceCode!public! !
 !
 

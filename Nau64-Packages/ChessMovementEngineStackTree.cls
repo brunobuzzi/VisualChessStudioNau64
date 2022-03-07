@@ -15,26 +15,23 @@ addChild: aChessSquare parentNode: parentChessSquare
 
 	parentNode := self lookupNode: parentChessSquare.
 	childNode := self createTreeNodesFrom: aChessSquare parentNode: parentNode.
-	(objectNodeMap includesKey: aChessSquare) ifTrue: [^self].
+	"(objectNodeMap includesKey: aChessSquare) ifTrue: [^self]."
 	objectNodeMap at: aChessSquare put: childNode.
 	parentChessSquare 
 		ifNotNil: [(self lookupNode: parentChessSquare) addChildNode: childNode]
-		ifNil: [roots add: childNode]!
+		ifNil: [roots add: childNode].!
 
 asDolphinTreeModel
 	| treeModel |
 
-	treeModel := TreeModel withRoots: (roots collect: [:each | each square]).
+	treeModel := TreeModel withRoots: roots.
 	
-	self preOrderDo: [:node | treeModel add: node square asChildOf: (self getNodeFor: node) parentNode].
+	self preOrderDo: [:node | treeModel add: node asChildOf: node parentNode].
 
 	^treeModel!
 
-childrenOf: aChessSquare
-
-	^aChessSquare isNil
-		ifTrue: [roots]
-		ifFalse: [self getChildrenOf: aChessSquare]!
+childrenOf: aTreeNode
+	^aTreeNode isNil ifTrue: [roots] ifFalse: [aTreeNode children]!
 
 childrenOfNode: aNode
 
@@ -72,6 +69,17 @@ includesSquare: aChessSquare
 
 	^objectNodeMap includesKey: aChessSquare!
 
+increaseTreeLevelTo: anInteger
+
+
+	self preOrderDo: [:node | 
+		node hasChildren 
+			ifFalse: [(node treeLevel  <= anInteger)
+				ifTrue: [node squaresDo: [:square | self addChild: square parentNode: node square]]]
+
+	].
+!
+
 lookupNode: aChessSquare
 
 	^objectNodeMap lookup: aChessSquare!
@@ -83,11 +91,11 @@ preOrderDo: aMonadicValuable
 
 	roots do: [:each | self preOrderDo: aMonadicValuable on: each]!
 
-preOrderDo: aMonadicValuable on: aChessSquare
+preOrderDo: aMonadicValuable on: aTreeNode
 
-	aMonadicValuable value: aChessSquare.
+	aMonadicValuable value: aTreeNode.
 
-	(self childrenOf: aChessSquare) do: [:square | self preOrderDo: aMonadicValuable on: square]!
+	(self childrenOf: aTreeNode) do: [:treeNode | self preOrderDo: aMonadicValuable on: treeNode]!
 
 setPiece: aChessPiece from: aChessSquare on: aChessboard
 	| moveEngine |
@@ -100,7 +108,9 @@ setPiece: aChessPiece from: aChessSquare on: aChessboard
 
 	moveEngine := piece newMovementEngineOn: self.
 	moveEngine computeValidSquaresOn: chessboard from: originSquare.
-	moveEngine squaresDo: [:square | self addChild: square parentNode: nil]
+
+	self addChild: aChessSquare parentNode: nil.
+	moveEngine squaresDo: [:square | self addChild: square parentNode: aChessSquare].
 ! !
 !ChessMovementEngineStackTree categoriesForMethods!
 addChild:parentNode:!public! !
@@ -113,6 +123,7 @@ expantUpToLevel:!public! !
 getChildrenOf:!public! !
 getNodeFor:!public! !
 includesSquare:!public! !
+increaseTreeLevelTo:!public! !
 lookupNode:!private! !
 preOrderDo:!public! !
 preOrderDo:on:!public! !

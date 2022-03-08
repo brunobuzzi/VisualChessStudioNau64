@@ -24,10 +24,10 @@ package classNames
 	add: #Pawn;
 	add: #Queen;
 	add: #Rook;
-	add: #SquaresDictionary;
 	yourself.
 
 package methodNames
+	add: #OrderedCollection -> #ifAbsentAdd:;
 	add: #Symbol -> #asChessSquareIn:;
 	yourself.
 
@@ -77,11 +77,6 @@ Object subclass: #ChessSquare
 	classInstanceVariableNames: ''!
 Object subclass: #Nau64ChessSystemRoot
 	instanceVariableNames: 'files ranks squares'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-Object subclass: #SquaresDictionary
-	instanceVariableNames: 'squares piece'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -140,6 +135,17 @@ ChessSide subclass: #ChessSideWhite
 
 
 "Loose Methods"!
+
+!OrderedCollection methodsFor!
+
+ifAbsentAdd: anObject
+
+	^(self includes: anObject)
+	ifTrue: [anObject] 
+	ifFalse: [self add: anObject]! !
+!OrderedCollection categoriesForMethods!
+ifAbsentAdd:!public! !
+!
 
 !Symbol methodsFor!
 

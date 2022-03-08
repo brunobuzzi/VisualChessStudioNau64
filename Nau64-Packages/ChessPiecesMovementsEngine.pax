@@ -21,6 +21,7 @@ package classNames
 	add: #QueenMovementEngine;
 	add: #RookMovementEngine;
 	add: #SlidingPieceMovementEngine;
+	add: #SquaresDictionary;
 	yourself.
 
 package methodNames
@@ -56,6 +57,7 @@ package globalAliases: (Set new
 package setPrerequisites: #(
 	'ChessBasicElements'
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
 	'..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models').
 
 package!
@@ -84,6 +86,11 @@ Object subclass: #ChessOrientation
 	classInstanceVariableNames: ''!
 Object subclass: #ChessOrientationVector
 	instanceVariableNames: 'piece southOrNorth eastOrWest'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #SquaresDictionary
+	instanceVariableNames: 'squares piece'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

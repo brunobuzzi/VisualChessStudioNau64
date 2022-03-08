@@ -10,69 +10,43 @@ SquaresDictionary comment: ''!
 !SquaresDictionary categoriesForClass!Unclassified! !
 !SquaresDictionary methodsFor!
 
+add: aChessSquare to: aCollection
+
+	(aCollection includes: aChessSquare) ifTrue: [^aChessSquare].
+
+	aCollection add: aChessSquare!
+
 atEastAdd: aChessSquare
 
-	(squares at: #east ifAbsentPut: [Set new]) add: aChessSquare!
-
-atEastPut: aCollection
-
-	squares at: #east put: aCollection!
+	(squares at: #east ifAbsentPut: [OrderedCollection new]) ifAbsentAdd: aChessSquare!
 
 atNorthAdd: aChessSquare
 
-	(squares at: #north ifAbsentPut: [Set new]) add: aChessSquare!
+	(squares at: #north ifAbsentPut: [OrderedCollection new]) ifAbsentAdd: aChessSquare!
 
 atNorthEastAdd: aChessSquare
 
-	(squares at: #northEast ifAbsentPut: [Set new]) add: aChessSquare!
-
-atNorthEastPut: aCollection
-
-	squares at: #northEast put: aCollection!
-
-atNorthPut: aCollection
-
-	squares at: #north put: aCollection!
+	(squares at: #northEast ifAbsentPut: [OrderedCollection new]) ifAbsentAdd: aChessSquare!
 
 atNorthWestAdd: aChessSquare
 
-	(squares at: #northWest ifAbsentPut: [Set new]) add: aChessSquare!
-
-atNorthWestPut: aCollection
-
-	squares at: #northWest put: aCollection!
+	(squares at: #northWest ifAbsentPut: [OrderedCollection new]) ifAbsentAdd: aChessSquare!
 
 atSouthAdd: aChessSquare
 
-	(squares at: #south ifAbsentPut: [Set new]) add: aChessSquare!
+	(squares at: #south ifAbsentPut: [OrderedCollection new]) ifAbsentAdd: aChessSquare!
 
 atSouthEastAdd: aChessSquare
 
-	(squares at: #southEast ifAbsentPut: [Set new]) add: aChessSquare!
-
-atSouthEastPut: aCollection
-
-	squares at: #southEast put: aCollection!
-
-atSouthPut: aCollection
-
-	squares at: #south put: aCollection!
+	(squares at: #southEast ifAbsentPut: [OrderedCollection new]) ifAbsentAdd: aChessSquare!
 
 atSouthWestAdd: aChessSquare
 
-	(squares at: #southWest ifAbsentPut: [Set new]) add: aChessSquare!
-
-atSouthWestPut: aCollection
-
-	squares at: #southWest put: aCollection!
+	(squares at: #southWest ifAbsentPut: [OrderedCollection new]) ifAbsentAdd: aChessSquare!
 
 atWestAdd: aChessSquare
 
-	(squares at: #west ifAbsentPut: [Set new]) add: aChessSquare!
-
-atWestPut: aCollection
-
-	squares at: #west put: aCollection!
+	(squares at: #west ifAbsentPut: [OrderedCollection new]) ifAbsentAdd: aChessSquare!
 
 detectAbsolutePinSquaresFor: aChessSide
 	| attackedPieces forkedSquares |
@@ -132,6 +106,38 @@ includesAll: aCollection
 	self squaresDo: [:each | (aCollection includes: each) ifFalse: [^false]].
 
 	^true!
+
+includesAtEast: aChessSquare
+
+	^(squares at: #east) includes: aChessSquare!
+
+includesAtNorth: aChessSquare
+
+	^(squares at: #north) includes: aChessSquare!
+
+includesAtNorthEast: aChessSquare
+
+	^(squares at: #northEast) includes: aChessSquare!
+
+includesAtNorthWest: aChessSquare
+
+	^(squares at: #northWest) includes: aChessSquare!
+
+includesAtSouth: aChessSquare
+
+	^(squares at: #south) includes: aChessSquare!
+
+includesAtSouthEast: aChessSquare
+
+	^(squares at: #southEast) includes: aChessSquare!
+
+includesAtSouthWest: aChessSquare
+
+	^(squares at: #southWest) includes: aChessSquare!
+
+includesAtWest: aChessSquare
+
+	^(squares at: #west) includes: aChessSquare!
 
 intersection: aSquaresDictionary
 	| newSquareDictionary |
@@ -214,33 +220,33 @@ squaresDo: aBlock
 
 squaresSize
 	| size |
+
 	size := 0.
-
 	self squaresDo: [:each | size := size + 1].
-
 	^size! !
 !SquaresDictionary categoriesForMethods!
+add:to:!add element!public! !
 atEastAdd:!add element!public! !
-atEastPut:!public!put collection! !
 atNorthAdd:!add element!public! !
 atNorthEastAdd:!add element!public! !
-atNorthEastPut:!public!put collection! !
-atNorthPut:!public!put collection! !
 atNorthWestAdd:!add element!public! !
-atNorthWestPut:!public!put collection! !
 atSouthAdd:!add element!public! !
 atSouthEastAdd:!add element!public! !
-atSouthEastPut:!public!put collection! !
-atSouthPut:!public!put collection! !
 atSouthWestAdd:!add element!public! !
-atSouthWestPut:!public!put collection! !
 atWestAdd:!add element!public! !
-atWestPut:!public!put collection! !
 detectAbsolutePinSquaresFor:!public!tactics searchs! !
 detectForkedSquaresFor:!public!tactics searchs! !
 difference:!public!set operations! !
 includes:!public!searching! !
 includesAll:!public!searching! !
+includesAtEast:!public!searching! !
+includesAtNorth:!public!searching! !
+includesAtNorthEast:!public!searching! !
+includesAtNorthWest:!public!searching! !
+includesAtSouth:!public!searching! !
+includesAtSouthEast:!public!searching! !
+includesAtSouthWest:!public!searching! !
+includesAtWest:!public!searching! !
 intersection:!public!searching!set operations! !
 isEmpty!public!set operations! !
 remove:!public!set operations! !

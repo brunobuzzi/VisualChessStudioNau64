@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #ChessMovementEngineStackTree
-	instanceVariableNames: 'piece originSquare chessboard roots objectNodeMap'
+	instanceVariableNames: 'piece originSquare chessboard roots objectNodeMap level'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -13,9 +13,11 @@ ChessMovementEngineStackTree comment: ''!
 addChild: aChessSquare parentNode: parentChessSquare
 	| childNode parentNode |
 
+	Transcript show: 'Parent: ', (parentChessSquare ifNil: ['nil'] ifNotNil: [:v | v printName]), ' child: ', aChessSquare printName; cr.
 	parentNode := self lookupNode: parentChessSquare.
 	childNode := self createTreeNodesFrom: aChessSquare parentNode: parentNode.
 	"(objectNodeMap includesKey: aChessSquare) ifTrue: [^self]."
+	(childNode allParentsSquares includes: aChessSquare) ifTrue: [^self].
 	objectNodeMap at: aChessSquare put: childNode.
 	parentChessSquare 
 		ifNotNil: [(self lookupNode: parentChessSquare) addChildNode: childNode]
@@ -105,6 +107,7 @@ setPiece: aChessPiece from: aChessSquare on: aChessboard
 	piece := aChessPiece.
 	originSquare := aChessSquare.
 	chessboard := aChessboard.
+	level := 1.
 
 	moveEngine := piece newMovementEngineOn: self.
 	moveEngine computeValidSquaresOn: chessboard from: originSquare.

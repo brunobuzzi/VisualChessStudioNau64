@@ -14,6 +14,22 @@ addChildNode: aChessMovementEngineStackTreeNode
 
 	^children add: aChessMovementEngineStackTreeNode!
 
+allParents
+
+	^self allParentsOn: OrderedCollection new!
+
+allParentsOn: anOrderedCollection
+
+	parentNode ifNil: [^anOrderedCollection].
+
+	anOrderedCollection add: parentNode.
+
+	^parentNode allParentsOn: anOrderedCollection!
+
+allParentsSquares
+
+	^self allParents collect: [:each | each square]!
+
 children
 
 	^children!
@@ -63,6 +79,9 @@ treeLevel
 	^1 + parentNode treeLevel! !
 !ChessMovementEngineStackTreeNode categoriesForMethods!
 addChildNode:!public! !
+allParents!public! !
+allParentsOn:!public! !
+allParentsSquares!public! !
 children!public! !
 expand!public! !
 hasChildren!public! !

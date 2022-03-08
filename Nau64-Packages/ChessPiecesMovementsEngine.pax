@@ -70,7 +70,7 @@ Object subclass: #ChessMovementEngine
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #ChessMovementEngineStackTree
-	instanceVariableNames: 'piece originSquare chessboard roots objectNodeMap'
+	instanceVariableNames: 'piece originSquare chessboard roots objectNodeMap level'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

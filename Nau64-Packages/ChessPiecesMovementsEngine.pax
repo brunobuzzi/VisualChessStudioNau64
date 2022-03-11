@@ -7,9 +7,11 @@ package paxVersion: 1;
 package classNames
 	add: #BishopMovementEngine;
 	add: #ChessEastOrientation;
+	add: #ChessEngineOrientationTreeNode;
+	add: #ChessEnginePieceStackTree;
+	add: #ChessEngineSquareTreeNode;
+	add: #ChessEngineTreeNode;
 	add: #ChessMovementEngine;
-	add: #ChessMovementEngineStackTree;
-	add: #ChessMovementEngineStackTreeNode;
 	add: #ChessNorthOrientation;
 	add: #ChessOrientation;
 	add: #ChessOrientationVector;
@@ -64,18 +66,18 @@ package!
 
 "Class Definitions"!
 
-Object subclass: #ChessMovementEngine
-	instanceVariableNames: 'tree piece squaresDictionary'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-Object subclass: #ChessMovementEngineStackTree
+Object subclass: #ChessEnginePieceStackTree
 	instanceVariableNames: 'piece originSquare chessboard roots objectNodeMap level'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-Object subclass: #ChessMovementEngineStackTreeNode
-	instanceVariableNames: 'tree square movementEngine parentNode children'
+Object subclass: #ChessEngineTreeNode
+	instanceVariableNames: 'tree square orientation movementEngine parentNode children'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessMovementEngine
+	instanceVariableNames: 'tree piece squaresDictionary'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -91,6 +93,16 @@ Object subclass: #ChessOrientationVector
 	classInstanceVariableNames: ''!
 Object subclass: #SquaresDictionary
 	instanceVariableNames: 'squares piece'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessEngineTreeNode subclass: #ChessEngineOrientationTreeNode
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessEngineTreeNode subclass: #ChessEngineSquareTreeNode
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

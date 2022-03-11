@@ -277,7 +277,7 @@ drawOn: aCanvas chessboard: aChessboard at: symbolCoordinate  isDisplayCoordinat
 
 	aCanvas graphics 
 			drawString: square name 
-			font: (GdiplusFont name: 'Arial' emSize: 10)
+			font: (GdiplusFont name: 'Arial' pixelSize: 12)
 			at: ((square calculatePositionAt: aChessboard) + 2)
 			format: nil 
 			brush: (GdiplusSolidBrush color: Color darkRed).! !
@@ -329,7 +329,7 @@ drawOn: aCanvas chessboard: aChessboard isDisplayCoordinatesEnabled: isDisplayCo
 
 	aCanvas graphics 
 			drawString: self name 
-			font: (GdiplusFont name: 'Arial' emSize: 14)
+			font: (GdiplusFont name: 'Arial' pixelSize: 16)
 			at: ((self calculatePositionAt: aChessboard) + (aChessboard squareSize // 2) - 10)
 			format: nil 
 			brush: (GdiplusSolidBrush color: Color darkRed).!

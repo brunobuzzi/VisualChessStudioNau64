@@ -83,6 +83,23 @@ slidingPieceAt: sourceChessSquare canReachSkippingOnePiece: targetChessSquare on
 	self computeReachableSquaresOn: aChessboard from: sourceChessSquare.
 	^squaresDictionary includes: targetChessSquare!
 
+squaresAndOrientationDo: aBlock
+
+	squaresDictionary squaresAtEastDo: [:square | aBlock value: square value: #east].
+	squaresDictionary squaresAtNorthDo: [:square | aBlock value: square value: #north].
+	squaresDictionary squaresAtNorthEastDo: [:square | aBlock value: square value: #northEast].
+	squaresDictionary squaresAtNorthWestDo: [:square | aBlock value: square value: #northWest].
+	squaresDictionary squaresAtSouthDo: [:square | aBlock value: square value: #south].
+	squaresDictionary squaresAtSouthEastDo: [:square | aBlock value: square value: #southEast].
+	squaresDictionary squaresAtSouthWestDo: [:square | aBlock value: square value: #southWest].
+	squaresDictionary squaresAtWestDo: [:square | aBlock value: square value: #southWest].
+
+
+
+
+
+!
+
 squaresDictionaryDo: aBlock
 
 	aBlock value: squaresDictionary!
@@ -117,6 +134,7 @@ setPiece:tree:!private! !
 skeweredPieces:on:from:!public! !
 skewerPieceOn:from:!extended squares!public! !
 slidingPieceAt:canReachSkippingOnePiece:on:!public! !
+squaresAndOrientationDo:!public! !
 squaresDictionaryDo:!public! !
 squaresDo:!public! !
 squaresSize!public! !

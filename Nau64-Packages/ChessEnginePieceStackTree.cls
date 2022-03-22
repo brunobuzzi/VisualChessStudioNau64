@@ -10,19 +10,33 @@ ChessEnginePieceStackTree comment: ''!
 !ChessEnginePieceStackTree categoriesForClass!Unclassified! !
 !ChessEnginePieceStackTree methodsFor!
 
-addChild: aChessSquare parentNode: parentChessSquare to: orientationSymbol
+addChild: aChessSquare fromOrientation: orientationSymbol parentSquare: parentChessSquare
 	| childNode parentNode parentNodeKey |
 
 	Transcript show: 'Parent: ', (parentChessSquare ifNil: ['nil'] ifNotNil: [:v | v printName]), ' child: ', aChessSquare printName, ' orient: ', orientationSymbol; cr.
-	parentNodeKey := parentChessSquare ifNil: [] ifNotNil: [(parentChessSquare printName, orientationSymbol) asSymbol].
+	parentNodeKey := parentChessSquare printName asSymbol.
 	parentNode := self lookupNode: parentNodeKey.
-	childNode := self createTreeNodesFrom: aChessSquare parentNode: parentNode to: orientationSymbol.
+	childNode := self createTreeOrientationNodesFrom: aChessSquare fromOrientation: orientationSymbol parentNode: parentNode.
 	"(objectNodeMap includesKey: aChessSquare) ifTrue: [^self]."
 	(childNode allParentsSquares includes: aChessSquare) ifTrue: [^self].
-	objectNodeMap at: (aChessSquare printName , orientationSymbol) asSymbol put: childNode.
-	parentChessSquare 
-		ifNotNil: [(self lookupNode: parentNodeKey) addChildNode: childNode]
-		ifNil: [roots add: childNode].!
+	objectNodeMap at: childNode treeKey put: childNode.
+	(self lookupNode: parentNodeKey) addChildNode: childNode!
+
+addChildren: squareCollection fromOrientation: orientationSymbol parentSquare: parentChessSquare
+	| orientationNode parentNode parentNodeKey |
+
+	"Transcript show: 'Parent: ', (parentChessSquare ifNil: ['nil'] ifNotNil: [:v | v printName]), ' child: ', aChessSquare printName, ' orient: ', orientationSymbol; cr."
+	parentNodeKey := parentChessSquare printName asSymbol.
+	parentNode := self lookupNode: parentNodeKey.
+	orientationNode := self
+				createTreeOrientationNodesFrom: parentChessSquare
+				fromOrientation: orientationSymbol
+				parentNode: parentNode.
+	"(objectNodeMap includesKey: aChessSquare) ifTrue: [^self]."
+	"(childNode allParentsSquares includes: aChessSquare) ifTrue: [^self]."
+	squareCollection do: [:square | self addChild: square parentNode: orientationNode].
+	objectNodeMap at: orientationNode treeKey put: orientationNode.
+	(self lookupNode: parentNodeKey) addChildNode: orientationNode!
 
 asDolphinTreeModel
 	| treeModel |
@@ -40,15 +54,32 @@ childrenOfNode: aNode
 
 	^aNode children!
 
-createTreeNodesFrom: aChessSquare parentNode: parentNode to: orientationSymbol
+createTopNodeAndChildren
+	| moveEngine treeNode |
+
+	moveEngine := piece newMovementEngineOn: self.
+	moveEngine computeValidSquaresOn: chessboard from: originSquare.
+	treeNode := ChessEngineSquareTreeNode
+				newOn: self
+				from: originSquare
+				movementEngine: moveEngine
+				parentNode: nil.
+	roots add: treeNode.
+
+	objectNodeMap at: originSquare printName asSymbol put: treeNode.
+
+	self halt.
+	moveEngine squaresAndOrientationDo: [:squares :orientationSymbol | self addChildren: squares fromOrientation: orientationSymbol parentSquare: originSquare].
+
+!
+
+createTreeOrientationNodesFrom: aChessSquare fromOrientation: orientationSymbol parentNode: parentNode 
 	| moveEngine treeNode |
 	moveEngine := piece newMovementEngineOn: self.
 	moveEngine computeValidSquaresOn: chessboard from: aChessSquare.
-	treeNode := ChessEngineTreeNode
+	treeNode := ChessEngineOrientationTreeNode
 				newOn: self
-				from: aChessSquare
 				orientation: orientationSymbol
-				movementEngine: moveEngine
 				parentNode: parentNode.
 	^treeNode!
 
@@ -127,8 +158,7 @@ printTreeOn: aStream
 	roots do: [:each | each printNodeOn: aStream].!
 
 setPiece: aChessPiece from: aChessSquare on: aChessboard
-	| moveEngine |
-
+	
 	roots := OrderedCollection new.
 	objectNodeMap := Dictionary new.
 	piece := aChessPiece.
@@ -136,18 +166,17 @@ setPiece: aChessPiece from: aChessSquare on: aChessboard
 	chessboard := aChessboard.
 	level := 1.
 
-	moveEngine := piece newMovementEngineOn: self.
-	moveEngine computeValidSquaresOn: chessboard from: originSquare.
-
-	self addChild: aChessSquare parentNode: nil to: #nil.
-	moveEngine squaresAndOrientationDo: [:square :orientationSymbol | self addChild: square parentNode: aChessSquare to: orientationSymbol].
+	self createTopNodeAndChildren.
+	
 ! !
 !ChessEnginePieceStackTree categoriesForMethods!
-addChild:parentNode:to:!public! !
+addChild:fromOrientation:parentSquare:!build tree!public! !
+addChildren:fromOrientation:parentSquare:!build tree!public! !
 asDolphinTreeModel!public! !
 childrenOf:!public! !
 childrenOfNode:!public! !
-createTreeNodesFrom:parentNode:to:!public! !
+createTopNodeAndChildren!build tree!private! !
+createTreeOrientationNodesFrom:fromOrientation:parentNode:!build tree!public! !
 expandSquare:!public! !
 expantUpToLevel:!public! !
 getChildrenOf:!public! !
@@ -160,7 +189,7 @@ preOrderDo:!public! !
 preOrderDo:on:!public! !
 printTree!public! !
 printTreeOn:!public! !
-setPiece:from:on:!private! !
+setPiece:from:on:!build tree!private! !
 !
 
 !ChessEnginePieceStackTree class methodsFor!

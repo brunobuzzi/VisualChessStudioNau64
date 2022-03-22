@@ -72,7 +72,7 @@ Object subclass: #ChessEnginePieceStackTree
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #ChessEngineTreeNode
-	instanceVariableNames: 'tree square orientation movementEngine parentNode children'
+	instanceVariableNames: 'tree parentNode children'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -97,12 +97,12 @@ Object subclass: #SquaresDictionary
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessEngineTreeNode subclass: #ChessEngineOrientationTreeNode
-	instanceVariableNames: ''
+	instanceVariableNames: 'orientation'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessEngineTreeNode subclass: #ChessEngineSquareTreeNode
-	instanceVariableNames: ''
+	instanceVariableNames: 'square movementEngine'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

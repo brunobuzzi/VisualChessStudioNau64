@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 AbstractChessboardPresenter subclass: #ChessboardPlaygroundPresenter
-	instanceVariableNames: 'effects'
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -178,12 +178,6 @@ renderChessboard
 	effects do: [:chessboardEffect | chessboardEffect drawOn: gdiBitmap].
 	self imageModel: gdiBitmap asValue!
 
-setRoot: aSystemRoot
-
-	super setRoot: aSystemRoot.
-
-	effects := OrderedCollection new.!
-
 showAttackedSquaresBySide
 	effects add: (AttackedSquaresBySideEffect newOn: model).
 	self renderChessboard.!
@@ -216,16 +210,6 @@ showPinsForBlack
 showPinsForWhite
 
 	effects add: (ChessAbsolutePinEffect newOn: model).
-	self renderChessboard.!
-
-toggleFourChessChunks
-
-	effects add: (ChessFourChunkEffect newOn: model).
-	self renderChessboard.!
-
-toogleCenterChunk
-
-	effects add: (ChessCenterChunkEffect newOn: model).
 	self renderChessboard.! !
 !ChessboardPlaygroundPresenter categoriesForMethods!
 attackedSquaresByBlack!public!rendering-effects! !
@@ -250,7 +234,6 @@ newEmptyChessboard!public!rendering-effects! !
 onDropOver:!drag & drop!public! !
 onViewOpened!public! !
 renderChessboard!public!rendering-chessboard! !
-setRoot:!private! !
 showAttackedSquaresBySide!public!rendering-effects! !
 showForksForBlack!public! !
 showForksForWhite!public! !
@@ -258,8 +241,6 @@ showPartialPinsForBlack!public! !
 showPartialPinsForWhite!public! !
 showPinsForBlack!public! !
 showPinsForWhite!public! !
-toggleFourChessChunks!public! !
-toogleCenterChunk!public! !
 !
 
 !ChessboardPlaygroundPresenter class methodsFor!

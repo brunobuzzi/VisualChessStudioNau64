@@ -73,6 +73,7 @@ renderChessboard
 	| gdiBitmap |
 	gdiBitmap := GdiplusBitmap extent: DesktopView current extent.
 	model drawOn: gdiBitmap isDisplayCoordinatesEnabled: isDisplayCoordinatesEnabled.
+	effects do: [:chessboardEffect | chessboardEffect drawOn: gdiBitmap].
 	self imageModel: gdiBitmap asValue!
 
 setRoot: aSystemRoot

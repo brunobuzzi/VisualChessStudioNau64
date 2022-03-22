@@ -207,6 +207,51 @@ squaresAtWestDo: aBlock
 
 	(squares at: #west ifAbsent: [#()]) do: aBlock!
 
+squaresCollectionAtEastDo: aBlock
+
+	aBlock value: (squares at: #east ifAbsent: [#()]) !
+
+squaresCollectionAtNorthDo: aBlock
+
+	aBlock value: (squares at: #north ifAbsent: [#()]) !
+
+squaresCollectionAtNorthEastDo: aBlock
+
+	aBlock value: (squares at: #northEast ifAbsent: [#()]) !
+
+squaresCollectionAtNorthWestDo: aBlock
+
+	aBlock value: (squares at: #northWest ifAbsent: [#()]) !
+
+squaresCollectionAtSouthDo: aBlock
+
+	aBlock value: (squares at: #south ifAbsent: [#()]) !
+
+squaresCollectionAtSouthEastDo: aBlock
+
+	aBlock value: (squares at: #southEast ifAbsent: [#()]) !
+
+squaresCollectionAtSouthWestDo: aBlock
+
+	aBlock value: (squares at: #southWest ifAbsent: [#()]) !
+
+squaresCollectionAtWestDo: aBlock
+
+	aBlock value: (squares at: #west ifAbsent: [#()]) !
+
+squaresCollectionDo: aBlock
+
+	self squaresCollectionAtNorthDo: aBlock.
+	self squaresCollectionAtSouthDo: aBlock.
+	self squaresCollectionAtEastDo: aBlock.
+	self squaresCollectionAtWestDo: aBlock.
+
+	self squaresCollectionAtNorthEastDo: aBlock.
+	self squaresCollectionAtNorthWestDo: aBlock.
+	self squaresCollectionAtSouthEastDo: aBlock.
+	self squaresCollectionAtSouthWestDo: aBlock.
+!
+
 squaresDo: aBlock
 
 	self squaresAtNorthDo: aBlock.
@@ -260,6 +305,15 @@ squaresAtSouthDo:!enumerating!public! !
 squaresAtSouthEastDo:!enumerating!public! !
 squaresAtSouthWestDo:!enumerating!public! !
 squaresAtWestDo:!enumerating!public! !
+squaresCollectionAtEastDo:!enumerating!public! !
+squaresCollectionAtNorthDo:!enumerating!public! !
+squaresCollectionAtNorthEastDo:!enumerating!public! !
+squaresCollectionAtNorthWestDo:!enumerating!public! !
+squaresCollectionAtSouthDo:!enumerating!public! !
+squaresCollectionAtSouthEastDo:!enumerating!public! !
+squaresCollectionAtSouthWestDo:!enumerating!public! !
+squaresCollectionAtWestDo:!enumerating!public! !
+squaresCollectionDo:!enumerating!public! !
 squaresDo:!enumerating!public! !
 squaresSize!enumerating!public! !
 !

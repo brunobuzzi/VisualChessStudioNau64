@@ -48,7 +48,15 @@ setRoot: aSystemRoot
 setRoot: aSystemRoot fenString: fenString
 
 	systemRoot := aSystemRoot.
-	chessGamePresenter setRoot: aSystemRoot fenString: fenString.! !
+	chessGamePresenter setRoot: aSystemRoot fenString: fenString.!
+
+toggleFourChessChunks
+
+	chessGamePresenter toggleFourChessChunks!
+
+toogleCenterChunk
+
+	chessGamePresenter toogleCenterChunk! !
 !ChessGameShell categoriesForMethods!
 createComponents!public! !
 defaultChessPresenter!public! !
@@ -59,6 +67,8 @@ newChessboardFromFEN!public! !
 renderChessboard!public! !
 setRoot:!private! !
 setRoot:fenString:!private! !
+toggleFourChessChunks!public! !
+toogleCenterChunk!public! !
 !
 
 !ChessGameShell class methodsFor!

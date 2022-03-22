@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 ChessAbstractPresenter subclass: #AbstractChessboardPresenter
-	instanceVariableNames: 'chessboardImagePresenter mouseTracker isDisplayCoordinatesEnabled'
+	instanceVariableNames: 'chessboardImagePresenter mouseTracker isDisplayCoordinatesEnabled effects'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -113,12 +113,28 @@ reverseChessboard
 
 	self renderChessboard.!
 
+setRoot: aSystemRoot
+
+	super setRoot: aSystemRoot.
+
+	effects := OrderedCollection new.!
+
 startTrackingAt: aPoint!
 
 toggleCoordinates
 
 	isDisplayCoordinatesEnabled := isDisplayCoordinatesEnabled not.
 
+	self renderChessboard.!
+
+toggleFourChessChunks
+
+	effects add: (ChessFourChunkEffect newOn: model).
+	self renderChessboard.!
+
+toogleCenterChunk
+
+	effects add: (ChessCenterChunkEffect newOn: model).
 	self renderChessboard.! !
 !AbstractChessboardPresenter categoriesForMethods!
 cancelTrackingAt:!drag & drop!public! !
@@ -136,8 +152,11 @@ onDropOver:!drag & drop!public! !
 onViewOpened!public! !
 renderChessboard!public!rendering-chessboard! !
 reverseChessboard!public!rendering-effects! !
+setRoot:!private! !
 startTrackingAt:!drag & drop!public! !
 toggleCoordinates!public!rendering-effects! !
+toggleFourChessChunks!public! !
+toogleCenterChunk!public! !
 !
 
 !AbstractChessboardPresenter class methodsFor!

@@ -85,14 +85,14 @@ slidingPieceAt: sourceChessSquare canReachSkippingOnePiece: targetChessSquare on
 
 squaresAndOrientationDo: aBlock
 
-	squaresDictionary squaresAtEastDo: [:square | aBlock value: square value: #east].
-	squaresDictionary squaresAtNorthDo: [:square | aBlock value: square value: #north].
-	squaresDictionary squaresAtNorthEastDo: [:square | aBlock value: square value: #northEast].
-	squaresDictionary squaresAtNorthWestDo: [:square | aBlock value: square value: #northWest].
-	squaresDictionary squaresAtSouthDo: [:square | aBlock value: square value: #south].
-	squaresDictionary squaresAtSouthEastDo: [:square | aBlock value: square value: #southEast].
-	squaresDictionary squaresAtSouthWestDo: [:square | aBlock value: square value: #southWest].
-	squaresDictionary squaresAtWestDo: [:square | aBlock value: square value: #southWest].
+	squaresDictionary squaresCollectionAtEastDo: [:squares | aBlock value: squares value: #east].
+	squaresDictionary squaresCollectionAtNorthDo: [:squares | aBlock value: squares value: #north].
+	squaresDictionary squaresCollectionAtNorthEastDo: [:squares | aBlock value: squares value: #northEast].
+	squaresDictionary squaresCollectionAtNorthWestDo: [:squares | aBlock value: squares value: #northWest].
+	squaresDictionary squaresCollectionAtSouthDo: [:squares | aBlock value: squares value: #south].
+	squaresDictionary squaresCollectionAtSouthEastDo: [:squares | aBlock value: squares value: #southEast].
+	squaresDictionary squaresCollectionAtSouthWestDo: [:squares | aBlock value: squares value: #southWest].
+	squaresDictionary squaresCollectionAtWestDo: [:squares | aBlock value: squares value: #southWest].
 
 
 

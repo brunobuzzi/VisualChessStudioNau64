@@ -1,0 +1,78 @@
+﻿| package |
+package := Package name: 'ChessUnicoidePieces'.
+package paxVersion: 1;
+	basicComment: '| whiteKing whiteQueen whiteRook whiteBishop whiteKnight whitePawn blackKing blackQueen blackRook blackBishop blackKnight blackPawn codePoint chessChar |
+
+codePoint := 9812.
+chessChar := Character codePoint: codePoint.
+whiteKing := (TextTileIcon text: chessChar asUtf16String fontName: ''Cambria'') textcolor: Color white; yourself.
+whiteKing asBitmap.
+
+codePoint := 9813.
+chessChar := Character codePoint: codePoint.
+whiteQueen := (TextTileIcon text: chessChar asUtf16String fontName: ''Cambria'') textcolor: Color white; yourself.
+
+codePoint := 9814.
+chessChar := Character codePoint: codePoint.
+whiteRook := (TextTileIcon text: chessChar asUtf16String fontName: ''Cambria'') textcolor: Color white; yourself.
+
+codePoint := 9815.
+chessChar := Character codePoint: codePoint.
+whiteBishop := (TextTileIcon text: chessChar asUtf16String fontName: ''Cambria'') textcolor: Color white; yourself.
+
+codePoint := 9816.
+chessChar := Character codePoint: codePoint.
+whiteKnight := (TextTileIcon text: chessChar asUtf16String fontName: ''Cambria'') textcolor: Color white; yourself.
+
+codePoint := 9817.
+chessChar := Character codePoint: codePoint.
+whitePawn := (TextTileIcon text: chessChar asUtf16String fontName: ''Cambria'') textcolor: Color white; yourself.
+
+"---------------------------------------------------------------------------------------------------------------------------------"
+
+codePoint := 9818.
+chessChar := Character codePoint: codePoint.
+blackKing := (TextTileIcon text: chessChar asUtf16String fontName: ''Cambria'') textcolor: Color black; yourself.
+
+codePoint := 9819.
+chessChar := Character codePoint: codePoint.
+blackQueen := (TextTileIcon text: chessChar asUtf16String fontName: ''Cambria'') textcolor: Color black; yourself.
+
+codePoint := 9820.
+chessChar := Character codePoint: codePoint.
+blackRook := (TextTileIcon text: chessChar asUtf16String fontName: ''Cambria'') textcolor: Color black; yourself.
+
+codePoint := 9821.
+chessChar := Character codePoint: codePoint.
+blackBishop := (TextTileIcon text: chessChar asUtf16String fontName: ''Cambria'') textcolor: Color black; yourself.
+
+codePoint := 9822.
+chessChar := Character codePoint: codePoint.
+blackKnight := (TextTileIcon text: chessChar asUtf16String fontName: ''Cambria'') textcolor: Color black; yourself.
+
+codePoint := 9823.
+chessChar := Character codePoint: codePoint.
+blackPawn := (TextTileIcon text: chessChar asUtf16String fontName: ''Cambria'') textcolor: Color black; yourself.'.
+
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+).
+
+package!
+
+"Class Definitions"!
+
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

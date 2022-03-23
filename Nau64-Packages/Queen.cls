@@ -10,6 +10,10 @@ Queen comment: ''!
 !Queen categoriesForClass!Kernel-Objects! !
 !Queen methodsFor!
 
+blackCodePoint
+
+	^9819!
+
 fenString
 
 	^self isBlack ifTrue: ['q'] ifFalse: ['Q']!
@@ -24,12 +28,18 @@ isSlidingPiece
 
 movesAreCompatibleWith: aChessOrientationVector
 
-	^aChessOrientationVector isCompatibleWithQueen! !
+	^aChessOrientationVector isCompatibleWithQueen!
+
+whiteCodePoint
+
+	^9813! !
 !Queen categoriesForMethods!
+blackCodePoint!public!unicode! !
 fenString!public! !
 isQueen!public!testing! !
 isSlidingPiece!public! !
 movesAreCompatibleWith:!public! !
+whiteCodePoint!public!unicode! !
 !
 
 !Queen class methodsFor!

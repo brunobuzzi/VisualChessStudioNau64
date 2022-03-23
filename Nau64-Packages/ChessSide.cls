@@ -20,9 +20,17 @@ chessboardDo: aBlock
 
 	aBlock value: chessboard!
 
+codePointFor: aChessPiece
+
+	self subclassResponsibility!
+
 currentChessSquareFor: aChessPiece
 
 	^chessboard currentChessSquareFor: aChessPiece!
+
+defaultColor
+
+	self subclassResponsibility!
 
 isBlack
 	^false!
@@ -68,7 +76,9 @@ systemRoot
 !ChessSide categoriesForMethods!
 anyPawnAtEnPassantMoveFrom:!public! !
 chessboardDo:!public! !
+codePointFor:!public! !
 currentChessSquareFor:!public! !
+defaultColor!public! !
 isBlack!public! !
 isWhite!public! !
 oppositePiecesDo:!public! !

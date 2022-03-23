@@ -16,6 +16,14 @@ anyWhitePawnAtEnPassantMoveFrom: aSymbol
 
 	^false!
 
+codePointFor: aChessPiece
+
+	^aChessPiece whiteCodePoint!
+
+defaultColor
+
+	^Color black!
+
 isWhite
 	^true!
 
@@ -36,6 +44,8 @@ sideName
 	^#white! !
 !ChessSideWhite categoriesForMethods!
 anyWhitePawnAtEnPassantMoveFrom:!public! !
+codePointFor:!public! !
+defaultColor!public! !
 isWhite!public! !
 oppositePiecesDo:!public! !
 oppositeSideName!public! !

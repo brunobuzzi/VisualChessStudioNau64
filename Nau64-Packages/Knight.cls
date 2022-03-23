@@ -10,16 +10,26 @@ Knight comment: ''!
 !Knight categoriesForClass!Kernel-Objects! !
 !Knight methodsFor!
 
+blackCodePoint
+
+	^9822!
+
 fenString
 
 	^self isBlack ifTrue: ['n'] ifFalse: ['N']!
 
 isKnight
 
-	^true! !
+	^true!
+
+whiteCodePoint
+
+	^9816! !
 !Knight categoriesForMethods!
+blackCodePoint!public!unicode! !
 fenString!public! !
 isKnight!public!testing! !
+whiteCodePoint!public!unicode! !
 !
 
 !Knight class methodsFor!

@@ -10,6 +10,11 @@ King comment: ''!
 !King categoriesForClass!Kernel-Objects! !
 !King methodsFor!
 
+blackCodePoint
+
+	^9818
+!
+
 fenString
 
 	^self isBlack ifTrue: ['k'] ifFalse: ['K']!
@@ -19,11 +24,17 @@ isCheckMatedOn: aChessboard
 
 isKing
 
-	^true! !
+	^true!
+
+whiteCodePoint
+
+	^9812! !
 !King categoriesForMethods!
+blackCodePoint!public!unicode! !
 fenString!public! !
 isCheckMatedOn:!public! !
 isKing!public!testing! !
+whiteCodePoint!public!unicode! !
 !
 
 !King class methodsFor!

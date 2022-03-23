@@ -10,6 +10,10 @@ Pawn comment: ''!
 !Pawn categoriesForClass!Kernel-Objects! !
 !Pawn methodsFor!
 
+blackCodePoint
+
+	^9823!
+
 canBeMovedToValidCoordinate: symbolCoordinate on: aChessboard
 
 	^(aChessboard squareNotEmptyAtCoordinate: symbolCoordinate) and: [self isOppositeSideTo: (aChessboard pieceAtCoordinate: symbolCoordinate)]!
@@ -20,11 +24,17 @@ fenString
 
 isPawn
 
-	^true! !
+	^true!
+
+whiteCodePoint
+
+	^9817! !
 !Pawn categoriesForMethods!
+blackCodePoint!public!unicode! !
 canBeMovedToValidCoordinate:on:!public!testing! !
 fenString!public! !
 isPawn!public!testing! !
+whiteCodePoint!public!unicode! !
 !
 
 !Pawn class methodsFor!

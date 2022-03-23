@@ -16,6 +16,14 @@ anyBlackPawnAtEnPassantMoveFrom: aSymbol
 
 	^false!
 
+codePointFor: aChessPiece
+
+	^aChessPiece blackCodePoint!
+
+defaultColor
+
+	^Color black!
+
 isBlack
 	^true!
 
@@ -36,6 +44,8 @@ sideName
 	^#black! !
 !ChessSideBlack categoriesForMethods!
 anyBlackPawnAtEnPassantMoveFrom:!public! !
+codePointFor:!public! !
+defaultColor!public! !
 isBlack!public! !
 oppositePiecesDo:!public! !
 oppositeSideName!public! !

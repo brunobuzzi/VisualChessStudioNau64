@@ -10,6 +10,10 @@ ChessPiece comment: ''!
 !ChessPiece categoriesForClass!Kernel-Objects! !
 !ChessPiece methodsFor!
 
+blackCodePoint
+
+	self subclassResponsibility!
+
 canBeMovedToValidCoordinate: symbolCoordinate on: aChessboard
 
 	^(aChessboard squareIsEmptyAtCoordinate: symbolCoordinate) or: 
@@ -18,6 +22,14 @@ canBeMovedToValidCoordinate: symbolCoordinate on: aChessboard
 chessSideDo: aBlock
 
 	aBlock value: chessSide!
+
+codePoint
+
+	^chessSide codePointFor: self!
+
+defaultColor
+
+	^chessSide defaultColor!
 
 fenString
 
@@ -115,10 +127,17 @@ squareSize
 
 systemRoot
 
-	^chessSide systemRoot! !
+	^chessSide systemRoot!
+
+whiteCodePoint
+
+	self subclassResponsibility! !
 !ChessPiece categoriesForMethods!
+blackCodePoint!public!unicode! !
 canBeMovedToValidCoordinate:on:!public!testing! !
 chessSideDo:!public! !
+codePoint!public!unicode! !
+defaultColor!public!testing! !
 fenString!public! !
 forceNumberAt:!public! !
 isBishop!public!testing! !
@@ -143,6 +162,7 @@ setSide:!private! !
 sideName!public! !
 squareSize!public! !
 systemRoot!private! !
+whiteCodePoint!public!unicode! !
 !
 
 !ChessPiece class methodsFor!

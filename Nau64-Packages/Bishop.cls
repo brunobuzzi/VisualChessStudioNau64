@@ -10,6 +10,10 @@ Bishop comment: ''!
 !Bishop categoriesForClass!Kernel-Objects! !
 !Bishop methodsFor!
 
+blackCodePoint
+
+	^9821!
+
 fenString
 
 	^self isBlack ifTrue: ['b'] ifFalse: ['B']!
@@ -24,12 +28,18 @@ isSlidingPiece
 
 movesAreCompatibleWith: aChessOrientationVector
 
-	^aChessOrientationVector isCompatibleWithBishop! !
+	^aChessOrientationVector isCompatibleWithBishop!
+
+whiteCodePoint
+
+	^9815! !
 !Bishop categoriesForMethods!
+blackCodePoint!public!unicode! !
 fenString!public! !
 isBishop!public!testing! !
 isSlidingPiece!public! !
 movesAreCompatibleWith:!public! !
+whiteCodePoint!public!unicode! !
 !
 
 !Bishop class methodsFor!

@@ -92,7 +92,7 @@ squaresAndOrientationDo: aBlock
 	squaresDictionary squaresCollectionAtSouthDo: [:squares | aBlock value: squares value: #south].
 	squaresDictionary squaresCollectionAtSouthEastDo: [:squares | aBlock value: squares value: #southEast].
 	squaresDictionary squaresCollectionAtSouthWestDo: [:squares | aBlock value: squares value: #southWest].
-	squaresDictionary squaresCollectionAtWestDo: [:squares | aBlock value: squares value: #southWest].
+	squaresDictionary squaresCollectionAtWestDo: [:squares | aBlock value: squares value: #west].
 
 
 

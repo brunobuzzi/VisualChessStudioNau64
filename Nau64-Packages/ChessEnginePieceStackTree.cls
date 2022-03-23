@@ -22,9 +22,22 @@ addChild: aChessSquare fromOrientation: orientationSymbol parentSquare: parentCh
 	objectNodeMap at: childNode treeKey put: childNode.
 	(self lookupNode: parentNodeKey) addChildNode: childNode!
 
+addChild: aChessSquare parentNode: aChessEngineOrientationTreeNode
+	| squareNode moveEngine |
+
+	moveEngine := piece newMovementEngineOn: self.
+	moveEngine computeValidSquaresOn: chessboard from: aChessSquare.
+	squareNode := ChessEngineSquareTreeNode
+				newOn: self
+				from: aChessSquare
+				movementEngine: moveEngine
+				parentNode: aChessEngineOrientationTreeNode.
+	aChessEngineOrientationTreeNode addChildNode: squareNode.!
+
 addChildren: squareCollection fromOrientation: orientationSymbol parentSquare: parentChessSquare
 	| orientationNode parentNode parentNodeKey |
 
+	squareCollection isEmpty ifTrue: [^self].
 	"Transcript show: 'Parent: ', (parentChessSquare ifNil: ['nil'] ifNotNil: [:v | v printName]), ' child: ', aChessSquare printName, ' orient: ', orientationSymbol; cr."
 	parentNodeKey := parentChessSquare printName asSymbol.
 	parentNode := self lookupNode: parentNodeKey.
@@ -68,7 +81,6 @@ createTopNodeAndChildren
 
 	objectNodeMap at: originSquare printName asSymbol put: treeNode.
 
-	self halt.
 	moveEngine squaresAndOrientationDo: [:squares :orientationSymbol | self addChildren: squares fromOrientation: orientationSymbol parentSquare: originSquare].
 
 !
@@ -171,6 +183,7 @@ setPiece: aChessPiece from: aChessSquare on: aChessboard
 ! !
 !ChessEnginePieceStackTree categoriesForMethods!
 addChild:fromOrientation:parentSquare:!build tree!public! !
+addChild:parentNode:!build tree!public! !
 addChildren:fromOrientation:parentSquare:!build tree!public! !
 asDolphinTreeModel!public! !
 childrenOf:!public! !

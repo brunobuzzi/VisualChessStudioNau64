@@ -25,6 +25,7 @@ package classNames
 	add: #ChessPinEffect;
 	add: #ChessTacticEffect;
 	add: #ChessVisualEffectDefinition;
+	add: #Nau64UserPreferences;
 	yourself.
 
 package methodNames
@@ -35,9 +36,9 @@ package methodNames
 	add: #ChessFork -> #drawOn:on:pieceSquarePen:forkPen:;
 	add: #ChessPiece -> #canvasIconAt:;
 	add: #ChessPiece -> #drawOn:chessboard:at:isDisplayCoordinatesEnabled:;
-	add: #ChessSquare -> #drawNeutralOn:chessboard:isDisplayCoordinatesEnabled:;
 	add: #ChessSquare -> #drawOn:chessboard:isDisplayCoordinatesEnabled:;
-	add: #ChessSquare -> #drawOppositeOn:chessboard:isDisplayCoordinatesEnabled:;
+	add: #ChessSquare -> #drawOn2:chessboard:isDisplayCoordinatesEnabled:;
+	add: #ChessSquare -> #drawOn3:chessboard:isDisplayCoordinatesEnabled:;
 	add: #King -> #canvasIconAt2:;
 	add: #King -> #drawOn2:chessboard:at:isDisplayCoordinatesEnabled:;
 	add: #MouseTracker -> #sumStartLocalPointTo:;
@@ -60,6 +61,7 @@ package setPrerequisites: #(
 	'..\Core\Object Arts\Dolphin\MVP\Presenters\Image\Dolphin Image Presenter'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
 	'..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter'
+	'..\Core\Object Arts\Dolphin\MVP\Icons\Dolphin Text Tile Icons'
 	'..\Core\Object Arts\Dolphin\MVP\Views\Tooltips\Dolphin Tooltips'
 	'..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters'
 	'..\Core\Object Arts\Dolphin\MVP\Models\Value\Dolphin Value Models'
@@ -77,6 +79,11 @@ Object subclass: #ChessboardEffect
 	classInstanceVariableNames: ''!
 Object subclass: #ChessVisualEffectDefinition
 	instanceVariableNames: 'isTopRendered'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #Nau64UserPreferences
+	instanceVariableNames: 'unicodeFontNameForPieces'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -250,17 +257,17 @@ drawOn: aCanvas chessboard: aChessboard at: symbolCoordinate  isDisplayCoordinat
 
 	square := symbolCoordinate asChessSquareIn: self systemRoot.
 	squarePosition := square calculatePositionAt: aChessboard.
-	canvasIcon := self canvasIconAt: square.
+"	canvasIcon := self canvasIconAt: square.
 
-	image := GdiplusBitmap fromBitmap: canvasIcon.
-"	image := ((TextTileIcon text: (Character codePoint: self codePoint) asUtf16String fontName: 'Tahoma') 
+	image := GdiplusBitmap fromBitmap: canvasIcon."
+	image := ((TextTileIcon text: (Character codePoint: self codePoint) asUtf16String fontName: self systemRoot unicodeFontNameForPieces) 
 		textcolor: self defaultColor; 
 		yourself)
-		asBitmap."
+		asBitmap.
 
 	aCanvas graphics 
 		drawImage: image 
-		at: squarePosition
+		at: (squarePosition x @ (squarePosition y + 5))
 		extent: self squareSize @ self squareSize.
 
 	"aCanvas graphics
@@ -292,30 +299,48 @@ drawOn:chessboard:at:isDisplayCoordinatesEnabled:!public! !
 
 !ChessSquare methodsFor!
 
-drawNeutralOn: aCanvas chessboard: aChessboard isDisplayCoordinatesEnabled: isDisplayCoordinatesEnabled
- 
-	aCanvas graphics 
-				drawImage: (GdiplusBitmap fromBitmap: self neutralBitmap) 
+drawOn: aCanvas chessboard: aChessboard isDisplayCoordinatesEnabled: isDisplayCoordinatesEnabled
+	| rectangle |
+"	aCanvas graphics 
+				drawImage: (GdiplusBitmap fromBitmap: self bitmap) 
 				at: (self calculatePositionAt: aChessboard)
-				extent: aChessboard squareSize @ aChessboard squareSize.
+				extent: aChessboard squareSize @ aChessboard squareSize."
+	rectangle := (self calculatePositionAt: aChessboard) extent: (aChessboard squareSize @ aChessboard squareSize).
+	aCanvas graphics 
+		drawRectangle: rectangle pen: (GdiplusPen brush: (GdiplusSolidBrush color: Color white) width: 0);
+		fillRectangle: rectangle brush: (self isBlack ifTrue: [GdiplusSolidBrush color: "(Color r: 36 g: 183 b: 208)" Color lightGray] ifFalse: [GdiplusSolidBrush color: Color white]). 
 
-"	aCanvas graphics
-			drawString: (self calculatePositionAt: aChessboard) printString
-			font: (GdiplusFont name: 'Arial' emSize: 8)
-			at: ((self calculatePositionAt: aChessboard))
+	isDisplayCoordinatesEnabled ifFalse: [^self].
+
+	(aChessboard squareIsEmptyAtCoordinate: self coordinate) ifFalse: [^self].
+
+	aCanvas graphics 
+			drawString: self name 
+			font: (GdiplusFont name: 'Arial' pixelSize: 16)
+			at: ((self calculatePositionAt: aChessboard) + (aChessboard squareSize // 2) - 10)
 			format: nil 
-			brush: (GdiplusSolidBrush color: Color darkGreen)."
+			brush: (GdiplusSolidBrush color: Color darkRed).!
+
+drawOn2: aCanvas chessboard: aChessboard isDisplayCoordinatesEnabled: isDisplayCoordinatesEnabled
+ 
+"	aCanvas graphics 
+				drawImage: (GdiplusBitmap fromBitmap: self bitmap) 
+				at: (self calculatePositionAt: aChessboard)
+				extent: aChessboard squareSize @ aChessboard squareSize."
+
+	aCanvas graphics 
+		drawRectangle: ((self calculatePositionAt: aChessboard) extent: (aChessboard squareSize @ aChessboard squareSize)). 
 
 	isDisplayCoordinatesEnabled ifFalse: [^self].
 
 	aCanvas graphics 
 			drawString: self name 
-			font: (GdiplusFont name: 'Arial' emSize: 14)
+			font: (GdiplusFont name: 'Arial' pixelSize: 16)
 			at: ((self calculatePositionAt: aChessboard) + (aChessboard squareSize // 2) - 10)
 			format: nil 
 			brush: (GdiplusSolidBrush color: Color darkRed).!
 
-drawOn: aCanvas chessboard: aChessboard isDisplayCoordinatesEnabled: isDisplayCoordinatesEnabled
+drawOn3: aCanvas chessboard: aChessboard isDisplayCoordinatesEnabled: isDisplayCoordinatesEnabled
  
 	aCanvas graphics 
 				drawImage: (GdiplusBitmap fromBitmap: self bitmap) 
@@ -336,27 +361,11 @@ drawOn: aCanvas chessboard: aChessboard isDisplayCoordinatesEnabled: isDisplayCo
 			font: (GdiplusFont name: 'Arial' pixelSize: 16)
 			at: ((self calculatePositionAt: aChessboard) + (aChessboard squareSize // 2) - 10)
 			format: nil 
-			brush: (GdiplusSolidBrush color: Color darkRed).!
-
-drawOppositeOn: aCanvas chessboard: aChessboard isDisplayCoordinatesEnabled: isDisplayCoordinatesEnabled
- 
-	aCanvas graphics 
-				drawImage: (GdiplusBitmap fromBitmap: self oppositeBitmap) 
-				at: (self calculatePositionAt: aChessboard)
-				extent: aChessboard squareSize @ aChessboard squareSize.
-
-	isDisplayCoordinatesEnabled ifFalse: [^self].
-
-	aCanvas graphics 
-			drawString: self name 
-			font: (GdiplusFont name: 'Arial' emSize: 14)
-			at: ((self calculatePositionAt: aChessboard) + (aChessboard squareSize // 2) - 10)
-			format: nil 
 			brush: (GdiplusSolidBrush color: Color darkRed).! !
 !ChessSquare categoriesForMethods!
-drawNeutralOn:chessboard:isDisplayCoordinatesEnabled:!public! !
 drawOn:chessboard:isDisplayCoordinatesEnabled:!public! !
-drawOppositeOn:chessboard:isDisplayCoordinatesEnabled:!public! !
+drawOn2:chessboard:isDisplayCoordinatesEnabled:!public! !
+drawOn3:chessboard:isDisplayCoordinatesEnabled:!public! !
 !
 
 !King methodsFor!

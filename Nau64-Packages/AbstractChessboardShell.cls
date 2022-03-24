@@ -37,6 +37,10 @@ reverseChessboard
 
 	self defaultChessPresenter reverseChessboard!
 
+selectPiecesTypes
+
+	self defaultChessPresenter selectPiecesTypes!
+
 toggleCoordinates
 
 	^self defaultChessPresenter toggleCoordinates! !
@@ -46,6 +50,7 @@ defaultChessPresenter!public! !
 queryCommand:!public! !
 renderChessboard!public! !
 reverseChessboard!public! !
+selectPiecesTypes!public! !
 toggleCoordinates!public! !
 !
 

@@ -113,6 +113,15 @@ reverseChessboard
 
 	self renderChessboard.!
 
+selectPiecesTypes
+	| fontName |
+
+	fontName := Font choose.
+	fontName isNil ifTrue: [^self].
+	fontName := fontName name.
+	systemRoot setUnicodeFontName: fontName.
+	self renderChessboard.!
+
 setRoot: aSystemRoot
 
 	super setRoot: aSystemRoot.
@@ -152,6 +161,7 @@ onDropOver:!drag & drop!public! !
 onViewOpened!public! !
 renderChessboard!public!rendering-chessboard! !
 reverseChessboard!public!rendering-effects! !
+selectPiecesTypes!public! !
 setRoot:!private! !
 startTrackingAt:!drag & drop!public! !
 toggleCoordinates!public!rendering-effects! !

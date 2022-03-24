@@ -76,7 +76,7 @@ Object subclass: #ChessSquare
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #Nau64ChessSystemRoot
-	instanceVariableNames: 'files ranks squares'
+	instanceVariableNames: 'files ranks squares userPreferences'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

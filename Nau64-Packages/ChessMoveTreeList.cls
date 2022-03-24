@@ -70,6 +70,7 @@ newNodeParent: parentNodeOrNil move: aChessMove
 
 nextSideToMoveOn: aChessboard
 
+	lastMove ifNil: [^game initialSideToMove].
 	^(lastMove isBlackOn: aChessboard) ifTrue: [#white] ifFalse: [#black]!
 
 redoFirstMoveOn: aChessboard 

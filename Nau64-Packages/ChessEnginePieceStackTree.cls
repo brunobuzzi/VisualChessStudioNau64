@@ -28,7 +28,7 @@ addChild: aChessSquare parentNode: aChessEngineOrientationTreeNode level: anInte
 addChildren: squareCollection fromOrientation: orientationSymbol parentNode: aChessEngineSquareTreeNode level: anInteger
 	| orientationNode |
 
-	anInteger >= level ifTrue: [^self].
+	"anInteger >= level ifTrue: [^self]."
 
 	squareCollection isEmpty ifTrue: [^self].
 	orientationNode := self
@@ -58,26 +58,34 @@ childrenOfNode: aNode
 
 	^aNode children!
 
-createTopNodeAndChildren
+createChildrenFor: aChessSquare isRoot: aBoolean parentNode: parentNode
 	| moveEngine treeNode |
 
 	moveEngine := piece newMovementEngineOn: self.
-	moveEngine computeValidSquaresOn: chessboard from: originSquare.
+	moveEngine computeValidSquaresOn: chessboard from: aChessSquare.
 	treeNode := ChessEngineSquareTreeNode
 				newOn: self
-				from: originSquare
+				from: aChessSquare
 				movementEngine: moveEngine
-				parentNode: nil.
-	roots add: treeNode.
+				parentNode: parentNode.
 
-	"objectNodeMap at: originSquare printName asSymbol put: treeNode."
+	aBoolean ifTrue: [roots add: treeNode].
 
 	moveEngine squaresAndOrientationDo: [:squares :orientationSymbol | self addChildren: squares fromOrientation: orientationSymbol parentNode: treeNode level: 1].
 
 !
 
-createTreeLevel: integerTreeLevel
-	self halt.!
+createTopNodeAndChildren
+	
+	self createChildrenFor: originSquare isRoot: true parentNode: nil!
+
+createTreeChildrenForLevel: treeLevel
+
+	(self squaresByOrientationAtLevel: treeLevel) do: [:each | | moveEngine |
+		moveEngine := piece newMovementEngineOn: self.
+		moveEngine computeValidSquaresOn: chessboard from: each square.
+		moveEngine squaresAndOrientationDo: [:squares :orientationSymbol | self addChildren: squares fromOrientation: orientationSymbol parentNode: each level: treeLevel].
+	].!
 
 createTreeOrientationNodesFrom: aChessSquare fromOrientation: orientationSymbol parentNode: parentNode 
 	| moveEngine treeNode |
@@ -166,11 +174,11 @@ setPiece: aChessPiece from: aChessSquare on: aChessboard
 	piece := aChessPiece.
 	originSquare := aChessSquare.
 	chessboard := aChessboard.
-	level := 3.
+	level := 1.
 
 	self createTopNodeAndChildren.
 	
-!
+	self createTreeChildrenForLevel: 2.!
 
 squaresByOrientationAtLevel: integerTreeLevel
 	| result |
@@ -202,8 +210,9 @@ addChildren:fromOrientation:parentNode:level:!build tree!public! !
 asDolphinTreeModel!public! !
 childrenOf:!public! !
 childrenOfNode:!public! !
+createChildrenFor:isRoot:parentNode:!build tree!private! !
 createTopNodeAndChildren!build tree!private! !
-createTreeLevel:!build tree!public! !
+createTreeChildrenForLevel:!build tree!private! !
 createTreeOrientationNodesFrom:fromOrientation:parentNode:!build tree!public! !
 expandSquare:!public! !
 expantUpToLevel:!public! !

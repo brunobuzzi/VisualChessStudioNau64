@@ -10,6 +10,10 @@ ChessEngineSquareTreeNode comment: ''!
 !ChessEngineSquareTreeNode categoriesForClass!Unclassified! !
 !ChessEngineSquareTreeNode methodsFor!
 
+movementEngineDo: aBlock
+
+	aBlock value: movementEngine!
+
 orientationParentNode
 
 	^parentNode parentNode 
@@ -55,6 +59,7 @@ treeKey
 
 	^square printName asSymbol! !
 !ChessEngineSquareTreeNode categoriesForMethods!
+movementEngineDo:!public! !
 orientationParentNode!public! !
 printNodeOn:!public! !
 printOn:!public! !

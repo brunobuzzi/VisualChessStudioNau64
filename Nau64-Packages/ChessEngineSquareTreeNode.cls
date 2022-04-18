@@ -10,6 +10,12 @@ ChessEngineSquareTreeNode comment: ''!
 !ChessEngineSquareTreeNode categoriesForClass!Unclassified! !
 !ChessEngineSquareTreeNode methodsFor!
 
+orientationParentNode
+
+	^parentNode parentNode 
+		ifNil: [] 
+		ifNotNil: [:node | node parentNode]!
+
 printNodeOn: aStream 
 
 	aStream cr.
@@ -49,6 +55,7 @@ treeKey
 
 	^square printName asSymbol! !
 !ChessEngineSquareTreeNode categoriesForMethods!
+orientationParentNode!public! !
 printNodeOn:!public! !
 printOn:!public! !
 setTree:from:movementEngine:parentNode:!private! !

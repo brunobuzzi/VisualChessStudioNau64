@@ -10,6 +10,16 @@ ChessEngineOrientationTreeNode comment: ''!
 !ChessEngineOrientationTreeNode categoriesForClass!Unclassified! !
 !ChessEngineOrientationTreeNode methodsFor!
 
+includesSquare: aChessSquare
+
+	^(children collect: [:each | each square]) includes: aChessSquare!
+
+orientationParentNode
+
+	^parentNode 
+		ifNil: [] 
+		ifNotNil: [:node | node parentNode]!
+
 printOn: aStream
 
 	super printOn: aStream.
@@ -29,6 +39,8 @@ treeKey
 
 	^parentNode treeKey, orientation! !
 !ChessEngineOrientationTreeNode categoriesForMethods!
+includesSquare:!public! !
+orientationParentNode!public! !
 printOn:!public! !
 setTree:orientation:parentNode:!private! !
 treeKey!public! !

@@ -13,6 +13,9 @@ ChessEnginePieceStackTree comment: ''!
 addChild: aChessSquare parentNode: aChessEngineOrientationTreeNode level: anInteger
 	| squareNode moveEngine |
 
+	aChessEngineOrientationTreeNode orientationParentNode 
+	ifNotNil: [:orientationNode | (orientationNode includesSquare: aChessSquare) ifTrue: [^self]].
+
 	moveEngine := piece newMovementEngineOn: self.
 	moveEngine computeValidSquaresOn: chessboard from: aChessSquare.
 	squareNode := ChessEngineSquareTreeNode
@@ -20,9 +23,7 @@ addChild: aChessSquare parentNode: aChessEngineOrientationTreeNode level: anInte
 				from: aChessSquare
 				movementEngine: moveEngine
 				parentNode: aChessEngineOrientationTreeNode.
-	aChessEngineOrientationTreeNode addChildNode: squareNode.
-
-	moveEngine squaresAndOrientationDo: [:squares :orientationSymbol | self addChildren: squares fromOrientation: orientationSymbol parentNode: squareNode level: anInteger + 1].!
+	aChessEngineOrientationTreeNode addChildNode: squareNode.!
 
 addChildren: squareCollection fromOrientation: orientationSymbol parentNode: aChessEngineSquareTreeNode level: anInteger
 	| orientationNode |
@@ -35,8 +36,11 @@ addChildren: squareCollection fromOrientation: orientationSymbol parentNode: aCh
 				fromOrientation: orientationSymbol
 				parentNode: aChessEngineSquareTreeNode.
 	squareCollection do: [:square | self addChild: square parentNode: orientationNode level: anInteger].
+	orientationNode hasChildren 
+	ifTrue: [aChessEngineSquareTreeNode addChildNode: orientationNode.
+	].
 	"objectNodeMap at: orientationNode treeKey put: orientationNode."
-	aChessEngineSquareTreeNode addChildNode: orientationNode!
+!
 
 asDolphinTreeModel
 	| treeModel |
@@ -71,6 +75,9 @@ createTopNodeAndChildren
 	moveEngine squaresAndOrientationDo: [:squares :orientationSymbol | self addChildren: squares fromOrientation: orientationSymbol parentNode: treeNode level: 1].
 
 !
+
+createTreeLevel: integerTreeLevel
+	self halt.!
 
 createTreeOrientationNodesFrom: aChessSquare fromOrientation: orientationSymbol parentNode: parentNode 
 	| moveEngine treeNode |
@@ -163,7 +170,32 @@ setPiece: aChessPiece from: aChessSquare on: aChessboard
 
 	self createTopNodeAndChildren.
 	
-! !
+!
+
+squaresByOrientationAtLevel: integerTreeLevel
+	| result |
+
+	result := OrderedCollection new.
+	roots do: [:squareNode | 
+		squareNode childrenDo: [:orientationNode | 
+			self squaresByOrientationAtLevel: integerTreeLevel currentLevel: 1 currentOrientationNode: orientationNode collectedSquares: result.
+		].
+	].
+	^result!
+
+squaresByOrientationAtLevel: integerTreeLevel currentLevel: currentLevel currentOrientationNode: anOrientationTreeNode collectedSquares: anOrderedCollection
+
+	(integerTreeLevel <= 1) ifTrue: [^roots].
+
+	anOrientationTreeNode childrenDo: [:squareNode | 
+		(integerTreeLevel = (currentLevel + 1))
+		ifTrue: [anOrderedCollection add: squareNode]
+		ifFalse: [squareNode childrenDo: [:orientationNode | 
+				self squaresByOrientationAtLevel: integerTreeLevel currentLevel: currentLevel + 1currentOrientationNode: orientationNode collectedSquares: anOrderedCollection.
+			].
+		].
+	].
+	! !
 !ChessEnginePieceStackTree categoriesForMethods!
 addChild:parentNode:level:!build tree!public! !
 addChildren:fromOrientation:parentNode:level:!build tree!public! !
@@ -171,6 +203,7 @@ asDolphinTreeModel!public! !
 childrenOf:!public! !
 childrenOfNode:!public! !
 createTopNodeAndChildren!build tree!private! !
+createTreeLevel:!build tree!public! !
 createTreeOrientationNodesFrom:fromOrientation:parentNode:!build tree!public! !
 expandSquare:!public! !
 expantUpToLevel:!public! !
@@ -184,6 +217,8 @@ preOrderDo:on:!public! !
 printTree!public! !
 printTreeOn:!public! !
 setPiece:from:on:!build tree!private! !
+squaresByOrientationAtLevel:!build tree!public! !
+squaresByOrientationAtLevel:currentLevel:currentOrientationNode:collectedSquares:!build tree!public! !
 !
 
 !ChessEnginePieceStackTree class methodsFor!

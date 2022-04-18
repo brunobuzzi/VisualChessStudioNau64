@@ -34,6 +34,10 @@ children
 
 	^children!
 
+childrenDo: aBlock
+
+	children do: aBlock!
+
 expand
 
 	children notEmpty ifTrue: [^self].
@@ -43,6 +47,9 @@ expand
 hasChildren
 
 	^children notEmpty!
+
+orientationParentNode
+	self subclassResponsibility!
 
 parentNode
 
@@ -59,8 +66,10 @@ allParents!public! !
 allParentsOn:!public! !
 allParentsSquares!public! !
 children!public! !
+childrenDo:!public! !
 expand!public! !
 hasChildren!public! !
+orientationParentNode!public! !
 parentNode!public! !
 treeLevel!public! !
 !

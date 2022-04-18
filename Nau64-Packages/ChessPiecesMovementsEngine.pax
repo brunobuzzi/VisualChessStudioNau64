@@ -67,7 +67,7 @@ package!
 "Class Definitions"!
 
 Object subclass: #ChessEnginePieceStackTree
-	instanceVariableNames: 'piece originSquare chessboard roots objectNodeMap level'
+	instanceVariableNames: 'piece originSquare chessboard roots'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

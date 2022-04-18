@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #ChessEnginePieceStackTree
-	instanceVariableNames: 'piece originSquare chessboard roots objectNodeMap level'
+	instanceVariableNames: 'piece originSquare chessboard roots'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -28,8 +28,6 @@ addChild: aChessSquare parentNode: aChessEngineOrientationTreeNode level: anInte
 addChildren: squareCollection fromOrientation: orientationSymbol parentNode: aChessEngineSquareTreeNode level: anInteger
 	| orientationNode |
 
-	"anInteger >= level ifTrue: [^self]."
-
 	squareCollection isEmpty ifTrue: [^self].
 	orientationNode := self
 				createTreeOrientationNodesFrom: aChessEngineSquareTreeNode square
@@ -39,7 +37,6 @@ addChildren: squareCollection fromOrientation: orientationSymbol parentNode: aCh
 	orientationNode hasChildren 
 	ifTrue: [aChessEngineSquareTreeNode addChildNode: orientationNode.
 	].
-	"objectNodeMap at: orientationNode treeKey put: orientationNode."
 !
 
 asDolphinTreeModel
@@ -97,52 +94,6 @@ createTreeOrientationNodesFrom: aChessSquare fromOrientation: orientationSymbol 
 				parentNode: parentNode.
 	^treeNode!
 
-expandSquare: aChessSquare
-	| node | 
-
-	node := self lookupNode: aChessSquare.
-	
-
-	!
-
-expantUpToLevel: anInteger
-
-	!
-
-getChildrenOf: aChessSquare
-	| node |
-	node := self getNodeFor: aChessSquare.
-	^(self childrenOfNode: node) collect: [:each | each square]!
-
-getNodeFor: aNode
-
-	^(self lookupNode: aNode square) ifNil: [self errorNotFound: aNode]!
-
-increaseTreeLevel
-	| maxNodeLevel |
-
-	maxNodeLevel := (objectNodeMap collect: [:each | each treeLevel]) asSortedCollection last.
-
-	objectNodeMap do: [:node | 
-		(node treeLevel = maxNodeLevel) 
-		ifTrue: [node squaresDo: [:square | self addChild: square parentNode: node square]]
-	].!
-
-increaseTreeLevelTo: anInteger
-
-
-	self preOrderDo: [:node | 
-		node hasChildren 
-			ifFalse: [(node treeLevel  <= anInteger)
-				ifTrue: [node squaresDo: [:square | self addChild: square parentNode: node square]]]
-
-	].
-!
-
-lookupNode: aChessSquare
-
-	^objectNodeMap lookup: aChessSquare!
-
 preOrderDo: aMonadicValuable 
 	"Evaluate the <monadicValuable> argument for each of the elements of the receiver. Answers
 	the receiver. The elements are enumerated using a 'pre-order' or 'depth-first' traversal
@@ -170,11 +121,9 @@ printTreeOn: aStream
 setPiece: aChessPiece from: aChessSquare on: aChessboard
 	
 	roots := OrderedCollection new.
-	objectNodeMap := Dictionary new.
 	piece := aChessPiece.
 	originSquare := aChessSquare.
 	chessboard := aChessboard.
-	level := 1.
 
 	self createTopNodeAndChildren.
 	
@@ -214,13 +163,6 @@ createChildrenFor:isRoot:parentNode:!build tree!private! !
 createTopNodeAndChildren!build tree!private! !
 createTreeChildrenForLevel:!build tree!private! !
 createTreeOrientationNodesFrom:fromOrientation:parentNode:!build tree!public! !
-expandSquare:!public! !
-expantUpToLevel:!public! !
-getChildrenOf:!public! !
-getNodeFor:!public! !
-increaseTreeLevel!public! !
-increaseTreeLevelTo:!public! !
-lookupNode:!private! !
 preOrderDo:!public! !
 preOrderDo:on:!public! !
 printTree!public! !

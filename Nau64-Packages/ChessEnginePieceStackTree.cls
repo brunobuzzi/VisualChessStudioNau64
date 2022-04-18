@@ -51,10 +51,6 @@ asDolphinTreeModel
 childrenOf: aTreeNode
 	^aTreeNode isNil ifTrue: [roots] ifFalse: [aTreeNode children]!
 
-childrenOfNode: aNode
-
-	^aNode children!
-
 createChildrenFor: aChessSquare isRoot: aBoolean parentNode: parentNode
 	| moveEngine treeNode |
 
@@ -78,7 +74,7 @@ createTopNodeAndChildren
 
 createTreeChildrenForLevel: treeLevel
 
-	(self squaresByOrientationAtLevel: treeLevel) do: [:each | | moveEngine |
+	(self squaresNodeByOrientationAtLevel: treeLevel) do: [:each | | moveEngine |
 		moveEngine := piece newMovementEngineOn: self.
 		moveEngine computeValidSquaresOn: chessboard from: each square.
 		moveEngine squaresAndOrientationDo: [:squares :orientationSymbol | self addChildren: squares fromOrientation: orientationSymbol parentNode: each level: treeLevel].
@@ -129,18 +125,39 @@ setPiece: aChessPiece from: aChessSquare on: aChessboard
 	
 	self createTreeChildrenForLevel: 2.!
 
-squaresByOrientationAtLevel: integerTreeLevel
+squaresAtOrientationPath: orientantionCollection
+	| result |
+	
+	result := OrderedCollection new.
+	self squaresAtOrientationPath: orientantionCollection currentNodes: roots result: result.
+	^result!
+
+squaresAtOrientationPath: orientantionCollection currentNodes: currentSquareNodes result: anOrderedCollection
+
+	orientantionCollection isEmpty ifTrue: [anOrderedCollection addAll: (currentSquareNodes collect: [:each | each square])].
+	orientantionCollection do: [:orientantionSymbol | | orientationNodes |
+		orientationNodes := OrderedCollection new.
+		currentSquareNodes do: [:squareNode | 
+			orientationNodes addAll: (squareNode childrenSelect: [:orientationNode | orientationNode orientation = orientantionSymbol]).
+		].
+		orientationNodes do: [:orientationNode | 
+			self squaresAtOrientationPath: orientantionCollection allButFirst currentNodes: orientationNode children result: anOrderedCollection.
+		].
+	].
+!
+
+squaresNodeByOrientationAtLevel: integerTreeLevel
 	| result |
 
 	result := OrderedCollection new.
 	roots do: [:squareNode | 
 		squareNode childrenDo: [:orientationNode | 
-			self squaresByOrientationAtLevel: integerTreeLevel currentLevel: 1 currentOrientationNode: orientationNode collectedSquares: result.
+			self squaresNodeByOrientationAtLevel: integerTreeLevel currentLevel: 1 currentOrientationNode: orientationNode collectedSquares: result.
 		].
 	].
 	^result!
 
-squaresByOrientationAtLevel: integerTreeLevel currentLevel: currentLevel currentOrientationNode: anOrientationTreeNode collectedSquares: anOrderedCollection
+squaresNodeByOrientationAtLevel: integerTreeLevel currentLevel: currentLevel currentOrientationNode: anOrientationTreeNode collectedSquares: anOrderedCollection
 
 	(integerTreeLevel <= 1) ifTrue: [^roots].
 
@@ -148,7 +165,7 @@ squaresByOrientationAtLevel: integerTreeLevel currentLevel: currentLevel current
 		(integerTreeLevel = (currentLevel + 1))
 		ifTrue: [anOrderedCollection add: squareNode]
 		ifFalse: [squareNode childrenDo: [:orientationNode | 
-				self squaresByOrientationAtLevel: integerTreeLevel currentLevel: currentLevel + 1currentOrientationNode: orientationNode collectedSquares: anOrderedCollection.
+				self squaresNodeByOrientationAtLevel: integerTreeLevel currentLevel: currentLevel + 1currentOrientationNode: orientationNode collectedSquares: anOrderedCollection.
 			].
 		].
 	].
@@ -158,7 +175,6 @@ addChild:parentNode:level:!build tree!public! !
 addChildren:fromOrientation:parentNode:level:!build tree!public! !
 asDolphinTreeModel!public! !
 childrenOf:!public! !
-childrenOfNode:!public! !
 createChildrenFor:isRoot:parentNode:!build tree!private! !
 createTopNodeAndChildren!build tree!private! !
 createTreeChildrenForLevel:!build tree!private! !
@@ -168,8 +184,10 @@ preOrderDo:on:!public! !
 printTree!public! !
 printTreeOn:!public! !
 setPiece:from:on:!build tree!private! !
-squaresByOrientationAtLevel:!build tree!public! !
-squaresByOrientationAtLevel:currentLevel:currentOrientationNode:collectedSquares:!build tree!public! !
+squaresAtOrientationPath:!public! !
+squaresAtOrientationPath:currentNodes:result:!public! !
+squaresNodeByOrientationAtLevel:!build tree!public! !
+squaresNodeByOrientationAtLevel:currentLevel:currentOrientationNode:collectedSquares:!build tree!public! !
 !
 
 !ChessEnginePieceStackTree class methodsFor!

@@ -14,6 +14,10 @@ includesSquare: aChessSquare
 
 	^(children collect: [:each | each square]) includes: aChessSquare!
 
+orientation
+
+	^orientation!
+
 orientationParentNode
 
 	^parentNode 
@@ -40,6 +44,7 @@ treeKey
 	^parentNode treeKey, orientation! !
 !ChessEngineOrientationTreeNode categoriesForMethods!
 includesSquare:!public! !
+orientation!private! !
 orientationParentNode!public! !
 printOn:!public! !
 setTree:orientation:parentNode:!private! !

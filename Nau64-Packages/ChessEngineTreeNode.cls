@@ -34,9 +34,17 @@ children
 
 	^children!
 
+childrenDetect: aBlock ifNone: errorBlock
+
+	^children detect: aBlock ifNone: errorBlock!
+
 childrenDo: aBlock
 
 	children do: aBlock!
+
+childrenSelect: aBlock
+
+	^children select: aBlock!
 
 expand
 
@@ -66,7 +74,9 @@ allParents!public! !
 allParentsOn:!public! !
 allParentsSquares!public! !
 children!public! !
+childrenDetect:ifNone:!public! !
 childrenDo:!public! !
+childrenSelect:!public! !
 expand!public! !
 hasChildren!public! !
 orientationParentNode!public! !

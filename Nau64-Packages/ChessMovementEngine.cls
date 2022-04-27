@@ -19,6 +19,10 @@ canBeMovedToValidCoordinate: symbolCoordinate on: aChessboard
 	^(aChessboard squareIsEmptyAtCoordinate: symbolCoordinate) or: 
 		[(aChessboard squareNotEmptyAtCoordinate: symbolCoordinate) and: [piece isOppositeSideTo: (aChessboard pieceAtCoordinate: symbolCoordinate)]]!
 
+computeAttackedSquaresOn: aChessboard from: aChessSquare 
+
+	self computeReachableSquaresOn: aChessboard from: aChessSquare!
+
 computeReachableSquaresOn: aChessboard from: aChessSquare
 	self subclassResponsibility!
 
@@ -120,6 +124,7 @@ validSquaresFrom: aChessSquare toFileShift: fileShift toRankShift: rankShift onS
 !ChessMovementEngine categoriesForMethods!
 attackedSquaresOn:from:do:!public! !
 canBeMovedToValidCoordinate:on:!public! !
+computeAttackedSquaresOn:from:!public! !
 computeReachableSquaresOn:from:!public! !
 computeValidSquaresOn:from:!public! !
 detectedAbsolutePinsDo:!public! !

@@ -42,6 +42,11 @@ computeAttackedSquaresForWhiteOn: aChessboard from: aChessSquare
 			(aChessboard  pieceAt: square) ifNotNil: [:attackedPiece | attackedPiece isBlack ifTrue: [squaresDictionary atNorthWestAdd: square]]]
 		onErrorDo: [:ex | ].!
 
+computeAttackedSquaresOn: aChessboard from: aChessSquare 
+	piece isBlack 
+	ifTrue: [self computeAttackedSquaresForBlackOn: aChessboard from: aChessSquare ] 
+	ifFalse: [self computeAttackedSquaresForWhiteOn: aChessboard from: aChessSquare ]!
+
 computeReachableSquaresForBlackOn: aChessboard from: aChessSquare 
 
 	self computeAttackedSquaresForBlackOn: aChessboard from: aChessSquare.
@@ -85,6 +90,7 @@ computeReachableSquaresOn: aChessboard from: aChessSquare
 !PawnMovementEngine categoriesForMethods!
 computeAttackedSquaresForBlackOn:from:!public! !
 computeAttackedSquaresForWhiteOn:from:!public! !
+computeAttackedSquaresOn:from:!public! !
 computeReachableSquaresForBlackOn:from:!public! !
 computeReachableSquaresForWhiteOn:from:!public! !
 computeReachableSquaresOn:from:!public! !

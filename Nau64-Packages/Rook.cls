@@ -10,10 +10,6 @@ Rook comment: ''!
 !Rook categoriesForClass!Kernel-Objects! !
 !Rook methodsFor!
 
-blackCodePoint
-
-	^9820!
-
 fenString
 
 	^self isBlack ifTrue: ['r'] ifFalse: ['R']!
@@ -28,21 +24,19 @@ isSlidingPiece
 
 movesAreCompatibleWith: aChessOrientationVector
 
-	^aChessOrientationVector isCompatibleWithRook!
-
-whiteCodePoint
-
-	^9814! !
+	^aChessOrientationVector isCompatibleWithRook! !
 !Rook categoriesForMethods!
-blackCodePoint!public!unicode! !
 fenString!public! !
 isRook!public!testing! !
 isSlidingPiece!public! !
 movesAreCompatibleWith:!public! !
-whiteCodePoint!public!unicode! !
 !
 
 !Rook class methodsFor!
+
+blackCodePoint
+
+	^9820!
 
 filePrefix
 	" r - rook "
@@ -50,9 +44,15 @@ filePrefix
 	^'r'!
 
 pieceCode
-	^'r'! !
+	^'r'!
+
+whiteCodePoint
+
+	^9814! !
 !Rook class categoriesForMethods!
+blackCodePoint!public!unicode! !
 filePrefix!public! !
 pieceCode!public! !
+whiteCodePoint!public!unicode! !
 !
 

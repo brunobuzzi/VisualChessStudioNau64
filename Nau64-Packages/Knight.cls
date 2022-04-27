@@ -10,29 +10,23 @@ Knight comment: ''!
 !Knight categoriesForClass!Kernel-Objects! !
 !Knight methodsFor!
 
-blackCodePoint
-
-	^9822!
-
 fenString
 
 	^self isBlack ifTrue: ['n'] ifFalse: ['N']!
 
 isKnight
 
-	^true!
-
-whiteCodePoint
-
-	^9816! !
+	^true! !
 !Knight categoriesForMethods!
-blackCodePoint!public!unicode! !
 fenString!public! !
 isKnight!public!testing! !
-whiteCodePoint!public!unicode! !
 !
 
 !Knight class methodsFor!
+
+blackCodePoint
+
+	^9822!
 
 filePrefix
 	" n - Knight "
@@ -40,9 +34,15 @@ filePrefix
 	^'n'!
 
 pieceCode
-	^'n'! !
+	^'n'!
+
+whiteCodePoint
+
+	^9816! !
 !Knight class categoriesForMethods!
+blackCodePoint!public!unicode! !
 filePrefix!public! !
 pieceCode!public! !
+whiteCodePoint!public!unicode! !
 !
 

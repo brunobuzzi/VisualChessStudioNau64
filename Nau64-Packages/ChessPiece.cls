@@ -12,7 +12,7 @@ ChessPiece comment: ''!
 
 blackCodePoint
 
-	self subclassResponsibility!
+	^self class blackCodePoint!
 
 canBeMovedToValidCoordinate: symbolCoordinate on: aChessboard
 
@@ -131,7 +131,7 @@ systemRoot
 
 whiteCodePoint
 
-	self subclassResponsibility! !
+	^self class whiteCodePoint! !
 !ChessPiece categoriesForMethods!
 blackCodePoint!public!unicode! !
 canBeMovedToValidCoordinate:on:!public!testing! !
@@ -167,12 +167,18 @@ whiteCodePoint!public!unicode! !
 
 !ChessPiece class methodsFor!
 
+blackCodePoint
+
+	^9812!
+
 filePrefix
 
 	^'piece'!
 
 icon
-	^Icon fromFile: (FileLocator imageRelative basePath, 'Ajedrez\b',self filePrefix , 'w.ico')!
+	"^Icon fromFile: (FileLocator imageRelative basePath, 'Ajedrez\b',self filePrefix , 'w.ico')"
+
+	^TextTileIcon text: (Character codePoint: self blackCodePoint) asUtf16String fontName: 'Trebuchet MS'!
 
 newOn: aChessSide
 
@@ -180,11 +186,17 @@ newOn: aChessSide
 
 pieceCode
 
+	self subclassResponsibility!
+
+whiteCodePoint
+
 	self subclassResponsibility! !
 !ChessPiece class categoriesForMethods!
+blackCodePoint!public!unicode! !
 filePrefix!public! !
 icon!public! !
 newOn:!public! !
 pieceCode!public! !
+whiteCodePoint!public!unicode! !
 !
 

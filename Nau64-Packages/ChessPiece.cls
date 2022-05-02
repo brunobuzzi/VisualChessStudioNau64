@@ -79,9 +79,11 @@ isRook
 
 	^false!
 
-isSameSideTo: aChessPiece
+isSameSideAs: aChessPieceOrNil
 
-	^(aChessPiece isBlack and: [self isBlack]) or: [aChessPiece isWhite and: [self isWhite]]!
+	aChessPieceOrNil ifNil: [^false].
+
+	^(aChessPieceOrNil isBlack and: [self isBlack]) or: [aChessPieceOrNil isWhite and: [self isWhite]]!
 
 isSecureToAttack: aChessSquare on: aChessboard 
 	| forceNumber |
@@ -150,7 +152,7 @@ isOppositeTo:!public! !
 isPawn!public!testing! !
 isQueen!public!testing! !
 isRook!public!testing! !
-isSameSideTo:!public! !
+isSameSideAs:!public! !
 isSecureToAttack:on:!public! !
 isSlidingPiece!public! !
 isWhite!public!testing! !

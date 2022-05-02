@@ -362,7 +362,7 @@ whiteSideDo:!pieces-black!public! !
 !Chessboard class methodsFor!
 
 icon
-	^Icon fromFile: (FileLocator imageRelative basePath, 'Ajedrez\chess_icon-icons.com_65163.ico')!
+	^Boolean icon!
 
 newEmptyOn: anObject
 	^super new setRoot: anObject!

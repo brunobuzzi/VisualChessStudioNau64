@@ -60,7 +60,7 @@ filePrefix
 	^'bblackcellb'!
 
 icon
-	^Icon fromFile: (FileLocator imageRelative basePath, 'Ajedrez\',self filePrefix , '.ico')! !
+	^TextTileIcon text: (Character codePoint: 9632) asUtf16String fontName: 'Trebuchet MS'! !
 !ChessSideBlack class categoriesForMethods!
 filePrefix!public! !
 icon!public! !

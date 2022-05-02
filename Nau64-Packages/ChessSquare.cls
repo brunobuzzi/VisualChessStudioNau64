@@ -177,7 +177,7 @@ symbolDirectionFor:!comparisons!public! !
 !ChessSquare class methodsFor!
 
 icon
-	^Icon fromFile: (FileLocator imageRelative basePath, 'Ajedrez\squeare.ico')!
+	^Square icon!
 
 newFile: aChessFile rank: aChessRank on: aSystemRoot
 

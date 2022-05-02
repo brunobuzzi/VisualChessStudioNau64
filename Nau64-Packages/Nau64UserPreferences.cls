@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #Nau64UserPreferences
-	instanceVariableNames: 'unicodeFontNameForPieces'
+	instanceVariableNames: 'unicodeFontNameForPieces squareWhiteColor squareBlackColor'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -9,6 +9,11 @@ Nau64UserPreferences guid: (GUID fromString: '{1f110d24-b2b7-43c0-8ae7-96e66ad86
 Nau64UserPreferences comment: ''!
 !Nau64UserPreferences categoriesForClass!Unclassified! !
 !Nau64UserPreferences methodsFor!
+
+initialize
+
+	self setUnicodeFontName.
+	self squareBlackAndWhiteColors.!
 
 setUnicodeFontName
 
@@ -18,12 +23,39 @@ setUnicodeFontName: aFontName
 
 	unicodeFontNameForPieces := aFontName!
 
+squareBlackAndWhiteColors
+
+	squareBlackColor := Color lightGray.
+	squareWhiteColor := Color white.!
+
+squareBlackColor
+
+	^squareBlackColor!
+
+squareBlackColor: aColor
+
+	squareBlackColor := aColor!
+
+squareWhiteColor
+
+	^squareWhiteColor!
+
+squareWhiteColor: aColor
+
+	squareWhiteColor := aColor!
+
 unicodeFontNameForPieces
 
 	^unicodeFontNameForPieces! !
 !Nau64UserPreferences categoriesForMethods!
+initialize!public! !
 setUnicodeFontName!public! !
 setUnicodeFontName:!public! !
+squareBlackAndWhiteColors!public! !
+squareBlackColor!public! !
+squareBlackColor:!public! !
+squareWhiteColor!public! !
+squareWhiteColor:!public! !
 unicodeFontNameForPieces!public! !
 !
 
@@ -31,7 +63,7 @@ unicodeFontNameForPieces!public! !
 
 new
 
-	^self basicNew setUnicodeFontName! !
+	^self basicNew initialize! !
 !Nau64UserPreferences class categoriesForMethods!
 new!public! !
 !

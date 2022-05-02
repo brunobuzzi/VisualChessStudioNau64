@@ -83,7 +83,7 @@ Object subclass: #ChessVisualEffectDefinition
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #Nau64UserPreferences
-	instanceVariableNames: 'unicodeFontNameForPieces'
+	instanceVariableNames: 'unicodeFontNameForPieces squareWhiteColor squareBlackColor'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -308,7 +308,7 @@ drawOn: aCanvas chessboard: aChessboard isDisplayCoordinatesEnabled: isDisplayCo
 	rectangle := (self calculatePositionAt: aChessboard) extent: (aChessboard squareSize @ aChessboard squareSize).
 	aCanvas graphics 
 		drawRectangle: rectangle pen: (GdiplusPen brush: (GdiplusSolidBrush color: Color white) width: 0);
-		fillRectangle: rectangle brush: (self isBlack ifTrue: [GdiplusSolidBrush color: "(Color r: 36 g: 183 b: 208)" Color lightGray] ifFalse: [GdiplusSolidBrush color: Color white]). 
+		fillRectangle: rectangle brush: (self isBlack ifTrue: [GdiplusSolidBrush color: systemRoot squareBlackColor] ifFalse: [GdiplusSolidBrush color: systemRoot squareWhiteColor]). 
 
 	isDisplayCoordinatesEnabled ifFalse: [^self].
 

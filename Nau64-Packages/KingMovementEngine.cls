@@ -116,8 +116,7 @@ computeValidSquaresOn: aChessboard from: aChessSquare
 			[:oppPiece |
 			| movEngine |
 			movEngine := oppPiece newMovementEngine.
-			"(#('g5' 'e5') includes: oppPiece currentChessSquare printName) ifTrue: [self halt]."
-			movEngine computeAttackedSquaresOn: aChessboard from: oppPiece currentChessSquare. "BUG: for Paws is attacked squares"
+			movEngine computeAttackedSquaresOn: aChessboard from: oppPiece currentChessSquare. 
 			movEngine
 				squaresDictionaryDo: [:sqDictionary | squaresDictionary := squaresDictionary difference: sqDictionary]].
 	reachableSquaresBySlidingPiece := OrderedCollection new.
@@ -127,7 +126,6 @@ computeValidSquaresOn: aChessboard from: aChessSquare
 					[:oppPiece |
 					| movEngine |
 					movEngine := oppPiece newMovementEngine.
-					"(#('d2') includes: oppPiece currentChessSquare printName) ifTrue: [self halt]."
 					(movEngine
 						slidingPieceAt: oppPiece currentChessSquare
 						canReachSkippingOnePiece: square

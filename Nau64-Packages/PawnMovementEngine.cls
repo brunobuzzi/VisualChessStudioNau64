@@ -16,14 +16,20 @@ computeAttackedSquaresForBlackOn: aChessboard from: aChessSquare
 		nextFile: 1
 		nextRank: -1
 		onSuccessDo: [:square | 
-			(aChessboard  pieceAt: square) ifNotNil: [:attackedPiece | attackedPiece isWhite ifTrue: [squaresDictionary atSouthEastAdd: square]]]
+			(aChessboard  pieceAt: square) 
+			ifNotNil: [:attackedPiece | attackedPiece isWhite ifTrue: [squaresDictionary atSouthEastAdd: square]]
+			ifNil: [squaresDictionary atSouthEastAdd: square]
+		]
 		onErrorDo: [:ex | ].
 
 	aChessSquare
 		nextFile: -1
 		nextRank: -1
 		onSuccessDo: [:square | 
-			(aChessboard  pieceAt: square) ifNotNil: [:attackedPiece | attackedPiece isWhite ifTrue: [squaresDictionary atSouthWestAdd: square]]]
+			(aChessboard  pieceAt: square) 
+			ifNotNil: [:attackedPiece | attackedPiece isWhite ifTrue: [squaresDictionary atSouthWestAdd: square]]
+			ifNil: [squaresDictionary atSouthWestAdd: square]
+		]
 		onErrorDo: [:ex | ].!
 
 computeAttackedSquaresForWhiteOn: aChessboard from: aChessSquare
@@ -32,14 +38,20 @@ computeAttackedSquaresForWhiteOn: aChessboard from: aChessSquare
 		nextFile: 1
 		nextRank: 1
 		onSuccessDo: [:square | 
-			(aChessboard  pieceAt: square) ifNotNil: [:attackedPiece | attackedPiece isBlack ifTrue: [squaresDictionary atNorthEastAdd: square]]]
+			(aChessboard pieceAt: square) 
+			ifNotNil: [:attackedPiece | attackedPiece isBlack ifTrue: [squaresDictionary atNorthEastAdd: square]]
+			ifNil: [squaresDictionary atNorthEastAdd: square]
+		]
 		onErrorDo: [:ex | ].
 
 	aChessSquare
 		nextFile: -1
 		nextRank: 1
 		onSuccessDo: [:square | 
-			(aChessboard  pieceAt: square) ifNotNil: [:attackedPiece | attackedPiece isBlack ifTrue: [squaresDictionary atNorthWestAdd: square]]]
+			(aChessboard pieceAt: square) 
+			ifNotNil: [:attackedPiece | attackedPiece isBlack ifTrue: [squaresDictionary atNorthWestAdd: square]]
+			ifNil: [squaresDictionary atNorthWestAdd: square]
+		]
 		onErrorDo: [:ex | ].!
 
 computeAttackedSquaresOn: aChessboard from: aChessSquare 

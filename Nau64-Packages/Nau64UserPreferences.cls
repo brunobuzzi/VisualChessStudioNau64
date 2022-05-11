@@ -46,7 +46,25 @@ squareWhiteColor: aColor
 
 unicodeFontNameForPieces
 
-	^unicodeFontNameForPieces ifNil: ['Gadugi']!
+	^unicodeFontNameForPieces ifNil: ['Gadugi']
+"Other interesting designs:
+Malgun Gothic
+Malgun Gothic Semilight
+Microsoft JhengHei
+Microsoft JhengHei UI
+Microsoft JhengHei UI Light
+Microsoft YaHei
+Microsoft YaHei UI
+Microsoft YaHei UI Light
+MingLiU_HKSCS-ExtB
+MV Boli
+Raleway Light
+Ebrima
+Gadugi
+Leelawadee UI
+Nirmala UI
+Nirmala UI Semilight
+PMingLiU-ExtB"!
 
 unicodeFontNameForPieces: aString
 

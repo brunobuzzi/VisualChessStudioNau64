@@ -180,7 +180,7 @@ filePrefix
 icon
 	"^Icon fromFile: (FileLocator imageRelative basePath, 'Ajedrez\b',self filePrefix , 'w.ico')"
 
-	^TextTileIcon text: (Character codePoint: self blackCodePoint) asUtf16String fontName: 'Trebuchet MS'!
+	^TextTileIcon text: (Character codePoint: self blackCodePoint) asUtf16String fontName: 'Malgun Gothic'!
 
 newOn: aChessSide
 

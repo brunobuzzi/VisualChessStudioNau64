@@ -46,7 +46,11 @@ squareWhiteColor: aColor
 
 unicodeFontNameForPieces
 
-	^unicodeFontNameForPieces! !
+	^unicodeFontNameForPieces ifNil: ['Gadugi']!
+
+unicodeFontNameForPieces: aString
+
+	unicodeFontNameForPieces := aString! !
 !Nau64UserPreferences categoriesForMethods!
 initialize!public! !
 setUnicodeFontName!public! !
@@ -57,6 +61,7 @@ squareBlackColor:!public! !
 squareWhiteColor!public! !
 squareWhiteColor:!public! !
 unicodeFontNameForPieces!public! !
+unicodeFontNameForPieces:!public! !
 !
 
 !Nau64UserPreferences class methodsFor!

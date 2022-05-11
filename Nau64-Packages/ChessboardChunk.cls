@@ -20,14 +20,10 @@ setChessGame:index:!private! !
 
 !ChessboardChunk class methodsFor!
 
-icon
-	^Icon fromFile: (FileLocator imageRelative basePath, 'Ajedrez\chessboard-chunk-2.ico')!
-
 newOn: aChessGame index: index
 
 	^self new setChessGame: aChessGame index: index! !
 !ChessboardChunk class categoriesForMethods!
-icon!public! !
 newOn:index:!public! !
 !
 

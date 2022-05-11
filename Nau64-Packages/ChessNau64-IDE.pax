@@ -263,13 +263,12 @@ drawOn: aCanvas chessboard: aChessboard at: symbolCoordinate  isDisplayCoordinat
 	image := ((TextTileIcon text: (Character codePoint: self codePoint) asUtf16String fontName: self systemRoot unicodeFontNameForPieces) 
 		textcolor: self defaultColor; 
 		yourself)
-	"	fontStyle:  #bold;"
 		asBitmap.
 
 	aCanvas graphics 
 		drawImage: image 
-		at: (squarePosition x @ squarePosition y) - 8
-		extent: (self squareSize @ self squareSize) + 18.
+		at: (squarePosition x @ (squarePosition y + 5))
+		extent: self squareSize @ self squareSize.
 
 	"aCanvas graphics
 			drawString: (square calculatePositionAt: aChessboard) printString

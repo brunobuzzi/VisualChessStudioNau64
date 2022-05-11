@@ -46,8 +46,11 @@ squareWhiteColor: aColor
 
 unicodeFontNameForPieces
 
-	^unicodeFontNameForPieces ifNil: ['Gadugi']
-"Other interesting designs:
+	^unicodeFontNameForPieces!
+
+unicodeFontNameForPieces: aString
+	unicodeFontNameForPieces := aString
+"
 Malgun Gothic
 Malgun Gothic Semilight
 Microsoft JhengHei
@@ -64,11 +67,25 @@ Gadugi
 Leelawadee UI
 Nirmala UI
 Nirmala UI Semilight
-PMingLiU-ExtB"!
+PMingLiU-ExtB
+"
+"names := GdiplusInstalledFontCollection new families collect: [:e | e name].
+x := 10.
+y := 10.
+names remove: 'Marlett'.
+names.
+names keysAndValuesDo: [:idx :fName |  | icon nameIcon |
+	icon := TextTileIcon text: (Character codePoint: 9820) asUtf16String fontName: fName.
+	nameIcon := TextTileIcon text: idx printString fontName: fName .
+	icon drawOn: Canvas forDesktop  at: x@y.
+	nameIcon drawOn: Canvas forDesktop  at: (x@(y+60)) extent: 40@40.
+	x := x + 50.
+	x > 1400 ifTrue: [x := 10. y := y + 80].
+].
 
-unicodeFontNameForPieces: aString
-
-	unicodeFontNameForPieces := aString! !
+(TextTileIcon text: (Character codePoint: 9820) asUtf16String fontName: 'Malgun Gothic')
+drawOn: Canvas forDesktop at: 50@50.
+"! !
 !Nau64UserPreferences categoriesForMethods!
 initialize!public! !
 setUnicodeFontName!public! !

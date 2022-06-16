@@ -362,7 +362,8 @@ whiteSideDo:!pieces-black!public! !
 !Chessboard class methodsFor!
 
 icon
-	^Boolean icon!
+	^TextTileIcon text: (Character codePoint: 9638) asUtf16String fontName: 'Malgun Gothic'
+!
 
 newEmptyOn: anObject
 	^super new setRoot: anObject!

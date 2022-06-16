@@ -64,6 +64,24 @@ detectAbsolutePinSquaresFor: aChessSide
 	(attackedPieces <= 1) ifTrue: [^#()].
 	^forkedSquares!
 
+detectedBatteriesFor: aChessSide
+	| batterySquares |
+
+	batterySquares := OrderedCollection new.
+	piece isSlidingPiece ifFalse: [^batterySquares].
+	self squaresDo: [:square |
+		aChessSide chessboardDo: [:chessboard |
+			"anArray of  same side sliding pieces or empty squares together from <square> (using next and previous)"
+			chessboard sameSideAs: piece northArrayFrom: square do: [:arrayOfSquares | 
+				arrayOfSquares anySatisfy: [:each | chessboard pieceAt: each do: [:arrPiece | batterySquares add: each] ifAbsent: []] 
+			].
+			chessboard sameSideAs: piece southArrayFrom: square do: [:arrayOfSquares | 
+				arrayOfSquares anySatisfy: [:each | chessboard pieceAt: each do: [:arrPiece | batterySquares add: each] ifAbsent: []] 
+			].
+		].
+	].
+	^batterySquares!
+
 detectForkedSquaresFor: aChessSide
 	| attackedPieces forkedSquares |
 
@@ -280,6 +298,7 @@ atSouthEastAdd:!add element!public! !
 atSouthWestAdd:!add element!public! !
 atWestAdd:!add element!public! !
 detectAbsolutePinSquaresFor:!public!tactics searchs! !
+detectedBatteriesFor:!public!tactics searchs! !
 detectForkedSquaresFor:!public!tactics searchs! !
 difference:!public!set operations! !
 includes:!public!searching! !

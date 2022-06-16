@@ -134,6 +134,24 @@ pieceAtCoordinate: symbolCoordinate put: aChessPiece
 
 	^pieces at: symbolCoordinate put: aChessPiece!
 
+piecesAtSameFileAs: aChessSquare do: aBlock
+	| filePieces |
+
+	filePieces := OrderedCollection new.
+	self squaresDo: [:square | ((aChessSquare fileIsEqualTo: square) and: [self squareNotEmptyAtCoordinate: square coordinate]) 
+						ifTrue: [filePieces add: (self pieceAt: square)].
+	].
+	filePieces do: aBlock!
+
+piecesAtSameRankAs: aChessSquare do: aBlock
+	| rankPieces |
+
+	rankPieces := OrderedCollection new.
+	self squaresDo: [:square | ((aChessSquare rankIsEqualTo: square) and: [self squareNotEmptyAtCoordinate: square coordinate])
+						ifTrue: [rankPieces add: (self pieceAt: square)]
+	].
+	rankPieces do: aBlock!
+
 piecesDo: aBlock
 
 	pieces do: aBlock!
@@ -158,6 +176,40 @@ removePieceAt: aChessSquare
 removePieceAtCoordiante: symbolCoordiante
 
 	^pieces removeKey: symbolCoordiante ifAbsent: []!
+
+sameSideAs: aPiece northArrayFrom: aChessSquare do: aBlock
+	| array |
+
+	array := OrderedCollection new.
+	1 to: 7 do: [:idx | 
+		aChessSquare 
+			nextFile: 1 
+			nextRank: 0 
+			onSuccessDo: [:square | (((self pieceAt: aChessSquare) isSameSideAs: aPiece) or: [self squareIsEmptyAtCoordinate: square coordinate]) 
+								ifTrue: [array add: square] 
+								ifFalse: [array do: [:each | aBlock].
+									^self]] 
+			onErrorDo: [:err | ].
+	].
+
+	array do: [:each | aBlock]!
+
+sameSideAs: aPiece southArrayFrom: aChessSquare do: aBlock
+	| array |
+
+	array := OrderedCollection new.
+	1 to: 7 do: [:idx | 
+		aChessSquare 
+			nextFile: -1 
+			nextRank: 0 
+			onSuccessDo: [:square | (((self pieceAt: aChessSquare) isSameSideAs: aPiece) or: [self squareIsEmptyAtCoordinate: square coordinate]) 
+								ifTrue: [array add: square] 
+								ifFalse: [array do: [:each | aBlock].
+									^self]] 
+			onErrorDo: [:err | ].
+	].
+
+	array do: [:each | aBlock]!
 
 setBlackPaws
 
@@ -245,6 +297,20 @@ squareNotEmptyAtCoordinate: symbolCoordinate
 
 	^pieces includesKey: symbolCoordinate!
 
+squaresAtFileOf: aChessSquare do: aBlock
+	| fileSquares |
+
+	fileSquares := OrderedCollection new.
+	self squaresDo: [:square | (aChessSquare fileIsEqualTo: square) ifTrue: [fileSquares add: (self pieceAt: square)].].
+	fileSquares do: aBlock!
+
+squaresAtRankOf: aChessSquare do: aBlock
+	| rankSquares |
+
+	rankSquares := OrderedCollection new.
+	self squaresDo: [:square | (aChessSquare rankIsEqualTo: square) ifTrue: [rankSquares add: (self pieceAt: square)].].
+	rankSquares do: aBlock!
+
 squaresDo: aBlock
 
 	systemRoot squaresDo: aBlock!
@@ -327,12 +393,16 @@ pieceAt:ifAbsent:!chessboard contents!public! !
 pieceAt:put:!chessboard contents!public! !
 pieceAtCoordinate:!chessboard contents!public! !
 pieceAtCoordinate:put:!chessboard contents!public! !
+piecesAtSameFileAs:do:!pieces-black!public! !
+piecesAtSameRankAs:do:!pieces-black!public! !
 piecesDo:!iteration!public! !
 piecesSize!public! !
 printEncoded!public! !
 removeEnPassantPawn:!public! !
 removePieceAt:!chessboard contents!public! !
 removePieceAtCoordiante:!chessboard contents!public! !
+sameSideAs:northArrayFrom:do:!public! !
+sameSideAs:southArrayFrom:do:!public! !
 setBlackPaws!private! !
 setBlackPieces!private! !
 setPawns!private! !
@@ -343,6 +413,8 @@ setWhitePieces!private! !
 squareFor:!chessboard contents!public! !
 squareIsEmptyAtCoordinate:!chessboard contents!public! !
 squareNotEmptyAtCoordinate:!chessboard contents!public! !
+squaresAtFileOf:do:!public! !
+squaresAtRankOf:do:!public! !
 squaresDo:!iteration!public! !
 squareSize!public! !
 systemRoot!private! !

@@ -37,15 +37,19 @@ detectedAbsolutePinsDo: aBlock
 		pinnedSquares notEmpty ifTrue: [aBlock value: pinnedSquares]
 	].!
 
+detectedBatteriesDo: aBlock
+	
+	piece chessSideDo: [:chessSide | | forkedSquares |
+		forkedSquares := squaresDictionary detectBatterySquaresFor: chessSide.
+		forkedSquares notEmpty ifTrue: [aBlock value: forkedSquares].
+	].!
+
 detectedForksDo: aBlock
 	
 	piece chessSideDo: [:chessSide | | forkedSquares |
 		forkedSquares := squaresDictionary detectForkedSquaresFor: chessSide.
 		forkedSquares notEmpty ifTrue: [aBlock value: forkedSquares].
 	].!
-
-hasDirectContactWith: aChessPiece on: aChessboard from: aChessSquare
-!
 
 includes: aChessSquare
 	^squaresDictionary includes: aChessSquare!
@@ -127,9 +131,9 @@ canBeMovedToValidCoordinate:on:!public! !
 computeAttackedSquaresOn:from:!public! !
 computeReachableSquaresOn:from:!public! !
 computeValidSquaresOn:from:!public! !
-detectedAbsolutePinsDo:!public! !
-detectedForksDo:!public! !
-hasDirectContactWith:on:from:!public! !
+detectedAbsolutePinsDo:!public!tactics iteration! !
+detectedBatteriesDo:!public!tactics iteration! !
+detectedForksDo:!public!tactics iteration! !
 includes:!public! !
 includesAllSquares:!public! !
 isCheckMatedOn:!public! !

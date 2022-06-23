@@ -248,17 +248,8 @@ computeReachableWestSquaresOn: aChessboard from: aChessSquare
 				onErrorDo: [:ex | ^self]]!
 
 orientationVectorFrom: sourceChessSquare to: targetChessSquare
-	| orientationVector |
 
-	orientationVector := ChessOrientationVector newFor: piece.
-	(sourceChessSquare isEqualTo: targetChessSquare) ifTrue: [^self error: 'An orientation vector for the same chess squares is useless' ].
-	(sourceChessSquare rankIsGreaterThan: targetChessSquare) ifTrue: [orientationVector updateToSouth].
-	(targetChessSquare rankIsGreaterThan: sourceChessSquare) ifTrue: [orientationVector updateToNorth].
-
-	(sourceChessSquare fileIsGreaterThan: targetChessSquare) ifTrue: [orientationVector updateToWest].
-	(targetChessSquare fileIsGreaterThan: sourceChessSquare) ifTrue: [orientationVector updateToEast].
-
-	^orientationVector!
+	^piece orientationVectorFrom: sourceChessSquare to: targetChessSquare!
 
 skeweredPiecesAtNorthEastSquaresOn: aChessboard from: aChessSquare skewerCountLimit: anInteger do: aBlock
 

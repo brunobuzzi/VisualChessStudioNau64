@@ -35,6 +35,7 @@ package methodNames
 	add: #ChessPiece -> #isValidMoveFromCoordinate:to:on:on:;
 	add: #ChessPiece -> #newMovementEngine;
 	add: #ChessPiece -> #newMovementEngineOn:;
+	add: #ChessPiece -> #orientationVectorFrom:to:;
 	add: #King -> #defaultMovementRuleClass;
 	add: #King -> #isValidBlackCastleMoveFrom:to:on:on:;
 	add: #King -> #isValidCastleMoveFrom:to:on:on:;
@@ -60,6 +61,7 @@ package setPrerequisites: #(
 	'ChessBasicElements'
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
+	'..\Core\Object Arts\Dolphin\MVP\Icons\Dolphin Text Tile Icons'
 	'..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models').
 
 package!
@@ -210,7 +212,20 @@ newMovementEngine
 
 newMovementEngineOn: aChessMovementEngineStackTree
 
-	^self defaultMovementRuleClass newFor: self tree: aChessMovementEngineStackTree! !
+	^self defaultMovementRuleClass newFor: self tree: aChessMovementEngineStackTree!
+
+orientationVectorFrom: sourceChessSquare to: targetChessSquare
+	| orientationVector |
+
+	orientationVector := ChessOrientationVector newFor: self.
+	(sourceChessSquare isEqualTo: targetChessSquare) ifTrue: [^self error: 'An orientation vector for the same chess squares is useless' ].
+	(sourceChessSquare rankIsGreaterThan: targetChessSquare) ifTrue: [orientationVector updateToSouth].
+	(targetChessSquare rankIsGreaterThan: sourceChessSquare) ifTrue: [orientationVector updateToNorth].
+
+	(sourceChessSquare fileIsGreaterThan: targetChessSquare) ifTrue: [orientationVector updateToWest].
+	(targetChessSquare fileIsGreaterThan: sourceChessSquare) ifTrue: [orientationVector updateToEast].
+
+	^orientationVector! !
 !ChessPiece categoriesForMethods!
 currentChessSquare!public! !
 defaultMovementRuleClass!public! !
@@ -219,6 +234,7 @@ isValidMoveFromCoordinate:to:on:!public! !
 isValidMoveFromCoordinate:to:on:on:!public! !
 newMovementEngine!public! !
 newMovementEngineOn:!public! !
+orientationVectorFrom:to:!public! !
 !
 
 !King methodsFor!

@@ -64,6 +64,46 @@ detectAbsolutePinSquaresFor: aChessSide
 	(attackedPieces <= 1) ifTrue: [^#()].
 	^forkedSquares!
 
+detectedBatteriesAtNorthFor: aChessSide
+	| batterySquares |
+
+	batterySquares := OrderedCollection new.
+	piece isSlidingPiece ifFalse: [^batterySquares].
+	self squaresDo: [:square |
+		aChessSide chessboardDo: [:chessboard |
+			"anArray of  same side sliding pieces or empty squares together from <square> (using next and previous)"
+			chessboard sameSideAs: piece northArrayFrom: square do: [:arrayOfSquares | 
+				arrayOfSquares anySatisfy: [:each | 
+					chessboard pieceAt: each 
+						do: [:arrPiece | 
+							arrPiece isSlidingPiece ifFalse: [^#()]. 
+							batterySquares add: each] 
+						ifAbsent: []] 
+			].
+		].
+	].
+	^batterySquares !
+
+detectedBatteriesAtSouthFor: aChessSide
+	| batterySquares |
+
+	batterySquares := OrderedCollection new.
+	piece isSlidingPiece ifFalse: [^batterySquares].
+	self squaresDo: [:square |
+		aChessSide chessboardDo: [:chessboard |
+			"anArray of  same side sliding pieces or empty squares together from <square> (using next and previous)"
+			chessboard sameSideAs: piece southArrayFrom: square do: [:arrayOfSquares | 
+				arrayOfSquares anySatisfy: [:each | 
+					chessboard pieceAt: each 
+						do: [:arrPiece | 
+							arrPiece isSlidingPiece ifFalse: [^#()]. 
+							batterySquares add: each] 
+						ifAbsent: []] 
+			].
+		].
+	].
+	^batterySquares !
+
 detectedBatteriesFor: aChessSide
 	| batterySquares |
 
@@ -73,14 +113,42 @@ detectedBatteriesFor: aChessSide
 		aChessSide chessboardDo: [:chessboard |
 			"anArray of  same side sliding pieces or empty squares together from <square> (using next and previous)"
 			chessboard sameSideAs: piece northArrayFrom: square do: [:arrayOfSquares | 
-				arrayOfSquares anySatisfy: [:each | chessboard pieceAt: each do: [:arrPiece | batterySquares add: each] ifAbsent: []] 
+				arrayOfSquares anySatisfy: [:each | 
+					chessboard pieceAt: each 
+						do: [:arrPiece | 
+							arrPiece isSlidingPiece ifFalse: [^#()]. 
+							batterySquares add: each] 
+						ifAbsent: []] 
 			].
 			chessboard sameSideAs: piece southArrayFrom: square do: [:arrayOfSquares | 
-				arrayOfSquares anySatisfy: [:each | chessboard pieceAt: each do: [:arrPiece | batterySquares add: each] ifAbsent: []] 
+				arrayOfSquares anySatisfy: [:each | 
+					chessboard pieceAt: each 
+						do: [:arrPiece | 
+							arrPiece isSlidingPiece ifFalse: [^#()]. 
+							batterySquares add: each] 
+						ifAbsent: []] 
 			].
 		].
 	].
-	^batterySquares!
+	^batterySquares !
+
+detectedBatteriesFor2: aChessSide 
+	| orientations batterySquares |
+
+	orientations := OrderedCollection new.
+	orientations add: (ChessOrientationVector newAtSouthFor: piece);
+		add: (ChessOrientationVector newAtNorthFor: piece);
+		add: (ChessOrientationVector newAtEastFor: piece);
+		add: (ChessOrientationVector newAtWestFor: piece).
+
+	batterySquares := Dictionary new.
+	piece isSlidingPiece ifFalse: [^batterySquares].
+	self squaresDo: [:square |
+		aChessSide chessboardDo: [:chessboard |
+			"anArray of  same side sliding pieces or empty squares together from <square> (using next and previous)"
+		].
+	].
+	^batterySquares !
 
 detectForkedSquaresFor: aChessSide
 	| attackedPieces forkedSquares |
@@ -298,7 +366,10 @@ atSouthEastAdd:!add element!public! !
 atSouthWestAdd:!add element!public! !
 atWestAdd:!add element!public! !
 detectAbsolutePinSquaresFor:!public!tactics searchs! !
+detectedBatteriesAtNorthFor:!public!tactics searchs! !
+detectedBatteriesAtSouthFor:!public!tactics searchs! !
 detectedBatteriesFor:!public!tactics searchs! !
+detectedBatteriesFor2:!public!tactics searchs! !
 detectForkedSquaresFor:!public!tactics searchs! !
 difference:!public!set operations! !
 includes:!public!searching! !

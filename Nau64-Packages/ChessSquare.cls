@@ -177,7 +177,7 @@ symbolDirectionFor:!comparisons!public! !
 !ChessSquare class methodsFor!
 
 icon
-	^Square icon!
+	^TextTileIcon text: (Character codePoint: 8865) asUtf16String fontName: 'Malgun Gothic'!
 
 newFile: aChessFile rank: aChessRank on: aSystemRoot
 

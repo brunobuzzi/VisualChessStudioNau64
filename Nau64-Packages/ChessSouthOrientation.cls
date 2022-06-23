@@ -25,3 +25,12 @@ rankSign!public! !
 validSquaresOn:do:!public! !
 !
 
+!ChessSouthOrientation class methodsFor!
+
+icon
+
+	^TextTileIcon text: (Character codePoint: 9660) asUtf16String fontName: 'Malgun Gothic'! !
+!ChessSouthOrientation class categoriesForMethods!
+icon!public! !
+!
+

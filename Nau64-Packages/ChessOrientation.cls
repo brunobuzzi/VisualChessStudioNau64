@@ -13,16 +13,26 @@ ChessOrientation comment: ''!
 fileSign
 	self subclassResponsibility!
 
+newFor: aChessPiece orientation: aChessOrientation
+
+	self subclassResponsibility!
+
 rankSign
 	self subclassResponsibility!
 
 validSquaresOn: aSquareDictionary do: aBlock
 
-	self subclassResponsibility! !
+	self subclassResponsibility!
+
+vectorClass
+
+	^ChessOrientationVector! !
 !ChessOrientation categoriesForMethods!
 fileSign!public! !
+newFor:orientation:!public!vector creation! !
 rankSign!public! !
 validSquaresOn:do:!public! !
+vectorClass!public!vector creation! !
 !
 
 !ChessOrientation class methodsFor!

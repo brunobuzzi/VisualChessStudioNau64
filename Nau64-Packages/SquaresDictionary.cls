@@ -133,22 +133,25 @@ detectedBatteriesFor: aChessSide
 	^batterySquares !
 
 detectedBatteriesFor2: aChessSide 
-	| orientations batterySquares |
+	| batterySquares currentPieceSquare |
 
-	orientations := OrderedCollection new.
-	orientations add: (ChessOrientationVector newAtSouthFor: piece);
-		add: (ChessOrientationVector newAtNorthFor: piece);
-		add: (ChessOrientationVector newAtEastFor: piece);
-		add: (ChessOrientationVector newAtWestFor: piece).
-
-	batterySquares := Dictionary new.
+	batterySquares := Set new.
 	piece isSlidingPiece ifFalse: [^batterySquares].
-	self squaresDo: [:square |
+	currentPieceSquare := piece currentChessSquare.
+	self squaresDo: [:square | | orientationVector |
+		orientationVector := piece orientationVectorFrom: currentPieceSquare to: square. 
 		aChessSide chessboardDo: [:chessboard |
 			"anArray of  same side sliding pieces or empty squares together from <square> (using next and previous)"
+			(piece bateryOrientationsFrom: orientationVector) do: [:orientation | | slidingSquaresVector |
+				slidingSquaresVector := ChessOrientationVector newFor: piece orientation: orientation.
+				slidingSquaresVector nextSquaresFrom: square do: [:nextSquare | 
+					((chessboard squareNotEmptyAtCoordinate: nextSquare coordinate) and: [(piece isSameSideAs: (chessboard pieceAt: nextSquare)) and:[(chessboard pieceAt: nextSquare) isSlidingPiece]])
+					ifTrue: [batterySquares add: square].
+				].
+			].
 		].
 	].
-	^batterySquares !
+	^batterySquares asOrderedCollection!
 
 detectForkedSquaresFor: aChessSide
 	| attackedPieces forkedSquares |

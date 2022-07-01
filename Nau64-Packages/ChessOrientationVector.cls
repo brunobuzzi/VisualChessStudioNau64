@@ -99,7 +99,7 @@ isCompatibleWithRook!piece compatibility!public! !
 isPieceCompatible!piece compatibility!public! !
 nextSquaresFrom:do:!public!squares iteration! !
 rankSign!public! !
-rookBateryOrientations!public! !
+rookBateryOrientations!public!tactics! !
 setEast!private! !
 setNorth!private! !
 setPiece:!private! !
@@ -115,7 +115,7 @@ updateToWest!orientation settings!public! !
 
 icon
 
-	^TextTileIcon text: (Character codePoint: 128924) asUtf16String fontName: 'Malgun Gothic'!
+	^TextTileIcon text: (Character codePoint: 8663) asUtf16String fontName: 'Malgun Gothic'!
 
 newAtEastFor: aChessPiece
 
@@ -163,7 +163,13 @@ newAtWestFor: aChessPiece
 
 newFor: aChessPiece
 
-	^self new setPiece: aChessPiece! !
+	^self new setPiece: aChessPiece!
+
+newFor: aChessPiece orientation: aChessOrientation
+
+	^aChessOrientation newVectorFor: aChessPiece
+
+	! !
 !ChessOrientationVector class categoriesForMethods!
 icon!public! !
 newAtEastFor:!public! !
@@ -175,5 +181,6 @@ newAtSouthFor:!public! !
 newAtSoutWestFor:!public! !
 newAtWestFor:!public! !
 newFor:!public! !
+newFor:orientation:!public! !
 !
 

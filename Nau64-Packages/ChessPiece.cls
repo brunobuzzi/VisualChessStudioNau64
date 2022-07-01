@@ -10,6 +10,10 @@ ChessPiece comment: ''!
 !ChessPiece categoriesForClass!Kernel-Objects! !
 !ChessPiece methodsFor!
 
+bateryOrientationsFrom: aChessOrientationVector
+
+	^#()!
+
 blackCodePoint
 
 	^self class blackCodePoint!
@@ -135,6 +139,7 @@ whiteCodePoint
 
 	^self class whiteCodePoint! !
 !ChessPiece categoriesForMethods!
+bateryOrientationsFrom:!public!tactics! !
 blackCodePoint!public!unicode! !
 canBeMovedToValidCoordinate:on:!public!testing! !
 chessSideDo:!public! !

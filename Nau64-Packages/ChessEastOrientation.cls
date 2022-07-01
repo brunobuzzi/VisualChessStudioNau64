@@ -13,6 +13,10 @@ ChessEastOrientation comment: ''!
 fileSign
 	^1!
 
+newFor: aChessPiece orientation: aChessOrientation
+
+	^self vectorClass newAtEastFor: aChessPiece!
+
 rankSign
 	self shouldNotImplement!
 
@@ -21,6 +25,7 @@ validSquaresOn: aSquareDictionary do: aBlock
 	aSquareDictionary squaresAtEastDo: aBlock! !
 !ChessEastOrientation categoriesForMethods!
 fileSign!public! !
+newFor:orientation:!public!vector creation! !
 rankSign!public! !
 validSquaresOn:do:!public! !
 !

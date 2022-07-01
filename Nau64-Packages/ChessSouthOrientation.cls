@@ -13,6 +13,10 @@ ChessSouthOrientation comment: ''!
 fileSign
 	self shouldNotImplement!
 
+newFor: aChessPiece orientation: aChessOrientation
+
+	^self vectorClass newAtSouthFor: aChessPiece!
+
 rankSign
 	^-1!
 
@@ -21,6 +25,7 @@ validSquaresOn: aSquareDictionary do: aBlock
 	aSquareDictionary squaresAtSouthDo: aBlock! !
 !ChessSouthOrientation categoriesForMethods!
 fileSign!public! !
+newFor:orientation:!public!vector creation! !
 rankSign!public! !
 validSquaresOn:do:!public! !
 !

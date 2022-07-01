@@ -10,6 +10,10 @@ Rook comment: ''!
 !Rook categoriesForClass!Kernel-Objects! !
 !Rook methodsFor!
 
+bateryOrientationsFrom: aChessOrientationVector
+
+	^aChessOrientationVector rookBateryOrientations!
+
 fenString
 
 	^self isBlack ifTrue: ['r'] ifFalse: ['R']!
@@ -26,6 +30,7 @@ movesAreCompatibleWith: aChessOrientationVector
 
 	^aChessOrientationVector isCompatibleWithRook! !
 !Rook categoriesForMethods!
+bateryOrientationsFrom:!public!tactics! !
 fenString!public! !
 isRook!public!testing! !
 isSlidingPiece!public! !

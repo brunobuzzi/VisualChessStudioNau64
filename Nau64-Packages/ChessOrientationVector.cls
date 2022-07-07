@@ -48,13 +48,13 @@ nextSquaresFrom: aChessSquare do: aBlock
 rankSign
 	^southOrNorth ifNil: [0] ifNotNil: [southOrNorth rankSign]!
 
-rookBateryOrientations
+rookBateryOrientationsDo: aBlock
 
-	southOrNorth ifNotNil: [:orientation | ^Array with: ChessWestOrientation new with: ChessEastOrientation new].
+	southOrNorth ifNotNil: [^(Array with: ChessWestOrientation new with: ChessEastOrientation new) do: aBlock].
 
-	eastOrWest ifNotNil: [:orientation | ^Array with: ChessSouthOrientation new with: ChessNorthOrientation new].
+	eastOrWest ifNotNil: [^(Array with: ChessSouthOrientation new with: ChessNorthOrientation new) do: aBlock].
 	
-	self error: 'No orientation set for this vector'!
+	!
 
 setEast
 
@@ -99,7 +99,7 @@ isCompatibleWithRook!piece compatibility!public! !
 isPieceCompatible!piece compatibility!public! !
 nextSquaresFrom:do:!public!squares iteration! !
 rankSign!public! !
-rookBateryOrientations!public!tactics! !
+rookBateryOrientationsDo:!public!tactics! !
 setEast!private! !
 setNorth!private! !
 setPiece:!private! !

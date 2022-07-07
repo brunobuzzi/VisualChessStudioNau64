@@ -10,9 +10,9 @@ ChessPiece comment: ''!
 !ChessPiece categoriesForClass!Kernel-Objects! !
 !ChessPiece methodsFor!
 
-bateryOrientationsFrom: aChessOrientationVector
+bateryOrientationsFrom: aChessOrientationVector do: aBlock
 
-	^#()!
+!
 
 blackCodePoint
 
@@ -22,6 +22,10 @@ canBeMovedToValidCoordinate: symbolCoordinate on: aChessboard
 
 	^(aChessboard squareIsEmptyAtCoordinate: symbolCoordinate) or: 
 		[(aChessboard squareNotEmptyAtCoordinate: symbolCoordinate) and: [self isOppositeSideTo: (aChessboard pieceAtCoordinate: symbolCoordinate)]]!
+
+chessboardDo: aBlock
+
+	self chessSideDo: [:aChessSide | aChessSide chessboardDo: aBlock]!
 
 chessSideDo: aBlock
 
@@ -83,11 +87,11 @@ isRook
 
 	^false!
 
-isSameSideAs: aChessPieceOrNil
+isSameSideAs: aChessPiece
 
-	aChessPieceOrNil ifNil: [^false].
+	"aChessPieceOrNil ifNil: [^false]." "ugly/buggy code removed"
 
-	^(aChessPieceOrNil isBlack and: [self isBlack]) or: [aChessPieceOrNil isWhite and: [self isWhite]]!
+	^(aChessPiece isBlack and: [self isBlack]) or: [aChessPiece isWhite and: [self isWhite]]!
 
 isSecureToAttack: aChessSquare on: aChessboard 
 	| forceNumber |
@@ -139,9 +143,10 @@ whiteCodePoint
 
 	^self class whiteCodePoint! !
 !ChessPiece categoriesForMethods!
-bateryOrientationsFrom:!public!tactics! !
+bateryOrientationsFrom:do:!public!tactics! !
 blackCodePoint!public!unicode! !
 canBeMovedToValidCoordinate:on:!public!testing! !
+chessboardDo:!public! !
 chessSideDo:!public! !
 codePoint!public!unicode! !
 defaultColor!public!testing! !

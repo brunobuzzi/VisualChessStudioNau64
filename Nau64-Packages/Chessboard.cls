@@ -177,40 +177,6 @@ removePieceAtCoordiante: symbolCoordiante
 
 	^pieces removeKey: symbolCoordiante ifAbsent: []!
 
-sameSideAs: aPiece northArrayFrom: aChessSquare do: aBlock
-	| array |
-
-	array := OrderedCollection new.
-	1 to: 7 do: [:idx | 
-		aChessSquare 
-			nextFile: 1 
-			nextRank: 0 
-			onSuccessDo: [:square | (((self pieceAt: aChessSquare) isSameSideAs: aPiece) or: [self squareIsEmptyAtCoordinate: square coordinate]) 
-								ifTrue: [array add: square] 
-								ifFalse: [array do: [:each | aBlock].
-									^self]] 
-			onErrorDo: [:err | ].
-	].
-
-	array do: [:each | aBlock]!
-
-sameSideAs: aPiece southArrayFrom: aChessSquare do: aBlock
-	| array |
-
-	array := OrderedCollection new.
-	1 to: 7 do: [:idx | 
-		aChessSquare 
-			nextFile: -1 
-			nextRank: 0 
-			onSuccessDo: [:square | (((self pieceAt: aChessSquare) isSameSideAs: aPiece) or: [self squareIsEmptyAtCoordinate: square coordinate]) 
-								ifTrue: [array add: square] 
-								ifFalse: [array do: [:each | aBlock].
-									^self]] 
-			onErrorDo: [:err | ].
-	].
-
-	array do: [:each | aBlock]!
-
 setBlackPaws
 
 	pieces
@@ -401,8 +367,6 @@ printEncoded!public! !
 removeEnPassantPawn:!public! !
 removePieceAt:!chessboard contents!public! !
 removePieceAtCoordiante:!chessboard contents!public! !
-sameSideAs:northArrayFrom:do:!public! !
-sameSideAs:southArrayFrom:do:!public! !
 setBlackPaws!private! !
 setBlackPieces!private! !
 setPawns!private! !

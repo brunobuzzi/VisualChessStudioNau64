@@ -12,21 +12,13 @@ Nau64UserPreferences comment: ''!
 
 initialize
 
-	self setUnicodeFontName.
-	self squareBlackAndWhiteColors.!
-
-setUnicodeFontName
-
-	unicodeFontNameForPieces := 'Tahoma'!
+	unicodeFontNameForPieces := 'Gadugi'.
+	squareBlackColor := Color silver.
+	squareWhiteColor := Color white.!
 
 setUnicodeFontName: aFontName
 
 	unicodeFontNameForPieces := aFontName!
-
-squareBlackAndWhiteColors
-
-	squareBlackColor := Color lightGray.
-	squareWhiteColor := Color white.!
 
 squareBlackColor
 
@@ -88,9 +80,7 @@ drawOn: Canvas forDesktop at: 50@50.
 "! !
 !Nau64UserPreferences categoriesForMethods!
 initialize!public! !
-setUnicodeFontName!public! !
 setUnicodeFontName:!public! !
-squareBlackAndWhiteColors!public! !
 squareBlackColor!public! !
 squareBlackColor:!public! !
 squareWhiteColor!public! !

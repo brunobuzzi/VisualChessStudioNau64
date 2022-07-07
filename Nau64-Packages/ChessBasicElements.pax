@@ -21,6 +21,7 @@ package classNames
 	add: #King;
 	add: #Knight;
 	add: #Nau64ChessSystemRoot;
+	add: #Nau64UserPreferences;
 	add: #Pawn;
 	add: #Queen;
 	add: #Rook;
@@ -78,6 +79,11 @@ Object subclass: #ChessSquare
 	classInstanceVariableNames: ''!
 Object subclass: #Nau64ChessSystemRoot
 	instanceVariableNames: 'files ranks squares userPreferences'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #Nau64UserPreferences
+	instanceVariableNames: 'unicodeFontNameForPieces squareWhiteColor squareBlackColor'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

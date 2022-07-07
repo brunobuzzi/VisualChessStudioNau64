@@ -25,7 +25,6 @@ package classNames
 	add: #ChessPinEffect;
 	add: #ChessTacticEffect;
 	add: #ChessVisualEffectDefinition;
-	add: #Nau64UserPreferences;
 	yourself.
 
 package methodNames
@@ -79,11 +78,6 @@ Object subclass: #ChessboardEffect
 	classInstanceVariableNames: ''!
 Object subclass: #ChessVisualEffectDefinition
 	instanceVariableNames: 'isTopRendered'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-Object subclass: #Nau64UserPreferences
-	instanceVariableNames: 'unicodeFontNameForPieces squareWhiteColor squareBlackColor'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

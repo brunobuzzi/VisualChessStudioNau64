@@ -289,7 +289,7 @@ slidingPieceAt: sourceChessSquare canReachSkippingOnePiece: targetChessSquare on
 	orientationVector nextSquaresFrom: sourceChessSquare do: [:square | 
 		aChessboard 
 			pieceAt: sourceChessSquare 
-			do: [:aChessPiece | (aChessPiece isSameSideAs: (aChessboard pieceAt: square)) ifTrue: [^false]] 
+			do: [:sourcePiece | aChessboard pieceAt: square do: [:targetPiece | (sourcePiece isSameSideAs: targetPiece) ifTrue: [^false]] ifAbsent: []]
 			ifAbsent: [].
 		(aChessboard squareNotEmptyAtCoordinate: square coordinate) ifTrue: [reachedPieces := reachedPieces + 1].
 		(reachedPieces <= 1 and: [square = targetChessSquare]) ifTrue: [^true].

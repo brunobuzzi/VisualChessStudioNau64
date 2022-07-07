@@ -79,6 +79,12 @@ setUnicodeFontName: aFontName
 
 	^userPreferences setUnicodeFontName: aFontName!
 
+setUpRoot
+
+	self setFilesRanksAndSquares.
+
+	userPreferences := Nau64UserPreferences new.!
+
 squareAt: aSymbol
 
 	^squares at: aSymbol!
@@ -123,6 +129,7 @@ setFilesRanksAndSquares!private! !
 setRanks!files and ranks!private! !
 setSquares!private!squares! !
 setUnicodeFontName:!public!user preferences! !
+setUpRoot!private! !
 squareAt:!public!squares! !
 squareAtFile:atRank:!public!squares! !
 squareBlackColor!public!user preferences! !
@@ -138,7 +145,7 @@ unicodeFontNameForPieces!public!user preferences! !
 
 new
 
-	^super new setFilesRanksAndSquares! !
+	^super new setUpRoot! !
 !Nau64ChessSystemRoot class categoriesForMethods!
 new!public! !
 !

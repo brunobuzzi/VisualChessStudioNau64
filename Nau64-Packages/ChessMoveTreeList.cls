@@ -25,8 +25,8 @@ annotateMove: aChessMove on: aChessboard
 	aChessMove setCategoriesFrom:  aChessboard.
 
 	lastMove ifNotNil: [
-		(self lastMoveIsBlackEnPassantEnablerFrom: aChessMove from to: aChessMove to) ifTrue: [aChessMove addEnPassantCategory].
-		(self lastMoveIsWhiteEnPassantEnablerFrom: aChessMove from to: aChessMove to) ifTrue: [aChessMove addEnPassantCategory].
+		(self lastMoveIsBlackEnPassantEnablerFrom: aChessMove from to: aChessMove to) ifTrue: [aChessMove addEnPassantCategoryEnabler: lastMove].
+		(self lastMoveIsWhiteEnPassantEnablerFrom: aChessMove from to: aChessMove to) ifTrue: [aChessMove addEnPassantCategoryEnabler: lastMove].
 	].
 
 	treeRoots ifNil: [treeRoots := OrderedCollection new].

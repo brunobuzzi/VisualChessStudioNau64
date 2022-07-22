@@ -122,6 +122,7 @@ setOptionFromFenParser: aChessFenParser
 
 setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer fenString: fenString
 
+	dateTime := TimeStamp current.
 	systemRoot := aSystemRoot.
 
 	whitePlayer := whiteChessPlayer.

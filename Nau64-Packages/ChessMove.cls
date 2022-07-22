@@ -10,9 +10,9 @@ ChessMove comment: ''!
 !ChessMove categoriesForClass!Kernel-Objects! !
 !ChessMove methodsFor!
 
-addEnPassantCategory
+addEnPassantCategoryEnabler: aChessMove
 
-	categories add: (ChessEnPassantMove newOn: self)!
+	categories add: (ChessEnPassantMove newOn: self enabler: aChessMove)!
 
 from
 
@@ -97,7 +97,7 @@ undoOn: aChessboard
 
 	categories do: [:each | each undoOn: aChessboard]! !
 !ChessMove categoriesForMethods!
-addEnPassantCategory!public! !
+addEnPassantCategoryEnabler:!public! !
 from!public! !
 isBlackCurrentSideMovingOn:!public! !
 isBlackEnPassantEnablerFrom:to:!public! !

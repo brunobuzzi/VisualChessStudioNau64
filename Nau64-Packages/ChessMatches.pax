@@ -89,7 +89,7 @@ ChessMoveCategory subclass: #ChessCheckMove
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessMoveCategory subclass: #ChessEnPassantMove
-	instanceVariableNames: ''
+	instanceVariableNames: 'enablerMove'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

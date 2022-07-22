@@ -126,18 +126,18 @@ validSquaresFrom: aChessSquare toFileShift: fileShift toRankShift: rankShift onS
 		onSuccessDo: monadicSuccessBlock
 		onErrorDo: monadicErrorBlock! !
 !ChessMovementEngine categoriesForMethods!
-attackedSquaresOn:from:do:!public! !
-canBeMovedToValidCoordinate:on:!public! !
-computeAttackedSquaresOn:from:!public! !
-computeReachableSquaresOn:from:!public! !
-computeValidSquaresOn:from:!public! !
+attackedSquaresOn:from:do:!public!valid move! !
+canBeMovedToValidCoordinate:on:!public!valid move! !
+computeAttackedSquaresOn:from:!public!valid move! !
+computeReachableSquaresOn:from:!public!valid move! !
+computeValidSquaresOn:from:!public!valid move! !
 detectedAbsolutePinsDo:!public!tactics iteration! !
 detectedBatteriesDo:!public!tactics iteration! !
 detectedForksDo:!public!tactics iteration! !
 includes:!public! !
 includesAllSquares:!public! !
 isCheckMatedOn:!public! !
-isValidOn:from:to:!public! !
+isValidOn:from:to:!public!valid move! !
 setPiece:!private! !
 setPiece:tree:!private! !
 skeweredPieces:on:from:!public! !
@@ -147,7 +147,7 @@ squaresAndOrientationDo:!public! !
 squaresDictionaryDo:!public! !
 squaresDo:!public! !
 squaresSize!public! !
-validSquaresFrom:toFileShift:toRankShift:onSucessDo:onErrorDo:!public! !
+validSquaresFrom:toFileShift:toRankShift:onSucessDo:onErrorDo:!public!valid move! !
 !
 
 !ChessMovementEngine class methodsFor!

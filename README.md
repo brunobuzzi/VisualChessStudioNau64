@@ -1,6 +1,6 @@
 # VisualChessStudioNau64
 
-This is a experimental Chess project currently implemented on Dolphin Smalltalk (https://github.com/dolphinsmalltalk/Dolphin). 
+This is an experimental Chess project currently implemented on Dolphin Smalltalk (https://github.com/dolphinsmalltalk/Dolphin). 
 
 Dolphin Smalltalk will be used a Development Environment but at some point everything will run on GemStone/S.
 

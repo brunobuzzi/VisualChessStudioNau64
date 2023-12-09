@@ -14,6 +14,10 @@ fenString
 
 	^self isBlack ifTrue: ['q'] ifFalse: ['Q']!
 
+generateSquaresScopeFrom: aChessSquareScope
+
+	^aChessSquareScope generateSlidingPieceSquareScope.!
+
 isQueen
 
 	^true!
@@ -27,6 +31,7 @@ movesAreCompatibleWith: aChessOrientationVector
 	^aChessOrientationVector isCompatibleWithQueen! !
 !Queen categoriesForMethods!
 fenString!public! !
+generateSquaresScopeFrom:!new framework!public! !
 isQueen!public!testing! !
 isSlidingPiece!public! !
 movesAreCompatibleWith:!public! !

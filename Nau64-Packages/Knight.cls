@@ -14,11 +14,16 @@ fenString
 
 	^self isBlack ifTrue: ['n'] ifFalse: ['N']!
 
+generateSquaresScopeFrom: aChessSquareScope
+
+	^aChessSquareScope generateKnightSquareScope.!
+
 isKnight
 
 	^true! !
 !Knight categoriesForMethods!
 fenString!public! !
+generateSquaresScopeFrom:!new framework!public! !
 isKnight!public!testing! !
 !
 

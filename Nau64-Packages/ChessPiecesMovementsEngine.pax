@@ -15,7 +15,11 @@ package classNames
 	add: #ChessNorthOrientation;
 	add: #ChessOrientation;
 	add: #ChessOrientationVector;
+	add: #ChessPieceVector;
 	add: #ChessSouthOrientation;
+	add: #ChessSquareScope;
+	add: #ChessSquareVector;
+	add: #ChessVector;
 	add: #ChessWestOrientation;
 	add: #KingMovementEngine;
 	add: #KnightMovementEngine;
@@ -28,6 +32,7 @@ package classNames
 
 package methodNames
 	add: #Bishop -> #defaultMovementRuleClass;
+	add: #Bishop -> #orientations;
 	add: #ChessPiece -> #currentChessSquare;
 	add: #ChessPiece -> #defaultMovementRuleClass;
 	add: #ChessPiece -> #isValidMoveFromCoordinate:to:;
@@ -35,20 +40,27 @@ package methodNames
 	add: #ChessPiece -> #isValidMoveFromCoordinate:to:on:on:;
 	add: #ChessPiece -> #newMovementEngine;
 	add: #ChessPiece -> #newMovementEngineOn:;
+	add: #ChessPiece -> #orientations;
 	add: #ChessPiece -> #orientationVectorFrom:to:;
+	add: #ChessPiece -> #skewerPieceOn:from:do:;
 	add: #King -> #defaultMovementRuleClass;
 	add: #King -> #isValidBlackCastleMoveFrom:to:on:on:;
 	add: #King -> #isValidCastleMoveFrom:to:on:on:;
 	add: #King -> #isValidMoveFromCoordinate:to:on:on:;
 	add: #King -> #isValidWhiteCastleMoveFrom:to:on:on:;
+	add: #King -> #orientations;
 	add: #Knight -> #defaultMovementRuleClass;
+	add: #Knight -> #orientations;
 	add: #Pawn -> #defaultMovementRuleClass;
 	add: #Pawn -> #isValidBlackEnPassantMoveFrom:to:on:;
 	add: #Pawn -> #isValidEnPassantMoveFrom:to:on:;
 	add: #Pawn -> #isValidMoveFromCoordinate:to:on:;
 	add: #Pawn -> #isValidWhiteEnPassantMoveFrom:to:on:;
+	add: #Pawn -> #orientations;
 	add: #Queen -> #defaultMovementRuleClass;
+	add: #Queen -> #orientations;
 	add: #Rook -> #defaultMovementRuleClass;
+	add: #Rook -> #orientations;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -88,8 +100,8 @@ Object subclass: #ChessOrientation
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-Object subclass: #ChessOrientationVector
-	instanceVariableNames: 'piece southOrNorth eastOrWest'
+Object subclass: #ChessVector
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -163,6 +175,26 @@ ChessOrientation subclass: #ChessWestOrientation
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+ChessVector subclass: #ChessOrientationVector
+	instanceVariableNames: 'southOrNorth eastOrWest'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessVector subclass: #ChessSquareScope
+	instanceVariableNames: 'piece sourceSquare'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessVector subclass: #ChessSquareVector
+	instanceVariableNames: 'sourceSquare targetSquare orientationVector'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessSquareVector subclass: #ChessPieceVector
+	instanceVariableNames: 'sourcePiece targetPiece'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 
 "Global Aliases"!
 
@@ -172,9 +204,18 @@ ChessOrientation subclass: #ChessWestOrientation
 !Bishop methodsFor!
 
 defaultMovementRuleClass
-	^BishopMovementEngine! !
+	^BishopMovementEngine!
+
+orientations
+
+	^OrderedCollection 
+		with: ChessOrientationVector newNorthWest 
+		with: ChessOrientationVector newNorthEast
+		with: ChessOrientationVector newSouthWest
+		with: ChessOrientationVector newSouthEast! !
 !Bishop categoriesForMethods!
 defaultMovementRuleClass!public! !
+orientations!new framework!orientations do!public! !
 !
 
 !ChessPiece methodsFor!
@@ -214,18 +255,19 @@ newMovementEngineOn: aChessMovementEngineStackTree
 
 	^self defaultMovementRuleClass newFor: self tree: aChessMovementEngineStackTree!
 
+orientations
+
+	^OrderedCollection new!
+
 orientationVectorFrom: sourceChessSquare to: targetChessSquare
-	| orientationVector |
 
-	orientationVector := ChessOrientationVector newFor: self.
-	(sourceChessSquare isEqualTo: targetChessSquare) ifTrue: [^self error: 'An orientation vector for the same chess squares is useless' ].
-	(sourceChessSquare rankIsGreaterThan: targetChessSquare) ifTrue: [orientationVector updateToSouth].
-	(targetChessSquare rankIsGreaterThan: sourceChessSquare) ifTrue: [orientationVector updateToNorth].
+	^ChessOrientationVector newFrom: sourceChessSquare to: targetChessSquare.!
 
-	(sourceChessSquare fileIsGreaterThan: targetChessSquare) ifTrue: [orientationVector updateToWest].
-	(targetChessSquare fileIsGreaterThan: sourceChessSquare) ifTrue: [orientationVector updateToEast].
-
-	^orientationVector! !
+skewerPieceOn: aChessboard from: aChessSquare do: aBlock
+	^self newMovementEngine
+		skewerPieceOn: aChessboard
+		from: aChessSquare
+		do: aBlock! !
 !ChessPiece categoriesForMethods!
 currentChessSquare!public! !
 defaultMovementRuleClass!public! !
@@ -234,7 +276,9 @@ isValidMoveFromCoordinate:to:on:!public! !
 isValidMoveFromCoordinate:to:on:on:!public! !
 newMovementEngine!public! !
 newMovementEngineOn:!public! !
+orientations!new framework!public! !
 orientationVectorFrom:to:!public! !
+skewerPieceOn:from:do:!public! !
 !
 
 !King methodsFor!
@@ -288,21 +332,44 @@ isValidWhiteCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboar
 		].
 	].
 	^true
-	! !
+	!
+
+orientations
+
+	^OrderedCollection new
+		add: ChessOrientationVector newNorth;
+		add: ChessOrientationVector newSouth;
+		add: ChessOrientationVector newWest;
+		add: ChessOrientationVector newEast;
+		add: ChessOrientationVector newNorthWest;
+		add: ChessOrientationVector newNorthEast;
+		add: ChessOrientationVector newSouthWest;
+		add: ChessOrientationVector newSouthEast;
+		yourself! !
 !King categoriesForMethods!
 defaultMovementRuleClass!public! !
 isValidBlackCastleMoveFrom:to:on:on:!public! !
 isValidCastleMoveFrom:to:on:on:!public! !
 isValidMoveFromCoordinate:to:on:on:!public! !
 isValidWhiteCastleMoveFrom:to:on:on:!public! !
+orientations!public! !
 !
 
 !Knight methodsFor!
 
 defaultMovementRuleClass
-	^KnightMovementEngine! !
+	^KnightMovementEngine!
+
+orientations
+
+	^OrderedCollection 
+		with: ChessOrientationVector newNorthWest 
+		with: ChessOrientationVector newNorthEast
+		with: ChessOrientationVector newSouthWest
+		with: ChessOrientationVector newSouthEast! !
 !Knight categoriesForMethods!
 defaultMovementRuleClass!public! !
+orientations!new framework!orientations do!public! !
 !
 
 !Pawn methodsFor!
@@ -332,29 +399,67 @@ isValidWhiteEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessG
 	self oppositeSideDo: [:side | (side anyPawnAtEnPassantMoveFrom: originCoordinate) ifFalse: [^false]].
 
 	^aChessGame lastMoveIsWhiteEnPassantEnablerFrom: originCoordinate to: targetCoordinate
-	! !
+	!
+
+orientations
+
+	^self isWhite
+	ifTrue: [OrderedCollection new
+			add: ChessOrientationVector newNorth;
+			add: ChessOrientationVector newNorthWest;
+			add: ChessOrientationVector newNorthEast;
+			yourself]
+	ifFalse: [OrderedCollection new
+			add: ChessOrientationVector newSouth;
+			add: ChessOrientationVector newSouthWest;
+			add: ChessOrientationVector newSouthEast;
+			yourself]! !
 !Pawn categoriesForMethods!
 defaultMovementRuleClass!public! !
 isValidBlackEnPassantMoveFrom:to:on:!public! !
 isValidEnPassantMoveFrom:to:on:!public! !
 isValidMoveFromCoordinate:to:on:!public! !
 isValidWhiteEnPassantMoveFrom:to:on:!public! !
+orientations!new framework!public! !
 !
 
 !Queen methodsFor!
 
 defaultMovementRuleClass
-	^QueenMovementEngine! !
+	^QueenMovementEngine!
+
+orientations
+
+	^OrderedCollection new
+		add: ChessOrientationVector newNorth;
+		add: ChessOrientationVector newSouth;
+		add: ChessOrientationVector newWest;
+		add: ChessOrientationVector newEast;
+		add: ChessOrientationVector newNorthWest;
+		add: ChessOrientationVector newNorthEast;
+		add: ChessOrientationVector newSouthWest;
+		add: ChessOrientationVector newSouthEast;
+		yourself! !
 !Queen categoriesForMethods!
 defaultMovementRuleClass!public! !
+orientations!new framework!public! !
 !
 
 !Rook methodsFor!
 
 defaultMovementRuleClass
-	^RookMovementEngine! !
+	^RookMovementEngine!
+
+orientations
+
+	^OrderedCollection 
+		with: ChessOrientationVector newNorth
+		with: ChessOrientationVector newSouth
+		with: ChessOrientationVector newWest
+		with: ChessOrientationVector newEast! !
 !Rook categoriesForMethods!
 defaultMovementRuleClass!public! !
+orientations!new framework!public! !
 !
 
 "End of package definition"!

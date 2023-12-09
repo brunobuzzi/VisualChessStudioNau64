@@ -18,6 +18,10 @@ fenString
 
 	^self isBlack ifTrue: ['r'] ifFalse: ['R']!
 
+generateSquaresScopeFrom: aChessSquareScope
+
+	^aChessSquareScope generateSlidingPieceSquareScope.!
+
 isRook
 
 	^true!
@@ -32,6 +36,7 @@ movesAreCompatibleWith: aChessOrientationVector
 !Rook categoriesForMethods!
 bateryOrientationsFrom:do:!public!tactics! !
 fenString!public! !
+generateSquaresScopeFrom:!new framework!public! !
 isRook!public!testing! !
 isSlidingPiece!public! !
 movesAreCompatibleWith:!public! !

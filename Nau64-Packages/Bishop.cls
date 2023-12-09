@@ -14,6 +14,10 @@ fenString
 
 	^self isBlack ifTrue: ['b'] ifFalse: ['B']!
 
+generateSquaresScopeFrom: aChessSquareScope
+
+	^aChessSquareScope generateSlidingPieceSquareScope.!
+
 isBishop
 
 	^true!
@@ -27,6 +31,7 @@ movesAreCompatibleWith: aChessOrientationVector
 	^aChessOrientationVector isCompatibleWithBishop! !
 !Bishop categoriesForMethods!
 fenString!public! !
+generateSquaresScopeFrom:!new framework!public! !
 isBishop!public!testing! !
 isSlidingPiece!public! !
 movesAreCompatibleWith:!public! !

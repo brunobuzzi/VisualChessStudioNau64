@@ -18,6 +18,35 @@ allAttackedSquaresByWhiteDo: aBlock
 
 	^whiteSide allAttackedSquaresDo: aBlock!
 
+anyOppositePieceIsAttackingTheKingThrough: aChessPiece
+
+	aChessPiece oppositeSideDo: [:aChessSide | 
+		aChessSide slidingPiecesDo: [:piece | 
+			 piece newMovementEngine 
+				slidingPieceAt: piece currentChessSquare
+				ifCanReachSkippingOnePiece: aChessPiece king currentChessSquare 
+				blockedPiecesDo: [:blockedPiece :orientationVector | (blockedPiece == aChessPiece) ifTrue: [^true]]
+				on: self.
+		].
+	].
+	^false
+!
+
+anyOppositePieceIsAttackingTheKingThrough: aChessPiece tryingToMoveFrom: originChessSquare to: targetChessSquare
+	| moveVector |
+	moveVector := aChessPiece orientationVectorFrom: originChessSquare to: targetChessSquare.
+	aChessPiece oppositeSideDo: [:aChessSide | 
+		aChessSide slidingPiecesDo: [:piece | 
+			 piece newMovementEngine 
+				slidingPieceAt: piece currentChessSquare
+				ifCanReachSkippingOnePiece: aChessPiece king currentChessSquare 
+				blockedPiecesDo: [:blockedPiece :orientationVector | ((blockedPiece == aChessPiece) and: [orientationVector notOpposing: moveVector]) ifTrue: [^true]]
+				on: self.
+		].
+	].
+	^false
+!
+
 blackBishops
 
 	^pieces select: [:each | each isBishop and: [each isBlack]]!
@@ -162,6 +191,53 @@ piecesSize
 
 printEncoded!
 
+printFenString
+	| fenStream |
+
+	fenStream := String new writeStream.
+	systemRoot fenSquares do: [:squareCollection | | freeSquares |
+		freeSquares := 0.
+		squareCollection do: [:square | 
+			self 
+				pieceAt: square 
+				do: [:piece | (freeSquares > 0) 
+						ifTrue: [fenStream nextPutAll: freeSquares printString.
+							freeSquares := 0].
+						fenStream nextPutAll: piece fenString] 
+				ifAbsent: [freeSquares := freeSquares + 1].
+		].
+		(freeSquares > 0) ifTrue: [fenStream nextPutAll: freeSquares printString].
+		fenStream nextPut: $/.
+	].
+	^fenStream contents
+
+!
+
+printFenStringFor: aChessPiece
+	| fenStream |
+
+	fenStream := String new writeStream.
+	systemRoot fenSquares do: [:squareCollection | | freeSquares |
+		freeSquares := 0.
+		squareCollection do: [:square | 
+			self 
+				pieceAt: square 
+				do: [:piece | (freeSquares > 0) 
+						ifTrue: [fenStream nextPutAll: freeSquares printString.
+							freeSquares := 0].
+						(aChessPiece == piece) 
+						ifTrue: [fenStream nextPutAll: piece fenString] 
+						ifFalse: [freeSquares := freeSquares + 1]] 
+				ifAbsent: [freeSquares := freeSquares + 1].
+		].
+		(freeSquares > 0) ifTrue: [fenStream nextPutAll: freeSquares printString].
+		fenStream nextPut: $/.
+	].
+
+	^fenStream contents
+
+!
+
 removeEnPassantPawn: targetSymbolCoordinate
 
 	(targetSymbolCoordinate second = $6) ifTrue: [self removePieceAtCoordiante: (targetSymbolCoordinate first asString, '5') asSymbol].
@@ -284,6 +360,9 @@ squaresDo: aBlock
 squareSize
 	^squareSize!
 
+squareSize: anInteger
+	squareSize := anInteger!
+
 systemRoot
 
 	^systemRoot!
@@ -293,6 +372,9 @@ toggleOrientation
 	(orientation == #normal) ifTrue: [^orientation := #reversed].
 
 	orientation := #normal!
+
+viewChessboard
+	^self!
 
 whiteBishops
 
@@ -336,6 +418,8 @@ whiteSideDo: aBlock
 !Chessboard categoriesForMethods!
 allAttackedSquaresByBlackDo:!public! !
 allAttackedSquaresByWhiteDo:!public! !
+anyOppositePieceIsAttackingTheKingThrough:!public! !
+anyOppositePieceIsAttackingTheKingThrough:tryingToMoveFrom:to:!public! !
 blackBishops!pieces-black!public! !
 blackKing!pieces-black!public! !
 blackKnights!pieces-black!public! !
@@ -364,6 +448,8 @@ piecesAtSameRankAs:do:!pieces-black!public! !
 piecesDo:!iteration!public! !
 piecesSize!public! !
 printEncoded!public! !
+printFenString!fen notation!public! !
+printFenStringFor:!fen notation!public! !
 removeEnPassantPawn:!public! !
 removePieceAt:!chessboard contents!public! !
 removePieceAtCoordiante:!chessboard contents!public! !
@@ -381,8 +467,10 @@ squaresAtFileOf:do:!public! !
 squaresAtRankOf:do:!public! !
 squaresDo:!iteration!public! !
 squareSize!public! !
+squareSize:!public! !
 systemRoot!private! !
 toggleOrientation!public! !
+viewChessboard!public!view! !
 whiteBishops!pieces-white!public! !
 whiteKing!pieces-white!public! !
 whiteKnights!pieces-white!public! !

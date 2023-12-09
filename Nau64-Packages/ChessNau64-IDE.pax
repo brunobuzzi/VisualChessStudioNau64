@@ -14,6 +14,7 @@ package classNames
 	add: #ChessboardEffect;
 	add: #ChessboardPlaygroundPresenter;
 	add: #ChessboardPlaygroundShell;
+	add: #ChessboardSquaresPresenter;
 	add: #ChessCenterChunkEffect;
 	add: #ChessChunkEffect;
 	add: #ChessForkEffect;
@@ -31,6 +32,13 @@ package methodNames
 	add: #Chessboard -> #calculatePositionFor:;
 	add: #Chessboard -> #calculatePositionForFile:rank:;
 	add: #Chessboard -> #drawOn:isDisplayCoordinatesEnabled:;
+	add: #Chessboard -> #drawOn:pieces:isDisplayCoordinatesEnabled:;
+	add: #Chessboard -> #drawPiecesOn:isDisplayCoordinatesEnabled:;
+	add: #Chessboard -> #drawPiecesOn:pieces:isDisplayCoordinatesEnabled:;
+	add: #Chessboard -> #drawSquaresOn:isDisplayCoordinatesEnabled:;
+	add: #Chessboard -> #showBlackToMove;
+	add: #Chessboard -> #showToMove:;
+	add: #Chessboard -> #showWhiteToMove;
 	add: #Chessboard -> #squareAt:;
 	add: #ChessFork -> #drawOn:on:pieceSquarePen:forkPen:;
 	add: #ChessPiece -> #canvasIconAt:;
@@ -141,6 +149,11 @@ AbstractChessboardPresenter subclass: #ChessboardPlaygroundPresenter
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+AbstractChessboardPresenter subclass: #ChessboardSquaresPresenter
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 AbstractChessboardPresenter subclass: #ChessGamePresenter
 	instanceVariableNames: 'chessGame'
 	classVariableNames: ''
@@ -190,10 +203,44 @@ calculatePositionForFile: aChessFile rank: aChessRank
 	^self calculatePositionFor: (systemRoot squareAtFile: aChessFile atRank: aChessRank)!
 
 drawOn: aCanvas isDisplayCoordinatesEnabled: aBoolean
+	self drawSquaresOn: aCanvas isDisplayCoordinatesEnabled: aBoolean.
+	self drawPiecesOn: aCanvas isDisplayCoordinatesEnabled: aBoolean!
 
-	systemRoot allSquares do: [:each | each drawOn: aCanvas chessboard: self isDisplayCoordinatesEnabled: aBoolean].
+drawOn: aCanvas pieces: anOrderedCollection isDisplayCoordinatesEnabled: isDisplayCoordinatesEnabled
+	self drawSquaresOn: aCanvas isDisplayCoordinatesEnabled: isDisplayCoordinatesEnabled.
+	self drawPiecesOn: aCanvas pieces: anOrderedCollection isDisplayCoordinatesEnabled: isDisplayCoordinatesEnabled!
 
-	pieces keysAndValuesDo: [:coordinate :each | each drawOn: aCanvas chessboard: self at: coordinate isDisplayCoordinatesEnabled: aBoolean]!
+drawPiecesOn: aCanvas isDisplayCoordinatesEnabled: aBoolean
+	self drawPiecesOn: aCanvas pieces: pieces isDisplayCoordinatesEnabled: aBoolean!
+
+drawPiecesOn: aCanvas pieces: anOrderedCollection isDisplayCoordinatesEnabled: aBoolean
+	anOrderedCollection keysAndValuesDo: 
+			[:coordinate :each |
+			each
+				drawOn: aCanvas
+				chessboard: self
+				at: coordinate
+				isDisplayCoordinatesEnabled: aBoolean]!
+
+drawSquaresOn: aCanvas isDisplayCoordinatesEnabled: aBoolean
+	systemRoot allSquares do: 
+			[:each |
+			each
+				drawOn: aCanvas
+				chessboard: self
+				isDisplayCoordinatesEnabled: aBoolean]!
+
+showBlackToMove
+
+	self showToMove: 'b'!
+
+showToMove: fenString
+
+	ChessGameShell showWithFenString: (self printFenString, ' ', fenString, ' - - 1 20') on: systemRoot !
+
+showWhiteToMove
+
+	self showToMove: 'w'!
 
 squareAt: aPoint
 	| squaresCoordinates |
@@ -209,6 +256,13 @@ squareAt: aPoint
 calculatePositionFor:!public! !
 calculatePositionForFile:rank:!public! !
 drawOn:isDisplayCoordinatesEnabled:!public! !
+drawOn:pieces:isDisplayCoordinatesEnabled:!public! !
+drawPiecesOn:isDisplayCoordinatesEnabled:!public! !
+drawPiecesOn:pieces:isDisplayCoordinatesEnabled:!public! !
+drawSquaresOn:isDisplayCoordinatesEnabled:!public! !
+showBlackToMove!public!view! !
+showToMove:!public!view! !
+showWhiteToMove!public!view! !
 squareAt:!chessboard contents!public! !
 !
 
@@ -310,7 +364,7 @@ drawOn: aCanvas chessboard: aChessboard isDisplayCoordinatesEnabled: isDisplayCo
 
 	aCanvas graphics 
 			drawString: self name 
-			font: (GdiplusFont name: 'Arial' pixelSize: 16)
+			font: (GdiplusFont name: 'Arial' pixelSize: 10)
 			at: ((self calculatePositionAt: aChessboard) + (aChessboard squareSize // 2) - 10)
 			format: nil 
 			brush: (GdiplusSolidBrush color: Color darkRed).!

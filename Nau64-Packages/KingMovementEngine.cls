@@ -132,6 +132,12 @@ computeValidSquaresOn: aChessboard from: aChessSquare
 						on: aChessboard) ifTrue: [reachableSquaresBySlidingPiece add: square]]].
 	reachableSquaresBySlidingPiece do: [:square | squaresDictionary remove: square]!
 
+isCheckedOn: aChessboard
+	piece chessSideDo: [:chessSide |
+		chessSide oppositeSideAllAttackedSquaresDo: [:square | square = piece currentChessSquare ifTrue: [^true]]].
+
+	^false!
+
 isCheckMatedOn: aChessboard
 
 	self computeValidSquaresOn: aChessboard from: piece currentChessSquare.
@@ -152,6 +158,7 @@ computeReachableSouthWestSquaresOn:from:!public! !
 computeReachableSquaresOn:from:!public! !
 computeReachableWestSquaresOn:from:!public! !
 computeValidSquaresOn:from:!public! !
+isCheckedOn:!public! !
 isCheckMatedOn:!public! !
 pressedSquaresOn:from:after:!public! !
 !

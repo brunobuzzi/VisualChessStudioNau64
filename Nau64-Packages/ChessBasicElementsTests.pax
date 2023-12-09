@@ -17,6 +17,7 @@ package globalAliases: (Set new
 
 package setPrerequisites: #(
 	'ChessBasicElements'
+	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Contributions\Camp Smalltalk\SUnit\SUnit').
 
 package!
@@ -24,12 +25,12 @@ package!
 "Class Definitions"!
 
 TestCase subclass: #ChessTest
-	instanceVariableNames: 'systemRoot'
+	instanceVariableNames: 'systemRoot chessboard'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessTest subclass: #ChessboardTest
-	instanceVariableNames: 'chessboard'
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

@@ -19,10 +19,7 @@ isGreaterThan: anInteger
 	^self number > anInteger!
 
 next
-	| nextCharacterValue nextCharacter |
-	nextCharacterValue := (name at: 1) asciiValue + 1.
-	nextCharacter := Character asciiValue: nextCharacterValue.
-	^self class getFile: nextCharacter asAnsiString!
+	^self next: 1!
 
 next: anInteger
 	| nextCharacterValue nextCharacter |

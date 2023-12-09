@@ -16,6 +16,11 @@ anyPawnAtEnPassantMoveFrom: aSymbol
 	ifTrue: [self anyBlackPawnAtEnPassantMoveFrom: aSymbol] 
 	ifFalse: [self anyWhitePawnAtEnPassantMoveFrom: aSymbol]!
 
+anySlidingPieceCanReachSkippingOnePiece: targetChessSquare on: aChessboard
+	self piecesDo: [:piece | 
+		(piece slidingPieceAt: piece currentChessSquare canReachSkippingOnePiece: targetChessSquare on: aChessboard) ifTrue: [^true]].
+	^false!
+
 chessboardDo: aBlock
 
 	aBlock value: chessboard!
@@ -37,6 +42,10 @@ isBlack
 
 isWhite
 	^false!
+
+king
+	self piecesDo: [:each | each isKing ifTrue: [^each ]].
+	self error: 'King not found'!
 
 oppositePiecesDo: aBlock
 
@@ -75,12 +84,14 @@ systemRoot
 	^chessboard systemRoot! !
 !ChessSide categoriesForMethods!
 anyPawnAtEnPassantMoveFrom:!public! !
+anySlidingPieceCanReachSkippingOnePiece:on:!public! !
 chessboardDo:!public! !
 codePointFor:!public! !
 currentChessSquareFor:!public! !
 defaultColor!public! !
 isBlack!public! !
 isWhite!public! !
+king!public! !
 oppositePiecesDo:!public! !
 oppositeSideName!public! !
 opppositeSlidingPiecesDo:!public! !

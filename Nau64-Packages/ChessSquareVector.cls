@@ -1,106 +1,93 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
-Object subclass: #ChessSquareVector
-	instanceVariableNames: 'originSquare targetSquare'
+ChessVector subclass: #ChessSquareVector
+	instanceVariableNames: 'sourceSquare targetSquare orientationVector'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessSquareVector guid: (GUID fromString: '{c0586461-fbe1-4ce2-8831-7e79beb4df2a}')!
+ChessSquareVector guid: (GUID fromString: '{47a760f4-19dc-4bb9-9876-8f8b07020464}')!
 ChessSquareVector comment: ''!
 !ChessSquareVector categoriesForClass!Unclassified! !
 !ChessSquareVector methodsFor!
 
-originRankNumber
+isCompatibleWithBishop
 
-	^originSquare rankNumber!
+	^orientationVector isCompatibleWithBishop!
 
-originSquare
-	^originSquare!
+isCompatibleWithQueen
 
-originSquare: anObject
-	originSquare := anObject!
+	^orientationVector isCompatibleWithQueen!
 
-originSquareName
+isCompatibleWithRook
 
-	^originSquare name!
+	^orientationVector isCompatibleWithRook!
 
-printOn: aStream
+isSlidingVector
 
-	super printOn: aStream.
+	((sourceSquare rankIsEqualTo: targetSquare) or: [sourceSquare fileIsEqualTo: targetSquare]) ifTrue: [^true].
 
-	aStream nextPutAll: '[', self originSquareName, ']>>[', self targetSquareName, ']'!
+	orientationVector nextSquaresFrom: sourceSquare do: [:square | 
+		(targetSquare isEqualTo: square) ifTrue: [^true].
+	].
 
-printOriginFile
+	^false!
 
-	^originSquare printFile!
+orientationIsEast
+	^orientationVector isEast!
 
-printOriginRank
+orientationIsNorth
+	^orientationVector isNorth!
 
-	^originSquare printRank!
+orientationIsNorthEast
+	^orientationVector isNorthEast!
 
-printTargetFile
+orientationIsNorthWest
+	^orientationVector isNorthWest!
 
-	^targetSquare printFile!
+orientationIsSouth
+	^orientationVector isSouth!
 
-printTargetRank
+orientationIsSouthEast
+	^orientationVector isSouthEast!
 
-	^targetSquare printRank!
+orientationIsSouthWest
+	^orientationVector isSouthWest!
 
-setOrigin: originChessSquare target: targetChessSquare
+orientationIsWest
+	^orientationVector isWest!
 
-	originSquare := originChessSquare.
-	targetSquare := targetChessSquare!
+setSourcePiece: sourceChessSquare targetPiece: targetChessSquare
 
-targetRankNumber
-
-	^targetSquare rankNumber!
-
-targetSquare
-	^targetSquare!
-
-targetSquare: anObject
-	targetSquare := anObject!
-
-targetSquareName
-
-	^targetSquare name! !
+	sourceSquare := sourceChessSquare.
+	targetSquare := targetChessSquare.
+	orientationVector := ChessOrientationVector newFrom: sourceSquare to: targetSquare! !
 !ChessSquareVector categoriesForMethods!
-originRankNumber!public! !
-originSquare!accessing!private! !
-originSquare:!accessing!private! !
-originSquareName!public! !
-printOn:!public! !
-printOriginFile!public! !
-printOriginRank!public! !
-printTargetFile!public! !
-printTargetRank!public! !
-setOrigin:target:!private! !
-targetRankNumber!public! !
-targetSquare!accessing!private! !
-targetSquare:!accessing!private! !
-targetSquareName!public! !
+isCompatibleWithBishop!piece compatibility!public! !
+isCompatibleWithQueen!piece compatibility!public! !
+isCompatibleWithRook!piece compatibility!public! !
+isSlidingVector!public! !
+orientationIsEast!public! !
+orientationIsNorth!public! !
+orientationIsNorthEast!public! !
+orientationIsNorthWest!public! !
+orientationIsSouth!public! !
+orientationIsSouthEast!public! !
+orientationIsSouthWest!public! !
+orientationIsWest!public! !
+setSourcePiece:targetPiece:!private! !
 !
 
 !ChessSquareVector class methodsFor!
 
+from: sourceChessPiece to: targetChessPiece
+
+	^self new setSourcePiece: sourceChessPiece targetPiece: targetChessPiece!
+
 icon
-	^Icon fromId: 'TypeConverter.ico'!
 
-newFrom: originChessSquare to: targetChessSquare
-
-	^self new setOrigin: originChessSquare target: targetChessSquare!
-
-newFromSquareName: originString toSquareName: targetString
-	| originSquare targetSquare | 
-
-	originSquare := ChessSquare squareAt: originString asSymbol.
-	targetSquare := ChessSquare squareAt: targetString asSymbol.
-
-	^self newFrom: originSquare to: targetSquare
-! !
+	^TextTileIcon text: (Character codePoint: 11246) asUtf16String fontName: 'Malgun Gothic'! !
 !ChessSquareVector class categoriesForMethods!
+from:to:!public! !
 icon!public! !
-newFrom:to:!public! !
-newFromSquareName:toSquareName:!public! !
 !
 

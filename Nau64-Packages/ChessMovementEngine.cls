@@ -19,6 +19,10 @@ canBeMovedToValidCoordinate: symbolCoordinate on: aChessboard
 	^(aChessboard squareIsEmptyAtCoordinate: symbolCoordinate) or: 
 		[(aChessboard squareNotEmptyAtCoordinate: symbolCoordinate) and: [piece isOppositeSideTo: (aChessboard pieceAtCoordinate: symbolCoordinate)]]!
 
+chessSideDo: aBlock
+
+	piece chessSideDo: aBlock!
+
 computeAttackedSquaresOn: aChessboard from: aChessSquare 
 
 	self computeReachableSquaresOn: aChessboard from: aChessSquare!
@@ -57,15 +61,33 @@ includes: aChessSquare
 includesAllSquares: aCollection
 	^squaresDictionary includesAll: aCollection!
 
+isBlockingAttackOnKing!
+
+isCheckedOn: aChessboard
+
+	self shouldNotImplement!
+
 isCheckMatedOn: aChessboard
 
 	self shouldNotImplement!
 
 isValidOn: aChessboard from: originChessSquare to: targetChessSquare
 	"^(self validSquaresOn: aChessboard from: vector originSquare) includes: vector targetSquare"
+	| isValid |
 
 	self computeValidSquaresOn: aChessboard from: originChessSquare.
-	^squaresDictionary squaresAnySatisfy: [:each | each = targetChessSquare]!
+	isValid := squaresDictionary squaresAnySatisfy: [:each | each = targetChessSquare].
+	isValid ifFalse: [^isValid].
+	piece isKing ifTrue: [^isValid].
+	^isValid and: [(aChessboard anyOppositePieceIsAttackingTheKingThrough: piece tryingToMoveFrom: originChessSquare to: targetChessSquare) not]!
+
+oppositeSideDo: aBlock
+
+	piece oppositeSideDo: aBlock!
+
+pieceDo: aBlock
+
+	aBlock value: piece!
 
 setPiece: aChessPiece 
 
@@ -85,6 +107,8 @@ skeweredPieces: anInteger on: aChessboard from: aChessSquare
 
 skewerPieceOn: aChessboard from: aChessSquare
 	^#()!
+
+skewerPieceOn: aChessboard from: aChessSquare do: aBlock!
 
 slidingPieceAt: sourceChessSquare canReachSkippingOnePiece: targetChessSquare on: aChessboard
 	(sourceChessSquare = targetChessSquare) ifTrue: [^false].
@@ -128,6 +152,7 @@ validSquaresFrom: aChessSquare toFileShift: fileShift toRankShift: rankShift onS
 !ChessMovementEngine categoriesForMethods!
 attackedSquaresOn:from:do:!public!valid move! !
 canBeMovedToValidCoordinate:on:!public!valid move! !
+chessSideDo:!public! !
 computeAttackedSquaresOn:from:!public!valid move! !
 computeReachableSquaresOn:from:!public!valid move! !
 computeValidSquaresOn:from:!public!valid move! !
@@ -136,12 +161,17 @@ detectedBatteriesDo:!public!tactics iteration! !
 detectedForksDo:!public!tactics iteration! !
 includes:!public! !
 includesAllSquares:!public! !
+isBlockingAttackOnKing!public! !
+isCheckedOn:!public! !
 isCheckMatedOn:!public! !
 isValidOn:from:to:!public!valid move! !
+oppositeSideDo:!public! !
+pieceDo:!public! !
 setPiece:!private! !
 setPiece:tree:!private! !
 skeweredPieces:on:from:!public! !
 skewerPieceOn:from:!extended squares!public! !
+skewerPieceOn:from:do:!extended squares!public! !
 slidingPieceAt:canReachSkippingOnePiece:on:!public! !
 squaresAndOrientationDo:!public! !
 squaresDictionaryDo:!public! !

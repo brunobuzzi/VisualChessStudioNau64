@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 ChessTest subclass: #ChessboardTest
-	instanceVariableNames: 'chessboard'
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

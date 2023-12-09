@@ -14,6 +14,10 @@ fenString
 
 	^self isBlack ifTrue: ['k'] ifFalse: ['K']!
 
+generateSquaresScopeFrom: aChessSquareScope
+
+	^aChessSquareScope generateKingSquareScope.!
+
 isCheckMatedOn: aChessboard
 	^self newMovementEngine isCheckMatedOn: aChessboard!
 
@@ -22,6 +26,7 @@ isKing
 	^true! !
 !King categoriesForMethods!
 fenString!public! !
+generateSquaresScopeFrom:!new framework!public! !
 isCheckMatedOn:!public! !
 isKing!public!testing! !
 !

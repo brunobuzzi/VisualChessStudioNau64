@@ -13,10 +13,18 @@ ChessCoordinate comment: ''!
 name
 	^name!
 
+next: anInteger
+	self subclassResponsibility!
+
+number
+	self subclassResponsibility!
+
 printName
 	self subclassResponsibility! !
 !ChessCoordinate categoriesForMethods!
 name!public! !
+next:!public! !
+number!public! !
 printName!public! !
 !
 

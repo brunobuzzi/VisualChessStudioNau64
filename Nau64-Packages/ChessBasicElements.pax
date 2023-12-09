@@ -29,6 +29,7 @@ package classNames
 
 package methodNames
 	add: #OrderedCollection -> #ifAbsentAdd:;
+	add: #SmallInteger -> #isInChessRange;
 	add: #Symbol -> #asChessSquareIn:;
 	yourself.
 
@@ -152,6 +153,14 @@ ifAbsentAdd: anObject
 	ifFalse: [self add: anObject]! !
 !OrderedCollection categoriesForMethods!
 ifAbsentAdd:!public! !
+!
+
+!SmallInteger methodsFor!
+
+isInChessRange
+	^self >= 1 and: [self <= 8]! !
+!SmallInteger categoriesForMethods!
+isInChessRange!public! !
 !
 
 !Symbol methodsFor!

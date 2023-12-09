@@ -32,6 +32,10 @@ atNorthWestAdd: aChessSquare
 
 	(squares at: #northWest ifAbsentPut: [OrderedCollection new]) ifAbsentAdd: aChessSquare!
 
+atOrientation: symbolOrientationName put: anOrderedCollection
+	self validateOrientationName: symbolOrientationName.
+	squares at: symbolOrientationName put: anOrderedCollection!
+
 atSouthAdd: aChessSquare
 
 	(squares at: #south ifAbsentPut: [OrderedCollection new]) ifAbsentAdd: aChessSquare!
@@ -48,6 +52,10 @@ atWestAdd: aChessSquare
 
 	(squares at: #west ifAbsentPut: [OrderedCollection new]) ifAbsentAdd: aChessSquare!
 
+chessboardDo: monadicBlock
+
+	piece chessboardDo: [:chessboard | monadicBlock value: chessboard]!
+
 detectAbsolutePinSquaresFor: aChessSide
 	| attackedPieces forkedSquares |
 
@@ -55,7 +63,8 @@ detectAbsolutePinSquaresFor: aChessSide
 	forkedSquares := OrderedCollection new.
 	self squaresDo: [:square | 
 		aChessSide chessboardDo: [:chessboard |
-			piece skewerPieceOn: chessboard from: square do: [].
+((piece class == Bishop) and: [square printName = 'e7']) ifTrue: [self halt].
+			piece skewerPieceOn: chessboard from: square do: [:skeweredPiece | ].
 			((chessboard squareNotEmptyAtCoordinate: square coordinate) and:[(chessboard pieceAt: square) isOppositeTo: aChessSide]) 
 			ifTrue: [attackedPieces := attackedPieces + 1.
 				forkedSquares add: square.].
@@ -184,6 +193,10 @@ isEmpty
 
 	^squares allSatisfy: [:collection | collection isEmpty]!
 
+pieceDo: monadicBlock
+
+	monadicBlock value: piece!
+
 remove: aChessSquare
 
 	squares do: [:collection | collection remove: aChessSquare ifAbsent: []]!
@@ -193,6 +206,12 @@ setChessPiece: aChessPiece
 	piece := aChessPiece.
 
 	squares := Dictionary new.!
+
+sizeAt: symbolOrientationName
+
+	self validateOrientationName: symbolOrientationName.
+
+	^(squares at: symbolOrientationName ifAbsent: [^0]) size!
 
 squaresAnySatisfy: aBlock
 
@@ -293,17 +312,27 @@ squaresSize
 
 	size := 0.
 	self squaresDo: [:each | size := size + 1].
-	^size! !
+	^size!
+
+validateOrientationName: symbolOrientationName
+	(#(#south #north #west #east #southWest #southEast #northEast #northWest)
+		includes: symbolOrientationName) ifFalse: [self error: 'Invalid Orientation']!
+
+viewSquares
+
+	^self! !
 !SquaresDictionary categoriesForMethods!
 add:to:!add element!public! !
 atEastAdd:!add element!public! !
 atNorthAdd:!add element!public! !
 atNorthEastAdd:!add element!public! !
 atNorthWestAdd:!add element!public! !
+atOrientation:put:!add element!public! !
 atSouthAdd:!add element!public! !
 atSouthEastAdd:!add element!public! !
 atSouthWestAdd:!add element!public! !
 atWestAdd:!add element!public! !
+chessboardDo:!public! !
 detectAbsolutePinSquaresFor:!public!tactics searchs! !
 detectedBatteriesFor:!public!tactics searchs! !
 detectForkedSquaresFor:!public!tactics searchs! !
@@ -320,8 +349,10 @@ includesAtSouthWest:!public!searching! !
 includesAtWest:!public!searching! !
 intersection:!public!searching!set operations! !
 isEmpty!public!set operations! !
+pieceDo:!public!tactics searchs! !
 remove:!public!set operations! !
 setChessPiece:!private! !
+sizeAt:!add element!public! !
 squaresAnySatisfy:!enumerating!public! !
 squaresAtEastDo:!enumerating!public! !
 squaresAtNorthDo:!enumerating!public! !
@@ -342,6 +373,8 @@ squaresCollectionAtWestDo:!enumerating!public! !
 squaresCollectionDo:!enumerating!public! !
 squaresDo:!enumerating!public! !
 squaresSize!enumerating!public! !
+validateOrientationName:!add element!public! !
+viewSquares!public! !
 !
 
 !SquaresDictionary class methodsFor!

@@ -16,25 +16,8 @@ cancelTrackingAt: arg1
 continueTrackingAt: aPoint from: aPreviousPoint!
 
 copyPositionAsFenString
-	| fenStream |
 
-	fenStream := String new writeStream.
-	systemRoot fenSquares do: [:squareCollection | | freeSquares |
-		freeSquares := 0.
-		squareCollection do: [:square | 
-			model 
-				pieceAt: square 
-				do: [:piece | (freeSquares > 0) 
-						ifTrue: [fenStream nextPutAll: freeSquares printString.
-							freeSquares := 0].
-						fenStream nextPutAll: piece fenString] 
-				ifAbsent: [freeSquares := freeSquares + 1].
-		].
-		(freeSquares > 0) ifTrue: [fenStream nextPutAll: freeSquares printString].
-		fenStream nextPut: $/.
-	].
-
-	Clipboard current setText: fenStream contents!
+	Clipboard current setText: model printFenString!
 
 createComponents
 
@@ -66,6 +49,10 @@ graphics
 imageModel: aModel
 
 	chessboardImagePresenter model: aModel!
+
+isDisplayCoordinatesEnabled: aBoolean
+
+	isDisplayCoordinatesEnabled := aBoolean!
 
 movePiece: aMouseEvent
 	| square piece cursor |
@@ -100,7 +87,6 @@ onViewOpened
 	super onViewOpened.
 
 	isDisplayCoordinatesEnabled := false.
-	self topShell view extent: 657 @ 607.
 	self renderChessboard.!
 
 renderChessboard
@@ -127,6 +113,15 @@ setRoot: aSystemRoot
 	super setRoot: aSystemRoot.
 
 	effects := OrderedCollection new.!
+
+setRoot: aSystemRoot fenString: fenString
+
+	super setRoot: aSystemRoot.
+
+	fenString ifNotNil: [ | parser |
+		parser := ChessFenParser newOn: aSystemRoot fenString: fenString.
+		parser deployOn: self model.
+	].!
 
 startTrackingAt: aPoint!
 
@@ -155,6 +150,7 @@ endTrackingAt:!drag & drop!public! !
 gdiBitmap!public! !
 graphics!public! !
 imageModel:!public! !
+isDisplayCoordinatesEnabled:!public!rendering-effects! !
 movePiece:!public! !
 onDragOver:!drag & drop!public! !
 onDropOver:!drag & drop!public! !
@@ -163,6 +159,7 @@ renderChessboard!public!rendering-chessboard! !
 reverseChessboard!public!rendering-effects! !
 selectPiecesTypes!public! !
 setRoot:!private! !
+setRoot:fenString:!private! !
 startTrackingAt:!drag & drop!public! !
 toggleCoordinates!public!rendering-effects! !
 toggleFourChessChunks!public! !

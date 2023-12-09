@@ -17,7 +17,6 @@ searchOnChessboardFor: aChessSide
 	aChessSide validSquaresByPieceKeysAndValuesDo: [:piece :squareDictionary |
 		squareDictionary squaresDo: [:square | | newMoveEngine |
 			newMoveEngine := piece newMovementEngine.
-			self halt.
 			newMoveEngine computeValidSquaresOn: chessboard from: square.
 			newMoveEngine detectedAbsolutePinsDo: [:pinSquares | 
 				pins add: (self createAbsolutePinFor: piece from: square to: pinSquares) to: piece.

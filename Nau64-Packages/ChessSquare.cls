@@ -24,6 +24,29 @@ bitmap
 		ifTrue: [Bitmap fromFile: FileLocator imageRelative basePath , 'icons\black_square_01.bmp'] 
 		ifFalse: [Bitmap fromFile: FileLocator imageRelative basePath , 'icons\white_square_01.bmp']!
 
+blackPawnSquaresWith: aChessOrientationVector do: aBlock 
+	| newFile newRank slidingSquares |
+
+	slidingSquares := OrderedCollection new.
+	newFile := file.
+	newRank := rank.
+	((newFile number + aChessOrientationVector fileSign) isInChessRange and: [(newRank number + aChessOrientationVector rankSign) isInChessRange])
+	ifTrue: [ 
+		aChessOrientationVector isSouth
+		ifTrue: [(newRank number = 7)
+			ifTrue: [newRank := newRank next: aChessOrientationVector rankSign.
+				slidingSquares add: (systemRoot squareAtFile: newFile atRank: newRank).
+				newRank := rank next: (aChessOrientationVector rankSign * 2).
+				slidingSquares add: (systemRoot squareAtFile: newFile atRank: newRank)]
+			ifFalse: [newRank := newRank next: aChessOrientationVector rankSign.
+				slidingSquares add: (systemRoot squareAtFile: newFile atRank: newRank)]]
+		ifFalse: [newFile := newFile next: aChessOrientationVector fileSign.
+			newRank := newRank next: aChessOrientationVector rankSign.
+			slidingSquares add: (systemRoot squareAtFile: newFile atRank: newRank)].
+		].
+
+	slidingSquares do: aBlock!
+
 calculatePositionAt: aChessboard
 
 	^aChessboard calculatePositionForFile: file rank: rank!
@@ -67,12 +90,53 @@ isWhiteEnPassantRank
 
 	^self rankNumber = 4!
 
+kingSquaresWith: aChessOrientationVector do: aBlock
+	| newFile newRank slidingSquares |
+
+	slidingSquares := OrderedCollection new.
+	newFile := file.
+	newRank := rank.
+	((newFile number + aChessOrientationVector fileSign) isInChessRange and: [(newRank number + aChessOrientationVector rankSign) isInChessRange])
+	ifTrue: [ 
+		newFile := newFile next: aChessOrientationVector fileSign.
+		newRank := newRank next: aChessOrientationVector rankSign.
+		slidingSquares add: (systemRoot squareAtFile: newFile atRank: newRank)].
+
+	slidingSquares do: aBlock!
+
+knightSquaresWith: aChessOrientationVector do: aBlock
+	| newFile newRank slidingSquares |
+
+	slidingSquares := OrderedCollection new.
+	newFile := file.
+	newRank := rank.
+	(((newFile number + (aChessOrientationVector fileSign * 2)) isInChessRange and: [(newRank number + aChessOrientationVector rankSign) isInChessRange])
+	and: [(newFile number + aChessOrientationVector fileSign) isInChessRange and: [(newRank number + (aChessOrientationVector rankSign * 2)) isInChessRange]])
+	ifTrue: [ 
+		newFile := file next: aChessOrientationVector fileSign * 2.
+		newRank := rank next: aChessOrientationVector rankSign.
+		slidingSquares add: (systemRoot squareAtFile: newFile atRank: newRank).
+		newFile := file next: aChessOrientationVector fileSign.
+		newRank := rank next: aChessOrientationVector rankSign * 2.
+		slidingSquares add: (systemRoot squareAtFile: newFile atRank: newRank).
+	].
+
+	slidingSquares do: aBlock!
+
 name
 	^self printFile, self printRank!
 
 neutralBitmap
 
 	^Bitmap fromFile: FileLocator imageRelative basePath , 'Ajedrez\verde_escaqueNegro.bmp'!
+
+next: aChessOrientationVector
+	| newFile newRank |
+
+	newFile := file next: aChessOrientationVector fileSign.
+	newRank := rank next: aChessOrientationVector rankSign.
+
+	^systemRoot squareAtFile: newFile atRank: newRank!
 
 nextFile: fileShift nextRank: rankShift onSuccessDo: aBlock onErrorDo: monadicBlock
 	| nextSquare |
@@ -130,6 +194,20 @@ setRoot: aSystemRoot file: aChessFile rank: aChessRank
 	file := aChessFile.
 	rank := aChessRank!
 
+slidingSquaresWith: aChessOrientationVector do: aBlock
+	| newFile newRank slidingSquares |
+
+	slidingSquares := OrderedCollection new.
+	newFile := file.
+	newRank := rank.
+	[(newFile number + aChessOrientationVector fileSign) isInChessRange and: [(newRank number + aChessOrientationVector rankSign) isInChessRange]]
+	whileTrue: [ 
+		newFile := newFile next: aChessOrientationVector fileSign.
+		newRank := newRank next: aChessOrientationVector rankSign.
+		slidingSquares add: (systemRoot squareAtFile: newFile atRank: newRank)].
+
+	slidingSquares do: aBlock!
+
 symbolDirectionFor: aChessSquare
 	| direction |
 
@@ -143,22 +221,49 @@ symbolDirectionFor: aChessSquare
 
 	^direction contents
 
-! !
+!
+
+whitePawnSquaresWith: aChessOrientationVector do: aBlock 
+	| newFile newRank slidingSquares |
+
+	slidingSquares := OrderedCollection new.
+	newFile := file.
+	newRank := rank.
+	((newFile number + aChessOrientationVector fileSign) isInChessRange and: [(newRank number + aChessOrientationVector rankSign) isInChessRange])
+	ifTrue: [ 
+		aChessOrientationVector isNorth
+		ifTrue: [(newRank number = 2)
+			ifTrue: [newRank := newRank next: aChessOrientationVector rankSign.
+				slidingSquares add: (systemRoot squareAtFile: newFile atRank: newRank).
+				newRank := rank next: (aChessOrientationVector rankSign * 2).
+				slidingSquares add: (systemRoot squareAtFile: newFile atRank: newRank)]
+			ifFalse: [newRank := newRank next: aChessOrientationVector rankSign.
+				slidingSquares add: (systemRoot squareAtFile: newFile atRank: newRank)]]
+		ifFalse: [newFile := newFile next: aChessOrientationVector fileSign.
+			newRank := newRank next: aChessOrientationVector rankSign.
+			slidingSquares add: (systemRoot squareAtFile: newFile atRank: newRank)].
+		].
+
+	slidingSquares do: aBlock! !
 !ChessSquare categoriesForMethods!
 =!public! !
 bitmap!public! !
+blackPawnSquaresWith:do:!new framework!public! !
 calculatePositionAt:!public! !
-coordinate!public! !
+coordinate!coordinate!public! !
 fileIsEqualTo:!comparisons!public! !
 fileIsGreaterThan:!comparisons!public! !
-fileNumber!public! !
+fileNumber!coordinate!public! !
 isBlack!public! !
 isBlackEnPassantRank!public! !
 isEqualTo:!comparisons!public! !
 isWhite!public! !
 isWhiteEnPassantRank!public! !
+kingSquaresWith:do:!iteration!new framework!public! !
+knightSquaresWith:do:!iteration!new framework!public! !
 name!public! !
 neutralBitmap!public! !
+next:!iteration!public! !
 nextFile:nextRank:onSuccessDo:onErrorDo:!public! !
 notEqualTo:!comparisons!public! !
 oppositeBitmap!public! !
@@ -168,10 +273,12 @@ printOn:!public! !
 printRank!public! !
 rankIsEqualTo:!comparisons!public! !
 rankIsGreaterThan:!comparisons!public! !
-rankNumber!public! !
+rankNumber!coordinate!public! !
 setFile:rank:!private! !
 setRoot:file:rank:!private! !
+slidingSquaresWith:do:!iteration!new framework!public! !
 symbolDirectionFor:!comparisons!public! !
+whitePawnSquaresWith:do:!new framework!public! !
 !
 
 !ChessSquare class methodsFor!

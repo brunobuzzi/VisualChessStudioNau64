@@ -47,6 +47,10 @@ forceNumberAt: aChessSquare
 
 	^chessSide forceNumberAt: aChessSquare!
 
+generateSquaresScopeFrom: aChessSquareScope
+
+	self subclassResponsibility!
+
 isBishop
 
 	^false!
@@ -108,6 +112,9 @@ isWhite
 
 	^chessSide isWhite!
 
+king
+	^chessSide king!
+
 movesAreCompatibleWith: aChessOrientationVector
 
 	^false!
@@ -121,8 +128,18 @@ oppositeSideDo: aMonadicValuable
 oppositeSideName
 	^chessSide oppositeSideName!
 
+orientationsDo: aBlock
+
+	self orientations do: aBlock!
+
 pieceCode
 	^self class pieceCode!
+
+printOn: aStream
+
+	super printOn: aStream.
+
+	aStream nextPutAll: ' [', chessSide sideName, ']'!
 
 setSide: aChessSide
 
@@ -130,6 +147,9 @@ setSide: aChessSide
 
 sideName
 	^chessSide sideName!
+
+slidingPieceAt: pieceChessSquare canReachSkippingOnePiece: targetChessSquare on: aChessboard
+	^self newMovementEngine slidingPieceAt: pieceChessSquare canReachSkippingOnePiece: targetChessSquare on: aChessboard!
 
 squareSize
 
@@ -152,6 +172,7 @@ codePoint!public!unicode! !
 defaultColor!public!testing! !
 fenString!public! !
 forceNumberAt:!public! !
+generateSquaresScopeFrom:!new framework!public! !
 isBishop!public!testing! !
 isBlack!public!testing! !
 isCheckMatedOn:!public! !
@@ -166,12 +187,16 @@ isSameSideAs:!public! !
 isSecureToAttack:on:!public! !
 isSlidingPiece!public! !
 isWhite!public!testing! !
+king!public! !
 movesAreCompatibleWith:!public! !
 oppositeSideDo:!public! !
 oppositeSideName!public! !
+orientationsDo:!new framework!public! !
 pieceCode!public! !
+printOn:!public! !
 setSide:!private! !
 sideName!public! !
+slidingPieceAt:canReachSkippingOnePiece:on:!public! !
 squareSize!public! !
 systemRoot!private! !
 whiteCodePoint!public!unicode! !

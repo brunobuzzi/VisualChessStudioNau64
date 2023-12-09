@@ -18,12 +18,17 @@ fenString
 
 	^self isBlack ifTrue: ['p'] ifFalse: ['P']!
 
+generateSquaresScopeFrom: aChessSquareScope
+
+	^aChessSquareScope generatePawnSquaresScope!
+
 isPawn
 
 	^true! !
 !Pawn categoriesForMethods!
 canBeMovedToValidCoordinate:on:!public!testing! !
 fenString!public! !
+generateSquaresScopeFrom:!new framework!public! !
 isPawn!public!testing! !
 !
 

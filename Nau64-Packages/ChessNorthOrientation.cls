@@ -13,9 +13,21 @@ ChessNorthOrientation comment: ''!
 fileSign
 	self shouldNotImplement!
 
+isNorth
+	^true!
+
+isOpposing: aChessOrientation
+
+	aChessOrientation ifNil: [^false].
+	^aChessOrientation isNorth or: [aChessOrientation isSouth]!
+
 newFor: aChessPiece orientation: aChessOrientation
 
 	^self vectorClass newAtNorthFor: aChessPiece!
+
+orientationName
+
+	^'North'!
 
 rankSign
 	^1!
@@ -25,7 +37,10 @@ validSquaresOn: aSquareDictionary do: aBlock
 	aSquareDictionary squaresAtNorthDo: aBlock! !
 !ChessNorthOrientation categoriesForMethods!
 fileSign!public! !
+isNorth!public!testing! !
+isOpposing:!public!testing! !
 newFor:orientation:!public!vector creation! !
+orientationName!public! !
 rankSign!public! !
 validSquaresOn:do:!public! !
 !

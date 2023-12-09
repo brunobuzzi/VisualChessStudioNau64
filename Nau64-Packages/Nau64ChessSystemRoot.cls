@@ -15,9 +15,8 @@ allSquares
 	^squares!
 
 fenSquares
-	| all fenSquares |
+	| fenSquares |
 
-	all := self allSquares.
 	fenSquares := OrderedCollection new.
 	fenSquares add: (OrderedCollection withAll: (self squaresAtRank: 8));
 		add: (OrderedCollection withAll: (self squaresAtRank: 7));

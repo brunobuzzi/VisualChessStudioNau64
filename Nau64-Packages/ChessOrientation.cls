@@ -13,7 +13,27 @@ ChessOrientation comment: ''!
 fileSign
 	self subclassResponsibility!
 
+isEast
+	^false!
+
+isNorth
+	^false!
+
+isOpposing: aChessOrientation
+
+	self subclassResponsibility!
+
+isSouth
+	^false!
+
+isWest
+	^false!
+
 newFor: aChessPiece orientation: aChessOrientation
+
+	self subclassResponsibility!
+
+orientationName
 
 	self subclassResponsibility!
 
@@ -29,7 +49,13 @@ vectorClass
 	^ChessOrientationVector! !
 !ChessOrientation categoriesForMethods!
 fileSign!public! !
+isEast!public!testing! !
+isNorth!public!testing! !
+isOpposing:!public!testing! !
+isSouth!public!testing! !
+isWest!public!testing! !
 newFor:orientation:!public!vector creation! !
+orientationName!public! !
 rankSign!public! !
 validSquaresOn:do:!public! !
 vectorClass!public!vector creation! !

@@ -125,6 +125,13 @@ skeweredPieces: anInteger on: aChessboard from: aChessSquare
 		skewerCountLimit: anInteger.
 	^extendedValidSquares!
 
+skeweredPiecesOn: aChessboard from: aChessSquare skewerCountLimit: anInteger do: aBlock
+
+	self skeweredPiecesAtNorthSquaresOn: aChessboard from: aChessSquare skewerCountLimit: anInteger do: aBlock.
+	self skeweredPiecesAtSouthSquaresOn: aChessboard from: aChessSquare skewerCountLimit: anInteger do: aBlock.
+	self skeweredPiecesAtWestSquaresOn: aChessboard from: aChessSquare skewerCountLimit: anInteger do: aBlock.
+	self skeweredPiecesAtEastSquaresOn: aChessboard from: aChessSquare skewerCountLimit: anInteger do: aBlock.!
+
 skewerPieceOn: aChessboard from: aChessSquare
 	^self
 		skeweredPieces: 1
@@ -137,6 +144,7 @@ addTo:validSouthSquaresOn:from:skewerCountLimit:!extended squares!public! !
 addTo:validWestSquaresOn:from:skewerCountLimit:!extended squares!public! !
 computeReachableSquaresOn:from:!public! !
 skeweredPieces:on:from:!extended squares!public! !
+skeweredPiecesOn:from:skewerCountLimit:do:!public! !
 skewerPieceOn:from:!extended squares!public! !
 !
 

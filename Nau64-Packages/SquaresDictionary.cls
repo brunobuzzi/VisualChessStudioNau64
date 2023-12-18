@@ -197,6 +197,115 @@ pieceDo: monadicBlock
 
 	monadicBlock value: piece!
 
+pruneUnreachableSquares
+
+	piece pruneUnreacheableSquaresFrom: self
+	!
+
+pruneUnreachableSquaresFromSlidingPiece
+
+	#(#north #south #west #east #northWest #northEast #southWest #southEast) do: [:direction | | prunedCollection existOtherPiece |
+		prunedCollection := OrderedCollection new.
+		existOtherPiece := false.
+		(squares at: direction ifAbsent: [#()]) do: [:eachSquare | 
+			existOtherPiece 
+			ifFalse: [
+				piece chessboardDo: [:chessboard | 
+					chessboard 
+						pieceAt: eachSquare 
+						do: [:squarePiece | 
+							(piece isOppositeSideTo: squarePiece) 
+							ifTrue: [prunedCollection add: eachSquare. existOtherPiece := true]
+							ifFalse: [existOtherPiece := true]] 
+						ifAbsent: [prunedCollection add: eachSquare]
+				].
+			].
+			squares at: direction put: prunedCollection.
+		].
+	].
+	
+	!
+
+pruneUnreacheableSquaresFromBlackPawn
+
+	#(#south #southWest #southEast ) do: [:direction | | prunedCollection |
+		prunedCollection := OrderedCollection new.
+		(squares at: direction ifAbsent: [#()]) do: [:eachSquare | 
+			piece chessboardDo: [:chessboard | 
+				chessboard 
+					pieceAt: eachSquare 
+					do: [:squarePiece | 
+						(direction = #south) 
+						ifFalse: [(piece isOppositeSideTo: squarePiece) ifTrue: [prunedCollection add: eachSquare]].
+						] 
+					ifAbsent: [(direction = #south) ifTrue: [prunedCollection add: eachSquare]]
+			].
+			squares at: direction put: prunedCollection.
+		].
+	].
+	
+	
+	!
+
+pruneUnreacheableSquaresFromKing
+
+	#(#north #south #west #east #northWest #northEast #southWest #southEast) do: [:direction | | prunedCollection |
+		prunedCollection := OrderedCollection new.
+		(squares at: direction ifAbsent: [#()]) do: [:eachSquare | 
+			piece chessboardDo: [:chessboard | 
+				chessboard 
+					pieceAt: eachSquare 
+					do: [:squarePiece | 
+						(piece isOppositeSideTo: squarePiece) ifTrue: [prunedCollection add: eachSquare]
+						] 
+					ifAbsent: [prunedCollection add: eachSquare]
+			].
+
+			squares at: direction put: prunedCollection.
+		].
+	].
+	
+	!
+
+pruneUnreacheableSquaresFromKnight
+
+	#(#northWest #northEast #southWest #southEast) do: [:direction | | prunedCollection |
+		prunedCollection := OrderedCollection new.
+		(squares at: direction ifAbsent: [#()]) do: [:eachSquare | 
+			piece chessboardDo: [:chessboard | 
+				chessboard 
+					pieceAt: eachSquare 
+					do: [:squarePiece | 
+						(piece isOppositeSideTo: squarePiece) ifTrue: [prunedCollection add: eachSquare]
+						] 
+					ifAbsent: [prunedCollection add: eachSquare]
+			].
+			squares at: direction put: prunedCollection.
+		].
+	].
+	
+	!
+
+pruneUnreacheableSquaresFromWhitePawn
+
+	#(#north #northWest #northEast ) do: [:direction | | prunedCollection |
+		prunedCollection := OrderedCollection new.
+		(squares at: direction ifAbsent: [#()]) do: [:eachSquare | 
+			piece chessboardDo: [:chessboard | 
+				chessboard 
+					pieceAt: eachSquare 
+					do: [:squarePiece | 
+						(direction = #north) 
+						ifFalse: [(piece isOppositeSideTo: squarePiece) ifTrue: [prunedCollection add: eachSquare]].
+						] 
+					ifAbsent: [(direction = #north) ifTrue: [prunedCollection add: eachSquare]]
+			].
+			squares at: direction put: prunedCollection.
+		].
+	].
+	
+	!
+
 remove: aChessSquare
 
 	squares do: [:collection | collection remove: aChessSquare ifAbsent: []]!
@@ -350,6 +459,12 @@ includesAtWest:!public!searching! !
 intersection:!public!searching!set operations! !
 isEmpty!public!set operations! !
 pieceDo:!public!tactics searchs! !
+pruneUnreachableSquares!enumerating!new framework!public! !
+pruneUnreachableSquaresFromSlidingPiece!enumerating!new framework!public! !
+pruneUnreacheableSquaresFromBlackPawn!enumerating!new framework!public! !
+pruneUnreacheableSquaresFromKing!enumerating!new framework!public! !
+pruneUnreacheableSquaresFromKnight!enumerating!new framework!public! !
+pruneUnreacheableSquaresFromWhitePawn!enumerating!new framework!public! !
 remove:!public!set operations! !
 setChessPiece:!private! !
 sizeAt:!add element!public! !

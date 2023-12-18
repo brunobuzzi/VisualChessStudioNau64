@@ -25,6 +25,7 @@ package classNames
 	add: #Pawn;
 	add: #Queen;
 	add: #Rook;
+	add: #SlidingPiece;
 	yourself.
 
 package methodNames
@@ -98,11 +99,6 @@ ChessCoordinate subclass: #ChessRank
 	classVariableNames: 'AllChessRanks'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessPiece subclass: #Bishop
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 ChessPiece subclass: #King
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -118,12 +114,22 @@ ChessPiece subclass: #Pawn
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessPiece subclass: #Queen
+ChessPiece subclass: #SlidingPiece
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessPiece subclass: #Rook
+SlidingPiece subclass: #Bishop
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SlidingPiece subclass: #Queen
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SlidingPiece subclass: #Rook
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''

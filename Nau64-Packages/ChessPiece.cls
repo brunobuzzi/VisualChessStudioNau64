@@ -47,10 +47,6 @@ forceNumberAt: aChessSquare
 
 	^chessSide forceNumberAt: aChessSquare!
 
-generateSquaresScopeFrom: aChessSquareScope
-
-	self subclassResponsibility!
-
 isBishop
 
 	^false!
@@ -141,6 +137,10 @@ printOn: aStream
 
 	aStream nextPutAll: ' [', chessSide sideName, ']'!
 
+pruneUnreacheableSquaresFrom: aSquaresDictionary
+
+	self subclassResponsibility!
+
 setSide: aChessSide
 
 	chessSide := aChessSide!
@@ -155,9 +155,28 @@ squareSize
 
 	^chessSide squareSize!
 
+squaresScopeFrom: aChessSquare
+
+	self subclassResponsibility!
+
 systemRoot
 
 	^chessSide systemRoot!
+
+validSquaresFrom: aChessSquare do: aBlock
+	| squaresDictionaryScope |
+	squaresDictionaryScope := self squaresScopeFrom: aChessSquare.
+	squaresDictionaryScope pruneUnreachableSquares.
+	squaresDictionaryScope squaresDo: aBlock!
+
+validSquaresSizeFrom: aChessSquare 
+	| count |
+
+	count := 0.
+
+	self validSquaresFrom: aChessSquare do: [:each | count := count + 1].
+
+	^count!
 
 whiteCodePoint
 
@@ -172,7 +191,6 @@ codePoint!public!unicode! !
 defaultColor!public!testing! !
 fenString!public! !
 forceNumberAt:!public! !
-generateSquaresScopeFrom:!new framework!public! !
 isBishop!public!testing! !
 isBlack!public!testing! !
 isCheckMatedOn:!public! !
@@ -194,11 +212,15 @@ oppositeSideName!public! !
 orientationsDo:!new framework!public! !
 pieceCode!public! !
 printOn:!public! !
+pruneUnreacheableSquaresFrom:!new framework!public! !
 setSide:!private! !
 sideName!public! !
 slidingPieceAt:canReachSkippingOnePiece:on:!public! !
 squareSize!public! !
+squaresScopeFrom:!new framework!public! !
 systemRoot!private! !
+validSquaresFrom:do:!new framework!public! !
+validSquaresSizeFrom:!new framework!public! !
 whiteCodePoint!public!unicode! !
 !
 

@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
-ChessPiece subclass: #Bishop
+SlidingPiece subclass: #Bishop
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -13,10 +13,6 @@ Bishop comment: ''!
 fenString
 
 	^self isBlack ifTrue: ['b'] ifFalse: ['B']!
-
-generateSquaresScopeFrom: aChessSquareScope
-
-	^aChessSquareScope generateSlidingPieceSquareScope.!
 
 isBishop
 
@@ -31,7 +27,6 @@ movesAreCompatibleWith: aChessOrientationVector
 	^aChessOrientationVector isCompatibleWithBishop! !
 !Bishop categoriesForMethods!
 fenString!public! !
-generateSquaresScopeFrom:!new framework!public! !
 isBishop!public!testing! !
 isSlidingPiece!public! !
 movesAreCompatibleWith:!public! !

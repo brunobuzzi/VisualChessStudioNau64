@@ -17,7 +17,6 @@ package classNames
 	add: #ChessOrientationVector;
 	add: #ChessPieceVector;
 	add: #ChessSouthOrientation;
-	add: #ChessSquareScope;
 	add: #ChessSquareVector;
 	add: #ChessVector;
 	add: #ChessWestOrientation;
@@ -35,6 +34,8 @@ package methodNames
 	add: #Bishop -> #orientations;
 	add: #ChessPiece -> #currentChessSquare;
 	add: #ChessPiece -> #defaultMovementRuleClass;
+	add: #ChessPiece -> #isInvalidMoveFrom:to:;
+	add: #ChessPiece -> #isValidMoveFrom:to:;
 	add: #ChessPiece -> #isValidMoveFromCoordinate:to:;
 	add: #ChessPiece -> #isValidMoveFromCoordinate:to:on:;
 	add: #ChessPiece -> #isValidMoveFromCoordinate:to:on:on:;
@@ -49,18 +50,22 @@ package methodNames
 	add: #King -> #isValidMoveFromCoordinate:to:on:on:;
 	add: #King -> #isValidWhiteCastleMoveFrom:to:on:on:;
 	add: #King -> #orientations;
+	add: #King -> #squaresScopeFrom:;
 	add: #Knight -> #defaultMovementRuleClass;
 	add: #Knight -> #orientations;
+	add: #Knight -> #squaresScopeFrom:;
 	add: #Pawn -> #defaultMovementRuleClass;
 	add: #Pawn -> #isValidBlackEnPassantMoveFrom:to:on:;
 	add: #Pawn -> #isValidEnPassantMoveFrom:to:on:;
 	add: #Pawn -> #isValidMoveFromCoordinate:to:on:;
 	add: #Pawn -> #isValidWhiteEnPassantMoveFrom:to:on:;
 	add: #Pawn -> #orientations;
+	add: #Pawn -> #squaresScopeFrom:;
 	add: #Queen -> #defaultMovementRuleClass;
 	add: #Queen -> #orientations;
 	add: #Rook -> #defaultMovementRuleClass;
 	add: #Rook -> #orientations;
+	add: #SlidingPiece -> #squaresScopeFrom:;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -180,11 +185,6 @@ ChessVector subclass: #ChessOrientationVector
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessVector subclass: #ChessSquareScope
-	instanceVariableNames: 'piece sourceSquare'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 ChessVector subclass: #ChessSquareVector
 	instanceVariableNames: 'sourceSquare targetSquare orientationVector'
 	classVariableNames: ''
@@ -229,6 +229,22 @@ defaultMovementRuleClass
 	self subclassResponsibility
 !
 
+isInvalidMoveFrom: originChessSquare to: targetChessSquare
+
+	self validSquaresFrom: originChessSquare do: [:scopeSquare | scopeSquare == targetChessSquare ifTrue: [^false]].
+
+	^true
+
+	!
+
+isValidMoveFrom: originChessSquare to: targetChessSquare
+
+	self validSquaresFrom: originChessSquare do: [:scopeSquare | scopeSquare == targetChessSquare ifTrue: [^true]].
+
+	^false
+
+	!
+
 isValidMoveFromCoordinate: originCoordinate to: targetCoordinate
 	| rule isValid |
 
@@ -271,6 +287,8 @@ skewerPieceOn: aChessboard from: aChessSquare do: aBlock
 !ChessPiece categoriesForMethods!
 currentChessSquare!public! !
 defaultMovementRuleClass!public! !
+isInvalidMoveFrom:to:!new framework!public! !
+isValidMoveFrom:to:!new framework!public! !
 isValidMoveFromCoordinate:to:!public! !
 isValidMoveFromCoordinate:to:on:!public! !
 isValidMoveFromCoordinate:to:on:on:!public! !
@@ -345,7 +363,20 @@ orientations
 		add: ChessOrientationVector newNorthEast;
 		add: ChessOrientationVector newSouthWest;
 		add: ChessOrientationVector newSouthEast;
-		yourself! !
+		yourself!
+
+squaresScopeFrom: aChessSquare
+	| scopeDictionary |
+
+	scopeDictionary := SquaresDictionary on: self.
+
+	self orientationsDo: [:chessOrientationVector | | scopeCollection |
+		scopeCollection := OrderedCollection new.
+		aChessSquare kingSquaresWith: chessOrientationVector do: [:eachSquare | scopeCollection add: eachSquare].
+		scopeDictionary atOrientation: chessOrientationVector vectorName put: scopeCollection.
+	].
+
+	^scopeDictionary! !
 !King categoriesForMethods!
 defaultMovementRuleClass!public! !
 isValidBlackCastleMoveFrom:to:on:on:!public! !
@@ -353,6 +384,7 @@ isValidCastleMoveFrom:to:on:on:!public! !
 isValidMoveFromCoordinate:to:on:on:!public! !
 isValidWhiteCastleMoveFrom:to:on:on:!public! !
 orientations!public! !
+squaresScopeFrom:!new framework!public! !
 !
 
 !Knight methodsFor!
@@ -366,10 +398,24 @@ orientations
 		with: ChessOrientationVector newNorthWest 
 		with: ChessOrientationVector newNorthEast
 		with: ChessOrientationVector newSouthWest
-		with: ChessOrientationVector newSouthEast! !
+		with: ChessOrientationVector newSouthEast!
+
+squaresScopeFrom: aChessSquare
+	| scopeDictionary |
+
+	scopeDictionary := SquaresDictionary on: self.
+
+	self orientationsDo: [:chessOrientationVector | | scopeCollection |
+		scopeCollection := OrderedCollection new.
+		aChessSquare knightSquaresWith: chessOrientationVector do: [:eachSquare | scopeCollection add: eachSquare].
+		scopeDictionary atOrientation: chessOrientationVector vectorName put: scopeCollection.
+	].
+
+	^scopeDictionary! !
 !Knight categoriesForMethods!
 defaultMovementRuleClass!public! !
 orientations!new framework!orientations do!public! !
+squaresScopeFrom:!new framework!public! !
 !
 
 !Pawn methodsFor!
@@ -413,7 +459,23 @@ orientations
 			add: ChessOrientationVector newSouth;
 			add: ChessOrientationVector newSouthWest;
 			add: ChessOrientationVector newSouthEast;
-			yourself]! !
+			yourself]!
+
+squaresScopeFrom: aChessSquare
+	| scopeDictionary |
+
+	scopeDictionary := SquaresDictionary on: self.
+
+	self orientationsDo: [:chessOrientationVector | | scopeCollection |
+		scopeCollection := OrderedCollection new.
+		self isWhite 
+		ifTrue: [aChessSquare whitePawnSquaresWith: chessOrientationVector do: [:eachSquare | scopeCollection add: eachSquare]] 
+		ifFalse: [aChessSquare blackPawnSquaresWith: chessOrientationVector do: [:eachSquare | scopeCollection add: eachSquare]].
+		scopeDictionary atOrientation: chessOrientationVector vectorName put: scopeCollection.
+	].
+
+	^scopeDictionary
+	! !
 !Pawn categoriesForMethods!
 defaultMovementRuleClass!public! !
 isValidBlackEnPassantMoveFrom:to:on:!public! !
@@ -421,6 +483,7 @@ isValidEnPassantMoveFrom:to:on:!public! !
 isValidMoveFromCoordinate:to:on:!public! !
 isValidWhiteEnPassantMoveFrom:to:on:!public! !
 orientations!new framework!public! !
+squaresScopeFrom:!new framework!public! !
 !
 
 !Queen methodsFor!
@@ -460,6 +523,24 @@ orientations
 !Rook categoriesForMethods!
 defaultMovementRuleClass!public! !
 orientations!new framework!public! !
+!
+
+!SlidingPiece methodsFor!
+
+squaresScopeFrom: aChessSquare
+	| scopeDictionary |
+
+	scopeDictionary := SquaresDictionary on: self.
+
+	self orientationsDo: [:chessOrientationVector | | scopeCollection |
+		scopeCollection := OrderedCollection new.
+		aChessSquare slidingSquaresWith: chessOrientationVector do: [:eachSquare | scopeCollection add: eachSquare].
+		scopeDictionary atOrientation: chessOrientationVector vectorName put: scopeCollection.
+	].
+
+	^scopeDictionary! !
+!SlidingPiece categoriesForMethods!
+squaresScopeFrom:!new framework!public! !
 !
 
 "End of package definition"!

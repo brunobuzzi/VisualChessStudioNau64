@@ -18,18 +18,21 @@ fenString
 
 	^self isBlack ifTrue: ['p'] ifFalse: ['P']!
 
-generateSquaresScopeFrom: aChessSquareScope
-
-	^aChessSquareScope generatePawnSquaresScope!
-
 isPawn
 
-	^true! !
+	^true!
+
+pruneUnreacheableSquaresFrom: aSquaresDictionary
+
+	self isBlack 
+	ifFalse: [aSquaresDictionary pruneUnreacheableSquaresFromWhitePawn] 
+	ifTrue: [aSquaresDictionary pruneUnreacheableSquaresFromBlackPawn]
+	! !
 !Pawn categoriesForMethods!
 canBeMovedToValidCoordinate:on:!public!testing! !
 fenString!public! !
-generateSquaresScopeFrom:!new framework!public! !
 isPawn!public!testing! !
+pruneUnreacheableSquaresFrom:!new framework!public! !
 !
 
 !Pawn class methodsFor!

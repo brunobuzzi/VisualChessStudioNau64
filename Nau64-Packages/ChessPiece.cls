@@ -47,6 +47,16 @@ forceNumberAt: aChessSquare
 
 	^chessSide forceNumberAt: aChessSquare!
 
+isAbsolutePinned
+	self oppositeSideDo: [:oppositeSide | 
+		oppositeSide opppositeSlidingPiecesDo: [:piece | | xray |
+			xray := piece xRayPieces.
+			((xray includesKey: self) and: [(xray at: self) = 1]) ifTrue: [^true].
+		]
+	].
+
+	^false!
+
 isBishop
 
 	^false!
@@ -159,6 +169,15 @@ squaresScopeFrom: aChessSquare
 
 	self subclassResponsibility!
 
+squaresScopeFrom: aChessSquare do: aBlock
+	| aSquaresDictionary |
+	aSquaresDictionary := self squaresScopeFrom: aChessSquare.
+	aBlock value: aSquaresDictionary!
+
+squaresScopeFromCoordiante: aSymbol
+
+	^self squaresScopeFrom: (aSymbol asChessSquareIn: self systemRoot)!
+
 systemRoot
 
 	^chessSide systemRoot!
@@ -180,7 +199,30 @@ validSquaresSizeFrom: aChessSquare
 
 whiteCodePoint
 
-	^self class whiteCodePoint! !
+	^self class whiteCodePoint!
+
+xRayPieces
+	| xRayPieces |
+	self isSlidingPiece ifFalse: [^OrderedCollection new].
+	xRayPieces := Dictionary new.
+	self chessboardDo: [:aChessboard | 
+		self squaresScopeFrom: self currentChessSquare do: [:aSquaresDictionary | 
+			aSquaresDictionary squaresDo: [:chessSquare |  | oppositePieces halted |
+				oppositePieces := 0.
+				halted := false.
+				aChessboard 
+					pieceAt: chessSquare 
+					do: [:piece | (piece isOppositeSideTo: self) 
+								ifTrue: [oppositePieces := oppositePieces + 1.
+									(oppositePieces > 1 and: [halted not]) ifTrue: [xRayPieces at: piece put: oppositePieces - 1]]
+								ifFalse: [halted := true]
+					] 
+					ifAbsent: [].
+			]
+		].
+	].
+
+	^xRayPieces! !
 !ChessPiece categoriesForMethods!
 bateryOrientationsFrom:do:!public!tactics! !
 blackCodePoint!public!unicode! !
@@ -191,6 +233,7 @@ codePoint!public!unicode! !
 defaultColor!public!testing! !
 fenString!public! !
 forceNumberAt:!public! !
+isAbsolutePinned!new framework!public! !
 isBishop!public!testing! !
 isBlack!public!testing! !
 isCheckMatedOn:!public! !
@@ -218,10 +261,13 @@ sideName!public! !
 slidingPieceAt:canReachSkippingOnePiece:on:!public! !
 squareSize!public! !
 squaresScopeFrom:!new framework!public! !
+squaresScopeFrom:do:!new framework!public! !
+squaresScopeFromCoordiante:!new framework!public! !
 systemRoot!private! !
 validSquaresFrom:do:!new framework!public! !
 validSquaresSizeFrom:!new framework!public! !
 whiteCodePoint!public!unicode! !
+xRayPieces!new framework!public! !
 !
 
 !ChessPiece class methodsFor!

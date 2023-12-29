@@ -360,6 +360,49 @@ squaresAtWestDo: aBlock
 
 	(squares at: #west ifAbsent: [#()]) do: aBlock!
 
+squaresCollectionAndOrientationAtEastDo: aBlock
+
+	aBlock value: (squares at: #east ifAbsent: [#()]) value: #east!
+
+squaresCollectionAndOrientationAtNorthDo: aBlock
+
+	aBlock value: (squares at: #north ifAbsent: [#()]) value: #north!
+
+squaresCollectionAndOrientationAtNorthEastDo: aBlock
+
+	aBlock value: (squares at: #northEast ifAbsent: [#()]) value: #northEast!
+
+squaresCollectionAndOrientationAtNorthWestDo: aBlock
+
+	aBlock value: (squares at: #northWest ifAbsent: [#()]) value: #northWest!
+
+squaresCollectionAndOrientationAtSouthDo: aBlock
+
+	aBlock value: (squares at: #south ifAbsent: [#()]) value: #south!
+
+squaresCollectionAndOrientationAtSouthEastDo: aBlock
+
+	aBlock value: (squares at: #southEast ifAbsent: [#()]) value: #southEast!
+
+squaresCollectionAndOrientationAtSouthWestDo: aBlock
+
+	aBlock value: (squares at: #southWest ifAbsent: [#()]) value: #southWest!
+
+squaresCollectionAndOrientationAtWestDo: aBlock
+
+	aBlock value: (squares at: #west ifAbsent: [#()]) value: #west!
+
+squaresCollectionAndOrientationDo: aBlock
+
+	self squaresCollectionAndOrientationAtNorthDo: aBlock.
+	self squaresCollectionAndOrientationAtSouthDo: aBlock.
+	self squaresCollectionAndOrientationAtEastDo: aBlock.
+	self squaresCollectionAndOrientationAtWestDo: aBlock.
+	self squaresCollectionAndOrientationAtNorthEastDo: aBlock.
+	self squaresCollectionAndOrientationAtNorthWestDo: aBlock.
+	self squaresCollectionAndOrientationAtSouthEastDo: aBlock.
+	self squaresCollectionAndOrientationAtSouthWestDo: aBlock.!
+
 squaresCollectionAtEastDo: aBlock
 
 	aBlock value: (squares at: #east ifAbsent: [#()]) !
@@ -477,6 +520,15 @@ squaresAtSouthDo:!enumerating!public! !
 squaresAtSouthEastDo:!enumerating!public! !
 squaresAtSouthWestDo:!enumerating!public! !
 squaresAtWestDo:!enumerating!public! !
+squaresCollectionAndOrientationAtEastDo:!enumerating!new framework!public! !
+squaresCollectionAndOrientationAtNorthDo:!enumerating!new framework!public! !
+squaresCollectionAndOrientationAtNorthEastDo:!enumerating!new framework!public! !
+squaresCollectionAndOrientationAtNorthWestDo:!enumerating!new framework!public! !
+squaresCollectionAndOrientationAtSouthDo:!enumerating!new framework!public! !
+squaresCollectionAndOrientationAtSouthEastDo:!enumerating!new framework!public! !
+squaresCollectionAndOrientationAtSouthWestDo:!enumerating!new framework!public! !
+squaresCollectionAndOrientationAtWestDo:!enumerating!new framework!public! !
+squaresCollectionAndOrientationDo:!enumerating!new framework!public! !
 squaresCollectionAtEastDo:!enumerating!public! !
 squaresCollectionAtNorthDo:!enumerating!public! !
 squaresCollectionAtNorthEastDo:!enumerating!public! !

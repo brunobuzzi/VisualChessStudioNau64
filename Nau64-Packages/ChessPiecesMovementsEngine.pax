@@ -32,6 +32,7 @@ package classNames
 package methodNames
 	add: #Bishop -> #defaultMovementRuleClass;
 	add: #Bishop -> #orientations;
+	add: #ChessPiece -> #checkForAbsolutePinFrom:to:;
 	add: #ChessPiece -> #currentChessSquare;
 	add: #ChessPiece -> #defaultMovementRuleClass;
 	add: #ChessPiece -> #isInvalidMoveFrom:to:;
@@ -220,6 +221,21 @@ orientations!new framework!orientations do!public! !
 
 !ChessPiece methodsFor!
 
+checkForAbsolutePinFrom: originChessSquare to: targetChessSquare
+	| pins orientation |
+	pins := OrderedCollection new.
+	self oppositeSideDo: [:oppositeSide | 
+		oppositeSide piecesDo: [:piece | | pinnedPieces |
+			pinnedPieces := piece pinnedPieces.
+			pins addAll: (pinnedPieces select: [:pin | (pin pinnedPieceIs: self) and: [pin isAbsolute]]).
+		]
+	].
+	pins isEmpty ifTrue: [^true].
+
+	orientation := ChessOrientationVector newFrom:  originChessSquare to: targetChessSquare.
+
+	^pins allSatisfy: [:pin | orientation isPinCompatibleWithOrientationNamed: pin orientation]!
+
 currentChessSquare
 
 	^chessSide currentChessSquareFor: self!
@@ -238,10 +254,14 @@ isInvalidMoveFrom: originChessSquare to: targetChessSquare
 	!
 
 isValidMoveFrom: originChessSquare to: targetChessSquare
+	| isValid |
 
-	self validSquaresFrom: originChessSquare do: [:scopeSquare | scopeSquare == targetChessSquare ifTrue: [^true]].
+	isValid := false.
+	self validSquaresFrom: originChessSquare do: [:scopeSquare | scopeSquare == targetChessSquare ifTrue: [isValid := true]].
 
-	^false
+	isValid ifTrue: [^self checkForAbsolutePinFrom: originChessSquare to: targetChessSquare].
+
+	^isValid
 
 	!
 
@@ -285,6 +305,7 @@ skewerPieceOn: aChessboard from: aChessSquare do: aBlock
 		from: aChessSquare
 		do: aBlock! !
 !ChessPiece categoriesForMethods!
+checkForAbsolutePinFrom:to:!new framework!public! !
 currentChessSquare!public! !
 defaultMovementRuleClass!public! !
 isInvalidMoveFrom:to:!new framework!public! !

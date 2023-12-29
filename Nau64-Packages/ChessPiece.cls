@@ -49,9 +49,9 @@ forceNumberAt: aChessSquare
 
 isAbsolutePinned
 	self oppositeSideDo: [:oppositeSide | 
-		oppositeSide opppositeSlidingPiecesDo: [:piece | | xray |
-			xray := piece xRayPieces.
-			((xray includesKey: self) and: [(xray at: self) = 1]) ifTrue: [^true].
+		oppositeSide opppositeSlidingPiecesDo: [:piece | | pinnedPieces |
+			pinnedPieces := piece pinnedPieces.
+			pinnedPieces select: [:pin | (pin pinnedPieceIs: self) and: [pin isAbsolute]].
 		]
 	].
 
@@ -141,6 +141,29 @@ orientationsDo: aBlock
 pieceCode
 	^self class pieceCode!
 
+pinnedPieces
+	| pinnedPieces |
+	self isSlidingPiece ifFalse: [^OrderedCollection new].
+	pinnedPieces := OrderedCollection new.
+	self chessboardDo:	[:aChessboard |
+			self squaresScopeFrom: self currentChessSquare
+				do: [:aSquaresDictionary | | oppositePieces halted pinnedPiece |
+					oppositePieces := 0.
+					halted := false.
+					aSquaresDictionary squaresCollectionAndOrientationDo: [:squareCollection :orientation | 
+						squareCollection do: [:chessSquare |
+								aChessboard
+									pieceAt: chessSquare
+									do: [:piece |
+										(piece isOppositeSideTo: self)
+										ifTrue: [oppositePieces := oppositePieces + 1.
+											oppositePieces = 1 ifTrue: [pinnedPiece := piece].
+											(oppositePieces > 1 and: [halted not])
+											ifTrue: [pinnedPieces add: (ChessPin newOnControl: self pinned: pinnedPiece target: piece orientation: orientation)]]
+											ifFalse: [halted := true]]
+									ifAbsent: []]]]].
+	^pinnedPieces!
+
 printOn: aStream
 
 	super printOn: aStream.
@@ -199,30 +222,7 @@ validSquaresSizeFrom: aChessSquare
 
 whiteCodePoint
 
-	^self class whiteCodePoint!
-
-xRayPieces
-	| xRayPieces |
-	self isSlidingPiece ifFalse: [^OrderedCollection new].
-	xRayPieces := Dictionary new.
-	self chessboardDo: [:aChessboard | 
-		self squaresScopeFrom: self currentChessSquare do: [:aSquaresDictionary | 
-			aSquaresDictionary squaresDo: [:chessSquare |  | oppositePieces halted |
-				oppositePieces := 0.
-				halted := false.
-				aChessboard 
-					pieceAt: chessSquare 
-					do: [:piece | (piece isOppositeSideTo: self) 
-								ifTrue: [oppositePieces := oppositePieces + 1.
-									(oppositePieces > 1 and: [halted not]) ifTrue: [xRayPieces at: piece put: oppositePieces - 1]]
-								ifFalse: [halted := true]
-					] 
-					ifAbsent: [].
-			]
-		].
-	].
-
-	^xRayPieces! !
+	^self class whiteCodePoint! !
 !ChessPiece categoriesForMethods!
 bateryOrientationsFrom:do:!public!tactics! !
 blackCodePoint!public!unicode! !
@@ -254,6 +254,7 @@ oppositeSideDo:!public! !
 oppositeSideName!public! !
 orientationsDo:!new framework!public! !
 pieceCode!public! !
+pinnedPieces!new framework!public! !
 printOn:!public! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
 setSide:!private! !
@@ -267,7 +268,6 @@ systemRoot!private! !
 validSquaresFrom:do:!new framework!public! !
 validSquaresSizeFrom:!new framework!public! !
 whiteCodePoint!public!unicode! !
-xRayPieces!new framework!public! !
 !
 
 !ChessPiece class methodsFor!

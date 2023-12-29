@@ -7,13 +7,11 @@ package paxVersion: 1;
 package classNames
 	add: #ChessAbsolutePinSearcher;
 	add: #ChessAbsoluteSkewerSearcher;
-	add: #ChessBattery;
 	add: #ChessBatterySearcher;
 	add: #ChessCheckMateSearcher;
 	add: #ChessCheckSearcher;
 	add: #ChessDeflectionSearcher;
 	add: #ChessDiscoveredAttackSearcher;
-	add: #ChessFork;
 	add: #ChessForkSearcher;
 	add: #ChessInterferenceSearcher;
 	add: #ChessOverloadingSearcher;
@@ -23,12 +21,9 @@ package classNames
 	add: #ChessRelativeSkewerSearcher;
 	add: #ChessSacrificeSearcher;
 	add: #ChessSituationalPinSearcher;
-	add: #ChessSkewer;
 	add: #ChessSkewerSearcher;
-	add: #ChessTacticInstance;
 	add: #ChessTacticMoveSearcher;
 	add: #ChessUnderminingSearcher;
-	add: #TacticDictionary;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -38,6 +33,7 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
+	'ChessTacticElements'
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
 
@@ -45,33 +41,8 @@ package!
 
 "Class Definitions"!
 
-Object subclass: #ChessTacticInstance
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 Object subclass: #ChessTacticMoveSearcher
 	instanceVariableNames: 'chessboard'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-Object subclass: #TacticDictionary
-	instanceVariableNames: 'tactics'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ChessTacticInstance subclass: #ChessBattery
-	instanceVariableNames: 'piecesDictionary'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ChessTacticInstance subclass: #ChessFork
-	instanceVariableNames: 'currentPieceSquare from to'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ChessTacticInstance subclass: #ChessSkewer
-	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

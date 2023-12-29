@@ -27,7 +27,11 @@ newFor: aChessPiece orientation: aChessOrientation
 
 orientationName
 
-	^'West'!
+	^#west!
+
+pinCompatibleOrientations
+
+	^#(#east #west)!
 
 rankSign
 	self shouldNotImplement!
@@ -41,6 +45,7 @@ isOpposing:!public!testing! !
 isWest!public!testing! !
 newFor:orientation:!public!vector creation! !
 orientationName!public! !
+pinCompatibleOrientations!public! !
 rankSign!public! !
 validSquaresOn:do:!public! !
 !

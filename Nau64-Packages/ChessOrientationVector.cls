@@ -100,6 +100,50 @@ isNorthWest
 isPieceCompatible
 	"^sourcePiece movesAreCompatibleWith: self"!
 
+isPinCompatibleOnDiagonalWithOrientationNamed: aSymbol
+
+	(#(#south #north #west #east) includes: aSymbol) ifTrue: [^false].
+
+	self isSouthEast ifTrue: [^aSymbol == #northWest or: [aSymbol = #southEast]].
+	self isSouthWest ifTrue: [^aSymbol == #northEast or: [aSymbol = #southWest]].
+
+	self isNorthEast ifTrue: [^aSymbol == #southWest or: [aSymbol = #northEast]].
+	self isNorthWest ifTrue: [^aSymbol == #southEast or: [aSymbol = #northWest]].
+
+	self error: 'No diagonal orientation not supported'
+
+	"aSymbol --> #south, #north, #west, #east, #northEast, #northWest, #southEast, #southWest"
+
+	"southOrNorth --> #south | #north
+	eastOrWest --> #east | #west "!
+
+isPinCompatibleOnNonDiagonalWithOrientationNamed: aSymbol
+
+	(self isSouth or: [self isNorth]) ifTrue: [^southOrNorth pinCompatibleOrientations includes: aSymbol].
+
+	(self isEast or: [self isWest]) ifTrue: [^eastOrWest pinCompatibleOrientations includes: aSymbol].
+
+	self error: 'No diagonal orientation not supported'
+
+	"aSymbol --> #south, #north, #west, #east, #northEast, #northWest, #southEast, #southWest"
+
+	"southOrNorth --> #south | #north | nil
+	eastOrWest --> #east | #west | nil"!
+
+isPinCompatibleWithOrientationNamed: aSymbol
+
+	^(southOrNorth notNil and: [eastOrWest notNil]) 
+	ifTrue: [self isPinCompatibleOnDiagonalWithOrientationNamed: aSymbol]
+	ifFalse: [self isPinCompatibleOnNonDiagonalWithOrientationNamed: aSymbol]
+
+	"aSymbol --> #south, #north, #west, #east, #northEast, #northWest, #southEast, #southWest"
+
+	"southOrNorth --> #south | #north | nil
+	eastOrWest --> #east | #west | nil"
+
+
+!
+
 isSouth
 
 	^eastOrWest isNil and: [southOrNorth isSouth]!
@@ -239,6 +283,9 @@ isNorth!new framework!public!testing! !
 isNorthEast!new framework!public!testing! !
 isNorthWest!new framework!public!testing! !
 isPieceCompatible!public!squares iteration! !
+isPinCompatibleOnDiagonalWithOrientationNamed:!new framework!public! !
+isPinCompatibleOnNonDiagonalWithOrientationNamed:!new framework!public! !
+isPinCompatibleWithOrientationNamed:!new framework!public! !
 isSouth!new framework!public!testing! !
 isSouthEast!new framework!public!testing! !
 isSouthWest!new framework!public!testing! !

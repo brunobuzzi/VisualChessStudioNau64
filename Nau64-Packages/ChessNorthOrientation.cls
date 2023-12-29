@@ -27,7 +27,11 @@ newFor: aChessPiece orientation: aChessOrientation
 
 orientationName
 
-	^'North'!
+	^#north!
+
+pinCompatibleOrientations
+
+	^#(#north #south)!
 
 rankSign
 	^1!
@@ -41,6 +45,7 @@ isNorth!public!testing! !
 isOpposing:!public!testing! !
 newFor:orientation:!public!vector creation! !
 orientationName!public! !
+pinCompatibleOrientations!public! !
 rankSign!public! !
 validSquaresOn:do:!public! !
 !

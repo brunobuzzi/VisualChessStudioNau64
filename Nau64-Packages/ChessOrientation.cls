@@ -37,6 +37,10 @@ orientationName
 
 	self subclassResponsibility!
 
+pinCompatibleOrientations
+
+	self subclassResponsibility!
+
 rankSign
 	self subclassResponsibility!
 
@@ -56,6 +60,7 @@ isSouth!public!testing! !
 isWest!public!testing! !
 newFor:orientation:!public!vector creation! !
 orientationName!public! !
+pinCompatibleOrientations!public! !
 rankSign!public! !
 validSquaresOn:do:!public! !
 vectorClass!public!vector creation! !

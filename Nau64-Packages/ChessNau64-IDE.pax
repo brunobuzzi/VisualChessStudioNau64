@@ -62,6 +62,7 @@ package setPrerequisites: #(
 	'ChessEngineTacticSearcher'
 	'ChessMatches'
 	'ChessParsers'
+	'ChessTacticElements'
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
 	'..\Core\Object Arts\Dolphin\MVP\Views\Control Bars\Dolphin Control Bars'

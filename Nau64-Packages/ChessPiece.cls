@@ -143,14 +143,15 @@ pieceCode
 
 pinnedPieces
 	| pinnedPieces |
+
 	self isSlidingPiece ifFalse: [^OrderedCollection new].
 	pinnedPieces := OrderedCollection new.
 	self chessboardDo:	[:aChessboard |
 			self squaresScopeFrom: self currentChessSquare
-				do: [:aSquaresDictionary | | oppositePieces halted pinnedPiece |
-					oppositePieces := 0.
-					halted := false.
-					aSquaresDictionary squaresCollectionAndOrientationDo: [:squareCollection :orientation | 
+				do: [:aSquaresDictionary | 
+					aSquaresDictionary squaresCollectionAndOrientationDo: [:squareCollection :orientation | | oppositePieces halted pinnedPiece |
+						oppositePieces := 0.
+						halted := false.
 						squareCollection do: [:chessSquare |
 								aChessboard
 									pieceAt: chessSquare
@@ -160,8 +161,13 @@ pinnedPieces
 											oppositePieces = 1 ifTrue: [pinnedPiece := piece].
 											(oppositePieces > 1 and: [halted not])
 											ifTrue: [pinnedPieces add: (ChessPin newOnControl: self pinned: pinnedPiece target: piece orientation: orientation)]]
-											ifFalse: [halted := true]]
-									ifAbsent: []]]]].
+										ifFalse: [halted := true]
+									]
+									ifAbsent: []
+						]
+					]
+				]
+	].
 	^pinnedPieces!
 
 printOn: aStream
@@ -205,11 +211,15 @@ systemRoot
 
 	^chessSide systemRoot!
 
-validSquaresFrom: aChessSquare do: aBlock
+validSquaresDictionaryFrom: aChessSquare do: aBlock
 	| squaresDictionaryScope |
 	squaresDictionaryScope := self squaresScopeFrom: aChessSquare.
 	squaresDictionaryScope pruneUnreachableSquares.
-	squaresDictionaryScope squaresDo: aBlock!
+	aBlock value: squaresDictionaryScope !
+
+validSquaresFrom: aChessSquare do: aBlock
+
+	self validSquaresDictionaryFrom: aChessSquare do: [:squaresDictionary | squaresDictionary squaresDo: aBlock]!
 
 validSquaresSizeFrom: aChessSquare 
 	| count |
@@ -265,6 +275,7 @@ squaresScopeFrom:!new framework!public! !
 squaresScopeFrom:do:!new framework!public! !
 squaresScopeFromCoordiante:!new framework!public! !
 systemRoot!private! !
+validSquaresDictionaryFrom:do:!new framework!public! !
 validSquaresFrom:do:!new framework!public! !
 validSquaresSizeFrom:!new framework!public! !
 whiteCodePoint!public!unicode! !

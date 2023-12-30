@@ -10,6 +10,16 @@ KingMovementRuleTest comment: ''!
 !KingMovementRuleTest categoriesForClass!Unclassified! !
 !KingMovementRuleTest methodsFor!
 
+testAttackedSquaresAfterKing
+	| whiteKing blackRook squares |
+	chessboard := Chessboard newEmptyOn: systemRoot.
+	(ChessFenParser newOn: systemRoot fenString: 'r7/8/K1k5/8/8/8/8/8/ w - - 1 20') deployOn: chessboard.
+	whiteKing := chessboard pieceAt: (#a6 asChessSquareIn: systemRoot).
+	blackRook := chessboard pieceAt: (#a8 asChessSquareIn: systemRoot).
+	squares := OrderedCollection new.
+	whiteKing secureSquaresDo: [:square | squares add: square].
+	self assert: squares isEmpty!
+
 testCheckMates
 	| checkMatedKing otherKing |
 	chessboard := Chessboard newEmptyOn: systemRoot.
@@ -88,6 +98,7 @@ testPruneUnreachableSquares
 	self assert: (piece validSquaresSizeFrom: piece currentChessSquare) equals: 3.
 	! !
 !KingMovementRuleTest categoriesForMethods!
+testAttackedSquaresAfterKing!public! !
 testCheckMates!public! !
 testKingScope!public! !
 testPruneUnreachableSquares!public! !

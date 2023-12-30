@@ -29,7 +29,8 @@ package setPrerequisites: #(
 	'ChessBasicElementsTests'
 	'ChessMatches'
 	'ChessParsers'
-	'ChessPiecesMovementsEngine').
+	'ChessPiecesMovementsEngine'
+	'..\Core\Object Arts\Dolphin\Base\Dolphin').
 
 package!
 

@@ -14,6 +14,13 @@ fenString
 
 	^self isBlack ifTrue: ['k'] ifFalse: ['K']!
 
+isCheckMatedOn: aChessboard
+	| secureSquares |
+
+	secureSquares := OrderedCollection new.
+	self secureSquaresFrom: self currentChessSquare do: [:square | secureSquares add: square].
+	^secureSquares isEmpty !
+
 isKing
 
 	^true!
@@ -23,6 +30,7 @@ pruneUnreacheableSquaresFrom: aSquaresDictionary
 	aSquaresDictionary pruneUnreacheableSquaresFromKing! !
 !King categoriesForMethods!
 fenString!public! !
+isCheckMatedOn:!public! !
 isKing!public!testing! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
 !

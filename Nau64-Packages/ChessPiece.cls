@@ -176,6 +176,25 @@ pruneUnreacheableSquaresFrom: aSquaresDictionary
 
 	self subclassResponsibility!
 
+secureSquaresDo: aBlock
+
+	self secureSquaresFrom: self currentChessSquare do: aBlock!
+
+secureSquaresFrom: aChessSquare do: aBlock
+	| attackedSquares |
+
+	attackedSquares := OrderedCollection new.
+	self oppositeSideDo: [:oppositeSide | 
+		oppositeSide piecesDo: [:oppositePiece |
+			oppositePiece validSquaresDo: [:square | attackedSquares add: square].
+		].
+	].
+
+	self validSquaresDictionaryFrom: aChessSquare do: [:squaresDictionary |
+		attackedSquares do: [:square | squaresDictionary remove: square].
+		squaresDictionary squaresDo: aBlock
+	]!
+
 setSide: aChessSide
 
 	chessSide := aChessSide!
@@ -209,6 +228,10 @@ validSquaresDictionaryFrom: aChessSquare do: aBlock
 	squaresDictionaryScope := self squaresScopeFrom: aChessSquare.
 	squaresDictionaryScope pruneUnreachableSquares.
 	aBlock value: squaresDictionaryScope !
+
+validSquaresDo: aBlock
+
+	self validSquaresFrom: self currentChessSquare do: aBlock!
 
 validSquaresFrom: aChessSquare do: aBlock
 
@@ -259,6 +282,8 @@ pieceCode!public! !
 pinnedPieces!new framework!public! !
 printOn:!public! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
+secureSquaresDo:!new framework!public! !
+secureSquaresFrom:do:!new framework!public! !
 setSide:!private! !
 sideName!public! !
 squareSize!public! !
@@ -267,6 +292,7 @@ squaresScopeFrom:do:!new framework!public! !
 squaresScopeFromCoordiante:!new framework!public! !
 systemRoot!private! !
 validSquaresDictionaryFrom:do:!new framework!public! !
+validSquaresDo:!new framework!public! !
 validSquaresFrom:do:!new framework!public! !
 validSquaresSizeFrom:!new framework!public! !
 whiteCodePoint!public!unicode! !

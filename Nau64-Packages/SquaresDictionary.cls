@@ -56,31 +56,6 @@ chessboardDo: monadicBlock
 
 	piece chessboardDo: [:chessboard | monadicBlock value: chessboard]!
 
-detectedBatteriesFor: aChessSide 
-	| batterySquares currentPieceSquare |
-
-	batterySquares := Set new.
-	piece isSlidingPiece ifFalse: [^batterySquares].
-	currentPieceSquare := piece currentChessSquare.
-	self squaresDo: [:square | | orientationVector |
-		orientationVector := piece orientationVectorFrom: currentPieceSquare to: square. 
-		piece chessboardDo: [:chessboard |
-			"anArray of  same side sliding pieces or empty squares together from <square> (using next and previous)"
-			(piece bateryOrientationsFrom: orientationVector do: [:orientation | | slidingSquaresVector |
-				slidingSquaresVector := ChessOrientationVector newFor: piece orientation: orientation.
-				slidingSquaresVector nextSquaresFrom: square do: [:nextSquare | | batteryTrucantedByOppositePiece |
-					batteryTrucantedByOppositePiece := chessboard 
-													pieceAt: nextSquare 
-													do: [:aChessPiece | (chessboard isSameSideAs: (chessboard pieceAt: nextSquare)) not] 
-													ifAbsent: [false].
-					((chessboard squareNotEmptyAtCoordinate: nextSquare coordinate) and: [(piece isSameSideAs: (chessboard pieceAt: nextSquare)) and:[(chessboard pieceAt: nextSquare) isSlidingPiece]])
-					ifTrue: [batteryTrucantedByOppositePiece ifFalse: [batterySquares add: square]].
-				].
-			]).
-		].
-	].
-	^batterySquares asOrderedCollection!
-
 detectForkedSquaresFor: aChessSide
 	| attackedPieces forkedSquares |
 
@@ -468,7 +443,6 @@ atSouthEastAdd:!add element!public! !
 atSouthWestAdd:!add element!public! !
 atWestAdd:!add element!public! !
 chessboardDo:!public! !
-detectedBatteriesFor:!public!tactics searchs! !
 detectForkedSquaresFor:!public!tactics searchs! !
 difference:!public!set operations! !
 includes:!public!searching! !

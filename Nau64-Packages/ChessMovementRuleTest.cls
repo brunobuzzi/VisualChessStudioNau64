@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 ChessTest subclass: #ChessMovementRuleTest
-	instanceVariableNames: 'chessboard piece parser'
+	instanceVariableNames: 'piece parser'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

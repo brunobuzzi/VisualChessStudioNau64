@@ -1,0 +1,87 @@
+﻿| package |
+package := Package name: 'ChessNau64-IDE-Development'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package methodNames
+	add: 'Aspect class' -> #chessboardOn:;
+	add: 'Aspect class' -> #squaresDictionaryOn:;
+	add: 'Chessboard class' -> #publishedAspectsOfInstances;
+	add: 'SquaresDictionary class' -> #publishedAspectsOfInstances;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'ChessBasicElements'
+	'ChessNau64-IDE'
+	'ChessPiecesMovementsEngine'
+	'..\Core\Object Arts\Dolphin\IDE\Base\Development System'
+	'..\Core\Object Arts\Dolphin\Base\Dolphin').
+
+package!
+
+"Class Definitions"!
+
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Aspect class methodsFor!
+
+chessboardOn: aSystemRoot
+	
+	^self name: #viewChessboard
+		presenterBlock: 
+			[:p :m | 
+			| presenter |
+			presenter := ChessGamePresenter createIn: p on: m value root: aSystemRoot.
+			presenter]
+!
+
+squaresDictionaryOn: aSystemRoot
+
+	^self name: #viewSquares
+		presenterBlock: 
+			[:p :m | 
+			| presenter squaresDictionary chessboard |
+			squaresDictionary :=m value.
+			squaresDictionary chessboardDo: [:chBoard | chessboard  := chBoard].
+			presenter := ChessboardSquaresPresenter createIn: p on: chessboard squaresDictionary: squaresDictionary root: aSystemRoot.
+			presenter]
+! !
+!Aspect class categoriesForMethods!
+chessboardOn:!instance creation!public! !
+squaresDictionaryOn:!public! !
+!
+
+!Chessboard class methodsFor!
+
+publishedAspectsOfInstances
+
+	^(super publishedAspectsOfInstances)
+		add: (Aspect chessboardOn: (Smalltalk at: #TestSystemRoot));
+		yourself! !
+!Chessboard class categoriesForMethods!
+publishedAspectsOfInstances!public! !
+!
+
+!SquaresDictionary class methodsFor!
+
+publishedAspectsOfInstances
+	^(super publishedAspectsOfInstances)
+		add: (Aspect squaresDictionaryOn: (Smalltalk at: #TestSystemRoot));
+		yourself! !
+!SquaresDictionary class categoriesForMethods!
+publishedAspectsOfInstances!public! !
+!
+
+"End of package definition"!
+

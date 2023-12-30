@@ -1,0 +1,76 @@
+﻿| package |
+package := Package name: 'ChessEngineTacticSearcherTests'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #ChessAbsolutePinSearcherTest;
+	add: #ChessForkSearcherTest;
+	add: #ChessPartialPinSearcherTest;
+	add: #ChessPinSearcherTest;
+	add: #ChessRelativePinSearcherTest;
+	add: #ChessSituationalPinSearcherTest;
+	add: #ChessTacticMoveSearcherTest;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'ChessBasicElements'
+	'ChessBasicElementsTests'
+	'ChessEngineTacticSearcher'
+	'ChessParsers'
+	'..\Core\Object Arts\Dolphin\Base\Dolphin').
+
+package!
+
+"Class Definitions"!
+
+ChessTest subclass: #ChessTacticMoveSearcherTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticMoveSearcherTest subclass: #ChessForkSearcherTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticMoveSearcherTest subclass: #ChessPinSearcherTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessPinSearcherTest subclass: #ChessAbsolutePinSearcherTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessPinSearcherTest subclass: #ChessPartialPinSearcherTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessPinSearcherTest subclass: #ChessRelativePinSearcherTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessPinSearcherTest subclass: #ChessSituationalPinSearcherTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

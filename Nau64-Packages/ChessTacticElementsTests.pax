@@ -1,0 +1,44 @@
+﻿| package |
+package := Package name: 'ChessTacticElementsTests'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #ChessPinTest;
+	add: #ChessTacticsTest;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'ChessBasicElements'
+	'ChessBasicElementsTests'
+	'ChessParsers').
+
+package!
+
+"Class Definitions"!
+
+ChessTest subclass: #ChessTacticsTest
+	instanceVariableNames: 'parser'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticsTest subclass: #ChessPinTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

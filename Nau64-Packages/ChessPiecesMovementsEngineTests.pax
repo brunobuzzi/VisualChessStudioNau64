@@ -1,0 +1,113 @@
+﻿| package |
+package := Package name: 'ChessPiecesMovementsEngineTests'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #BishopMovementRuleTest;
+	add: #ChessMovementEngineStackTreeTest;
+	add: #ChessMovementRuleTest;
+	add: #ChessOrientationVectorTest;
+	add: #ChessSquareVectorTest;
+	add: #ChessVectorTest;
+	add: #KingMovementRuleTest;
+	add: #KnightMovementRuleTest;
+	add: #PawnMovementRuleTest;
+	add: #QueenMovementRuleTest;
+	add: #RookMovementRuleTest;
+	add: #SlidingPieceMovementEngineTest;
+	add: #SquaresDictionaryTest;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'ChessBasicElements'
+	'ChessBasicElementsTests'
+	'ChessMatches'
+	'ChessParsers'
+	'ChessPiecesMovementsEngine'
+	'..\Core\Object Arts\Dolphin\Base\Dolphin').
+
+package!
+
+"Class Definitions"!
+
+ChessTest subclass: #ChessMovementEngineStackTreeTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTest subclass: #ChessMovementRuleTest
+	instanceVariableNames: 'piece parser'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTest subclass: #ChessVectorTest
+	instanceVariableNames: 'parser'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTest subclass: #SquaresDictionaryTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessMovementRuleTest subclass: #KingMovementRuleTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessMovementRuleTest subclass: #KnightMovementRuleTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessMovementRuleTest subclass: #PawnMovementRuleTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessMovementRuleTest subclass: #SlidingPieceMovementEngineTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SlidingPieceMovementEngineTest subclass: #BishopMovementRuleTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SlidingPieceMovementEngineTest subclass: #QueenMovementRuleTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SlidingPieceMovementEngineTest subclass: #RookMovementRuleTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessVectorTest subclass: #ChessOrientationVectorTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessVectorTest subclass: #ChessSquareVectorTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

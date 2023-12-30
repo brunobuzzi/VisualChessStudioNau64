@@ -1,0 +1,66 @@
+﻿| package |
+package := Package name: 'ChessTacticElements'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #ChessBattery;
+	add: #ChessFork;
+	add: #ChessPin;
+	add: #ChessSkewer;
+	add: #ChessTacticInstance;
+	add: #TacticDictionary;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'..\Core\Object Arts\Dolphin\Base\Dolphin').
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #ChessTacticInstance
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #TacticDictionary
+	instanceVariableNames: 'tactics'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticInstance subclass: #ChessBattery
+	instanceVariableNames: 'piecesDictionary'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticInstance subclass: #ChessFork
+	instanceVariableNames: 'currentPieceSquare from to'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticInstance subclass: #ChessPin
+	instanceVariableNames: 'controlPiece pinnedPiece targetPiece orientation'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessTacticInstance subclass: #ChessSkewer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+"End of package definition"!
+

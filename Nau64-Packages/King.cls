@@ -14,9 +14,6 @@ fenString
 
 	^self isBlack ifTrue: ['k'] ifFalse: ['K']!
 
-isCheckMatedOn: aChessboard
-	^self newMovementEngine isCheckMatedOn: aChessboard!
-
 isKing
 
 	^true!
@@ -26,7 +23,6 @@ pruneUnreacheableSquaresFrom: aSquaresDictionary
 	aSquaresDictionary pruneUnreacheableSquaresFromKing! !
 !King categoriesForMethods!
 fenString!public! !
-isCheckMatedOn:!public! !
 isKing!public!testing! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
 !

@@ -6,10 +6,8 @@ package paxVersion: 1;
 
 package classNames
 	add: #BishopMovementRuleTest;
-	add: #ChessMovementEngineStackTreeTest;
 	add: #ChessMovementRuleTest;
 	add: #ChessOrientationVectorTest;
-	add: #ChessSquareVectorTest;
 	add: #ChessVectorTest;
 	add: #KingMovementRuleTest;
 	add: #KnightMovementRuleTest;
@@ -31,18 +29,12 @@ package setPrerequisites: #(
 	'ChessBasicElementsTests'
 	'ChessMatches'
 	'ChessParsers'
-	'ChessPiecesMovementsEngine'
-	'..\Core\Object Arts\Dolphin\Base\Dolphin').
+	'ChessPiecesMovementsEngine').
 
 package!
 
 "Class Definitions"!
 
-ChessTest subclass: #ChessMovementEngineStackTreeTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 ChessTest subclass: #ChessMovementRuleTest
 	instanceVariableNames: 'piece parser'
 	classVariableNames: ''
@@ -94,11 +86,6 @@ SlidingPieceMovementEngineTest subclass: #RookMovementRuleTest
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessVectorTest subclass: #ChessOrientationVectorTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ChessVectorTest subclass: #ChessSquareVectorTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''

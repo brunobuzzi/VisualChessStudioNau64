@@ -17,7 +17,7 @@ searchOnChessboardFor: aChessSide
 			[:piece :squareCollection |
 			squareCollection do: 
 					[:square |
-					(piece newMovementEngine
+			"		(piece newMovementEngine
 						skeweredPieces: 2
 						on: chessboard
 						from: square) do: 
@@ -27,7 +27,7 @@ searchOnChessboardFor: aChessSide
 										[((chessboard pieceAt: each) isOppositeSideTo: piece) and: [(chessboard pieceAt: each) isKing not]])
 									and: [piece isSecureToAttack: square on: chessboard]) ifTrue: [pinSquare := square].
 								(pins includesKey: piece) ifFalse: [pins at: piece put: Set new].
-								pinSquare notNil ifTrue: [(pins at: piece) add: pinSquare]]]].
+								pinSquare notNil ifTrue: [(pins at: piece) add: pinSquare]]"]].
 	^pins! !
 !ChessPartialPinSearcher categoriesForMethods!
 searchOnChessboardFor:!public! !

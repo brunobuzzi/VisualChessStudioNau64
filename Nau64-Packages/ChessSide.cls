@@ -16,11 +16,6 @@ anyPawnAtEnPassantMoveFrom: aSymbol
 	ifTrue: [self anyBlackPawnAtEnPassantMoveFrom: aSymbol] 
 	ifFalse: [self anyWhitePawnAtEnPassantMoveFrom: aSymbol]!
 
-anySlidingPieceCanReachSkippingOnePiece: targetChessSquare on: aChessboard
-	self piecesDo: [:piece | 
-		(piece slidingPieceAt: piece currentChessSquare canReachSkippingOnePiece: targetChessSquare on: aChessboard) ifTrue: [^true]].
-	^false!
-
 chessboardDo: aBlock
 
 	aBlock value: chessboard!
@@ -84,7 +79,6 @@ systemRoot
 	^chessboard systemRoot! !
 !ChessSide categoriesForMethods!
 anyPawnAtEnPassantMoveFrom:!public! !
-anySlidingPieceCanReachSkippingOnePiece:on:!public! !
 chessboardDo:!public! !
 codePointFor:!public! !
 currentChessSquareFor:!public! !

@@ -20,11 +20,11 @@ searchOnChessboardFor: aChessSide
 	forks := TacticDictionary new.
 	aChessSide validSquaresByPieceKeysAndValuesDo: [:piece :squareDictionary |
 		squareDictionary squaresDo: [:square | | newMoveEngine |
-			newMoveEngine := piece newMovementEngine.
+	"		newMoveEngine := piece newMovementEngine.
 			newMoveEngine computeValidSquaresOn: chessboard from: square.
 			newMoveEngine detectedBatteriesDo: [:baterrySquares | 
 				forks add: (self createBatteryFor: piece from: square to: baterrySquares) to: piece.
-			].
+			]."
 		].
 	].
 	^forks! !

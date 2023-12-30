@@ -39,21 +39,6 @@ testBishopScope
 	#(#e6 #d5 #c4 #b3 #a2) do: [:each | self assert: (squaresDictionary includesAtSouthWest: (each asChessSquareIn: systemRoot))].
 	self assert: (squaresDictionary sizeAt: #southWest) equals: 5.!
 
-testInvalidMoveDueToCheck
-	| reacheableSquares |
-	parser := ChessFenParser newOn: systemRoot
-				fenString: 'rnbqkb1R/1p1pp3/8/1pP3p1/4P1P1/P7/1PP2PP1/R3KBN1/ b - - 1 20'.
-	chessboard := Chessboard newEmptyOn: systemRoot.
-	parser deployOn: chessboard.
-	piece := chessboard pieceAtCoordinate: #f8.
-	reacheableSquares := piece newMovementEngine computeReachableSquaresOn: chessboard
-				from: (#f8 asChessSquareIn: systemRoot).
-	self deny: (piece newMovementEngine
-				isValidOn: chessboard
-				from: (#f8 asChessSquareIn: systemRoot)
-				to: (#g7 asChessSquareIn: systemRoot)).
-	self assert: (reacheableSquares includes: (#g7 asChessSquareIn: systemRoot))!
-
 testPruneUnreachableSquares
 	| squaresDictionary |
 
@@ -71,77 +56,9 @@ testPruneUnreachableSquares
 
 	self assert: (piece validSquaresSizeFrom: piece currentChessSquare) equals: 7.
 	
-!
-
-testSkewerPiece
-	| validSquares |
-	parser := ChessFenParser newOn: systemRoot fenString: '8/2K5/3R4/8/5bk1/8/3Q4/2N5/ w - - 1 20'.
-	chessboard := Chessboard newEmptyOn: systemRoot.
-	parser deployOn: chessboard.
-	piece := chessboard pieceAtCoordinate: #f4.
-	validSquares := piece newMovementEngine skewerPieceOn: chessboard from: (#f4 asChessSquareIn: systemRoot).
-	(#(#c7 #c1) collect: [:each | each asChessSquareIn: systemRoot])
-		do: [:square | self assert: (validSquares includes: square)].
-	self assert: validSquares size equals: 2!
-
-testSkewerPieces
-	| validSquares |
-	parser := ChessFenParser newOn: systemRoot fenString: '1K6/2R5/3R4/8/5bk1/4Q3/3N4/2N5/ w - - 1 20'.
-	chessboard := Chessboard newEmptyOn: systemRoot.
-	parser deployOn: chessboard.
-	piece := chessboard pieceAtCoordinate: #f4.
-	validSquares := piece newMovementEngine
-				skeweredPieces: 2
-				on: chessboard
-				from: (#f4 asChessSquareIn: systemRoot).
-	(#(#b8 #c1) collect: [:each | each asChessSquareIn: systemRoot])
-		do: [:square | self assert: (validSquares includes: square)].
-	self assert: validSquares size equals: 2!
-
-testSkewerPiecesAll
-	| validSquares |
-	parser := ChessFenParser newOn: systemRoot fenString: '1K5B/6R1/5R2/8/3Q2k1/2N5/1N6/b7/ w - - 1 20'.
-	chessboard := Chessboard newEmptyOn: systemRoot.
-	parser deployOn: chessboard.
-	piece := chessboard pieceAtCoordinate: #a1.
-	validSquares := piece newMovementEngine
-				skeweredPieces: 2
-				on: chessboard
-				from: (#a1 asChessSquareIn: systemRoot).
-	(#(#d4 #f6 #g7 #h8) collect: [:each | each asChessSquareIn: systemRoot])
-		do: [:square | self assert: (validSquares includes: square)].
-	self assert: validSquares size equals: 4!
-
-testSkewerPieceWithSpacedSquare
-	| validSquares |
-	parser := ChessFenParser newOn: systemRoot fenString: '1K6/8/3R4/8/5bk1/4Q3/8/2N5/ w - - 1 20'.
-	chessboard := Chessboard newEmptyOn: systemRoot.
-	parser deployOn: chessboard.
-	piece := chessboard pieceAtCoordinate: #f4.
-	validSquares := piece newMovementEngine skewerPieceOn: chessboard from: (#f4 asChessSquareIn: systemRoot).
-	(#(#b8 #c1) collect: [:each | each asChessSquareIn: systemRoot])
-		do: [:square | self assert: (validSquares includes: square)].
-	self assert: validSquares size equals: 2!
-
-testValidSquares
-	| validSquares rule |
-	parser := ChessFenParser newOn: systemRoot fenString: '8/2K5/3R4/8/5bk1/8/3Q4/2N5/ w - - 1 20'.
-	chessboard := Chessboard newEmptyOn: systemRoot.
-	parser deployOn: chessboard.
-	piece := chessboard pieceAtCoordinate: #f4.
-	rule := piece newMovementEngine.
-	rule computeReachableSquaresOn: chessboard from: (#f4 asChessSquareIn: systemRoot).
-	validSquares := #(#e5 #d6 #g5 #h6 #e3 #d2 #g3 #h2) collect: [:each | each asChessSquareIn: systemRoot].
-	self assert: (rule includesAllSquares: validSquares).
-	self assert: rule squaresSize equals: 8! !
+! !
 !BishopMovementRuleTest categoriesForMethods!
 testBishopScope!public! !
-testInvalidMoveDueToCheck!public! !
 testPruneUnreachableSquares!public! !
-testSkewerPiece!public! !
-testSkewerPieces!public! !
-testSkewerPiecesAll!public! !
-testSkewerPieceWithSpacedSquare!public! !
-testValidSquares!public! !
 !
 

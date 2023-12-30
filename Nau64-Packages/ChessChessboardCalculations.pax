@@ -40,9 +40,9 @@ allAttackedSquaresDo: aBlock
 	| allAttackedSquares |
 
 	allAttackedSquares := Set new.
-	self piecesDo: [:piece | | movementRule |
-		movementRule := piece defaultMovementRuleClass newFor: piece.
-		movementRule attackedSquaresOn: chessboard from: (chessboard squareFor: piece) do: [:square | allAttackedSquares add: square].
+	self piecesDo: [:piece | | currentSquare |
+		currentSquare := piece currentChessSquare.
+		piece validSquaresFrom: currentSquare do: [:square | allAttackedSquares add: square].
 	].
 
 	allAttackedSquares do: aBlock!
@@ -51,10 +51,10 @@ attackedSquaresByPieceKeysAndValuesDo: aBlock
 	| allAttackedSquares |
 
 	allAttackedSquares := Dictionary new.
-	self piecesDo: [:piece | | movementRule |
+	self piecesDo: [:piece | 
 		(allAttackedSquares includesKey: piece) ifFalse: [allAttackedSquares at: piece put: Set new].
-		movementRule := piece defaultMovementRuleClass newFor: piece.
-		movementRule attackedSquaresOn: chessboard from: (chessboard squareFor: piece) do: [:square | (allAttackedSquares at: piece) add: square].
+		piece validSquaresDictionaryFrom: piece currentChessSquare do: [:square | (allAttackedSquares at: piece) add: square].
+
 	].
 
 	allAttackedSquares keysAndValuesDo: aBlock!
@@ -92,9 +92,9 @@ oppositeSideAllAttackedSquaresDo: aBlock
 	| allAttackedSquares |
 
 	allAttackedSquares := Set new.
-	self oppositePiecesDo: [:piece | | movementRule |
-		movementRule := piece defaultMovementRuleClass newFor: piece.
-		movementRule attackedSquaresOn: chessboard from: (chessboard squareFor: piece) do: [:each | allAttackedSquares add: each].
+	self oppositePiecesDo: [:piece | | currentSquare |
+		currentSquare := piece currentChessSquare.
+		piece validSquaresFrom: currentSquare do: [:square | allAttackedSquares add: square].
 	].
 
 	allAttackedSquares do: aBlock!
@@ -103,10 +103,9 @@ oppositeSideAttackedSquaresByPieceKeysAndValuesDo: aBlock
 	| allAttackedSquares |
 
 	allAttackedSquares := Dictionary new.
-	self oppositePiecesDo: [:piece | | movementRule |
+	self oppositePiecesDo: [:piece | 
 		(allAttackedSquares includesKey: piece) ifFalse: [allAttackedSquares at: piece put: Set new].
-		movementRule := piece defaultMovementRuleClass newFor: piece.
-		movementRule attackedSquaresOn: chessboard from: (chessboard squareFor: piece) do: [:each | (allAttackedSquares at: piece) add: each].
+		piece validSquaresFrom: piece currentChessSquare do: [:square | (allAttackedSquares at: piece) add: square].
 	].
 
 	allAttackedSquares keysAndValuesDo: aBlock!
@@ -115,10 +114,9 @@ validSquaresByPieceKeysAndValuesDo: aBlock
 	| validSquares |
 
 	validSquares := Dictionary new.
-	self piecesDo: [:piece | | movementRule |
-		movementRule := piece defaultMovementRuleClass newFor: piece.
-		movementRule computeValidSquaresOn: chessboard from: piece currentChessSquare.
-		movementRule squaresDictionaryDo: [:squaresDictionary | validSquares at: piece put: squaresDictionary].
+	self piecesDo: [:piece | | currentSquare |
+		currentSquare := piece currentChessSquare.
+		piece validSquaresDictionaryFrom: currentSquare do: [:squaresDictionary | validSquares at: piece put: squaresDictionary].
 	].
 
 	validSquares keysAndValuesDo: aBlock! !

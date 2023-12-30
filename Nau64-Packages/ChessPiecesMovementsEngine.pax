@@ -5,66 +5,45 @@ package paxVersion: 1;
 
 
 package classNames
-	add: #BishopMovementEngine;
 	add: #ChessEastOrientation;
 	add: #ChessEngineOrientationTreeNode;
-	add: #ChessEnginePieceStackTree;
 	add: #ChessEngineSquareTreeNode;
 	add: #ChessEngineTreeNode;
-	add: #ChessMovementEngine;
 	add: #ChessNorthOrientation;
 	add: #ChessOrientation;
 	add: #ChessOrientationVector;
-	add: #ChessPieceVector;
 	add: #ChessSouthOrientation;
-	add: #ChessSquareVector;
 	add: #ChessVector;
 	add: #ChessWestOrientation;
-	add: #KingMovementEngine;
-	add: #KnightMovementEngine;
-	add: #PawnMovementEngine;
-	add: #QueenMovementEngine;
-	add: #RookMovementEngine;
-	add: #SlidingPieceMovementEngine;
 	add: #SquaresDictionary;
 	yourself.
 
 package methodNames
-	add: #Bishop -> #defaultMovementRuleClass;
 	add: #Bishop -> #orientations;
 	add: #ChessPiece -> #checkForAbsolutePinFrom:to:;
 	add: #ChessPiece -> #currentChessSquare;
-	add: #ChessPiece -> #defaultMovementRuleClass;
 	add: #ChessPiece -> #isInvalidMoveFrom:to:;
 	add: #ChessPiece -> #isValidMoveFrom:to:;
 	add: #ChessPiece -> #isValidMoveFromCoordinate:to:;
 	add: #ChessPiece -> #isValidMoveFromCoordinate:to:on:;
 	add: #ChessPiece -> #isValidMoveFromCoordinate:to:on:on:;
-	add: #ChessPiece -> #newMovementEngine;
-	add: #ChessPiece -> #newMovementEngineOn:;
 	add: #ChessPiece -> #orientations;
 	add: #ChessPiece -> #orientationVectorFrom:to:;
-	add: #ChessPiece -> #skewerPieceOn:from:do:;
-	add: #King -> #defaultMovementRuleClass;
 	add: #King -> #isValidBlackCastleMoveFrom:to:on:on:;
 	add: #King -> #isValidCastleMoveFrom:to:on:on:;
 	add: #King -> #isValidMoveFromCoordinate:to:on:on:;
 	add: #King -> #isValidWhiteCastleMoveFrom:to:on:on:;
 	add: #King -> #orientations;
 	add: #King -> #squaresScopeFrom:;
-	add: #Knight -> #defaultMovementRuleClass;
 	add: #Knight -> #orientations;
 	add: #Knight -> #squaresScopeFrom:;
-	add: #Pawn -> #defaultMovementRuleClass;
 	add: #Pawn -> #isValidBlackEnPassantMoveFrom:to:on:;
 	add: #Pawn -> #isValidEnPassantMoveFrom:to:on:;
 	add: #Pawn -> #isValidMoveFromCoordinate:to:on:;
 	add: #Pawn -> #isValidWhiteEnPassantMoveFrom:to:on:;
 	add: #Pawn -> #orientations;
 	add: #Pawn -> #squaresScopeFrom:;
-	add: #Queen -> #defaultMovementRuleClass;
 	add: #Queen -> #orientations;
-	add: #Rook -> #defaultMovementRuleClass;
 	add: #Rook -> #orientations;
 	add: #SlidingPiece -> #squaresScopeFrom:;
 	yourself.
@@ -79,25 +58,14 @@ package setPrerequisites: #(
 	'ChessBasicElements'
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
-	'..\Core\Object Arts\Dolphin\MVP\Icons\Dolphin Text Tile Icons'
-	'..\Core\Object Arts\Dolphin\MVP\Models\Tree\Dolphin Tree Models').
+	'..\Core\Object Arts\Dolphin\MVP\Icons\Dolphin Text Tile Icons').
 
 package!
 
 "Class Definitions"!
 
-Object subclass: #ChessEnginePieceStackTree
-	instanceVariableNames: 'piece originSquare chessboard roots'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 Object subclass: #ChessEngineTreeNode
 	instanceVariableNames: 'tree parentNode children'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-Object subclass: #ChessMovementEngine
-	instanceVariableNames: 'tree piece squaresDictionary'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -126,41 +94,6 @@ ChessEngineTreeNode subclass: #ChessEngineSquareTreeNode
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessMovementEngine subclass: #KingMovementEngine
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ChessMovementEngine subclass: #KnightMovementEngine
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ChessMovementEngine subclass: #PawnMovementEngine
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ChessMovementEngine subclass: #SlidingPieceMovementEngine
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-SlidingPieceMovementEngine subclass: #BishopMovementEngine
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-SlidingPieceMovementEngine subclass: #QueenMovementEngine
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-SlidingPieceMovementEngine subclass: #RookMovementEngine
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 ChessOrientation subclass: #ChessEastOrientation
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -186,16 +119,6 @@ ChessVector subclass: #ChessOrientationVector
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessVector subclass: #ChessSquareVector
-	instanceVariableNames: 'sourceSquare targetSquare orientationVector'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ChessSquareVector subclass: #ChessPieceVector
-	instanceVariableNames: 'sourcePiece targetPiece'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 
 "Global Aliases"!
 
@@ -203,9 +126,6 @@ ChessSquareVector subclass: #ChessPieceVector
 "Loose Methods"!
 
 !Bishop methodsFor!
-
-defaultMovementRuleClass
-	^BishopMovementEngine!
 
 orientations
 
@@ -215,7 +135,6 @@ orientations
 		with: ChessOrientationVector newSouthWest
 		with: ChessOrientationVector newSouthEast! !
 !Bishop categoriesForMethods!
-defaultMovementRuleClass!public! !
 orientations!new framework!orientations do!public! !
 !
 
@@ -240,11 +159,6 @@ currentChessSquare
 
 	^chessSide currentChessSquareFor: self!
 
-defaultMovementRuleClass
-
-	self subclassResponsibility
-!
-
 isInvalidMoveFrom: originChessSquare to: targetChessSquare
 
 	self validSquaresFrom: originChessSquare do: [:scopeSquare | scopeSquare == targetChessSquare ifTrue: [^false]].
@@ -266,30 +180,16 @@ isValidMoveFrom: originChessSquare to: targetChessSquare
 	!
 
 isValidMoveFromCoordinate: originCoordinate to: targetCoordinate
-	| rule isValid |
 
-	rule := self defaultMovementRuleClass newFor: self.
-
-	chessSide chessboardDo: [:chessboard | 
-		isValid := rule isValidOn: chessboard from: (originCoordinate asChessSquareIn: self systemRoot) to: (targetCoordinate asChessSquareIn: self systemRoot)].
-
-	^isValid
-!
+	^self isValidMoveFrom: (originCoordinate asChessSquareIn: self systemRoot) to: (targetCoordinate asChessSquareIn: self systemRoot)!
 
 isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessGame
 
-	^self isValidMoveFromCoordinate: originCoordinate to: targetCoordinate!
+	^self isValidMoveFrom: (originCoordinate asChessSquareIn: self systemRoot) to: (targetCoordinate asChessSquareIn: self systemRoot)!
 
 isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessbord on: aChessGame
 
 	^self isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessGame!
-
-newMovementEngine
-	^self defaultMovementRuleClass newFor: self!
-
-newMovementEngineOn: aChessMovementEngineStackTree
-
-	^self defaultMovementRuleClass newFor: self tree: aChessMovementEngineStackTree!
 
 orientations
 
@@ -297,33 +197,20 @@ orientations
 
 orientationVectorFrom: sourceChessSquare to: targetChessSquare
 
-	^ChessOrientationVector newFrom: sourceChessSquare to: targetChessSquare.!
-
-skewerPieceOn: aChessboard from: aChessSquare do: aBlock
-	^self newMovementEngine
-		skewerPieceOn: aChessboard
-		from: aChessSquare
-		do: aBlock! !
+	^ChessOrientationVector newFrom: sourceChessSquare to: targetChessSquare.! !
 !ChessPiece categoriesForMethods!
 checkForAbsolutePinFrom:to:!new framework!public! !
 currentChessSquare!public! !
-defaultMovementRuleClass!public! !
 isInvalidMoveFrom:to:!new framework!public! !
 isValidMoveFrom:to:!new framework!public! !
 isValidMoveFromCoordinate:to:!public! !
 isValidMoveFromCoordinate:to:on:!public! !
 isValidMoveFromCoordinate:to:on:on:!public! !
-newMovementEngine!public! !
-newMovementEngineOn:!public! !
 orientations!new framework!public! !
 orientationVectorFrom:to:!public! !
-skewerPieceOn:from:do:!public! !
 !
 
 !King methodsFor!
-
-defaultMovementRuleClass
-	^KingMovementEngine!
 
 isValidBlackCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboard on: aChessGame
 
@@ -399,7 +286,6 @@ squaresScopeFrom: aChessSquare
 
 	^scopeDictionary! !
 !King categoriesForMethods!
-defaultMovementRuleClass!public! !
 isValidBlackCastleMoveFrom:to:on:on:!public! !
 isValidCastleMoveFrom:to:on:on:!public! !
 isValidMoveFromCoordinate:to:on:on:!public! !
@@ -409,9 +295,6 @@ squaresScopeFrom:!new framework!public! !
 !
 
 !Knight methodsFor!
-
-defaultMovementRuleClass
-	^KnightMovementEngine!
 
 orientations
 
@@ -434,15 +317,11 @@ squaresScopeFrom: aChessSquare
 
 	^scopeDictionary! !
 !Knight categoriesForMethods!
-defaultMovementRuleClass!public! !
 orientations!new framework!orientations do!public! !
 squaresScopeFrom:!new framework!public! !
 !
 
 !Pawn methodsFor!
-
-defaultMovementRuleClass
-	^PawnMovementEngine!
 
 isValidBlackEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame 
 
@@ -498,7 +377,6 @@ squaresScopeFrom: aChessSquare
 	^scopeDictionary
 	! !
 !Pawn categoriesForMethods!
-defaultMovementRuleClass!public! !
 isValidBlackEnPassantMoveFrom:to:on:!public! !
 isValidEnPassantMoveFrom:to:on:!public! !
 isValidMoveFromCoordinate:to:on:!public! !
@@ -508,9 +386,6 @@ squaresScopeFrom:!new framework!public! !
 !
 
 !Queen methodsFor!
-
-defaultMovementRuleClass
-	^QueenMovementEngine!
 
 orientations
 
@@ -525,14 +400,10 @@ orientations
 		add: ChessOrientationVector newSouthEast;
 		yourself! !
 !Queen categoriesForMethods!
-defaultMovementRuleClass!public! !
 orientations!new framework!public! !
 !
 
 !Rook methodsFor!
-
-defaultMovementRuleClass
-	^RookMovementEngine!
 
 orientations
 
@@ -542,7 +413,6 @@ orientations
 		with: ChessOrientationVector newWest
 		with: ChessOrientationVector newEast! !
 !Rook categoriesForMethods!
-defaultMovementRuleClass!public! !
 orientations!new framework!public! !
 !
 

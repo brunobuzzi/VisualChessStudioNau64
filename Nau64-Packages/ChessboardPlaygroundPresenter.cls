@@ -118,7 +118,7 @@ endTrackingAt: aPoint
 
 	piece := model pieceAt: originSquare.
 
-	(piece isValidMoveFromCoordinate: originSquare coordinate to: targetSquare coordinate) 
+	(piece isValidMoveFrom: originSquare to: targetSquare) 
 	ifFalse: [^MessageBubble notify: ('Invalid move from [',  originSquare coordinate, '] to [',  targetSquare coordinate, ']') caption: 'Nau64' ].
 
 	model movePieceFromCoordiante: originSquare coordinate to: targetSquare coordinate.

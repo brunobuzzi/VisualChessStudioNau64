@@ -56,23 +56,6 @@ chessboardDo: monadicBlock
 
 	piece chessboardDo: [:chessboard | monadicBlock value: chessboard]!
 
-detectAbsolutePinSquaresFor: aChessSide
-	| attackedPieces forkedSquares |
-
-	attackedPieces := 0.
-	forkedSquares := OrderedCollection new.
-	self squaresDo: [:square | 
-		aChessSide chessboardDo: [:chessboard |
-((piece class == Bishop) and: [square printName = 'e7']) ifTrue: [self halt].
-			piece skewerPieceOn: chessboard from: square do: [:skeweredPiece | ].
-			((chessboard squareNotEmptyAtCoordinate: square coordinate) and:[(chessboard pieceAt: square) isOppositeTo: aChessSide]) 
-			ifTrue: [attackedPieces := attackedPieces + 1.
-				forkedSquares add: square.].
-		].
-	].
-	(attackedPieces <= 1) ifTrue: [^#()].
-	^forkedSquares!
-
 detectedBatteriesFor: aChessSide 
 	| batterySquares currentPieceSquare |
 
@@ -485,7 +468,6 @@ atSouthEastAdd:!add element!public! !
 atSouthWestAdd:!add element!public! !
 atWestAdd:!add element!public! !
 chessboardDo:!public! !
-detectAbsolutePinSquaresFor:!public!tactics searchs! !
 detectedBatteriesFor:!public!tactics searchs! !
 detectForkedSquaresFor:!public!tactics searchs! !
 difference:!public!set operations! !

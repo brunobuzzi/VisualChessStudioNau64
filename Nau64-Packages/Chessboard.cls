@@ -18,35 +18,6 @@ allAttackedSquaresByWhiteDo: aBlock
 
 	^whiteSide allAttackedSquaresDo: aBlock!
 
-anyOppositePieceIsAttackingTheKingThrough: aChessPiece
-
-	aChessPiece oppositeSideDo: [:aChessSide | 
-		aChessSide slidingPiecesDo: [:piece | 
-			 piece newMovementEngine 
-				slidingPieceAt: piece currentChessSquare
-				ifCanReachSkippingOnePiece: aChessPiece king currentChessSquare 
-				blockedPiecesDo: [:blockedPiece :orientationVector | (blockedPiece == aChessPiece) ifTrue: [^true]]
-				on: self.
-		].
-	].
-	^false
-!
-
-anyOppositePieceIsAttackingTheKingThrough: aChessPiece tryingToMoveFrom: originChessSquare to: targetChessSquare
-	| moveVector |
-	moveVector := aChessPiece orientationVectorFrom: originChessSquare to: targetChessSquare.
-	aChessPiece oppositeSideDo: [:aChessSide | 
-		aChessSide slidingPiecesDo: [:piece | 
-			 piece newMovementEngine 
-				slidingPieceAt: piece currentChessSquare
-				ifCanReachSkippingOnePiece: aChessPiece king currentChessSquare 
-				blockedPiecesDo: [:blockedPiece :orientationVector | ((blockedPiece == aChessPiece) and: [orientationVector notOpposing: moveVector]) ifTrue: [^true]]
-				on: self.
-		].
-	].
-	^false
-!
-
 blackBishops
 
 	^pieces select: [:each | each isBishop and: [each isBlack]]!
@@ -418,8 +389,6 @@ whiteSideDo: aBlock
 !Chessboard categoriesForMethods!
 allAttackedSquaresByBlackDo:!public! !
 allAttackedSquaresByWhiteDo:!public! !
-anyOppositePieceIsAttackingTheKingThrough:!public! !
-anyOppositePieceIsAttackingTheKingThrough:tryingToMoveFrom:to:!public! !
 blackBishops!pieces-black!public! !
 blackKing!pieces-black!public! !
 blackKnights!pieces-black!public! !

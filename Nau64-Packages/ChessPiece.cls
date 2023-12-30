@@ -65,10 +65,6 @@ isBlack
 
 	^chessSide isBlack!
 
-isCheckMatedOn: aChessboard
-
-	self shouldNotImplement!
-
 isKing
 
 	^false!
@@ -187,9 +183,6 @@ setSide: aChessSide
 sideName
 	^chessSide sideName!
 
-slidingPieceAt: pieceChessSquare canReachSkippingOnePiece: targetChessSquare on: aChessboard
-	^self newMovementEngine slidingPieceAt: pieceChessSquare canReachSkippingOnePiece: targetChessSquare on: aChessboard!
-
 squareSize
 
 	^chessSide squareSize!
@@ -246,7 +239,6 @@ forceNumberAt:!public! !
 isAbsolutePinned!new framework!public! !
 isBishop!public!testing! !
 isBlack!public!testing! !
-isCheckMatedOn:!public! !
 isKing!public!testing! !
 isKnight!public!testing! !
 isOppositeSideTo:!public! !
@@ -269,7 +261,6 @@ printOn:!public! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
 setSide:!private! !
 sideName!public! !
-slidingPieceAt:canReachSkippingOnePiece:on:!public! !
 squareSize!public! !
 squaresScopeFrom:!new framework!public! !
 squaresScopeFrom:do:!new framework!public! !

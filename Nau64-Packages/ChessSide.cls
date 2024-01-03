@@ -35,6 +35,14 @@ defaultColor
 isBlack
 	^false!
 
+isStaledMated
+	| staleMate |
+
+	staleMate := true.
+	self piecesDo: [:piece | piece squaresToMoveDo: [:square | staleMate := false]].
+
+	^staleMate!
+
 isWhite
 	^false!
 
@@ -84,6 +92,7 @@ codePointFor:!public! !
 currentChessSquareFor:!public! !
 defaultColor!public! !
 isBlack!public! !
+isStaledMated!public! !
 isWhite!public! !
 king!public! !
 oppositePiecesDo:!public! !

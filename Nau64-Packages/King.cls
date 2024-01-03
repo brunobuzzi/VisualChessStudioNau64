@@ -46,13 +46,18 @@ secureSquaresFrom: aChessSquare do: aBlock
 		xRaySquares do: [:square | squaresDictionary remove: square].
 		squaresDictionary squaresDo: aBlock
 	].
-! !
+!
+
+squaresToMoveDo: aBlock
+
+	self secureSquaresDo: aBlock! !
 !King categoriesForMethods!
 fenString!public! !
 isCheckMatedOn:!new framework!public! !
 isKing!public!testing! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
 secureSquaresFrom:do:!new framework!public! !
+squaresToMoveDo:!new framework!public! !
 !
 
 !King class methodsFor!

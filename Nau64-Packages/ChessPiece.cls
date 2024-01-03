@@ -233,6 +233,10 @@ squaresScopeFromCoordiante: aSymbol
 
 	^self squaresScopeFrom: (aSymbol asChessSquareIn: self systemRoot)!
 
+squaresToMoveDo: aBlock
+
+	self validSquaresDo: aBlock!
+
 systemRoot
 
 	^chessSide systemRoot!
@@ -314,6 +318,7 @@ squaresScopeDo:!new framework!public! !
 squaresScopeFrom:!new framework!public! !
 squaresScopeFrom:do:!new framework!public! !
 squaresScopeFromCoordiante:!new framework!public! !
+squaresToMoveDo:!new framework!public! !
 systemRoot!private! !
 validSquaresDictionaryFrom:do:!new framework!public! !
 validSquaresDo:!new framework!public! !

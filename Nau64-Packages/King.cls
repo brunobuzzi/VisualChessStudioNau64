@@ -27,12 +27,32 @@ isKing
 
 pruneUnreacheableSquaresFrom: aSquaresDictionary
 
-	aSquaresDictionary pruneUnreacheableSquaresFromKing! !
+	aSquaresDictionary pruneUnreacheableSquaresFromKing!
+
+secureSquaresFrom: aChessSquare do: aBlock
+	| attackedSquares xRaySquares |
+
+	xRaySquares := OrderedCollection new.
+	attackedSquares := OrderedCollection new.
+	self oppositeSideDo: [:oppositeSide | 
+		oppositeSide piecesDo: [:oppositePiece |
+			oppositePiece validSquaresDo: [:square | attackedSquares add: square].
+			oppositePiece absoluteXRaySquaresDo: [:square | xRaySquares add: square].
+		].
+	].
+
+	self validSquaresDictionaryFrom: aChessSquare do: [:squaresDictionary |
+		attackedSquares do: [:square | squaresDictionary remove: square].
+		xRaySquares do: [:square | squaresDictionary remove: square].
+		squaresDictionary squaresDo: aBlock
+	].
+! !
 !King categoriesForMethods!
 fenString!public! !
 isCheckMatedOn:!public! !
 isKing!public!testing! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
+secureSquaresFrom:do:!new framework!public! !
 !
 
 !King class methodsFor!

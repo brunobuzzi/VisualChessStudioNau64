@@ -10,6 +10,12 @@ ChessPiece comment: ''!
 !ChessPiece categoriesForClass!Kernel-Objects! !
 !ChessPiece methodsFor!
 
+absoluteXRaySquaresDo: aBlock
+!
+
+absoluteXRaySquaresFrom: aChessSquare do: aBlock
+!
+
 bateryOrientationsFrom: aChessOrientationVector do: aBlock
 
 !
@@ -248,8 +254,16 @@ validSquaresSizeFrom: aChessSquare
 
 whiteCodePoint
 
-	^self class whiteCodePoint! !
+	^self class whiteCodePoint!
+
+xRaySquaresFrom: aChessSquare xRayCount: anInteger do: aBlock
+!
+
+xRaySquaresWithCount: anInteger do: aBlock
+! !
 !ChessPiece categoriesForMethods!
+absoluteXRaySquaresDo:!new framework!public! !
+absoluteXRaySquaresFrom:do:!new framework!public! !
 bateryOrientationsFrom:do:!public!tactics! !
 blackCodePoint!public!unicode! !
 canBeMovedToValidCoordinate:on:!public!testing! !
@@ -296,6 +310,8 @@ validSquaresDo:!new framework!public! !
 validSquaresFrom:do:!new framework!public! !
 validSquaresSizeFrom:!new framework!public! !
 whiteCodePoint!public!unicode! !
+xRaySquaresFrom:xRayCount:do:!new framework!public! !
+xRaySquaresWithCount:do:!new framework!public! !
 !
 
 !ChessPiece class methodsFor!

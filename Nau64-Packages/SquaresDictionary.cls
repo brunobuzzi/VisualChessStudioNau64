@@ -268,6 +268,9 @@ remove: aChessSquare
 
 	squares do: [:collection | collection remove: aChessSquare ifAbsent: []]!
 
+remove: aChessSquare ifAbsent: aNiladicValuable 
+	^Error notYetImplemented!
+
 setChessPiece: aChessPiece
 
 	piece := aChessPiece.
@@ -465,6 +468,7 @@ pruneUnreacheableSquaresFromKing!enumerating!new framework!public! !
 pruneUnreacheableSquaresFromKnight!enumerating!new framework!public! !
 pruneUnreacheableSquaresFromWhitePawn!enumerating!new framework!public! !
 remove:!public!set operations! !
+remove:ifAbsent:!public! !
 setChessPiece:!private! !
 sizeAt:!add element!public! !
 squaresAnySatisfy:!enumerating!public! !

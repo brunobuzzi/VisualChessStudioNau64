@@ -50,7 +50,11 @@ secureSquaresFrom: aChessSquare do: aBlock
 
 squaresToMoveDo: aBlock
 
-	self secureSquaresDo: aBlock! !
+	self secureSquaresDo: aBlock!
+
+squaresToMoveFrom: aChessSquare do: aBlock
+
+	self secureSquaresFrom: aChessSquare do: aBlock! !
 !King categoriesForMethods!
 fenString!public! !
 isCheckMatedOn:!new framework!public! !
@@ -58,6 +62,7 @@ isKing!public!testing! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
 secureSquaresFrom:do:!new framework!public! !
 squaresToMoveDo:!new framework!public! !
+squaresToMoveFrom:do:!new framework!public! !
 !
 
 !King class methodsFor!

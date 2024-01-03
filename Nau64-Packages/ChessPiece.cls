@@ -237,6 +237,10 @@ squaresToMoveDo: aBlock
 
 	self validSquaresDo: aBlock!
 
+squaresToMoveFrom: aChessSquare do: aBlock
+
+	self validSquaresDictionaryFrom: aChessSquare do: [:squaresDictionary | squaresDictionary squaresDo: aBlock]!
+
 systemRoot
 
 	^chessSide systemRoot!
@@ -319,6 +323,7 @@ squaresScopeFrom:!new framework!public! !
 squaresScopeFrom:do:!new framework!public! !
 squaresScopeFromCoordiante:!new framework!public! !
 squaresToMoveDo:!new framework!public! !
+squaresToMoveFrom:do:!new framework!public! !
 systemRoot!private! !
 validSquaresDictionaryFrom:do:!new framework!public! !
 validSquaresDo:!new framework!public! !

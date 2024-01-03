@@ -161,9 +161,7 @@ currentChessSquare
 
 isInvalidMoveFrom: originChessSquare to: targetChessSquare
 
-	self validSquaresFrom: originChessSquare do: [:scopeSquare | scopeSquare == targetChessSquare ifTrue: [^false]].
-
-	^true
+	^(self isValidMoveFrom: originChessSquare to: targetChessSquare) not
 
 	!
 
@@ -171,7 +169,7 @@ isValidMoveFrom: originChessSquare to: targetChessSquare
 	| isValid |
 
 	isValid := false.
-	self validSquaresFrom: originChessSquare do: [:scopeSquare | scopeSquare == targetChessSquare ifTrue: [isValid := true]].
+	self squaresToMoveFrom: originChessSquare do: [:scopeSquare | scopeSquare == targetChessSquare ifTrue: [isValid := true]].
 
 	isValid ifTrue: [^self checkForAbsolutePinFrom: originChessSquare to: targetChessSquare].
 

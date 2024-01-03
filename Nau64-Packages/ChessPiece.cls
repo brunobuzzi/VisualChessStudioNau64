@@ -16,6 +16,10 @@ absoluteXRaySquaresDo: aBlock
 absoluteXRaySquaresFrom: aChessSquare do: aBlock
 !
 
+attackedSquaresDo: aBlock
+
+	self validSquaresDo: aBlock!
+
 bateryOrientationsFrom: aChessOrientationVector do: aBlock
 
 !
@@ -212,6 +216,10 @@ squareSize
 
 	^chessSide squareSize!
 
+squaresScopeDo: aBlock
+
+	self squaresScopeFrom: self currentChessSquare do: aBlock!
+
 squaresScopeFrom: aChessSquare
 
 	self subclassResponsibility!
@@ -264,6 +272,7 @@ xRaySquaresWithCount: anInteger do: aBlock
 !ChessPiece categoriesForMethods!
 absoluteXRaySquaresDo:!new framework!public! !
 absoluteXRaySquaresFrom:do:!new framework!public! !
+attackedSquaresDo:!new framework!public! !
 bateryOrientationsFrom:do:!public!tactics! !
 blackCodePoint!public!unicode! !
 canBeMovedToValidCoordinate:on:!public!testing! !
@@ -301,6 +310,7 @@ secureSquaresFrom:do:!new framework!public! !
 setSide:!private! !
 sideName!public! !
 squareSize!public! !
+squaresScopeDo:!new framework!public! !
 squaresScopeFrom:!new framework!public! !
 squaresScopeFrom:do:!new framework!public! !
 squaresScopeFromCoordiante:!new framework!public! !

@@ -10,6 +10,17 @@ Pawn comment: ''!
 !Pawn categoriesForClass!Kernel-Objects! !
 !Pawn methodsFor!
 
+attackedSquaresDo: aBlock
+	| attackedSquares currentSquare |
+
+	attackedSquares := OrderedCollection new.
+	currentSquare := self currentChessSquare.
+	self squaresScopeDo: [:squaresDictionary | 
+		squaresDictionary squaresDo: [:square | (square fileIsEqualTo: currentSquare) ifFalse: [attackedSquares add: square]].
+	].
+
+	attackedSquares do: aBlock!
+
 canBeMovedToValidCoordinate: symbolCoordinate on: aChessboard
 
 	^(aChessboard squareNotEmptyAtCoordinate: symbolCoordinate) and: [self isOppositeSideTo: (aChessboard pieceAtCoordinate: symbolCoordinate)]!
@@ -29,6 +40,7 @@ pruneUnreacheableSquaresFrom: aSquaresDictionary
 	ifTrue: [aSquaresDictionary pruneUnreacheableSquaresFromBlackPawn]
 	! !
 !Pawn categoriesForMethods!
+attackedSquaresDo:!new framework!public! !
 canBeMovedToValidCoordinate:on:!public!testing! !
 fenString!public! !
 isPawn!public!testing! !

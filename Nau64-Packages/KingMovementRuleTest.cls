@@ -24,11 +24,12 @@ testAttackedSquaresAfterKing
 testAttackedSquaresByPawn
 	| whiteKing squares |
 	chessboard := Chessboard newEmptyOn: systemRoot.
-	(ChessFenParser newOn: systemRoot fenString: '8/8/K1k5/8/1p6/8/8/8/ w - - 1 20') deployOn: chessboard.
-	whiteKing := chessboard pieceAt: (#a6 asChessSquareIn: systemRoot).
+	(ChessFenParser newOn: systemRoot fenString: '8/1p6/8/K1k5/8/8/8/8/ w - - 1 20') deployOn: chessboard.
+	whiteKing := chessboard pieceAt: (#a5 asChessSquareIn: systemRoot).
 	squares := OrderedCollection new.
 	whiteKing secureSquaresDo: [:square | squares add: square].
-	self assert: squares size equals: 1!
+	self assert: squares size equals: 1.
+	self assert: (squares last == (#a4 asChessSquareIn: systemRoot))!
 
 testCheckMates
 	| checkMatedKing otherKing |
@@ -50,6 +51,8 @@ testCheckMates
 	self deny: (checkMatedKing isCheckMatedOn: chessboard).
 	chessboard movePieceFromCoordiante: #f7 to: #f6.
 	self assert: (checkMatedKing isCheckMatedOn: chessboard)!
+
+testKingIsStalemated!
 
 testKingScope
 	| squaresDictionary |
@@ -111,6 +114,7 @@ testPruneUnreachableSquares
 testAttackedSquaresAfterKing!public! !
 testAttackedSquaresByPawn!public! !
 testCheckMates!public! !
+testKingIsStalemated!public! !
 testKingScope!public! !
 testPruneUnreachableSquares!public! !
 !

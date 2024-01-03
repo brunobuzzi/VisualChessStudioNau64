@@ -36,7 +36,7 @@ secureSquaresFrom: aChessSquare do: aBlock
 	attackedSquares := OrderedCollection new.
 	self oppositeSideDo: [:oppositeSide | 
 		oppositeSide piecesDo: [:oppositePiece |
-			oppositePiece validSquaresDo: [:square | attackedSquares add: square].
+			oppositePiece attackedSquaresDo: [:square | attackedSquares add: square].
 			oppositePiece absoluteXRaySquaresDo: [:square | xRaySquares add: square].
 		].
 	].
@@ -49,7 +49,7 @@ secureSquaresFrom: aChessSquare do: aBlock
 ! !
 !King categoriesForMethods!
 fenString!public! !
-isCheckMatedOn:!public! !
+isCheckMatedOn:!new framework!public! !
 isKing!public!testing! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
 secureSquaresFrom:do:!new framework!public! !

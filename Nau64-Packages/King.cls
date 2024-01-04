@@ -15,11 +15,15 @@ fenString
 	^self isBlack ifTrue: ['k'] ifFalse: ['K']!
 
 isCheckMatedOn: aChessboard
-	| secureSquares |
+	| secureSquares isAttacked |
 
+	isAttacked := false.
+	self oppositeSideDo: [:oppositeSide | 
+		oppositeSide squaresToMoveDo: [:square | (square == self currentChessSquare) ifTrue: [isAttacked := true]]
+	].
 	secureSquares := OrderedCollection new.
 	self secureSquaresFrom: self currentChessSquare do: [:square | secureSquares add: square].
-	^secureSquares isEmpty !
+	^secureSquares isEmpty and: [isAttacked]!
 
 isKing
 

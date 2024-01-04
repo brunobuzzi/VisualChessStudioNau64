@@ -82,6 +82,14 @@ squareSize
 
 	^chessboard squareSize!
 
+squaresToMoveDo: aBlock
+	| squares |
+
+	squares := OrderedCollection new.
+	self piecesDo: [:piece | piece squaresToMoveDo: [:square | squares add: square]].
+
+	squares do: aBlock!
+
 systemRoot
 
 	^chessboard systemRoot! !
@@ -103,6 +111,7 @@ setChessboard:!private! !
 sideName!public! !
 slidingPiecesDo:!public! !
 squareSize!public! !
+squaresToMoveDo:!public! !
 systemRoot!private! !
 !
 

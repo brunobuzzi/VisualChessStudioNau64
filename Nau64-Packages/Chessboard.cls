@@ -209,6 +209,18 @@ printFenStringFor: aChessPiece
 
 !
 
+promote: aPawn to: promotableChessClass
+	| currentSquare |
+
+	(aPawn validPromotionClasses includes: promotableChessClass) ifFalse: [self error: 'Can not promote: [', promotableChessClass name, ']'].
+
+	currentSquare := aPawn currentChessSquare.
+	self removePieceAt: currentSquare.
+
+	aPawn chessSideDo: [:chessSide | 
+		self pieceAt: currentSquare put: (promotableChessClass newOn: chessSide)
+	].!
+
 removeEnPassantPawn: targetSymbolCoordinate
 
 	(targetSymbolCoordinate second = $6) ifTrue: [self removePieceAtCoordiante: (targetSymbolCoordinate first asString, '5') asSymbol].
@@ -419,6 +431,7 @@ piecesSize!public! !
 printEncoded!public! !
 printFenString!fen notation!public! !
 printFenStringFor:!fen notation!public! !
+promote:to:!public! !
 removeEnPassantPawn:!public! !
 removePieceAt:!chessboard contents!public! !
 removePieceAtCoordiante:!chessboard contents!public! !

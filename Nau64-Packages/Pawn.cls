@@ -38,13 +38,18 @@ pruneUnreacheableSquaresFrom: aSquaresDictionary
 	self isBlack 
 	ifFalse: [aSquaresDictionary pruneUnreacheableSquaresFromWhitePawn] 
 	ifTrue: [aSquaresDictionary pruneUnreacheableSquaresFromBlackPawn]
-	! !
+	!
+
+validPromotionClasses
+
+	^Array with: Queen with: Rook with: Bishop with: Knight! !
 !Pawn categoriesForMethods!
 attackedSquaresDo:!new framework!public! !
 canBeMovedToValidCoordinate:on:!public!testing! !
 fenString!public! !
 isPawn!public!testing! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
+validPromotionClasses!new framework!public! !
 !
 
 !Pawn class methodsFor!

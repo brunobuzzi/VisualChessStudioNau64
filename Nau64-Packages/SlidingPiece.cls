@@ -15,6 +15,8 @@ absoluteXRaySquaresDo: aBlock
 	self absoluteXRaySquaresFrom: self currentChessSquare do: aBlock!
 
 absoluteXRaySquaresFrom: aChessSquare do: aBlock
+	"To detect King to #a5 is invalid
+	ChessboardPlaygroundShell showWithFenString: 'R4K2/8/k7/8/8/8/8/8/ b - - 1 20' on: SystemRoot."
 	| xRaySquares |
 
 	self isSlidingPiece ifFalse: [^OrderedCollection new].

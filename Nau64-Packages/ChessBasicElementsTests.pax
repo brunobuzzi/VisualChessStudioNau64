@@ -18,6 +18,7 @@ package globalAliases: (Set new
 
 package setPrerequisites: #(
 	'ChessBasicElements'
+	'ChessMatches'
 	'ChessParsers'
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Contributions\Camp Smalltalk\SUnit\SUnit').

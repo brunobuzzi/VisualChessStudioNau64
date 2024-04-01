@@ -6,6 +6,7 @@ package paxVersion: 1;
 
 package classNames
 	add: #BishopMovementRuleTest;
+	add: #ChessGameTest;
 	add: #ChessMovementRuleTest;
 	add: #ChessOrientationVectorTest;
 	add: #ChessVectorTest;
@@ -36,6 +37,11 @@ package!
 
 "Class Definitions"!
 
+ChessTest subclass: #ChessGameTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 ChessTest subclass: #ChessMovementRuleTest
 	instanceVariableNames: 'piece parser'
 	classVariableNames: ''

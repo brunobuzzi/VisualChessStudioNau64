@@ -218,9 +218,9 @@ isValidBlackCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboar
 
 	(targetCoordinate = #c8) ifTrue: [aChessGame ifBlackQueenSideCastleNotEnabled: [^false]].
 
-	aChessboard oppositeSideOfSideNamed: (aChessGame nextSideToMoveOn: aChessboard) do: [:side | 
+	self oppositeSideDo: [:side | 
 		side allAttackedSquaresDo: [:square |  | castleSquareCollection |
-			castleSquareCollection := (targetCoordinate = #g1)
+			castleSquareCollection := (targetCoordinate = #g8)
 				ifTrue: [#(#e8 #f8 #g8)]
 				ifFalse: [#(#e8#d8 #c8 #b8)].
 			(castleSquareCollection includes: square coordinate) ifTrue: [^false].
@@ -247,7 +247,7 @@ isValidWhiteCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboar
 
 	(targetCoordinate = #c1) ifTrue: [aChessGame ifWhiteQueenSideCastleNotEnabled: [^false]].
 
-	aChessboard oppositeSideOfSideNamed: (aChessGame nextSideToMoveOn: aChessboard) do: [:side | 
+	self oppositeSideDo: [:side | 
 		side allAttackedSquaresDo: [:square |  | castleSquareCollection |
 			castleSquareCollection := (targetCoordinate = #g1)
 				ifTrue: [#(#e1 #f1 #g1)]
@@ -284,10 +284,10 @@ squaresScopeFrom: aChessSquare
 
 	^scopeDictionary! !
 !King categoriesForMethods!
-isValidBlackCastleMoveFrom:to:on:on:!public! !
-isValidCastleMoveFrom:to:on:on:!public! !
-isValidMoveFromCoordinate:to:on:on:!public! !
-isValidWhiteCastleMoveFrom:to:on:on:!public! !
+isValidBlackCastleMoveFrom:to:on:on:!new framework!public! !
+isValidCastleMoveFrom:to:on:on:!new framework!public! !
+isValidMoveFromCoordinate:to:on:on:!new framework!public! !
+isValidWhiteCastleMoveFrom:to:on:on:!new framework!public! !
 orientations!public! !
 squaresScopeFrom:!new framework!public! !
 !

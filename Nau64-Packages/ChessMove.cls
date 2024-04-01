@@ -67,6 +67,9 @@ printOn: aStream
 
 	aStream nextPutAll: '[', from, '>>', to, ']'!
 
+promotion
+	^categories detect: [:each | each isPromotion]!
+
 redoOn: aChessboard 
 
 	categories isEmpty ifTrue: [^aChessboard movePieceFromCoordiante: from to: to].
@@ -121,9 +124,10 @@ isWhiteEnPassantEnablerFrom:to:!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:presenter:!public! !
 printOn:!public! !
+promotion!public! !
 redoOn:!public! !
 setCategoriesFrom:!public! !
-setList:from:to:!public! !
+setList:from:to:!private! !
 to!public! !
 undoOn:!public! !
 !

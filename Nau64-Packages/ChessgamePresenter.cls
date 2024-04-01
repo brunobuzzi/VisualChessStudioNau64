@@ -25,7 +25,16 @@ endTrackingAt: aPoint
 	(piece isValidMoveFromCoordinate: originSquare coordinate to: targetSquare coordinate on: model on: chessGame) 
 	ifFalse: [^MessageBubble notify: ('Invalid move from [',  originSquare coordinate, '] to [',  targetSquare coordinate, ']') caption: 'Nau64'].
 
-	chessGame annotateAndMovePieceFrom: originSquare coordinate to: targetSquare coordinate on: model presenter: self.
+	"chessGame annotateAndMovePieceFrom: originSquare coordinate to: targetSquare coordinate on: model presenter: self."
+
+	chessGame movesListDo: [:movesList | | move promotionPieceClass |
+		move := ChessMove newOn: movesList from: originSquare coordinate to: targetSquare coordinate.
+		movesList annotateMove: move on: model.
+		move isPromotion ifTrue: [[promotionPieceClass isNil] whileTrue: [promotionPieceClass := self selectPromotionPiece].
+							move promotion setPromotionPieceClass: promotionPieceClass].
+		move performPieceSwitchFrom: originSquare coordinate to: targetSquare coordinate on: model withPostActionOn: chessGame.
+
+	].
 
 	self renderChessboard.!
 

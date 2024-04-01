@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 ChessMoveCategory subclass: #ChessPromotionMove
-	instanceVariableNames: 'selectedPieceCode'
+	instanceVariableNames: 'selectedPiece'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -13,13 +13,17 @@ ChessPromotionMove comment: ''!
 isPromotion
 	^true!
 
-performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGame presenter: aPresenter
-	| piece promotionPieceClass |
+performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGame
+	| piece |
 	piece := aChessboard pieceAtCoordinate: originCoordinateSymbol.
-	[promotionPieceClass isNil] whileTrue: [promotionPieceClass := aPresenter selectPromotionPiece].
-	piece chessSideDo: [:side | side promote: piece at: targetCoordinateSymbol to: promotionPieceClass].! !
+	piece chessSideDo: [:side | side promote: piece at: targetCoordinateSymbol to: selectedPiece].!
+
+setPromotionPieceClass: aPromotablePieceClass
+
+	selectedPiece := aPromotablePieceClass! !
 !ChessPromotionMove categoriesForMethods!
 isPromotion!public! !
-performPieceSwitchFrom:to:on:withPostActionOn:presenter:!public! !
+performPieceSwitchFrom:to:on:withPostActionOn:!public! !
+setPromotionPieceClass:!public! !
 !
 

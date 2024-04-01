@@ -94,7 +94,7 @@ ChessMoveCategory subclass: #ChessEnPassantMove
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessMoveCategory subclass: #ChessPromotionMove
-	instanceVariableNames: 'selectedPieceCode'
+	instanceVariableNames: 'selectedPiece'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

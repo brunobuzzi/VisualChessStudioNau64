@@ -90,6 +90,10 @@ lastSideToMoveOn: aChessboard
 	^moves lastSideToMoveOn: aChessboard
 !
 
+movesListDo: aBlock
+
+	aBlock value: moves!
+
 nextSideToMoveOn: aChessboard
 
 	(moves isEmpty and: [initialFenPosition notNil and:[initialFenPosition notEmpty]]) ifTrue: [^initialSideToMove].
@@ -160,6 +164,7 @@ isCorrectSideToMove:on:!public! !
 lastMoveIsBlackEnPassantEnablerFrom:to:!en passant!public! !
 lastMoveIsWhiteEnPassantEnablerFrom:to:!en passant!public! !
 lastSideToMoveOn:!public! !
+movesListDo:!public! !
 nextSideToMoveOn:!public! !
 redoNextMoveOn:!public! !
 setInitialMoveToBlack!public! !

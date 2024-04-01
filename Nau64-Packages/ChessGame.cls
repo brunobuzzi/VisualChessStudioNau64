@@ -10,7 +10,7 @@ ChessGame comment: ''!
 !ChessGame categoriesForClass!Unclassified! !
 !ChessGame methodsFor!
 
-annotateAndMovePieceFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard
+annotateAndMovePieceFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard presenter: aPresenter
 	| move |
 
 	move := ChessMove newOn: moves from: originSymbolCoordiante to: targetSymbolCoordinate.
@@ -19,7 +19,9 @@ annotateAndMovePieceFrom: originSymbolCoordiante to: targetSymbolCoordinate on: 
 
 	"check if a Rook or King has been moved --> disable castle"
 	
-	move performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: self.
+	move isPromotion
+	ifFalse: [move performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: self]
+	ifTrue: [move performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: self presenter: aPresenter]
 !
 
 disableBlackCastle
@@ -143,7 +145,7 @@ undoLastMoveOn: aChessboard
 
 	moves undoLastMoveOn: aChessboard! !
 !ChessGame categoriesForMethods!
-annotateAndMovePieceFrom:to:on:!public! !
+annotateAndMovePieceFrom:to:on:presenter:!public! !
 disableBlackCastle!castle!public! !
 disableBlackCastleForPieceMovedFrom:on:!castle!public! !
 disableCastleForPieceMovedFrom:on:!castle!public! !

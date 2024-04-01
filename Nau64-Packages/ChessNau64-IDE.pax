@@ -24,6 +24,7 @@ package classNames
 	add: #ChessPartialPinEffect;
 	add: #ChessPieceDroper;
 	add: #ChessPinEffect;
+	add: #ChessPromotionDialog;
 	add: #ChessTacticEffect;
 	add: #ChessVisualEffectDefinition;
 	yourself.
@@ -65,8 +66,11 @@ package setPrerequisites: #(
 	'ChessTacticElements'
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
+	'..\Core\Object Arts\Dolphin\MVP\Presenters\Choice\Dolphin Choice Presenter'
 	'..\Core\Object Arts\Dolphin\MVP\Views\Control Bars\Dolphin Control Bars'
 	'..\Core\Object Arts\Dolphin\MVP\Presenters\Image\Dolphin Image Presenter'
+	'..\Core\Object Arts\Dolphin\MVP\Models\List\Dolphin List Models'
+	'..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
 	'..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter'
 	'..\Core\Object Arts\Dolphin\MVP\Icons\Dolphin Text Tile Icons'
@@ -177,6 +181,11 @@ AbstractChessboardShell subclass: #ChessboardPlaygroundShell
 	classInstanceVariableNames: ''!
 AbstractChessboardShell subclass: #ChessGameShell
 	instanceVariableNames: 'chessGamePresenter'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Dialog subclass: #ChessPromotionDialog
+	instanceVariableNames: 'piecesList'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

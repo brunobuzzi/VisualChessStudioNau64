@@ -10,10 +10,16 @@ ChessPromotionMove comment: ''!
 !ChessPromotionMove categoriesForClass!Unclassified! !
 !ChessPromotionMove methodsFor!
 
-performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGame
+isPromotion
+	^true!
 
-	self halt.! !
+performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGame presenter: aPresenter
+	| piece promotionPieceClass |
+	piece := aChessboard pieceAtCoordinate: originCoordinateSymbol.
+	[promotionPieceClass isNil] whileTrue: [promotionPieceClass := aPresenter selectPromotionPiece].
+	piece chessSideDo: [:side | side promote: piece at: targetCoordinateSymbol to: promotionPieceClass].! !
 !ChessPromotionMove categoriesForMethods!
-performPieceSwitchFrom:to:on:withPostActionOn:!public! !
+isPromotion!public! !
+performPieceSwitchFrom:to:on:withPostActionOn:presenter:!public! !
 !
 

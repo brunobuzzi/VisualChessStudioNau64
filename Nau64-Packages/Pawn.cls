@@ -42,7 +42,7 @@ pruneUnreacheableSquaresFrom: aSquaresDictionary
 
 validPromotionClasses
 
-	^Array with: Queen with: Rook with: Bishop with: Knight! !
+	^self class validPromotionClasses! !
 !Pawn categoriesForMethods!
 attackedSquaresDo:!new framework!public! !
 canBeMovedToValidCoordinate:on:!public!testing! !
@@ -66,6 +66,10 @@ filePrefix
 pieceCode
 	^'p'!
 
+validPromotionClasses
+
+	^Array with: Queen with: Rook with: Bishop with: Knight!
+
 whiteCodePoint
 
 	^9817! !
@@ -73,6 +77,7 @@ whiteCodePoint
 blackCodePoint!public!unicode! !
 filePrefix!public! !
 pieceCode!public! !
+validPromotionClasses!new framework!public! !
 whiteCodePoint!public!unicode! !
 !
 

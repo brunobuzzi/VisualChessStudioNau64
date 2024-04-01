@@ -108,6 +108,11 @@ selectPiecesTypes
 	systemRoot setUnicodeFontName: fontName.
 	self renderChessboard.!
 
+selectPromotionPiece
+
+	^ChessPromotionDialog showModalOn: Pawn validPromotionClasses
+!
+
 setRoot: aSystemRoot
 
 	super setRoot: aSystemRoot.
@@ -158,6 +163,7 @@ onViewOpened!public! !
 renderChessboard!public!rendering-chessboard! !
 reverseChessboard!public!rendering-effects! !
 selectPiecesTypes!public! !
+selectPromotionPiece!public! !
 setRoot:!private! !
 setRoot:fenString:!private! !
 startTrackingAt:!drag & drop!public! !

@@ -66,6 +66,18 @@ piecesDo: aBlock
 
 	self subclassResponsibility!
 
+promote: aPawn at: symbolSquare to: promotableChessClass
+	| currentSquare |
+
+	(aPawn validPromotionClasses includes: promotableChessClass) ifFalse: [self error: 'Can not promote: [', promotableChessClass name, ']'].
+
+	currentSquare := aPawn currentChessSquare.
+	chessboard removePieceAt: currentSquare.
+
+	aPawn chessSideDo: [:chessSide | 
+		chessboard pieceAt: (self systemRoot squareAt: symbolSquare) put: (promotableChessClass newOn: chessSide)
+	].!
+
 setChessboard: aChessBoard
 
 	chessboard := aChessBoard.!
@@ -107,6 +119,7 @@ oppositePiecesDo:!public! !
 oppositeSideName!public! !
 opppositeSlidingPiecesDo:!public! !
 piecesDo:!public! !
+promote:at:to:!public! !
 setChessboard:!private! !
 sideName!public! !
 slidingPiecesDo:!public! !

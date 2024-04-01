@@ -32,6 +32,9 @@ isBlackOn: aChessboard
 	ifFalse: [(aChessboard pieceAtCoordinate: to) isBlack]
 	ifTrue: [(aChessboard pieceAtCoordinate: from) isBlack]!
 
+isPromotion
+	^categories anySatisfy: [:each | each isPromotion]!
+
 isWhiteEnPassantEnablerFrom: originCoordinate to: targetCoordinate
 
 	^((from second = $7 and: [to second = $5]) and: [((originCoordinate first asciiValue - 1) = to first asciiValue) or: [(originCoordinate first asciiValue + 1) = to first asciiValue]]) and: [targetCoordinate first = to first]!
@@ -41,6 +44,17 @@ performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aC
 	categories isEmpty 
 	ifTrue: [aChessboard movePieceFromCoordiante: from to: to]
 	ifFalse: [categories do: [:each | each performPieceSwitchFrom: from to: to on: aChessboard withPostActionOn: aChessGame]].
+
+	aChessGame disableCastleForPieceMovedFrom: originSymbolCoordiante on: aChessboard.
+
+	
+!
+
+performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: aChessGame presenter: aPresenter
+
+	categories isEmpty 
+	ifTrue: [aChessboard movePieceFromCoordiante: from to: to]
+	ifFalse: [categories do: [:each | each performPieceSwitchFrom: from to: to on: aChessboard withPostActionOn: aChessGame presenter: aPresenter]].
 
 	aChessGame disableCastleForPieceMovedFrom: originSymbolCoordiante on: aChessboard.
 
@@ -102,8 +116,10 @@ from!public! !
 isBlackCurrentSideMovingOn:!public! !
 isBlackEnPassantEnablerFrom:to:!public! !
 isBlackOn:!public! !
+isPromotion!public! !
 isWhiteEnPassantEnablerFrom:to:!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
+performPieceSwitchFrom:to:on:withPostActionOn:presenter:!public! !
 printOn:!public! !
 redoOn:!public! !
 setCategoriesFrom:!public! !

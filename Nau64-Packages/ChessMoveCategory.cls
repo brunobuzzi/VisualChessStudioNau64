@@ -10,7 +10,14 @@ ChessMoveCategory comment: ''!
 !ChessMoveCategory categoriesForClass!Unclassified! !
 !ChessMoveCategory methodsFor!
 
+isPromotion
+	^false!
+
 performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: aChessGame
+
+	self subclassResponsibility!
+
+performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGame presenter: aPresenter
 
 	self subclassResponsibility!
 
@@ -18,7 +25,9 @@ setMove: aChessMove
 
 	move := aChessMove! !
 !ChessMoveCategory categoriesForMethods!
+isPromotion!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
+performPieceSwitchFrom:to:on:withPostActionOn:presenter:!public! !
 setMove:!private! !
 !
 

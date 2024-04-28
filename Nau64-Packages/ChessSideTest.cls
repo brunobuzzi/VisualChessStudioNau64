@@ -11,20 +11,36 @@ ChessSideTest comment: ''!
 !ChessSideTest methodsFor!
 
 testCastleSquaresUnderAttack
-	| whiteKing blackKing game |
-
-	chessboard := Chessboard newEmptyOn: systemRoot.
-	(ChessFenParser newOn: systemRoot fenString: 'r3k2r/b3ppp1/p6p/8/6B1/P4P2/4P1PP/R3K2R/ w - - 1 20') deployOn: chessboard.
-	game := ChessGame newOn: systemRoot whitePlayer: nil blackPlayer: nil fenString: 'r3k2r/b3ppp1/p6p/8/6B1/P4P2/4P1PP/R3K2R/ w - - 1 20'.
+	| whiteKing blackKing game fenString |
+	fenString := 'r3k2r/b3ppp1/p6p/8/6B1/P4P2/4P1PP/R3K2R/ w KQkq - 1 20'.
+	game := ChessGame
+				newOn: systemRoot
+				whitePlayer: nil
+				blackPlayer: nil
+				fenString: fenString.
+	chessboard := game newInitialChessboard.
 	whiteKing := chessboard pieceAt: (#e1 asChessSquareIn: systemRoot).
 	blackKing := chessboard pieceAt: (#e8 asChessSquareIn: systemRoot).
-	
-	self assert: (whiteKing isValidCastleMoveFrom: #e1 to: #c1 on: chessboard on: game).
-	self assert: (blackKing isValidCastleMoveFrom: #e8 to: #g8 on: chessboard on: game).
-
-	self deny: (whiteKing isValidCastleMoveFrom: #e1 to: #g1 on: chessboard on: game).
-	self deny: (blackKing isValidCastleMoveFrom: #e8 to: #c8 on: chessboard on: game).
-!
+	self assert: (whiteKing
+				isValidCastleMoveFrom: #e1
+				to: #c1
+				on: chessboard
+				on: game).
+	self assert: (blackKing
+				isValidCastleMoveFrom: #e8
+				to: #g8
+				on: chessboard
+				on: game).
+	self deny: (whiteKing
+				isValidCastleMoveFrom: #e1
+				to: #g1
+				on: chessboard
+				on: game).
+	self deny: (blackKing
+				isValidCastleMoveFrom: #e8
+				to: #c8
+				on: chessboard
+				on: game)!
 
 testIsStaleMated1
 	| blackKing |
@@ -44,19 +60,74 @@ testIsStaleMated2
 	self deny: (blackKing isCheckMatedOn: chessboard).
 	chessboard blackSideDo: [:side | self assert: side isStaledMated].!
 
-testKingSideBlackCastle!
+testKingSideBlackCastle
+	| king game |
+	
+	game := ChessGame
+				newOn: systemRoot
+				whitePlayer: nil
+				blackPlayer: nil
+				fenString: '4k2r/8/8/8/8/8/8/8/ b KQkq - 1 20'.
+	chessboard := game newInitialChessboard.
+	king := chessboard pieceAt: (#e8 asChessSquareIn: systemRoot).
+	self assert: (king isValidCastleMoveFrom: #e8 to: #g8 on: chessboard on: game).!
 
-testKingSideWhiteCastle!
+testKingSideWhiteCastle
+	| king game |
+	
+	game := ChessGame
+				newOn: systemRoot
+				whitePlayer: nil
+				blackPlayer: nil
+				fenString: '8/8/8/8/8/8/8/4K2R/ w KQkq - 1 20'.
+	chessboard := game newInitialChessboard.
+	king := chessboard pieceAt: (#e1 asChessSquareIn: systemRoot).
+	self assert: (king isValidCastleMoveFrom: #e1 to: #g1 on: chessboard on: game).!
 
-testQueenSideBlackCastle!
+testQueenPromotion
+	| pawn game |
+	
+	game := ChessGame
+				newOn: systemRoot
+				whitePlayer: nil
+				blackPlayer: nil
+				fenString: '8/PK6/8/8/8/8/2kp4/8/ w KQkq - 1 20'.
+	chessboard := game newInitialChessboard.
+	pawn := chessboard pieceAt: (#a7 asChessSquareIn: systemRoot).
+	self assert: (pawn isValidCastleMoveFrom: #e8 to: #c8 on: chessboard on: game).!
 
-testQuenSideWhiteCastle! !
+testQueenSideBlackCastle
+	| king game |
+	
+	game := ChessGame
+				newOn: systemRoot
+				whitePlayer: nil
+				blackPlayer: nil
+				fenString: 'r3k3/8/8/8/8/8/8/8/ b KQkq - 1 20'.
+	chessboard := game newInitialChessboard.
+	king := chessboard pieceAt: (#e8 asChessSquareIn: systemRoot).
+	self assert: (king isValidCastleMoveFrom: #e8 to: #c8 on: chessboard on: game).
+	!
+
+testQuenSideWhiteCastle
+	| king game |
+	
+	game := ChessGame
+				newOn: systemRoot
+				whitePlayer: nil
+				blackPlayer: nil
+				fenString: '8/8/8/8/8/8/8/R3K3/ w KQkq - 1 20'.
+	chessboard := game newInitialChessboard.
+	king := chessboard pieceAt: (#e1 asChessSquareIn: systemRoot).
+	self assert: (king isValidCastleMoveFrom: #e1 to: #c1 on: chessboard on: game).
+	! !
 !ChessSideTest categoriesForMethods!
 testCastleSquaresUnderAttack!public! !
 testIsStaleMated1!public! !
 testIsStaleMated2!public! !
 testKingSideBlackCastle!public! !
 testKingSideWhiteCastle!public! !
+testQueenPromotion!public! !
 testQueenSideBlackCastle!public! !
 testQuenSideWhiteCastle!public! !
 !

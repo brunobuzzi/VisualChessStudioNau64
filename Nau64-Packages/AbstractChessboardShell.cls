@@ -18,6 +18,12 @@ defaultChessPresenter
 
 	self subclassResponsibility!
 
+on: aChessboard
+
+	systemRoot := aChessboard systemRoot.
+
+	super on: aChessboard.!
+
 queryCommand: aCommandQuery
 	| cmd |
 
@@ -47,6 +53,7 @@ toggleCoordinates
 !AbstractChessboardShell categoriesForMethods!
 copyPositionAsFenString!public! !
 defaultChessPresenter!public! !
+on:!public! !
 queryCommand:!public! !
 renderChessboard!public! !
 reverseChessboard!public! !

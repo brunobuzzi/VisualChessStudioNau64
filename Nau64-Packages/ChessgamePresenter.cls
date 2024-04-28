@@ -94,7 +94,7 @@ renderChessboard
 
 setRoot: aSystemRoot
 
-	self setRoot: aSystemRoot fenString: nil!
+	self setRoot: aSystemRoot fenString: '8/8/8/8/8/8/8/8/ w - - 1 20'!
 
 setRoot: aSystemRoot fenString: fenString
 
@@ -106,7 +106,8 @@ setRoot: aSystemRoot fenString: fenString
 		parser := ChessFenParser newOn: aSystemRoot fenString: fenString.
 		chessGame setOptionFromFenParser: parser.
 		parser deployOn: self model.
-	].! !
+	].
+! !
 !ChessGamePresenter categoriesForMethods!
 endTrackingAt:!drag & drop!public! !
 model:!public! !

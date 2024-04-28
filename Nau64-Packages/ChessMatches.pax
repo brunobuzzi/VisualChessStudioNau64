@@ -30,6 +30,7 @@ package globalAliases: (Set new
 
 package setPrerequisites: #(
 	'ChessBasicElements'
+	'ChessParsers'
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Object Arts\Dolphin\Base\Dolphin Legacy Date & Time'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').

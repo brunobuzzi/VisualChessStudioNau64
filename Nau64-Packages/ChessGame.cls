@@ -65,9 +65,11 @@ ifWhiteQueenSideCastleNotEnabled: aNiladicValuable
 
 	whiteCastleStatus ifQueenSideCastleNotEnabled: aNiladicValuable !
 
-initialSideToMove
+initialFenStringPosition
 
-	initialFenPosition ifNil: [^#white].
+	^'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR/ w - - 1 20'!
+
+initialSideToMove
 
 	^initialSideToMove!
 
@@ -94,11 +96,18 @@ movesListDo: aBlock
 
 	aBlock value: moves!
 
+newInitialChessboard
+	| chessboard |
+	chessboard := Chessboard newEmptyOn: systemRoot.
+	(ChessFenParser newOn: systemRoot fenString: initialFenPosition) deployOn: chessboard.
+	^chessboard
+	
+
+	!
+
 nextSideToMoveOn: aChessboard
 
-	(moves isEmpty and: [initialFenPosition notNil and:[initialFenPosition notEmpty]]) ifTrue: [^initialSideToMove].
-
-	(moves isEmpty and: [initialFenPosition isNil]) ifTrue: [^#white].
+	moves isEmpty ifTrue: [^initialSideToMove].
 
 	^moves nextSideToMoveOn: aChessboard
 !
@@ -108,11 +117,11 @@ redoNextMoveOn: aChessboard
 	moves redoNextMoveOn: aChessboard !
 
 setInitialMoveToBlack
-	initialFenPosition ifNil: [self error: 'White always move first when there is NO position setup'].
+	
 	initialSideToMove := #black!
 
 setInitialMoveToWhite
-	initialFenPosition ifNil: [self error: 'White always move first when there is NO position setup'].
+	
 	initialSideToMove := #white!
 
 setOptionFromFenParser: aChessFenParser
@@ -127,6 +136,7 @@ setOptionFromFenParser: aChessFenParser
 !
 
 setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer fenString: fenString
+	| parser |
 
 	dateTime := TimeStamp current.
 	systemRoot := aSystemRoot.
@@ -139,10 +149,13 @@ setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer
 	dateTime := TimeStamp current.
 
 	initialSideToMove := #white.
-	initialFenPosition := fenString.
 
 	whiteCastleStatus := ChessCastleStatus newOn: self.
 	blackCastleStatus := ChessCastleStatus newOn: self.
+
+	initialFenPosition := fenString ifNil: [self initialFenStringPosition] ifNotNil: [fenString].
+	parser := ChessFenParser newOn: aSystemRoot fenString: fenString.
+	self setOptionFromFenParser: parser.
 !
 
 undoLastMoveOn: aChessboard
@@ -159,12 +172,14 @@ ifBlackKindSideCastleNotEnabled:!castle!public! !
 ifBlackQueenSideCastleNotEnabled:!castle!public! !
 ifWhiteKindSideCastleNotEnabled:!castle!public! !
 ifWhiteQueenSideCastleNotEnabled:!castle!public! !
+initialFenStringPosition!private! !
 initialSideToMove!public! !
 isCorrectSideToMove:on:!public! !
 lastMoveIsBlackEnPassantEnablerFrom:to:!en passant!public! !
 lastMoveIsWhiteEnPassantEnablerFrom:to:!en passant!public! !
 lastSideToMoveOn:!public! !
 movesListDo:!public! !
+newInitialChessboard!public! !
 nextSideToMoveOn:!public! !
 redoNextMoveOn:!public! !
 setInitialMoveToBlack!public! !

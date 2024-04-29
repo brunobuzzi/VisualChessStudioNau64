@@ -10,19 +10,12 @@ ChessGame comment: ''!
 !ChessGame categoriesForClass!Unclassified! !
 !ChessGame methodsFor!
 
-annotateAndMovePieceFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard presenter: aPresenter
-	| move |
+annotateMoveFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard
+	| aChessMove |
 
-	move := ChessMove newOn: moves from: originSymbolCoordiante to: targetSymbolCoordinate.
-
-	moves annotateMove: move on: aChessboard.
-
-	"check if a Rook or King has been moved --> disable castle"
-	
-	move isPromotion
-	ifFalse: [move performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: self]
-	ifTrue: [move performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: self presenter: aPresenter]
-!
+	aChessMove := ChessMove newOn: moves from: originSymbolCoordiante to: targetSymbolCoordinate.
+	moves annotateMove: aChessMove on: aChessboard.
+	^aChessMove!
 
 disableBlackCastle
 
@@ -92,6 +85,14 @@ lastSideToMoveOn: aChessboard
 	^moves lastSideToMoveOn: aChessboard
 !
 
+moveFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard
+
+	self 
+		performMove: (self annotateMoveFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard) 
+		on: aChessboard
+	
+	!
+
 movesListDo: aBlock
 
 	aBlock value: moves!
@@ -111,6 +112,14 @@ nextSideToMoveOn: aChessboard
 
 	^moves nextSideToMoveOn: aChessboard
 !
+
+performMove: aChessMove on: aChessboard
+
+	aChessMove 
+		performPieceSwitchFrom: aChessMove from 
+		to: aChessMove to 
+		on: aChessboard 
+		withPostActionOn: self!
 
 redoNextMoveOn: aChessboard 
 
@@ -162,7 +171,7 @@ undoLastMoveOn: aChessboard
 
 	moves undoLastMoveOn: aChessboard! !
 !ChessGame categoriesForMethods!
-annotateAndMovePieceFrom:to:on:presenter:!public! !
+annotateMoveFrom:to:on:!moves!public! !
 disableBlackCastle!castle!public! !
 disableBlackCastleForPieceMovedFrom:on:!castle!public! !
 disableCastleForPieceMovedFrom:on:!castle!public! !
@@ -178,9 +187,11 @@ isCorrectSideToMove:on:!public! !
 lastMoveIsBlackEnPassantEnablerFrom:to:!en passant!public! !
 lastMoveIsWhiteEnPassantEnablerFrom:to:!en passant!public! !
 lastSideToMoveOn:!public! !
+moveFrom:to:on:!moves!public! !
 movesListDo:!public! !
 newInitialChessboard!public! !
 nextSideToMoveOn:!public! !
+performMove:on:!moves!public! !
 redoNextMoveOn:!public! !
 setInitialMoveToBlack!public! !
 setInitialMoveToWhite!public! !

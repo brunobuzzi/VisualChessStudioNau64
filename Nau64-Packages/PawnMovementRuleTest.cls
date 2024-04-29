@@ -13,16 +13,17 @@ PawnMovementRuleTest comment: ''!
 testEnPassant
 	| chessGame |
 
-	chessGame := ChessGame newOn: systemRoot whitePlayer: nil blackPlayer: nil.
-	chessboard := Chessboard newWithAllPiecesOn: systemRoot.
+	chessGame := ChessGame newOn: systemRoot whitePlayer: nil blackPlayer: nil fenString: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR/ w KQkq - 1 20'.
+	chessboard := chessGame newInitialChessboard.
+
 	chessGame 
-		annotateAndMovePieceFrom: #e2 to: #e4 on: chessboard presenter: nil;
-		annotateAndMovePieceFrom: #e7 to: #e5 on: chessboard presenter: nil;
-		annotateAndMovePieceFrom: #d2 to: #d4 on: chessboard presenter: nil;
-		annotateAndMovePieceFrom: #g8 to: #f6 on: chessboard presenter: nil;
-		annotateAndMovePieceFrom: #d4 to: #d5 on: chessboard presenter: nil;
-		annotateAndMovePieceFrom: #c7 to: #c5 on: chessboard presenter: nil;
-		annotateAndMovePieceFrom: #d5 to: #c6 on: chessboard presenter: nil.
+		moveFrom: #e2 to: #e4 on: chessboard;
+		moveFrom: #e7 to: #e5 on: chessboard;
+		moveFrom: #d2 to: #d4 on: chessboard;
+		moveFrom: #g8 to: #f6 on: chessboard;
+		moveFrom: #d4 to: #d5 on: chessboard;
+		moveFrom: #c7 to: #c5 on: chessboard;
+		moveFrom: #d5 to: #c6 on: chessboard.
 
 
 

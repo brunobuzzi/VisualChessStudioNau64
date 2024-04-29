@@ -94,7 +94,17 @@ testQueenPromotion
 				fenString: '8/PK6/8/8/8/8/2kp4/8/ w KQkq - 1 20'.
 	chessboard := game newInitialChessboard.
 	pawn := chessboard pieceAt: (#a7 asChessSquareIn: systemRoot).
-	self assert: (pawn isValidCastleMoveFrom: #e8 to: #c8 on: chessboard on: game).!
+	self assert: (pawn isValidMoveFrom: pawn currentChessSquare to: (#a8 asChessSquareIn: systemRoot)).
+
+	game := ChessGame
+				newOn: systemRoot
+				whitePlayer: nil
+				blackPlayer: nil
+				fenString: '8/PK6/8/8/8/8/2kp4/8/ b KQkq - 1 20'.
+	chessboard := game newInitialChessboard.
+	pawn := chessboard pieceAt: (#d2 asChessSquareIn: systemRoot).
+	self assert: (pawn isValidMoveFrom: pawn currentChessSquare to: (#d1 asChessSquareIn: systemRoot)).
+!
 
 testQueenSideBlackCastle
 	| king game |

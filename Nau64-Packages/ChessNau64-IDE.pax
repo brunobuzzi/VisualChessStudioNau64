@@ -42,13 +42,11 @@ package methodNames
 	add: #Chessboard -> #showWhiteToMove;
 	add: #Chessboard -> #squareAt:;
 	add: #ChessFork -> #drawOn:on:pieceSquarePen:forkPen:;
-	add: #ChessPiece -> #canvasIconAt:;
 	add: #ChessPiece -> #drawOn:chessboard:at:isDisplayCoordinatesEnabled:;
 	add: #ChessSquare -> #drawOn:chessboard:isDisplayCoordinatesEnabled:;
 	add: #ChessSquare -> #drawOn2:chessboard:isDisplayCoordinatesEnabled:;
 	add: #ChessSquare -> #drawOn3:chessboard:isDisplayCoordinatesEnabled:;
 	add: #King -> #canvasIconAt2:;
-	add: #King -> #drawOn2:chessboard:at:isDisplayCoordinatesEnabled:;
 	add: #MouseTracker -> #sumStartLocalPointTo:;
 	yourself.
 
@@ -296,20 +294,6 @@ drawOn:on:pieceSquarePen:forkPen:!public! !
 
 !ChessPiece methodsFor!
 
-canvasIconAt: aChessSquare
-	| file colorPiecePrefix squarePrefix chessboardModel |
-
-	chessboardModel := 'azul_'.
-	file := self pieceCode.
-	colorPiecePrefix := self isBlack ifTrue: ['b'] ifFalse: ['w'].
-	squarePrefix := aChessSquare isBlack ifTrue: ['b'] ifFalse: ['w'].
-
-	^Bitmap fromFile: (FileLocator imageRelative basePath, 'Ajedrez\', chessboardModel, colorPiecePrefix, file, squarePrefix, '.bmp')
-
-	
-	"colorPiecePrefix := self class name asLowercase, '-', (self isBlack ifTrue: ['black'] ifFalse: ['white'] ).
-	^Bitmap fromFile: (FileLocator imageRelative basePath, 'icons\', colorPiecePrefix, '.bmp')"!
-
 drawOn: aCanvas chessboard: aChessboard at: symbolCoordinate  isDisplayCoordinatesEnabled: aBoolean
 	| canvasIcon image square squarePosition |
 
@@ -351,7 +335,6 @@ drawOn: aCanvas chessboard: aChessboard at: symbolCoordinate  isDisplayCoordinat
 			format: nil 
 			brush: (GdiplusSolidBrush color: Color darkRed).! !
 !ChessPiece categoriesForMethods!
-canvasIconAt:!public! !
 drawOn:chessboard:at:isDisplayCoordinatesEnabled:!public! !
 !
 
@@ -440,44 +423,9 @@ canvasIconAt2: aChessSquare
 
 	
 	"colorPiecePrefix := self class name asLowercase, '-', (self isBlack ifTrue: ['black'] ifFalse: ['white'] ).
-	^Bitmap fromFile: (FileLocator imageRelative basePath, 'icons\', colorPiecePrefix, '.bmp')"!
-
-drawOn2: aCanvas chessboard: aChessboard at: symbolCoordinate  isDisplayCoordinatesEnabled: aBoolean
-	| canvasIcon image square squarePosition imageAtt |
-
-	square := symbolCoordinate asChessSquareIn: self systemRoot.
-	squarePosition := square calculatePositionAt: aChessboard.
-	canvasIcon := self canvasIconAt: square.
-
-	image := GdiplusBitmap fromBitmap: canvasIcon.
-
-	(imageAtt := GdiplusImageAttributes new) 
-		colorKeys: 1
-		colorLow: (Color r: 233 g: 233 b: 233)
-		colorHigh: (Color r: 255 g: 255b: 255).
-
-	aCanvas graphics 
-		drawImage: image 
-		at: squarePosition
-		extent: self squareSize @ self squareSize
-		from: Point zero
-		extent: image extent
-		unit: 2
-		attributes: imageAtt.
-
-
-	aBoolean ifFalse: [^self].
-
-
-	aCanvas graphics 
-			drawString: square name 
-			font: (GdiplusFont name: 'Arial' emSize: 10)
-			at: ((square calculatePositionAt: aChessboard) + 2)
-			format: nil 
-			brush: (GdiplusSolidBrush color: Color darkRed).! !
+	^Bitmap fromFile: (FileLocator imageRelative basePath, 'icons\', colorPiecePrefix, '.bmp')"! !
 !King categoriesForMethods!
 canvasIconAt2:!public! !
-drawOn2:chessboard:at:isDisplayCoordinatesEnabled:!public! !
 !
 
 !MouseTracker methodsFor!

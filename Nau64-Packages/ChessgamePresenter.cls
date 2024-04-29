@@ -11,7 +11,7 @@ ChessGamePresenter comment: ''!
 !ChessGamePresenter methodsFor!
 
 endTrackingAt: aPoint 
-	| originSquare targetSquare piece |
+	| originSquare targetSquare piece move promotionPieceClass |
 
 	originSquare := model squareAt: mouseTracker startPoint.
 	targetSquare := model squareAt: (mouseTracker sumStartLocalPointTo: aPoint).
@@ -25,16 +25,10 @@ endTrackingAt: aPoint
 	(piece isValidMoveFromCoordinate: originSquare coordinate to: targetSquare coordinate on: model on: chessGame) 
 	ifFalse: [^MessageBubble notify: ('Invalid move from [',  originSquare coordinate, '] to [',  targetSquare coordinate, ']') caption: 'Nau64'].
 
-	"chessGame annotateAndMovePieceFrom: originSquare coordinate to: targetSquare coordinate on: model presenter: self."
-
-	chessGame movesListDo: [:movesList | | move promotionPieceClass |
-		move := ChessMove newOn: movesList from: originSquare coordinate to: targetSquare coordinate.
-		movesList annotateMove: move on: model.
-		move isPromotion ifTrue: [[promotionPieceClass isNil] whileTrue: [promotionPieceClass := self selectPromotionPiece].
-							move promotion setPromotionPieceClass: promotionPieceClass].
-		move performPieceSwitchFrom: originSquare coordinate to: targetSquare coordinate on: model withPostActionOn: chessGame.
-
-	].
+	move := chessGame annotateMoveFrom: originSquare coordinate to: targetSquare coordinate on: model.
+	move isPromotion ifTrue: [[promotionPieceClass isNil] whileTrue: [promotionPieceClass := self selectPromotionPiece].
+						move promotion setPromotionPieceClass: promotionPieceClass].
+	chessGame performMove: move on: model.
 
 	self renderChessboard.!
 
@@ -107,7 +101,11 @@ setRoot: aSystemRoot fenString: fenString
 		chessGame setOptionFromFenParser: parser.
 		parser deployOn: self model.
 	].
-! !
+!
+
+startTrackingAt: aPoint 
+
+	super startTrackingAt: aPoint.! !
 !ChessGamePresenter categoriesForMethods!
 endTrackingAt:!drag & drop!public! !
 model:!public! !
@@ -121,6 +119,7 @@ queryCommand:!public! !
 renderChessboard!public!rendering-chessboard! !
 setRoot:!private! !
 setRoot:fenString:!private! !
+startTrackingAt:!drag & drop!public! !
 !
 
 !ChessGamePresenter class methodsFor!

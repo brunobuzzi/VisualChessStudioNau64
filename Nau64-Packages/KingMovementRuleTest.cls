@@ -11,12 +11,11 @@ KingMovementRuleTest comment: ''!
 !KingMovementRuleTest methodsFor!
 
 testAttackedSquaresAfterKing
-	| whiteKing blackRook squares |
+	| whiteKing squares |
 
 	chessboard := Chessboard newEmptyOn: systemRoot.
 	(ChessFenParser newOn: systemRoot fenString: 'r7/8/K1k5/8/8/8/8/8/ w - - 1 20') deployOn: chessboard.
 	whiteKing := chessboard pieceAt: (#a6 asChessSquareIn: systemRoot).
-	blackRook := chessboard pieceAt: (#a8 asChessSquareIn: systemRoot).
 	squares := OrderedCollection new.
 	whiteKing secureSquaresDo: [:square | squares add: square].
 	self assert: squares isEmpty!

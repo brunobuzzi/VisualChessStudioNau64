@@ -74,7 +74,9 @@ redoOn: aChessboard
 
 	categories isEmpty ifTrue: [^aChessboard movePieceFromCoordiante: from to: to].
 
-	self halt!
+	categories do: [:each | each applyRedoTo: self on: aChessboard].
+
+	self halt.!
 
 setCategoriesFrom: aChessboard 
 	| originPiece targetPiece |

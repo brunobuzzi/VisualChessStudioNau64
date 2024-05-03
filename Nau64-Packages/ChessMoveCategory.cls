@@ -10,6 +10,10 @@ ChessMoveCategory comment: ''!
 !ChessMoveCategory categoriesForClass!Unclassified! !
 !ChessMoveCategory methodsFor!
 
+applyRedoTo: aChessMove on: aChessboard
+
+	aChessboard movePieceFromCoordiante: aChessMove from to: aChessMove to.!
+
 isPromotion
 	^false!
 
@@ -21,6 +25,7 @@ setMove: aChessMove
 
 	move := aChessMove! !
 !ChessMoveCategory categoriesForMethods!
+applyRedoTo:on:!public! !
 isPromotion!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
 setMove:!private! !

@@ -10,6 +10,8 @@ ChessEnPassantMove comment: ''!
 !ChessEnPassantMove categoriesForClass!Unclassified! !
 !ChessEnPassantMove methodsFor!
 
+applyRedoTo: aChessMove on: aChessboard!
+
 performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGame
 
 	aChessboard movePieceFromCoordiante: originCoordinateSymbol to: targetCoordinateSymbol.
@@ -32,6 +34,7 @@ undoOn: aChessboard
 
 	aChessboard pieceAtCoordinate: enablerMove to put: capturedPiece! !
 !ChessEnPassantMove categoriesForMethods!
+applyRedoTo:on:!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
 setMove:enabler:!private! !
 undoOn:!public! !

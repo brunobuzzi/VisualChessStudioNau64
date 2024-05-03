@@ -172,9 +172,8 @@ pruneUnreachableSquaresFromSlidingPiece
 					chessboard 
 						pieceAt: eachSquare 
 						do: [:squarePiece | 
-							(piece isOppositeSideTo: squarePiece) 
-							ifTrue: [prunedCollection add: eachSquare. existOtherPiece := true]
-							ifFalse: [existOtherPiece := true]] 
+							(piece isOppositeSideTo: squarePiece) ifTrue: [prunedCollection add: eachSquare].
+							existOtherPiece := true] 
 						ifAbsent: [prunedCollection add: eachSquare]
 				].
 			].

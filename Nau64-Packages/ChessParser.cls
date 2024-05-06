@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #ChessParser
-	instanceVariableNames: 'systemRoot'
+	instanceVariableNames: 'systemRoot parserStream'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

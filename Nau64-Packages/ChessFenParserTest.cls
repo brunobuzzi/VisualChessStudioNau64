@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
-ChessTest subclass: #ChessFenParserTest
+ChessParserTest subclass: #ChessFenParserTest
 	instanceVariableNames: 'shell'
 	classVariableNames: ''
 	poolDictionaries: ''

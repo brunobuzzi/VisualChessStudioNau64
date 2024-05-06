@@ -25,17 +25,17 @@ package!
 "Class Definitions"!
 
 Object subclass: #ChessParser
-	instanceVariableNames: 'systemRoot'
+	instanceVariableNames: 'systemRoot parserStream'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessParser subclass: #ChessFenParser
-	instanceVariableNames: 'fenStream entries map properties'
+	instanceVariableNames: 'entries map properties'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessParser subclass: #ChessPgnParser
-	instanceVariableNames: ''
+	instanceVariableNames: 'gameProperties moves'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

@@ -6,6 +6,7 @@ package paxVersion: 1;
 
 package classNames
 	add: #ChessFenParserTest;
+	add: #ChessParserTest;
 	add: #ChessShellTest;
 	yourself.
 
@@ -26,12 +27,17 @@ package!
 
 "Class Definitions"!
 
-ChessTest subclass: #ChessFenParserTest
-	instanceVariableNames: 'shell'
+ChessTest subclass: #ChessParserTest
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessTest subclass: #ChessShellTest
+	instanceVariableNames: 'shell'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessParserTest subclass: #ChessFenParserTest
 	instanceVariableNames: 'shell'
 	classVariableNames: ''
 	poolDictionaries: ''

@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 ChessParser subclass: #ChessFenParser
-	instanceVariableNames: 'fenStream entries map properties'
+	instanceVariableNames: 'entries map properties'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -51,7 +51,7 @@ isEnabledWhiteQueenSideCastle
 parse
 	| fenFields |
 
-	fenFields := fenStream contents subStrings: ' '.
+	fenFields := parserStream contents subStrings: ' '.
 	self assert: [fenFields size = 6].
 	
 	self parsePiecesFrom: (fenFields at: 1).
@@ -127,7 +127,7 @@ pieceClassFor: aCharacter
 setRoot: aSystemRoot fenString: aString
 
 	systemRoot := aSystemRoot.
-	fenStream := aString readStream.
+	parserStream := aString readStream.
 	entries := Dictionary new.
 	map := Dictionary new.
 	properties := Dictionary new.

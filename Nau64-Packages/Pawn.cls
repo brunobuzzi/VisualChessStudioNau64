@@ -33,6 +33,10 @@ isPawn
 
 	^true!
 
+pgnString
+
+	^'P'!
+
 pruneUnreacheableSquaresFrom: aSquaresDictionary
 
 	self isBlack 
@@ -48,6 +52,7 @@ attackedSquaresDo:!new framework!public! !
 canBeMovedToValidCoordinate:on:!public!testing! !
 fenString!public! !
 isPawn!public!testing! !
+pgnString!public! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
 validPromotionClasses!new framework!public! !
 !

@@ -144,6 +144,10 @@ orientationsDo: aBlock
 
 	self orientations do: aBlock!
 
+pgnString
+
+	self subclassResponsibility!
+
 pieceCode
 	^self class pieceCode!
 
@@ -309,6 +313,7 @@ movesAreCompatibleWith:!public! !
 oppositeSideDo:!public! !
 oppositeSideName!public! !
 orientationsDo:!new framework!public! !
+pgnString!public! !
 pieceCode!public! !
 pinnedPieces!new framework!public! !
 printOn:!public! !

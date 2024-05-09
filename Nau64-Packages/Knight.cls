@@ -18,12 +18,17 @@ isKnight
 
 	^true!
 
+pgnString
+
+	^'N'!
+
 pruneUnreacheableSquaresFrom: aSquaresDictionary
 
 	aSquaresDictionary pruneUnreacheableSquaresFromKnight! !
 !Knight categoriesForMethods!
 fenString!public! !
 isKnight!public!testing! !
+pgnString!public! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
 !
 

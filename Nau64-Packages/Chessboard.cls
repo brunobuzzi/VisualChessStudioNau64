@@ -34,6 +34,10 @@ blackPawns
 
 	^pieces select: [:each | each isPawn and: [each isBlack]]!
 
+blackPawnsOnFile: fileString
+
+	^self blackPawns select: [:pawn | pawn currentChessSquare printFile = fileString]!
+
 blackPieces
 
 	^pieces select: [:each | each isBlack]!
@@ -41,6 +45,10 @@ blackPieces
 blackPiecesDo: aBlock
 
 	^self blackPieces do: aBlock!
+
+blackPiecesPgnNamed: aString
+
+	^self blackPieces select: [:piece | piece pgnString = aString]!
 
 blackPiecesSize
 
@@ -363,6 +371,10 @@ whitePawns
 
 	^pieces select: [:each | each isPawn and: [each isWhite]]!
 
+whitePawnsOnFile: fileString
+
+	^self whitePawns select: [:pawn | pawn currentChessSquare printFile = fileString]!
+
 whitePieces
 
 	^pieces reject: [:each | each isBlack]!
@@ -370,6 +382,10 @@ whitePieces
 whitePiecesDo: aBlock
 
 	^self whitePieces do: aBlock!
+
+whitePiecesPgnNamed: aString
+
+	^self whitePieces select: [:piece | piece pgnString = aString]!
 
 whitePiecesSize
 
@@ -393,8 +409,10 @@ blackBishops!pieces-black!public! !
 blackKing!pieces-black!public! !
 blackKnights!pieces-black!public! !
 blackPawns!pieces-black!public! !
+blackPawnsOnFile:!public!querying! !
 blackPieces!pieces-black!public! !
 blackPiecesDo:!pieces-black!public! !
+blackPiecesPgnNamed:!public!querying! !
 blackPiecesSize!pieces-black!public! !
 blackQueens!pieces-black!public! !
 blackRooks!pieces-black!public! !
@@ -444,8 +462,10 @@ whiteBishops!pieces-white!public! !
 whiteKing!pieces-white!public! !
 whiteKnights!pieces-white!public! !
 whitePawns!pieces-white!public! !
+whitePawnsOnFile:!public!querying! !
 whitePieces!pieces-white!public! !
 whitePiecesDo:!pieces-white!public! !
+whitePiecesPgnNamed:!public!querying! !
 whitePiecesSize!pieces-white!public! !
 whiteQueens!pieces-white!public! !
 whiteRooks!pieces-white!public! !

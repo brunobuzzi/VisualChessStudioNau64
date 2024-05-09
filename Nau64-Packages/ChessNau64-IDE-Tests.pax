@@ -7,6 +7,7 @@ package paxVersion: 1;
 package classNames
 	add: #ChessFenParserTest;
 	add: #ChessParserTest;
+	add: #ChessPgnParserTest;
 	add: #ChessShellTest;
 	yourself.
 
@@ -19,6 +20,7 @@ package globalAliases: (Set new
 package setPrerequisites: #(
 	'ChessBasicElements'
 	'ChessBasicElementsTests'
+	'ChessMatches'
 	'ChessNau64-IDE'
 	'ChessParsers'
 	'..\Core\Object Arts\Dolphin\Base\Dolphin').
@@ -39,6 +41,11 @@ ChessTest subclass: #ChessShellTest
 	classInstanceVariableNames: ''!
 ChessParserTest subclass: #ChessFenParserTest
 	instanceVariableNames: 'shell'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessParserTest subclass: #ChessPgnParserTest
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

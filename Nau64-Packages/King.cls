@@ -29,6 +29,10 @@ isKing
 
 	^true!
 
+pgnString
+
+	^'K'!
+
 pruneUnreacheableSquaresFrom: aSquaresDictionary
 
 	aSquaresDictionary pruneUnreacheableSquaresFromKing!
@@ -63,6 +67,7 @@ squaresToMoveFrom: aChessSquare do: aBlock
 fenString!public! !
 isCheckMatedOn:!new framework!public! !
 isKing!public!testing! !
+pgnString!public! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
 secureSquaresFrom:do:!new framework!public! !
 squaresToMoveDo:!new framework!public! !

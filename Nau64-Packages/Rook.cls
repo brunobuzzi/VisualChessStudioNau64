@@ -28,13 +28,18 @@ isSlidingPiece
 
 movesAreCompatibleWith: aChessOrientationVector
 
-	^aChessOrientationVector isCompatibleWithRook! !
+	^aChessOrientationVector isCompatibleWithRook!
+
+pgnString
+
+	^'R'! !
 !Rook categoriesForMethods!
 bateryOrientationsFrom:do:!public!tactics! !
 fenString!public! !
 isRook!public!testing! !
 isSlidingPiece!public! !
 movesAreCompatibleWith:!public! !
+pgnString!public! !
 !
 
 !Rook class methodsFor!

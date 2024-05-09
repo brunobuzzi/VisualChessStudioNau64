@@ -24,12 +24,17 @@ isSlidingPiece
 
 movesAreCompatibleWith: aChessOrientationVector
 
-	^aChessOrientationVector isCompatibleWithQueen! !
+	^aChessOrientationVector isCompatibleWithQueen!
+
+pgnString
+
+	^'Q'! !
 !Queen categoriesForMethods!
 fenString!public! !
 isQueen!public!testing! !
 isSlidingPiece!public! !
 movesAreCompatibleWith:!public! !
+pgnString!public! !
 !
 
 !Queen class methodsFor!

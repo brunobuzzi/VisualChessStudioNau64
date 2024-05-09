@@ -35,7 +35,7 @@ ChessParser subclass: #ChessFenParser
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessParser subclass: #ChessPgnParser
-	instanceVariableNames: 'gameProperties moves'
+	instanceVariableNames: 'gameProperties moves whitePositions blackPositions parsedMoves'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

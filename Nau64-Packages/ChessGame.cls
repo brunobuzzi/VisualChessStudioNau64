@@ -17,6 +17,11 @@ annotateMoveFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessbo
 	moves annotateMove: aChessMove on: aChessboard.
 	^aChessMove!
 
+buildGameFromPgn: aPgnString
+	| parser |
+	parser := ChessPgnParser newOn: systemRoot pgnString: aPgnString.
+	parser buildGameFor: self!
+
 disableBlackCastle
 
 	blackCastleStatus disableCastle!
@@ -60,7 +65,7 @@ ifWhiteQueenSideCastleNotEnabled: aNiladicValuable
 
 initialFenStringPosition
 
-	^'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR/ w - - 1 20'!
+	^self class initialFenStringPosition!
 
 initialSideToMove
 
@@ -167,11 +172,35 @@ setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer
 	self setOptionFromFenParser: parser.
 !
 
+setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer pgnString: pgnString
+	| parser |
+
+	dateTime := TimeStamp current.
+	systemRoot := aSystemRoot.
+
+	whitePlayer := whiteChessPlayer.
+	blackPlayer := blackChessPlayer.
+
+	"moves := ChessMoveList newOn: self."
+	moves := ChessMoveTreeList newOn: self.
+	dateTime := TimeStamp current.
+
+	initialSideToMove := #white.
+
+	whiteCastleStatus := ChessCastleStatus newOn: self.
+	blackCastleStatus := ChessCastleStatus newOn: self.
+
+	initialFenPosition := self initialFenStringPosition.
+	parser := ChessPgnParser newOn: aSystemRoot pgnString: pgnString.
+	parser buildGameFor: self
+!
+
 undoLastMoveOn: aChessboard
 
 	moves undoLastMoveOn: aChessboard! !
 !ChessGame categoriesForMethods!
 annotateMoveFrom:to:on:!moves!public! !
+buildGameFromPgn:!parser-pgn!public! !
 disableBlackCastle!castle!public! !
 disableBlackCastleForPieceMovedFrom:on:!castle!public! !
 disableCastleForPieceMovedFrom:on:!castle!public! !
@@ -197,6 +226,7 @@ setInitialMoveToBlack!public! !
 setInitialMoveToWhite!public! !
 setOptionFromFenParser:!parser-fen!public! !
 setRoot:whitePlayer:blackPlayer:fenString:!private! !
+setRoot:whitePlayer:blackPlayer:pgnString:!private! !
 undoLastMoveOn:!public! !
 !
 
@@ -206,16 +236,25 @@ icon
 
 	^Icon fromId: 'Interactor.ico'!
 
+initialFenStringPosition
+	^'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR/ w - - 1 20'!
+
 newOn: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer
 
-	^self newOn: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer fenString: nil!
+	^self new setRoot:  aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer fenString: self initialFenStringPosition!
 
 newOn: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer fenString: fenString
 
-	^self new setRoot:  aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer fenString: fenString! !
+	^self new setRoot:  aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer fenString: fenString!
+
+newOn: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer pgnString: pgnString
+
+	^self new setRoot:  aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer pgnString: pgnString! !
 !ChessGame class categoriesForMethods!
 icon!public! !
+initialFenStringPosition!private! !
 newOn:whitePlayer:blackPlayer:!public! !
 newOn:whitePlayer:blackPlayer:fenString:!public! !
+newOn:whitePlayer:blackPlayer:pgnString:!public! !
 !
 

@@ -325,7 +325,7 @@ isValidBlackEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessG
 
 	self oppositeSideDo: [:side | (side anyPawnAtEnPassantMoveFrom: originCoordinate) ifFalse: [^false]].
 
-	^aChessGame lastMoveIsBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate
+	^aChessGame lastMoveIsBlackEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 	!
 
 isValidEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame
@@ -342,7 +342,7 @@ isValidWhiteEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessG
 
 	self oppositeSideDo: [:side | (side anyPawnAtEnPassantMoveFrom: originCoordinate) ifFalse: [^false]].
 
-	^aChessGame lastMoveIsWhiteEnPassantEnablerFrom: originCoordinate to: targetCoordinate
+	^aChessGame lastMoveIsWhiteEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 	!
 
 orientations

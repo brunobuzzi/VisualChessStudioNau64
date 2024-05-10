@@ -10,7 +10,10 @@ ChessEnPassantMove comment: ''!
 !ChessEnPassantMove categoriesForClass!Unclassified! !
 !ChessEnPassantMove methodsFor!
 
-applyRedoTo: aChessMove on: aChessboard!
+applyRedoTo: aChessMove on: aChessboard
+
+	aChessboard movePieceFromCoordiante: move from to: move to.
+	aChessboard removeEnPassantPawn: move to!
 
 performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGame
 

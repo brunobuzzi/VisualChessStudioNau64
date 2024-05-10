@@ -10,7 +10,7 @@ ChessMove comment: ''!
 !ChessMove categoriesForClass!Kernel-Objects! !
 !ChessMove methodsFor!
 
-addEnPassantCategoryEnabler: aChessMove
+addEnPassantCategoryEnabled: aChessMove
 
 	categories add: (ChessEnPassantMove newOn: self enabler: aChessMove)!
 
@@ -22,9 +22,15 @@ isBlackCurrentSideMovingOn: aChessboard
 
 	^(aChessboard pieceAtCoordinate: from) isBlack!
 
-isBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate
+isBlackEnPassantEnabledFrom: originCoordinate to: targetCoordinate
+	|v|
+	v := ((from second = $2 and: [to second = $4]) 
+			and: [((originCoordinate first asciiValue - 1) = to first asciiValue) 
+				or: [(originCoordinate first asciiValue + 1) = to first asciiValue]]) 
+		and: [targetCoordinate first = to first].
 
-	^((from second = $2 and: [to second = $4]) and: [((originCoordinate first asciiValue - 1) = to first asciiValue) or: [(originCoordinate first asciiValue + 1) = to first asciiValue]]) and: [targetCoordinate first = to first]!
+	v ifTrue: [self halt].
+	^v!
 
 isBlackOn: aChessboard
 
@@ -35,9 +41,14 @@ isBlackOn: aChessboard
 isPromotion
 	^categories anySatisfy: [:each | each isPromotion]!
 
-isWhiteEnPassantEnablerFrom: originCoordinate to: targetCoordinate
-
-	^((from second = $7 and: [to second = $5]) and: [((originCoordinate first asciiValue - 1) = to first asciiValue) or: [(originCoordinate first asciiValue + 1) = to first asciiValue]]) and: [targetCoordinate first = to first]!
+isWhiteEnPassantEnabledFrom: originCoordinate to: targetCoordinate
+	| v |
+	v :=((from second = $7 and: [to second = $5]) 
+			and: [((originCoordinate first asciiValue - 1) = to first asciiValue) 
+				or: [(originCoordinate first asciiValue + 1) = to first asciiValue]]) 
+		and: [targetCoordinate first = to first].
+	v ifTrue: [self halt].
+	^v!
 
 performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: aChessGame
 
@@ -76,7 +87,7 @@ redoOn: aChessboard
 
 	categories do: [:each | each applyRedoTo: self on: aChessboard].
 
-	self halt.!
+	!
 
 setCategoriesFrom: aChessboard 
 	| originPiece targetPiece |
@@ -116,13 +127,13 @@ undoOn: aChessboard
 
 	categories do: [:each | each undoOn: aChessboard]! !
 !ChessMove categoriesForMethods!
-addEnPassantCategoryEnabler:!public! !
+addEnPassantCategoryEnabled:!public! !
 from!public! !
 isBlackCurrentSideMovingOn:!public! !
-isBlackEnPassantEnablerFrom:to:!public! !
+isBlackEnPassantEnabledFrom:to:!en passant!public! !
 isBlackOn:!public! !
 isPromotion!public! !
-isWhiteEnPassantEnablerFrom:to:!public! !
+isWhiteEnPassantEnabledFrom:to:!en passant!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:presenter:!public! !
 printOn:!public! !

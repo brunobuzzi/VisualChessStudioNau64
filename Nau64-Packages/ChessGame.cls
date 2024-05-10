@@ -75,13 +75,13 @@ isCorrectSideToMove: aChessPiece on: aChessboard
 
 	^(self nextSideToMoveOn: aChessboard) = aChessPiece sideName!
 
-lastMoveIsBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate
+lastMoveIsBlackEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 
-	^moves lastMoveIsBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate!
+	^moves lastMoveIsBlackEnPassantEnabledFrom: originCoordinate to: targetCoordinate!
 
-lastMoveIsWhiteEnPassantEnablerFrom: originCoordinate to: targetCoordinate
+lastMoveIsWhiteEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 
-	^moves lastMoveIsWhiteEnPassantEnablerFrom: originCoordinate to: targetCoordinate!
+	^moves lastMoveIsWhiteEnPassantEnabledFrom: originCoordinate to: targetCoordinate!
 
 lastSideToMoveOn: aChessboard
 
@@ -168,7 +168,7 @@ setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer
 	blackCastleStatus := ChessCastleStatus newOn: self.
 
 	initialFenPosition := fenString ifNil: [self initialFenStringPosition] ifNotNil: [fenString].
-	parser := ChessFenParser newOn: aSystemRoot fenString: fenString.
+	parser := ChessFenParser newOn: aSystemRoot fenString: (fenString ifNil: [initialFenPosition]).
 	self setOptionFromFenParser: parser.
 !
 
@@ -213,8 +213,8 @@ ifWhiteQueenSideCastleNotEnabled:!castle!public! !
 initialFenStringPosition!private! !
 initialSideToMove!public! !
 isCorrectSideToMove:on:!public! !
-lastMoveIsBlackEnPassantEnablerFrom:to:!en passant!public! !
-lastMoveIsWhiteEnPassantEnablerFrom:to:!en passant!public! !
+lastMoveIsBlackEnPassantEnabledFrom:to:!en passant!public! !
+lastMoveIsWhiteEnPassantEnabledFrom:to:!en passant!public! !
 lastSideToMoveOn:!public! !
 moveFrom:to:on:!moves!public! !
 movesListDo:!public! !

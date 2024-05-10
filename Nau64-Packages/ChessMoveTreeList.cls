@@ -25,8 +25,8 @@ annotateMove: aChessMove on: aChessboard
 	aChessMove setCategoriesFrom:  aChessboard.
 
 	lastMove ifNotNil: [
-		(self lastMoveIsBlackEnPassantEnablerFrom: aChessMove from to: aChessMove to) ifTrue: [aChessMove addEnPassantCategoryEnabler: lastMove].
-		(self lastMoveIsWhiteEnPassantEnablerFrom: aChessMove from to: aChessMove to) ifTrue: [aChessMove addEnPassantCategoryEnabler: lastMove].
+		(self lastMoveIsBlackEnPassantEnabledFrom: aChessMove from to: aChessMove to) ifTrue: [aChessMove addEnPassantCategoryEnabled: lastMove].
+		(self lastMoveIsWhiteEnPassantEnabledFrom: aChessMove from to: aChessMove to) ifTrue: [aChessMove addEnPassantCategoryEnabled: lastMove].
 	].
 
 	treeRoots ifNil: [treeRoots := OrderedCollection new].
@@ -48,13 +48,13 @@ dettachNodeChildrenOfNode: aChessMoveNode
 isEmpty
 	^treeRoots isEmpty!
 
-lastMoveIsBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate
+lastMoveIsBlackEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 
-	^lastMove isBlackEnPassantEnablerFrom: originCoordinate to: targetCoordinate!
+	^lastMove isBlackEnPassantEnabledFrom: originCoordinate to: targetCoordinate!
 
-lastMoveIsWhiteEnPassantEnablerFrom: originCoordinate to: targetCoordinate
+lastMoveIsWhiteEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 
-	^lastMove isWhiteEnPassantEnablerFrom: originCoordinate to: targetCoordinate!
+	^lastMove isWhiteEnPassantEnabledFrom: originCoordinate to: targetCoordinate!
 
 lastSideToMoveOn: aChessboard
 
@@ -127,8 +127,8 @@ annotateMove:on:!move operations!public! !
 dettachNode:!private!tree operations! !
 dettachNodeChildrenOfNode:!private!tree operations! !
 isEmpty!public! !
-lastMoveIsBlackEnPassantEnablerFrom:to:!move operations!public! !
-lastMoveIsWhiteEnPassantEnablerFrom:to:!move operations!public! !
+lastMoveIsBlackEnPassantEnabledFrom:to:!move operations!public! !
+lastMoveIsWhiteEnPassantEnabledFrom:to:!move operations!public! !
 lastSideToMoveOn:!move operations!public! !
 lookupNode:!private! !
 newNodeParent:move:!public!tree operations! !

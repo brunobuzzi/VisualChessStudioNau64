@@ -50,7 +50,7 @@ isWhiteEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 
 performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: aChessGame
 
-	categories isEmpty 
+	(categories isEmpty or: [categories allSatisfy: [:each | each isEnPassantEnabler]])
 	ifTrue: [aChessboard movePieceFromCoordiante: from to: to]
 	ifFalse: [categories do: [:each | each performPieceSwitchFrom: from to: to on: aChessboard withPostActionOn: aChessGame]].
 
@@ -93,29 +93,28 @@ setCategoriesFrom: aChessboard
 	originPiece := aChessboard pieceAtCoordinate: from.
 	targetPiece := aChessboard pieceAtCoordinate: to.
 	targetPiece ifNotNil: [categories add: (ChessCaptureMove newOn: self capturedPiece: targetPiece)].
+	"WHITE CASTLE"
+	(from = #e1 and: [originPiece isKing and:[originPiece isWhite and:[to = #g1]]]) ifTrue: [^categories add: (ChessKingSideCastleMove newOn: self)].
+	(from = #e1 and: [originPiece isKing and:[originPiece isWhite and:[to = #c1]]]) ifTrue: [^categories add: (ChessQueenSideCastleMove newOn: self)].
+	"BLACK CASTLE"
+	(from = #e8 and: [originPiece isKing and:[originPiece isBlack and:[to = #g8]]]) ifTrue: [^categories add: (ChessKingSideCastleMove newOn: self)].
+	(from = #e8 and: [originPiece isKing and:[originPiece isBlack and:[to = #c8]]]) ifTrue: [^categories add: (ChessQueenSideCastleMove newOn: self)].
+	"PROMOTION"
+	(originPiece isPawn and: [originPiece isWhite and: [to second = $8]]) ifTrue: [^categories add: (ChessPromotionMove newOn: self)].
+	(originPiece isPawn and: [originPiece isBlack and: [to second = $1]]) ifTrue: [^categories add: (ChessPromotionMove newOn: self)].
 	"EN-PASSANT ENABLER"
-	((originPiece isPawn and: [originPiece isWhite]) and: [from second = $2 and: [to second = $4]]) ifTrue: [categories add: (ChessEnPassantEnablerMove newOn: self)].
-	((originPiece isPawn and: [originPiece isBlack]) and: [from second = $7 and: [to second = $5]]) ifTrue: [categories add: (ChessEnPassantEnablerMove newOn: self)].
+	((originPiece isPawn and: [originPiece isWhite]) and: [from second = $2 and: [to second = $4]]) ifTrue: [^categories add: (ChessEnPassantEnablerMove newOn: self)].
+	((originPiece isPawn and: [originPiece isBlack]) and: [from second = $7 and: [to second = $5]]) ifTrue: [^categories add: (ChessEnPassantEnablerMove newOn: self)].
 	"EN-PASSANT CAPTURE"
 	list lastMoveIsEnPassantEnabler 
 	ifTrue: [
 		"WHITE CAPTURE"
 		((originPiece isWhite and: [(from second = $5) and: [to second = $6]]) and: [(aChessboard systemRoot lateralFilesOf: to first) includes: from first])
-		ifTrue: [categories add: (ChessEnPassantCaptureMove newOn: self)].
+		ifTrue: [^categories add: (ChessEnPassantCaptureMove newOn: self enabler: list lastMove)].
 		"BLACK CAPTURE"
 		((originPiece isWhite and: [(from second = $5) and: [to second = $6]]) and: [(aChessboard systemRoot lateralFilesOf: to first) includes: from first])
-		ifTrue: [categories add: (ChessEnPassantCaptureMove newOn: self)].
+		ifTrue: [^categories add: (ChessEnPassantCaptureMove newOn: self enabler: list lastMove)].
 	].
-	"WHITE CASTLE"
-	(from = #e1 and: [originPiece isKing and:[originPiece isWhite and:[to = #g1]]]) ifTrue: [categories add: (ChessKingSideCastleMove newOn: self)].
-	(from = #e1 and: [originPiece isKing and:[originPiece isWhite and:[to = #c1]]]) ifTrue: [categories add: (ChessQueenSideCastleMove newOn: self)].
-	"BLACK CASTLE"
-	(from = #e8 and: [originPiece isKing and:[originPiece isBlack and:[to = #g8]]]) ifTrue: [categories add: (ChessKingSideCastleMove newOn: self)].
-	(from = #e8 and: [originPiece isKing and:[originPiece isBlack and:[to = #c8]]]) ifTrue: [categories add: (ChessQueenSideCastleMove newOn: self)].
-	"PROMOTION"
-	(originPiece isPawn and: [originPiece isWhite and: [to second = $8]]) ifTrue: [categories add: (ChessPromotionMove newOn: self)].
-	(originPiece isPawn and: [originPiece isBlack and: [to second = $1]]) ifTrue: [categories add: (ChessPromotionMove newOn: self)].
-
 
 !
 

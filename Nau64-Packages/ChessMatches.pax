@@ -101,7 +101,7 @@ ChessMoveCategory subclass: #ChessPromotionMove
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessCaptureMove subclass: #ChessEnPassantCaptureMove
-	instanceVariableNames: ''
+	instanceVariableNames: 'enablerMove'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

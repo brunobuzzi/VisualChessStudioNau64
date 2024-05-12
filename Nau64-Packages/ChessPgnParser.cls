@@ -30,7 +30,6 @@ buildGameFor: aChessGame
 	].
 	chessboard := aChessGame newInitialChessboard.
 	parsedMoves keysAndValuesDo: [:index :eachArray | | move |
-		self halt.
 		move := aChessGame annotateMoveFrom: eachArray first to: eachArray second on: chessboard.
 		aChessGame performMove: move on: chessboard.
 	].
@@ -49,8 +48,8 @@ calculateBlackCastleCoordinatesFrom: pgnBlackMove on: aChessboard
 		self moveBlackPieceFrom: king currentChessSquare coordinate to: #g8.
 		self moveBlackPieceFrom: rook currentChessSquare coordinate to: #f8.
 		parsedMoves 
-			add: (Array with: #e8 with: #g8); 
-			add: (Array with: #h8 with: #f8).
+			add: (Array with: #e8 with: #g8)"; 
+			add: (Array with: #h8 with: #f8)".
 		aChessboard movePieceFromCoordiante: #e8 to: #g8.
 		aChessboard movePieceFromCoordiante: #h8 to: #f8.
 		] 
@@ -58,8 +57,8 @@ calculateBlackCastleCoordinatesFrom: pgnBlackMove on: aChessboard
 		self moveBlackPieceFrom: king currentChessSquare coordinate to: #c8.
 		self moveBlackPieceFrom: rook currentChessSquare coordinate to: #d8.
 		parsedMoves 
-			add: (Array with: #e8 with: #c8); 
-			add: (Array with: #a8 with: #d8).
+			add: (Array with: #e8 with: #c8)"; 
+			add: (Array with: #a8 with: #d8)".
 		aChessboard movePieceFromCoordiante: #e8 to: #c8.
 		aChessboard movePieceFromCoordiante: #a8 to: #d8.]!
 
@@ -129,8 +128,8 @@ calculateWhiteCastleCoordinatesFrom: pgnWhiteMove on: aChessboard
 		self moveWhitePieceFrom: king currentChessSquare coordinate to: #g1.
 		self moveWhitePieceFrom: rook currentChessSquare coordinate to: #f1.
 		parsedMoves 
-			add: (Array with: #e1 with: #g1); 
-			add: (Array with: #h1 with: #f1).
+			add: (Array with: #e1 with: #g1)"; 
+			add: (Array with: #h1 with: #f1)".
 		aChessboard movePieceFromCoordiante: #e1 to: #g1.
 		aChessboard movePieceFromCoordiante: #h1 to: #f1.
 		] 
@@ -138,8 +137,8 @@ calculateWhiteCastleCoordinatesFrom: pgnWhiteMove on: aChessboard
 		self moveWhitePieceFrom: king currentChessSquare coordinate to: #c1.
 		self moveWhitePieceFrom: rook currentChessSquare coordinate to: #d1.
 		parsedMoves 
-			add: (Array with: #e1 with: #c1); 
-			add: (Array with: #a1 with: #d1).
+			add: (Array with: #e1 with: #c1)"; 
+			add: (Array with: #a1 with: #d1)".
 		aChessboard movePieceFromCoordiante: #e1 to: #c1.
 		aChessboard movePieceFromCoordiante: #a1 to: #d1.]
 !

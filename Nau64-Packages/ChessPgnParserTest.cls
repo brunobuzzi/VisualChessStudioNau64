@@ -26,7 +26,7 @@ testParseCompleteSimpleGame
 
 	game := ChessGame newOn: systemRoot whitePlayer: '' blackPlayer: ''.
 	parser buildGameFor: game.
-!
+self halt.!
 
 testParseGameData
 	| string parser |

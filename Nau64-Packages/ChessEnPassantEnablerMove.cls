@@ -11,58 +11,20 @@ ChessEnPassantEnablerMove comment: ''!
 !ChessEnPassantEnablerMove methodsFor!
 
 applyRedoTo: aChessMove on: aChessboard
-
-	aChessboard movePieceFromCoordiante: move from to: move to.
-	aChessboard removeEnPassantPawn: move to!
+	"Nothing to do, it is only a enabler for the next move" !
 
 isEnPassantEnabler
 	^true!
 
 performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGame
-
-	aChessGame nextSideToMoveOn: aChessboard isBlackDo: [
-		originCoordinateSymbol last = 5 ifFalse: [^self].
-		(aChessboard pieceAtCoordinate: targetCoordinateSymbol) isPawn ifFalse: [^self].
-		
-	].
-	aChessGame nextSideToMoveOn: aChessboard isWhiteDo: [
-		originCoordinateSymbol last = 4 ifFalse: [^self].
-		(aChessboard pieceAtCoordinate: targetCoordinateSymbol) isPawn ifFalse: [^self].
-	].
-
-	aChessboard movePieceFromCoordiante: originCoordinateSymbol to: targetCoordinateSymbol.
-	aChessboard removeEnPassantPawn: targetCoordinateSymbol!
-
-setMove: aChessMove enabler: enablerChessMove
-
-	move := aChessMove.
-	enablerMove := enablerChessMove!
+	"Nothing to do, it is only a enabler for the next move" !
 
 undoOn: aChessboard 
-	| killerPiece capturedPieceClass capturedPiece |
-
-	killerPiece := aChessboard pieceAtCoordinate: move to.
-	capturedPieceClass := Pawn.
-
-	killerPiece oppositeSideDo: [:opSide | capturedPiece := capturedPieceClass newOn: opSide].
-
-	aChessboard movePieceFromCoordiante: move to to: move from.
-
-	aChessboard pieceAtCoordinate: enablerMove to put: capturedPiece! !
+	"Nothing to do, it is only a enabler for the next move" ! !
 !ChessEnPassantEnablerMove categoriesForMethods!
 applyRedoTo:on:!public! !
 isEnPassantEnabler!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
-setMove:enabler:!private! !
 undoOn:!public! !
-!
-
-!ChessEnPassantEnablerMove class methodsFor!
-
-newOn: aChessMove enabler: enablerMove
-
-	^self new setMove: aChessMove enabler: enablerMove! !
-!ChessEnPassantEnablerMove class categoriesForMethods!
-newOn:enabler:!public! !
 !
 

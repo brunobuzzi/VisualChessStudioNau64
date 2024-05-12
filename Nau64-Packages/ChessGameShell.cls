@@ -26,7 +26,7 @@ model: anObject
 	chessGamePresenter model: anObject!
 
 moveRedo
-
+self halt.
 	chessGamePresenter moveRedoOn: model!
 
 moveUndo
@@ -40,6 +40,10 @@ newChessboardFromFEN
 renderChessboard
 
 	chessGamePresenter renderChessboard!
+
+setGame: aChessGame
+
+	chessGamePresenter setGame: aChessGame!
 
 setRoot: aSystemRoot
 
@@ -65,6 +69,7 @@ moveRedo!public! !
 moveUndo!public! !
 newChessboardFromFEN!public! !
 renderChessboard!public! !
+setGame:!public! !
 setRoot:!private! !
 setRoot:fenString:!private! !
 toggleFourChessChunks!public! !

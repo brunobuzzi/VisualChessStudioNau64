@@ -86,6 +86,10 @@ renderChessboard
 	effects do: [:chessboardEffect | chessboardEffect drawOn: gdiBitmap].
 	self imageModel: gdiBitmap asValue!
 
+setGame: aChessGame
+
+	chessGame := aChessGame!
+
 setRoot: aSystemRoot
 
 	self setRoot: aSystemRoot fenString: '8/8/8/8/8/8/8/8/ w - - 1 20'!
@@ -117,6 +121,7 @@ newEmptyChessboard!public! !
 onViewOpened!public! !
 queryCommand:!public! !
 renderChessboard!public!rendering-chessboard! !
+setGame:!public! !
 setRoot:!private! !
 setRoot:fenString:!private! !
 startTrackingAt:!drag & drop!public! !

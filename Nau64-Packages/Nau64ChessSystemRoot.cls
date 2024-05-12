@@ -42,6 +42,7 @@ getRank: anInteger ifAbsent: aBlock
 
 lateralFilesOf: aCharacter 
 	| chessFile prevFile nextFile lateralFiles |
+
 	lateralFiles := OrderedCollection new.
 	chessFile := self getFile: aCharacter asString ifAbsent: [self error: 'No Chess File found'].
 	prevFile := chessFile previous: 1 ifAbsent: [].

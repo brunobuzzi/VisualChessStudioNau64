@@ -42,6 +42,8 @@ package methodNames
 	add: #Chessboard -> #showWhiteToMove;
 	add: #Chessboard -> #squareAt:;
 	add: #ChessFork -> #drawOn:on:pieceSquarePen:forkPen:;
+	add: #ChessGame -> #show;
+	add: #ChessGame -> #showOn:;
 	add: #ChessPiece -> #drawOn:chessboard:at:isDisplayCoordinatesEnabled:;
 	add: #ChessSquare -> #drawOn:chessboard:isDisplayCoordinatesEnabled:;
 	add: #ChessSquare -> #drawOn2:chessboard:isDisplayCoordinatesEnabled:;
@@ -290,6 +292,20 @@ drawOn: aGdiplusGraphics on: aChessboard  pieceSquarePen: pieceSquarePen forkPen
 			pen: forkPen].! !
 !ChessFork categoriesForMethods!
 drawOn:on:pieceSquarePen:forkPen:!public! !
+!
+
+!ChessGame methodsFor!
+
+show
+
+	self showOn: self newInitialChessboard!
+
+showOn: aChessboard
+	(ChessGameShell showOn: aChessboard)
+		setGame: self! !
+!ChessGame categoriesForMethods!
+show!public! !
+showOn:!public! !
 !
 
 !ChessPiece methodsFor!

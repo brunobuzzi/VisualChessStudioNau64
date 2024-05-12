@@ -21,6 +21,7 @@ addChild: aChessMove parentNode: parentChessMove
 		ifNil: [treeRoots add: childNode]!
 
 annotateMove: aChessMove on: aChessboard
+	| originPiece targetPiece |
 
 	aChessMove setCategoriesFrom:  aChessboard.
 
@@ -47,6 +48,9 @@ dettachNodeChildrenOfNode: aChessMoveNode
 
 isEmpty
 	^treeRoots isEmpty!
+
+lastMove
+	^lastMove!
 
 lastMoveIsBlackEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 
@@ -132,6 +136,7 @@ annotateMove:on:!move operations!public! !
 dettachNode:!private!tree operations! !
 dettachNodeChildrenOfNode:!private!tree operations! !
 isEmpty!public! !
+lastMove!public! !
 lastMoveIsBlackEnPassantEnabledFrom:to:!move operations!public! !
 lastMoveIsEnPassantEnabler!public! !
 lastMoveIsWhiteEnPassantEnabledFrom:to:!move operations!public! !

@@ -14,6 +14,9 @@ applyRedoTo: aChessMove on: aChessboard
 
 	aChessboard movePieceFromCoordiante: aChessMove from to: aChessMove to.!
 
+isEnPassantEnabler
+	^false!
+
 isPromotion
 	^false!
 
@@ -26,6 +29,7 @@ setMove: aChessMove
 	move := aChessMove! !
 !ChessMoveCategory categoriesForMethods!
 applyRedoTo:on:!public! !
+isEnPassantEnabler!public! !
 isPromotion!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
 setMove:!private! !

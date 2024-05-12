@@ -29,7 +29,8 @@ buildGameFor: aChessGame
 		ifTrue: ["self parseResult"].
 	].
 	chessboard := aChessGame newInitialChessboard.
-	parsedMoves do: [:eachArray | | move |
+	parsedMoves keysAndValuesDo: [:index :eachArray | | move |
+		self halt.
 		move := aChessGame annotateMoveFrom: eachArray first to: eachArray second on: chessboard.
 		aChessGame performMove: move on: chessboard.
 	].

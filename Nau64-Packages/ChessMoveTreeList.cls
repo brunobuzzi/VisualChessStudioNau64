@@ -24,10 +24,10 @@ annotateMove: aChessMove on: aChessboard
 
 	aChessMove setCategoriesFrom:  aChessboard.
 
-	lastMove ifNotNil: [
+	"lastMove ifNotNil: [
 		(self lastMoveIsBlackEnPassantEnabledFrom: aChessMove from to: aChessMove to) ifTrue: [aChessMove addEnPassantCategoryEnabled: lastMove].
 		(self lastMoveIsWhiteEnPassantEnabledFrom: aChessMove from to: aChessMove to) ifTrue: [aChessMove addEnPassantCategoryEnabled: lastMove].
-	].
+	]."
 
 	treeRoots ifNil: [treeRoots := OrderedCollection new].
 
@@ -51,6 +51,11 @@ isEmpty
 lastMoveIsBlackEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 
 	^lastMove isBlackEnPassantEnabledFrom: originCoordinate to: targetCoordinate!
+
+lastMoveIsEnPassantEnabler
+
+	lastMove ifNil: [^false].
+	^lastMove isEnPassantEnabler!
 
 lastMoveIsWhiteEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 
@@ -128,6 +133,7 @@ dettachNode:!private!tree operations! !
 dettachNodeChildrenOfNode:!private!tree operations! !
 isEmpty!public! !
 lastMoveIsBlackEnPassantEnabledFrom:to:!move operations!public! !
+lastMoveIsEnPassantEnabler!public! !
 lastMoveIsWhiteEnPassantEnabledFrom:to:!move operations!public! !
 lastSideToMoveOn:!move operations!public! !
 lookupNode:!private! !

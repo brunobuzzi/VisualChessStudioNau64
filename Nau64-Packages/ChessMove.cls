@@ -11,8 +11,7 @@ ChessMove comment: ''!
 !ChessMove methodsFor!
 
 addEnPassantCategoryEnabled: aChessMove
-
-	categories add: (ChessEnPassantMove newOn: self enabler: aChessMove)!
+	categories add: (ChessEnPassantEnablerMove newOn: self enabler: aChessMove)!
 
 from
 
@@ -23,14 +22,11 @@ isBlackCurrentSideMovingOn: aChessboard
 	^(aChessboard pieceAtCoordinate: from) isBlack!
 
 isBlackEnPassantEnabledFrom: originCoordinate to: targetCoordinate
-	|v|
-	v := ((from second = $2 and: [to second = $4]) 
+
+	^((from second = $2 and: [to second = $4]) 
 			and: [((originCoordinate first asciiValue - 1) = to first asciiValue) 
 				or: [(originCoordinate first asciiValue + 1) = to first asciiValue]]) 
-		and: [targetCoordinate first = to first].
-
-	v ifTrue: [self halt].
-	^v!
+		and: [targetCoordinate first = to first]!
 
 isBlackOn: aChessboard
 
@@ -38,17 +34,19 @@ isBlackOn: aChessboard
 	ifFalse: [(aChessboard pieceAtCoordinate: to) isBlack]
 	ifTrue: [(aChessboard pieceAtCoordinate: from) isBlack]!
 
+isEnPassantEnabler
+	^categories anySatisfy: [:each | each isEnPassantEnabler]!
+
 isPromotion
 	^categories anySatisfy: [:each | each isPromotion]!
 
 isWhiteEnPassantEnabledFrom: originCoordinate to: targetCoordinate
-	| v |
-	v :=((from second = $7 and: [to second = $5]) 
+
+	^((from second = $7 and: [to second = $5]) 
 			and: [((originCoordinate first asciiValue - 1) = to first asciiValue) 
 				or: [(originCoordinate first asciiValue + 1) = to first asciiValue]]) 
 		and: [targetCoordinate first = to first].
-	v ifTrue: [self halt].
-	^v!
+	!
 
 performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: aChessGame
 
@@ -95,18 +93,29 @@ setCategoriesFrom: aChessboard
 	originPiece := aChessboard pieceAtCoordinate: from.
 	targetPiece := aChessboard pieceAtCoordinate: to.
 	targetPiece ifNotNil: [categories add: (ChessCaptureMove newOn: self capturedPiece: targetPiece)].
-
+	"EN-PASSANT ENABLER"
+	((originPiece isPawn and: [originPiece isWhite]) and: [from second = $2 and: [to second = $4]]) ifTrue: [categories add: (ChessEnPassantEnablerMove newOn: self)].
+	((originPiece isPawn and: [originPiece isBlack]) and: [from second = $7 and: [to second = $5]]) ifTrue: [categories add: (ChessEnPassantEnablerMove newOn: self)].
+	"EN-PASSANT CAPTURE"
+	list lastMoveIsEnPassantEnabler 
+	ifTrue: [
+		"WHITE CAPTURE"
+		((originPiece isWhite and: [(from second = $5) and: [to second = $6]]) and: [(aChessboard systemRoot lateralFilesOf: to first) includes: from first])
+		ifTrue: [categories add: (ChessEnPassantCaptureMove newOn: self)].
+		"BLACK CAPTURE"
+		((originPiece isWhite and: [(from second = $5) and: [to second = $6]]) and: [(aChessboard systemRoot lateralFilesOf: to first) includes: from first])
+		ifTrue: [categories add: (ChessEnPassantCaptureMove newOn: self)].
+	].
+	"WHITE CASTLE"
 	(from = #e1 and: [originPiece isKing and:[originPiece isWhite and:[to = #g1]]]) ifTrue: [categories add: (ChessKingSideCastleMove newOn: self)].
-	(from = #e1 and: [originPiece isKing and:[originPiece isWhite and:[to = #c1]]]) ifTrue: [categories add: ChessQueenSideCastleMove new].
-
+	(from = #e1 and: [originPiece isKing and:[originPiece isWhite and:[to = #c1]]]) ifTrue: [categories add: (ChessQueenSideCastleMove newOn: self)].
+	"BLACK CASTLE"
 	(from = #e8 and: [originPiece isKing and:[originPiece isBlack and:[to = #g8]]]) ifTrue: [categories add: (ChessKingSideCastleMove newOn: self)].
 	(from = #e8 and: [originPiece isKing and:[originPiece isBlack and:[to = #c8]]]) ifTrue: [categories add: (ChessQueenSideCastleMove newOn: self)].
-
+	"PROMOTION"
 	(originPiece isPawn and: [originPiece isWhite and: [to second = $8]]) ifTrue: [categories add: (ChessPromotionMove newOn: self)].
 	(originPiece isPawn and: [originPiece isBlack and: [to second = $1]]) ifTrue: [categories add: (ChessPromotionMove newOn: self)].
 
-
-	
 
 !
 
@@ -132,6 +141,7 @@ from!public! !
 isBlackCurrentSideMovingOn:!public! !
 isBlackEnPassantEnabledFrom:to:!en passant!public! !
 isBlackOn:!public! !
+isEnPassantEnabler!public! !
 isPromotion!public! !
 isWhiteEnPassantEnabledFrom:to:!en passant!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !

@@ -18,17 +18,17 @@ isGreaterThan: anInteger
 
 	^self number > anInteger!
 
-next
+next: anInteger ifAbsent: aBlock
 
-	^self next: 1!
-
-next: anInteger
-
-	^systemRoot getRank: name + anInteger!
+	^systemRoot getRank: name + anInteger ifAbsent: aBlock!
 
 number
 
 	^name!
+
+previous: anInteger ifAbsent: aBlock
+
+	^systemRoot getRank: name - anInteger ifAbsent: aBlock!
 
 printName
 	^name printString!
@@ -46,9 +46,9 @@ setRank: anInteger root: aSystemRoot
 !ChessRank categoriesForMethods!
 isEqualTo:!public! !
 isGreaterThan:!public! !
-next!public! !
-next:!public! !
+next:ifAbsent:!public! !
 number!public! !
+previous:ifAbsent:!public! !
 printName!public! !
 printOn:!public! !
 setRank:root:!private! !

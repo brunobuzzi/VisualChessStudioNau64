@@ -18,14 +18,11 @@ isGreaterThan: anInteger
 
 	^self number > anInteger!
 
-next
-	^self next: 1!
-
-next: anInteger
+next: anInteger ifAbsent: aBlock
 	| nextCharacterValue nextCharacter |
 	nextCharacterValue := (name at: 1) asciiValue + anInteger.
 	nextCharacter := Character asciiValue: nextCharacterValue.
-	^systemRoot getFile: nextCharacter asAnsiString!
+	^systemRoot getFile: nextCharacter asAnsiString ifAbsent: aBlock!
 
 number
 
@@ -40,6 +37,12 @@ number
 
 	self error: 'No File named [', name,']'
 !
+
+previous: anInteger ifAbsent: aBlock
+	| nextCharacterValue nextCharacter |
+	nextCharacterValue := (name at: 1) asciiValue - anInteger.
+	nextCharacter := Character asciiValue: nextCharacterValue.
+	^systemRoot getFile: nextCharacter asAnsiString ifAbsent: aBlock!
 
 printName
 	^name!
@@ -57,9 +60,9 @@ setFile: anInteger root: aSystemRoot
 !ChessFile categoriesForMethods!
 isEqualTo:!public! !
 isGreaterThan:!public! !
-next!public! !
-next:!public! !
+next:ifAbsent:!public! !
 number!public! !
+previous:ifAbsent:!public! !
 printName!public! !
 printOn:!public! !
 setFile:root:!private! !

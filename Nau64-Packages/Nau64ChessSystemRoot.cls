@@ -29,10 +29,27 @@ fenSquares
 	^fenSquares!
 
 getFile: aString
-	^files at: aString ifAbsent: [self error: 'No Chess File [' , aString , ']']!
+	^self getFile: aString ifAbsent: [self error: 'No Chess File [' , aString , ']']!
+
+getFile: aString ifAbsent: aBlock
+	^files at: aString ifAbsent: aBlock!
 
 getRank: anInteger
-	^ranks at: anInteger ifAbsent: [self error: 'No Chess File [' , anInteger printString , ']']!
+	^self getRank: anInteger ifAbsent: [self error: 'No Chess File [' , anInteger printString , ']']!
+
+getRank: anInteger ifAbsent: aBlock
+	^ranks at: anInteger ifAbsent: aBlock!
+
+lateralFilesOf: aCharacter 
+	| chessFile prevFile nextFile lateralFiles |
+	lateralFiles := OrderedCollection new.
+	chessFile := self getFile: aCharacter asString ifAbsent: [self error: 'No Chess File found'].
+	prevFile := chessFile previous: 1 ifAbsent: [].
+	prevFile ifNotNil: [:value | lateralFiles add: value name first].
+	nextFile := chessFile next: 1 ifAbsent: [].
+	nextFile ifNotNil: [:value | lateralFiles add: value name first].
+	^lateralFiles
+!
 
 setFiles
 	files := Dictionary new.
@@ -122,7 +139,10 @@ unicodeFontNameForPieces
 allSquares!public!squares! !
 fenSquares!public!squares! !
 getFile:!files and ranks!public! !
+getFile:ifAbsent:!files and ranks!public! !
 getRank:!files and ranks!public! !
+getRank:ifAbsent:!files and ranks!public! !
+lateralFilesOf:!files and ranks!public! !
 setFiles!files and ranks!private! !
 setFilesRanksAndSquares!private! !
 setRanks!files and ranks!private! !

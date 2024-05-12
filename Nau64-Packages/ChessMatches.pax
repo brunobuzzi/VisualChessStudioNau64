@@ -10,7 +10,8 @@ package classNames
 	add: #ChessCastleStatus;
 	add: #ChessCheckMateMove;
 	add: #ChessCheckMove;
-	add: #ChessEnPassantMove;
+	add: #ChessEnPassantCaptureMove;
+	add: #ChessEnPassantEnablerMove;
 	add: #ChessGame;
 	add: #ChessKingSideCastleMove;
 	add: #ChessMove;
@@ -89,13 +90,18 @@ ChessMoveCategory subclass: #ChessCheckMove
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessMoveCategory subclass: #ChessEnPassantMove
+ChessMoveCategory subclass: #ChessEnPassantEnablerMove
 	instanceVariableNames: 'enablerMove'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessMoveCategory subclass: #ChessPromotionMove
 	instanceVariableNames: 'selectedPiece'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessCaptureMove subclass: #ChessEnPassantCaptureMove
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

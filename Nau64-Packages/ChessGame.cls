@@ -98,7 +98,7 @@ moveFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard
 	
 	!
 
-movesListDo: aBlock
+movesDo: aBlock
 
 	aBlock value: moves!
 
@@ -135,6 +135,18 @@ performMove: aChessMove on: aChessboard
 		to: aChessMove to 
 		on: aChessboard 
 		withPostActionOn: self!
+
+printMoves
+
+	^moves printMoves!
+
+printMovesOn: aStream
+
+	moves printMovesOn: aStream!
+
+redoFirstMoveOn: aChessboard 
+
+	moves redoFirstMoveOn: aChessboard!
 
 redoNextMoveOn: aChessboard 
 
@@ -227,19 +239,22 @@ lastMoveIsBlackEnPassantEnabledFrom:to:!en passant!public! !
 lastMoveIsWhiteEnPassantEnabledFrom:to:!en passant!public! !
 lastSideToMoveOn:!public! !
 moveFrom:to:on:!moves!public! !
-movesListDo:!public! !
+movesDo:!moves!public! !
 newInitialChessboard!public! !
 nextSideToMoveOn:!public! !
 nextSideToMoveOn:isBlackDo:!public! !
 nextSideToMoveOn:isWhiteDo:!public! !
 performMove:on:!moves!public! !
-redoNextMoveOn:!public! !
+printMoves!public! !
+printMovesOn:!public! !
+redoFirstMoveOn:!moves!public! !
+redoNextMoveOn:!moves!public! !
 setInitialMoveToBlack!public! !
 setInitialMoveToWhite!public! !
 setOptionFromFenParser:!parser-fen!public! !
 setRoot:whitePlayer:blackPlayer:fenString:!private! !
 setRoot:whitePlayer:blackPlayer:pgnString:!private! !
-undoLastMoveOn:!public! !
+undoLastMoveOn:!moves!public! !
 !
 
 !ChessGame class methodsFor!

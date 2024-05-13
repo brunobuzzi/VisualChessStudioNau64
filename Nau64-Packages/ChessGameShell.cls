@@ -26,7 +26,7 @@ model: anObject
 	chessGamePresenter model: anObject!
 
 moveRedo
-self halt.
+
 	chessGamePresenter moveRedoOn: model!
 
 moveUndo

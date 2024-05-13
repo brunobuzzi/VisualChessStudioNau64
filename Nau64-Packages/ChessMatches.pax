@@ -51,7 +51,7 @@ Object subclass: #ChessGame
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #ChessMove
-	instanceVariableNames: 'list from to categories'
+	instanceVariableNames: 'list from to categories pgnPiece'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

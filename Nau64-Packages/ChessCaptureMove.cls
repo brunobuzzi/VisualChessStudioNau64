@@ -23,7 +23,7 @@ undoOn: aChessboard
 	| killerPiece capturedPieceClass capturedPiece |
 
 	killerPiece := aChessboard pieceAtCoordinate: move to.
-	capturedPieceClass :=ChessPiece allSubclasses detect: [:each | each pieceCode = capturedPieceCode] ifNone: [self error: 'Move Undo failed'].
+	capturedPieceClass :=ChessPiece concreteClasses detect: [:each | each pieceCode = capturedPieceCode] ifNone: [self error: 'Move Undo failed'].
 
 	killerPiece oppositeSideDo: [:opSide | capturedPiece := capturedPieceClass  newOn: opSide].
 

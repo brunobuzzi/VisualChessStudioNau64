@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 AbstractChessboardPresenter subclass: #ChessGamePresenter
-	instanceVariableNames: 'chessGame'
+	instanceVariableNames: 'chessGame gamePlayer'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -39,12 +39,19 @@ model: aModel
 
 moveRedo
 
-	self halt!
+	gamePlayer playNextMove.
+	self renderChessboard.!
 
 moveRedoOn: aChessboard 
 
-	chessGame redoNextMoveOn: aChessboard.
+	gamePlayer playNextMove.
+	self renderChessboard.
 
+!
+
+moveUndo
+
+	chessGame undoLastMoveOn: model.
 	self renderChessboard.!
 
 moveUndoOn: aChessboard
@@ -72,7 +79,6 @@ onViewOpened
 	effects := OrderedCollection new.
 	super onViewOpened.
 
-
 !
 
 queryCommand: aCommandQuery 
@@ -88,7 +94,8 @@ renderChessboard
 
 setGame: aChessGame
 
-	chessGame := aChessGame!
+	chessGame := aChessGame.
+	gamePlayer := ChessGamePlayer newOn: chessGame chessboard: model.!
 
 setRoot: aSystemRoot
 
@@ -113,9 +120,10 @@ startTrackingAt: aPoint
 !ChessGamePresenter categoriesForMethods!
 endTrackingAt:!drag & drop!public! !
 model:!public! !
-moveRedo!public! !
-moveRedoOn:!public! !
-moveUndoOn:!public! !
+moveRedo!moves!public! !
+moveRedoOn:!moves!public! !
+moveUndo!moves!public! !
+moveUndoOn:!moves!public! !
 newChessboardFromFEN!public! !
 newEmptyChessboard!public! !
 onViewOpened!public! !

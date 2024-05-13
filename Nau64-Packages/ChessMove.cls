@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #ChessMove
-	instanceVariableNames: 'list from to categories'
+	instanceVariableNames: 'list from to categories pgnPiece'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -70,18 +70,29 @@ performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aC
 	
 !
 
+pgnPiece
+	^pgnPiece!
+
+pgnPiece: aString
+	pgnPiece := aString!
+
 printOn: aStream
 
 	super printOn: aStream.
 
 	aStream nextPutAll: '[', from, '>>', to, ']'!
 
+printPgnOn: aStream
+
+	aStream nextPutAll: pgnPiece, to!
+
 promotion
 	^categories detect: [:each | each isPromotion]!
 
 redoOn: aChessboard 
 
-	categories isEmpty ifTrue: [^aChessboard movePieceFromCoordiante: from to: to].
+	(categories reject: [:each | each isEnPassantEnabler]) isEmpty 
+	ifTrue: [^aChessboard movePieceFromCoordiante: from to: to].
 
 	categories do: [:each | each applyRedoTo: self on: aChessboard].
 
@@ -145,7 +156,10 @@ isPromotion!public! !
 isWhiteEnPassantEnabledFrom:to:!en passant!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:presenter:!public! !
+pgnPiece!accessing!public! !
+pgnPiece:!accessing!public! !
 printOn:!public! !
+printPgnOn:!public! !
 promotion!public! !
 redoOn:!public! !
 setCategoriesFrom:!public! !

@@ -18,6 +18,10 @@ chessMoveDo: monadicBlock
 
 	monadicBlock value: move!
 
+children
+
+	^children!
+
 firstChildDo: aBlock
 
 	children isEmpty ifTrue: [^self].
@@ -26,6 +30,9 @@ firstChildDo: aBlock
 
 move
 
+	^move!
+
+object
 	^move!
 
 parentNodeDo: monadicBlock
@@ -57,8 +64,10 @@ setTree: aChessMoveTreeList move: aChessMove parentNode: aChessMoveNodeOrNil
 !ChessMoveNode categoriesForMethods!
 addChildNode:!public! !
 chessMoveDo:!public! !
+children!public! !
 firstChildDo:!public! !
 move!public! !
+object!public! !
 parentNodeDo:!public! !
 printOn:!public! !
 removeChildNode:!public! !

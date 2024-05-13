@@ -37,6 +37,10 @@ pgnString
 
 	^'P'!
 
+pgnStringForNotation
+
+	^''!
+
 pruneUnreacheableSquaresFrom: aSquaresDictionary
 
 	self isBlack 
@@ -53,6 +57,7 @@ canBeMovedToValidCoordinate:on:!public!testing! !
 fenString!public! !
 isPawn!public!testing! !
 pgnString!public! !
+pgnStringForNotation!public! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
 validPromotionClasses!new framework!public! !
 !

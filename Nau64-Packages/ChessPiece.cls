@@ -148,6 +148,10 @@ pgnString
 
 	self subclassResponsibility!
 
+pgnStringForNotation
+
+	^self pgnString!
+
 pieceCode
 	^self class pieceCode!
 
@@ -314,6 +318,7 @@ oppositeSideDo:!public! !
 oppositeSideName!public! !
 orientationsDo:!new framework!public! !
 pgnString!public! !
+pgnStringForNotation!public! !
 pieceCode!public! !
 pinnedPieces!new framework!public! !
 printOn:!public! !
@@ -345,6 +350,18 @@ blackCodePoint
 
 	^9812!
 
+concreteClasses
+
+	^OrderedCollection new 
+		add: King;
+		add: Knight;
+		add: Pawn;
+		add: Bishop;
+		add: Queen;
+		add: Rook;
+		yourself
+!
+
 filePrefix
 
 	^'piece'!
@@ -367,6 +384,7 @@ whiteCodePoint
 	self subclassResponsibility! !
 !ChessPiece class categoriesForMethods!
 blackCodePoint!public!unicode! !
+concreteClasses!public! !
 filePrefix!public! !
 icon!public! !
 newOn:!public! !

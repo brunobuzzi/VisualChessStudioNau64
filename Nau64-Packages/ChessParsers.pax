@@ -6,6 +6,7 @@ package paxVersion: 1;
 
 package classNames
 	add: #ChessFenParser;
+	add: #ChessGamePgnInterpreter;
 	add: #ChessParser;
 	add: #ChessPgnParser;
 	yourself.
@@ -24,6 +25,11 @@ package!
 
 "Class Definitions"!
 
+Object subclass: #ChessGamePgnInterpreter
+	instanceVariableNames: 'systemRoot moves whitePositions blackPositions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 Object subclass: #ChessParser
 	instanceVariableNames: 'systemRoot parserStream'
 	classVariableNames: ''
@@ -35,7 +41,7 @@ ChessParser subclass: #ChessFenParser
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessParser subclass: #ChessPgnParser
-	instanceVariableNames: 'gameProperties moves whitePositions blackPositions parsedMoves'
+	instanceVariableNames: 'gameProperties whitePositions blackPositions pgnMoves parsedMoves'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

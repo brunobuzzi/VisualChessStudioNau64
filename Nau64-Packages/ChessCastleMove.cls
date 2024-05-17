@@ -10,6 +10,9 @@ ChessCastleMove comment: ''!
 !ChessCastleMove categoriesForClass!Unclassified! !
 !ChessCastleMove methodsFor!
 
+isCastle
+	^true!
+
 performBlackCastleOn: aChessboard withPostActionOn: aChessGame
 
 	self subclassResponsibility!
@@ -24,6 +27,7 @@ performWhiteCastleOn: aChessboard withPostActionOn: aChessGame
 
 	self subclassResponsibility! !
 !ChessCastleMove categoriesForMethods!
+isCastle!public! !
 performBlackCastleOn:withPostActionOn:!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
 performWhiteCastleOn:withPostActionOn:!public! !

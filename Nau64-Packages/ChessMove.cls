@@ -34,6 +34,10 @@ isBlackOn: aChessboard
 	ifFalse: [(aChessboard pieceAtCoordinate: to) isBlack]
 	ifTrue: [(aChessboard pieceAtCoordinate: from) isBlack]!
 
+isCastle
+
+	^categories anySatisfy: [:each | each isCastle]!
+
 isEnPassantEnabler
 	^categories anySatisfy: [:each | each isEnPassantEnabler]!
 
@@ -151,6 +155,7 @@ from!public! !
 isBlackCurrentSideMovingOn:!public! !
 isBlackEnPassantEnabledFrom:to:!en passant!public! !
 isBlackOn:!public! !
+isCastle!public! !
 isEnPassantEnabler!public! !
 isPromotion!public! !
 isWhiteEnPassantEnabledFrom:to:!en passant!public! !

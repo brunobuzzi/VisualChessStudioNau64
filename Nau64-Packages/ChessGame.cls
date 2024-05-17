@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #ChessGame
-	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialFenPosition initialSideToMove whiteCastleStatus blackCastleStatus'
+	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialFenPosition initialSideToMove whiteCastleStatus blackCastleStatus pgnMoves'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -75,6 +75,10 @@ isCorrectSideToMove: aChessPiece on: aChessboard
 
 	^(self nextSideToMoveOn: aChessboard) = aChessPiece sideName!
 
+isLastPgnAnnotation: anArray
+
+	^pgnMoves last == anArray!
+
 lastMoveIsBlackEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 
 	^moves lastMoveIsBlackEnPassantEnabledFrom: originCoordinate to: targetCoordinate!
@@ -136,6 +140,10 @@ performMove: aChessMove on: aChessboard
 		on: aChessboard 
 		withPostActionOn: self!
 
+pgnMovesDo: aBlock
+
+	pgnMoves do: aBlock!
+
 printMoves
 
 	^moves printMoves!
@@ -171,6 +179,10 @@ setOptionFromFenParser: aChessFenParser
 
 !
 
+setPgnMoves: anOrderedCollection
+
+	pgnMoves := anOrderedCollection!
+
 setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer fenString: fenString
 	| parser |
 
@@ -190,6 +202,7 @@ setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer
 	blackCastleStatus := ChessCastleStatus newOn: self.
 
 	initialFenPosition := fenString ifNil: [self initialFenStringPosition] ifNotNil: [fenString].
+	pgnMoves := OrderedCollection new.
 	parser := ChessFenParser newOn: aSystemRoot fenString: (fenString ifNil: [initialFenPosition]).
 	self setOptionFromFenParser: parser.
 !
@@ -213,8 +226,10 @@ setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer
 	blackCastleStatus := ChessCastleStatus newOn: self.
 
 	initialFenPosition := self initialFenStringPosition.
+	pgnMoves := OrderedCollection new.
 	parser := ChessPgnParser newOn: aSystemRoot pgnString: pgnString.
-	parser buildGameFor: self
+	"parser buildGameFor: self"
+	parser buildPgnListFor: self
 !
 
 undoLastMoveOn: aChessboard
@@ -235,6 +250,7 @@ ifWhiteQueenSideCastleNotEnabled:!castle!public! !
 initialFenStringPosition!private! !
 initialSideToMove!public! !
 isCorrectSideToMove:on:!public! !
+isLastPgnAnnotation:!moves!public! !
 lastMoveIsBlackEnPassantEnabledFrom:to:!en passant!public! !
 lastMoveIsWhiteEnPassantEnabledFrom:to:!en passant!public! !
 lastSideToMoveOn:!public! !
@@ -245,6 +261,7 @@ nextSideToMoveOn:!public! !
 nextSideToMoveOn:isBlackDo:!public! !
 nextSideToMoveOn:isWhiteDo:!public! !
 performMove:on:!moves!public! !
+pgnMovesDo:!moves!public! !
 printMoves!public! !
 printMovesOn:!public! !
 redoFirstMoveOn:!moves!public! !
@@ -252,6 +269,7 @@ redoNextMoveOn:!moves!public! !
 setInitialMoveToBlack!public! !
 setInitialMoveToWhite!public! !
 setOptionFromFenParser:!parser-fen!public! !
+setPgnMoves:!parser-pgn!public! !
 setRoot:whitePlayer:blackPlayer:fenString:!private! !
 setRoot:whitePlayer:blackPlayer:pgnString:!private! !
 undoLastMoveOn:!moves!public! !

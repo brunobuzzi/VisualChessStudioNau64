@@ -93,9 +93,8 @@ renderChessboard
 	self imageModel: gdiBitmap asValue!
 
 setGame: aChessGame
-
 	chessGame := aChessGame.
-	gamePlayer := ChessGamePlayer newOn: chessGame chessboard: model.!
+	gamePlayer := ChessGameExecutor newOn: chessGame chessboard: model!
 
 setRoot: aSystemRoot
 

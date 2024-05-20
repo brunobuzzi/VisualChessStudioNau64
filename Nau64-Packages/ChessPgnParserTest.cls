@@ -27,7 +27,7 @@ testParseCompleteSimpleGame
 
 	game := ChessGame newOn: systemRoot whitePlayer: '' blackPlayer: '' pgnString: string.
 	game newPgnExecutor.
-self halt.!
+!
 
 testParseGameData
 	| string parser |

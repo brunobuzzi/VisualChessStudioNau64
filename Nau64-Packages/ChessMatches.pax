@@ -49,7 +49,7 @@ Object subclass: #ChessCastleStatus
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #ChessGame
-	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialFenPosition initialSideToMove whiteCastleStatus blackCastleStatus pgnString pgnMoves'
+	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer initialFenPosition initialSideToMove pgnString pgnMoves'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

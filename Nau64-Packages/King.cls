@@ -14,7 +14,17 @@ fenString
 
 	^self isBlack ifTrue: ['k'] ifFalse: ['K']!
 
-isCheckMatedOn: aChessboard
+isChecked
+	| isAttacked |
+
+	isAttacked := false.
+	self oppositeSideDo: [:oppositeSide | 
+		oppositeSide squaresToMoveDo: [:square | (square == self currentChessSquare) ifTrue: [isAttacked := true]]
+	].
+
+	^isAttacked!
+
+isCheckMated
 	| secureSquares isAttacked |
 
 	isAttacked := false.
@@ -65,7 +75,8 @@ squaresToMoveFrom: aChessSquare do: aBlock
 	self secureSquaresFrom: aChessSquare do: aBlock! !
 !King categoriesForMethods!
 fenString!public! !
-isCheckMatedOn:!new framework!public! !
+isChecked!new framework!public! !
+isCheckMated!new framework!public! !
 isKing!public!testing! !
 pgnString!public! !
 pruneUnreacheableSquaresFrom:!new framework!public! !

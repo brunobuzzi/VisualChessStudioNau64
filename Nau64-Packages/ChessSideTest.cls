@@ -49,7 +49,7 @@ testIsStaleMated1
 	chessboard := Chessboard newEmptyOn: systemRoot.
 	(ChessFenParser newOn: systemRoot fenString: '1k6/7Q/8/8/8/8/8/R1RK4/ w - - 1 20') deployOn: chessboard.
 	blackKing := chessboard pieceAt: (#b8 asChessSquareIn: systemRoot).
-	self deny: (blackKing isCheckMatedOn: chessboard).
+	self deny: blackKing isCheckMated.
 	chessboard blackSideDo: [:side | self assert: side isStaledMated].!
 
 testIsStaleMated2
@@ -58,7 +58,7 @@ testIsStaleMated2
 	chessboard := Chessboard newEmptyOn: systemRoot.
 	(ChessFenParser newOn: systemRoot fenString: '7Q/k7/p7/Bp6/1N6/8/8/1K5B/ w - - 1 20') deployOn: chessboard.
 	blackKing := chessboard pieceAt: (#a7 asChessSquareIn: systemRoot).
-	self deny: (blackKing isCheckMatedOn: chessboard).
+	self deny: blackKing isCheckMated.
 	chessboard blackSideDo: [:side | self assert: side isStaledMated].!
 
 testKingAlmostCheckMated
@@ -74,7 +74,7 @@ testKingAlmostCheckMated
 
 	blackKing := chessboard pieceAt: (#d1 asChessSquareIn: systemRoot).
 	blackRook := chessboard pieceAt: (#e8 asChessSquareIn: systemRoot).
-	self deny: (blackKing isCheckMatedOn: chessboard).!
+	self deny: blackKing isCheckMated.!
 
 testKingInCheck
 	| blackQueen blackKing game fenString gameExecutor |

@@ -36,28 +36,28 @@ testCheckMates
 	chessboard := Chessboard newEmptyOn: systemRoot.
 	(ChessFenParser newOn: systemRoot fenString: 'r7/8/K1k5/8/8/8/8/8/ w - - 1 20') deployOn: chessboard.
 	checkMatedKing := chessboard pieceAt: (#a6 asChessSquareIn: systemRoot).
-	self assert: (checkMatedKing isCheckMatedOn: chessboard).
+	self assert: checkMatedKing isCheckMated.
 	otherKing := chessboard pieceAt: (#c6 asChessSquareIn: systemRoot).
-	self deny: (otherKing isCheckMatedOn: chessboard).
+	self deny: otherKing isCheckMated.
 
 	chessboard := Chessboard newEmptyOn: systemRoot.
 	(ChessFenParser newOn: systemRoot fenString: 'B7/4R3/5Q2/1K6/4k3/R7/8/8/ w - - 1 20') deployOn: chessboard.
 	checkMatedKing := chessboard pieceAt: (#e4 asChessSquareIn: systemRoot).
-	self assert: (checkMatedKing isCheckMatedOn: chessboard).
+	self assert: checkMatedKing isCheckMated.
 	otherKing := chessboard pieceAt: (#b5 asChessSquareIn: systemRoot).
-	self deny: (otherKing isCheckMatedOn: chessboard).
+	self deny: otherKing isCheckMated.
 
 	chessboard := Chessboard newEmptyOn: systemRoot.
 	(ChessFenParser newOn: systemRoot fenString: 'B7/4RQ2/8/1K6/4k3/R7/8/8/ w - - 1 20') deployOn: chessboard.
 	checkMatedKing := chessboard pieceAt: (#e4 asChessSquareIn: systemRoot).
-	self deny: (checkMatedKing isCheckMatedOn: chessboard).
+	self deny: checkMatedKing isCheckMated.
 	chessboard movePieceFromCoordiante: #f7 to: #f6.
-	self assert: (checkMatedKing isCheckMatedOn: chessboard).
+	self assert: checkMatedKing isCheckMated.
 
 	chessboard := Chessboard newEmptyOn: systemRoot.
 	(ChessFenParser newOn: systemRoot fenString: '8/8/8/8/8/1n2n3/8/3K1k2/ w - - 1 20') deployOn: chessboard.
 	checkMatedKing := chessboard pieceAt: (#d1 asChessSquareIn: systemRoot).
-	self assert: (checkMatedKing isCheckMatedOn: chessboard)
+	self assert: checkMatedKing isCheckMated
 
 !
 

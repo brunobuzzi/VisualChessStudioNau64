@@ -1,7 +1,16 @@
 ﻿| package |
 package := Package name: 'ChessBasicElements'.
 package paxVersion: 1;
-	basicComment: ''.
+	basicComment: 'Todo List:
+
+* Unify ChessGamePgnInterpreter and ChessPgnParser both implement the same protocol #buildGameFor:, etc
+   - Also share instances variables (the original idea was to implement this behavior on ChessGamePgnInterpreter)
+
+Unimplemented rules:
+* ChessSideTest>>testKingInCheck
+* ChessSideTest>>testKingAlmostCheckMated
+
+'.
 
 package basicScriptAt: #postinstall put: 'ChessFile initializeFiles.
 ChessRank initializeRanks.

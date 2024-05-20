@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 AbstractChessboardPresenter subclass: #ChessGamePresenter
-	instanceVariableNames: 'chessGame gamePlayer'
+	instanceVariableNames: 'chessGame gameExecutor'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -9,6 +9,13 @@ ChessGamePresenter guid: (GUID fromString: '{2f0bf0a9-c497-4443-98a4-e1081722f91
 ChessGamePresenter comment: ''!
 !ChessGamePresenter categoriesForClass!Unclassified! !
 !ChessGamePresenter methodsFor!
+
+buildFenExecutorFor: aChessboard
+
+	gameExecutor := chessGame newFenExecutorOn: aChessboard!
+
+chessGame
+	^chessGame!
 
 endTrackingAt: aPoint 
 	| originSquare targetSquare piece move promotionPieceClass |
@@ -19,16 +26,16 @@ endTrackingAt: aPoint
 
 	piece := model pieceAt: originSquare.
 
-	(chessGame isCorrectSideToMove: piece on: model)
+	(gameExecutor isCorrectSideToMove: piece on: model)
 	ifFalse: [^MessageBubble notify: ('Wrong Side to move, it must move: [', piece oppositeSideName ,']') caption: 'Nau64'].
 
-	(piece isValidMoveFromCoordinate: originSquare coordinate to: targetSquare coordinate on: model on: chessGame) 
+	(piece isValidMoveFromCoordinate: originSquare coordinate to: targetSquare coordinate on: model on: gameExecutor) 
 	ifFalse: [^MessageBubble notify: ('Invalid move from [',  originSquare coordinate, '] to [',  targetSquare coordinate, ']') caption: 'Nau64'].
 
-	move := chessGame annotateMoveFrom: originSquare coordinate to: targetSquare coordinate on: model.
+	move := gameExecutor annotateMoveFrom: originSquare coordinate to: targetSquare coordinate on: model.
 	move isPromotion ifTrue: [[promotionPieceClass isNil] whileTrue: [promotionPieceClass := self selectPromotionPiece].
 						move promotion setPromotionPieceClass: promotionPieceClass].
-	chessGame performMove: move on: model.
+	gameExecutor performMove: move on: model.
 
 	self renderChessboard.!
 
@@ -39,12 +46,12 @@ model: aModel
 
 moveRedo
 
-	gamePlayer playNextMove.
+	gameExecutor playNextMove.
 	self renderChessboard.!
 
 moveRedoOn: aChessboard 
 
-	gamePlayer playNextMove.
+	gameExecutor playNextMove.
 	self renderChessboard.
 
 !
@@ -94,7 +101,7 @@ renderChessboard
 
 setGame: aChessGame
 	chessGame := aChessGame.
-	gamePlayer := ChessGameExecutor newOn: chessGame chessboard: model!
+	gameExecutor := ChessGameExecutor newOn: chessGame chessboard: model!
 
 setRoot: aSystemRoot
 
@@ -106,17 +113,19 @@ setRoot: aSystemRoot fenString: fenString
 
 	chessGame := ChessGame newOn: aSystemRoot whitePlayer: nil blackPlayer: nil fenString: fenString.
 
-	fenString ifNotNil: [ | parser |
+"	fenString ifNotNil: [ | parser |
 		parser := ChessFenParser newOn: aSystemRoot fenString: fenString.
 		chessGame setOptionFromFenParser: parser.
 		parser deployOn: self model.
-	].
+	]."
 !
 
 startTrackingAt: aPoint 
 
 	super startTrackingAt: aPoint.! !
 !ChessGamePresenter categoriesForMethods!
+buildFenExecutorFor:!public! !
+chessGame!public! !
 endTrackingAt:!drag & drop!public! !
 model:!public! !
 moveRedo!moves!public! !

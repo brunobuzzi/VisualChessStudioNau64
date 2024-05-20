@@ -10,6 +10,14 @@ ChessGameShell comment: ''!
 !ChessGameShell categoriesForClass!Unclassified! !
 !ChessGameShell methodsFor!
 
+buildFenExecutorFor: aChessboard
+
+	chessGamePresenter buildFenExecutorFor: aChessboard!
+
+chessGame
+
+	^chessGamePresenter chessGame!
+
 createComponents
 	super createComponents.
 	chessGamePresenter := self add: (ChessGamePresenter newOn: systemRoot)
@@ -62,6 +70,8 @@ toogleCenterChunk
 
 	chessGamePresenter toogleCenterChunk! !
 !ChessGameShell categoriesForMethods!
+buildFenExecutorFor:!public! !
+chessGame!public! !
 createComponents!public! !
 defaultChessPresenter!public! !
 model:!public! !
@@ -103,6 +113,7 @@ showWithFenString: fenString on: aSystemRoot
 	chessboard := Chessboard newEmptyOn: aSystemRoot.
 	shell := self createOn: chessboard.
 	shell setRoot: aSystemRoot fenString: fenString.
+	shell buildFenExecutorFor: chessboard.
 	shell show;
 		renderChessboard.
 	^shell!

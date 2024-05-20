@@ -12,12 +12,15 @@ package classNames
 	add: #ChessCheckMove;
 	add: #ChessEnPassantCaptureMove;
 	add: #ChessEnPassantEnablerMove;
+	add: #ChessFenGameExecutor;
 	add: #ChessGame;
+	add: #ChessGameExecutor;
 	add: #ChessKingSideCastleMove;
 	add: #ChessMove;
 	add: #ChessMoveCategory;
 	add: #ChessMoveNode;
 	add: #ChessMoveTreeList;
+	add: #ChessPgnGameExecutor;
 	add: #ChessPlayer;
 	add: #ChessPromotionMove;
 	add: #ChessQueenSideCastleMove;
@@ -46,7 +49,12 @@ Object subclass: #ChessCastleStatus
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #ChessGame
-	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialFenPosition initialSideToMove whiteCastleStatus blackCastleStatus pgnMoves'
+	instanceVariableNames: 'systemRoot dateTime whitePlayer blackPlayer moves initialFenPosition initialSideToMove whiteCastleStatus blackCastleStatus pgnString pgnMoves'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessGameExecutor
+	instanceVariableNames: 'game chessboard currentMove moves whiteCastleStatus blackCastleStatus'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -72,6 +80,16 @@ Object subclass: #ChessMoveTreeList
 	classInstanceVariableNames: ''!
 Object subclass: #ChessPlayer
 	instanceVariableNames: 'name surname currentElo games'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessGameExecutor subclass: #ChessFenGameExecutor
+	instanceVariableNames: 'initialSideToMove'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessGameExecutor subclass: #ChessPgnGameExecutor
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

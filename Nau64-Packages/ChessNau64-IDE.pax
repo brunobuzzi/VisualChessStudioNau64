@@ -19,7 +19,6 @@ package classNames
 	add: #ChessChunkEffect;
 	add: #ChessForkEffect;
 	add: #ChessFourChunkEffect;
-	add: #ChessGameExecutor;
 	add: #ChessGamePresenter;
 	add: #ChessGameShell;
 	add: #ChessPartialPinEffect;
@@ -87,11 +86,6 @@ package!
 
 Object subclass: #ChessboardEffect
 	instanceVariableNames: 'chessboard'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-Object subclass: #ChessGameExecutor
-	instanceVariableNames: 'game chessboard currentMove'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -166,7 +160,7 @@ AbstractChessboardPresenter subclass: #ChessboardSquaresPresenter
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 AbstractChessboardPresenter subclass: #ChessGamePresenter
-	instanceVariableNames: 'chessGame gamePlayer'
+	instanceVariableNames: 'chessGame gameExecutor'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

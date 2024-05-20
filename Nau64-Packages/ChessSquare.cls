@@ -110,13 +110,13 @@ knightSquaresWith: aChessOrientationVector do: aBlock
 	slidingSquares := OrderedCollection new.
 	newFile := file.
 	newRank := rank.
-	((newFile number + (aChessOrientationVector fileSign * 2)) isInChessRange and: [(newRank number + aChessOrientationVector rankSign) isInChessRange])
+	((file number + (aChessOrientationVector fileSign * 2)) isInChessRange and: [(rank number + aChessOrientationVector rankSign) isInChessRange])
 	ifTrue: [
 		newFile := file next: aChessOrientationVector fileSign * 2.
 		newRank := rank next: aChessOrientationVector rankSign.
 		slidingSquares add: (systemRoot squareAtFile: newFile atRank: newRank).
 	].
-	((newFile number + aChessOrientationVector fileSign) isInChessRange and: [(newRank number + (aChessOrientationVector rankSign * 2)) isInChessRange])
+	((file number + aChessOrientationVector fileSign) isInChessRange and: [(rank number + (aChessOrientationVector rankSign * 2)) isInChessRange])
 	ifTrue: [ 
 		newFile := file next: aChessOrientationVector fileSign.
 		newRank := rank next: aChessOrientationVector rankSign * 2.

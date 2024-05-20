@@ -6,9 +6,11 @@ package paxVersion: 1;
 * Unify ChessGamePgnInterpreter and ChessPgnParser both implement the same protocol #buildGameFor:, etc
    - Also share instances variables (the original idea was to implement this behavior on ChessGamePgnInterpreter)
 
+* More tests for complicated positions.
 
+* Start to think on the ChessEngine and similars
 
-'.
+* Implement Tactical searchers'.
 
 package basicScriptAt: #postinstall put: 'ChessFile initializeFiles.
 ChessRank initializeRanks.

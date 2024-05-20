@@ -20,7 +20,7 @@ applyRedoTo: aChessMove on: aChessboard
 isPromotion
 	^true!
 
-performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGame
+performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGameExecutor
 	| piece |
 	piece := aChessboard pieceAtCoordinate: originCoordinateSymbol.
 	piece chessSideDo: [:side | side promote: piece at: targetCoordinateSymbol to: selectedPiece].!

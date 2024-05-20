@@ -146,9 +146,9 @@ newInitialChessboard
 newPgnExecutor
 	| pgnExecutor parser |
 
-	pgnExecutor := ChessFenGameExecutor newOn: self.
+	pgnExecutor := ChessPgnGameExecutor newOn: self.
 
-	parser := ChessPgnParser newOn: systemRoot pgnString: initialFenPosition.
+	parser := ChessPgnParser newOn: systemRoot pgnString: pgnString.
 	parser buildGameFor: pgnExecutor.
 
 	^pgnExecutor!
@@ -161,12 +161,12 @@ self shouldNotImplement.
 !
 
 nextSideToMoveOn: aChessboard isBlackDo: aBlock
-
+self shouldNotImplement.
 	(self nextSideToMoveOn: aChessboard) = #black
 	ifTrue: [aBlock value]!
 
 nextSideToMoveOn: aChessboard isWhiteDo: aBlock
-
+self shouldNotImplement.
 	(self nextSideToMoveOn: aChessboard) = #white
 	ifTrue: [aBlock value]!
 
@@ -268,6 +268,9 @@ setRoot: aSystemRoot whitePlayer: whiteChessPlayer blackPlayer: blackChessPlayer
 	parser buildPgnListFor: self"
 !
 
+systemRoot
+	^systemRoot!
+
 undoLastMoveOn: aChessboard
 self shouldNotImplement.
 	moves undoLastMoveOn: aChessboard! !
@@ -312,6 +315,7 @@ setOptionFromFenParser:!parser-fen!public! !
 setPgnMoves:!parser-pgn!public! !
 setRoot:whitePlayer:blackPlayer:fenString:!private! !
 setRoot:whitePlayer:blackPlayer:pgnString:!private! !
+systemRoot!parser-pgn!public! !
 undoLastMoveOn:!moves!public! !
 !
 

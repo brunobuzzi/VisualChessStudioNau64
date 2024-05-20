@@ -103,6 +103,16 @@ nextSideToMoveOn: aChessboard
 	^moves nextSideToMoveOn: aChessboard
 !
 
+nextSideToMoveOn: aChessboard isBlackDo: aBlock
+
+	(self nextSideToMoveOn: aChessboard) = #black
+	ifTrue: [aBlock value]!
+
+nextSideToMoveOn: aChessboard isWhiteDo: aBlock
+
+	(self nextSideToMoveOn: aChessboard) = #white
+	ifTrue: [aBlock value]!
+
 performMove: aChessMove on: aChessboard
 
 	aChessMove 
@@ -171,6 +181,8 @@ moveFrom:to:on:!moves!public! !
 movesDo:!moves!public! !
 newInitialChessboard!chessboard!public! !
 nextSideToMoveOn:!public! !
+nextSideToMoveOn:isBlackDo:!public! !
+nextSideToMoveOn:isWhiteDo:!public! !
 performMove:on:!moves!public! !
 playNextMove!public! !
 printMoves!public! !

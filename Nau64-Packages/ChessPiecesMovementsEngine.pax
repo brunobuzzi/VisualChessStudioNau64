@@ -181,13 +181,13 @@ isValidMoveFromCoordinate: originCoordinate to: targetCoordinate
 
 	^self isValidMoveFrom: (originCoordinate asChessSquareIn: self systemRoot) to: (targetCoordinate asChessSquareIn: self systemRoot)!
 
-isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessGame
+isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessGameExecutor
 
 	^self isValidMoveFrom: (originCoordinate asChessSquareIn: self systemRoot) to: (targetCoordinate asChessSquareIn: self systemRoot)!
 
-isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessbord on: aChessGame
+isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessbord on: aChessGameExecutor
 
-	^self isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessGame!
+	^self isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessGameExecutor!
 
 orientations
 
@@ -210,13 +210,13 @@ orientationVectorFrom:to:!public! !
 
 !King methodsFor!
 
-isValidBlackCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboard on: aChessGame
+isValidBlackCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboard on: aChessGameExecutor
 
 	((originCoordinate ~= #e8) or: [(targetCoordinate ~= #g8) and:[targetCoordinate ~= #c8]]) ifTrue: [^false].
 
-	(targetCoordinate = #g8) ifTrue: [aChessGame ifBlackKindSideCastleNotEnabled: [^false]].
+	(targetCoordinate = #g8) ifTrue: [aChessGameExecutor ifBlackKindSideCastleNotEnabled: [^false]].
 
-	(targetCoordinate = #c8) ifTrue: [aChessGame ifBlackQueenSideCastleNotEnabled: [^false]].
+	(targetCoordinate = #c8) ifTrue: [aChessGameExecutor ifBlackQueenSideCastleNotEnabled: [^false]].
 
 	self oppositeSideDo: [:side | 
 		side allAttackedSquaresDo: [:square |  | castleSquareCollection |
@@ -229,23 +229,24 @@ isValidBlackCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboar
 	^true
 	!
 
-isValidCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboard on: aChessGame
+isValidCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboard on: aChessGameExecutor
 
 	^self isBlack 
-	ifTrue: [self isValidBlackCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboard on: aChessGame] 
-	ifFalse: [self isValidWhiteCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboard on: aChessGame]!
+	ifTrue: [self isValidBlackCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboard on: aChessGameExecutor] 
+	ifFalse: [self isValidWhiteCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboard on: aChessGameExecutor]!
 
-isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessbord on: aChessGame
+isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessbord on: aChessGameExecutor
 
-	^(self isValidCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessbord on: aChessGame) or: [super isValidMoveFromCoordinate: originCoordinate to: targetCoordinate]!
+	^(self isValidCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessbord on: aChessGameExecutor) 
+		or: [super isValidMoveFromCoordinate: originCoordinate to: targetCoordinate]!
 
-isValidWhiteCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboard on: aChessGame
+isValidWhiteCastleMoveFrom: originCoordinate to: targetCoordinate on: aChessboard on: aChessGameExecutor
 
 	((originCoordinate ~= #e1) or: [(targetCoordinate ~= #g1) and:[targetCoordinate ~= #c1]]) ifTrue: [^false].
 
-	(targetCoordinate = #g1) ifTrue: [aChessGame ifWhiteKindSideCastleNotEnabled: [^false]].
+	(targetCoordinate = #g1) ifTrue: [aChessGameExecutor ifWhiteKindSideCastleNotEnabled: [^false]].
 
-	(targetCoordinate = #c1) ifTrue: [aChessGame ifWhiteQueenSideCastleNotEnabled: [^false]].
+	(targetCoordinate = #c1) ifTrue: [aChessGameExecutor ifWhiteQueenSideCastleNotEnabled: [^false]].
 
 	self oppositeSideDo: [:side | 
 		side allAttackedSquaresDo: [:square |  | castleSquareCollection |
@@ -321,28 +322,29 @@ squaresScopeFrom:!new framework!public! !
 
 !Pawn methodsFor!
 
-isValidBlackEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame 
+isValidBlackEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGameExecutor 
 
 	self oppositeSideDo: [:side | (side anyPawnAtEnPassantMoveFrom: originCoordinate) ifFalse: [^false]].
 
-	^aChessGame lastMoveIsBlackEnPassantEnabledFrom: originCoordinate to: targetCoordinate
+	^aChessGameExecutor lastMoveIsBlackEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 	!
 
-isValidEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame
+isValidEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGameExecutor
 
 	^self isBlack 
-	ifTrue: [self isValidBlackEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame] 
-	ifFalse: [self isValidWhiteEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame]!
+	ifTrue: [self isValidBlackEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGameExecutor] 
+	ifFalse: [self isValidWhiteEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGameExecutor]!
 
-isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessGame
+isValidMoveFromCoordinate: originCoordinate to: targetCoordinate on: aChessGameExecutor
 
-	^(super isValidMoveFromCoordinate: originCoordinate to: targetCoordinate) or: [self isValidEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame]!
+	^(super isValidMoveFromCoordinate: originCoordinate to: targetCoordinate) 
+		or: [self isValidEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGameExecutor]!
 
-isValidWhiteEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGame 
+isValidWhiteEnPassantMoveFrom: originCoordinate to: targetCoordinate on: aChessGameExecutor 
 
 	self oppositeSideDo: [:side | (side anyPawnAtEnPassantMoveFrom: originCoordinate) ifFalse: [^false]].
 
-	^aChessGame lastMoveIsWhiteEnPassantEnabledFrom: originCoordinate to: targetCoordinate
+	^aChessGameExecutor lastMoveIsWhiteEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 	!
 
 orientations

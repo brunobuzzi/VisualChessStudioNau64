@@ -23,7 +23,7 @@ isEnPassantEnabler
 isPromotion
 	^false!
 
-performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: aChessGame
+performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: aChessGameExecutor
 
 	self subclassResponsibility!
 

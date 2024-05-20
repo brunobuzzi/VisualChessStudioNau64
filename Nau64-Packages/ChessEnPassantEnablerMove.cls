@@ -16,7 +16,7 @@ applyRedoTo: aChessMove on: aChessboard
 isEnPassantEnabler
 	^true!
 
-performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGame
+performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGameExecutor
 	"Nothing to do, it is only a enabler for the next move" !
 
 undoOn: aChessboard 

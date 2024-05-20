@@ -15,14 +15,14 @@ applyRedoTo: aChessMove on: aChessboard
 	aChessboard movePieceFromCoordiante: move from to: move to.
 	aChessboard removeEnPassantPawn: move to!
 
-performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGame
+performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGameExecutor
 
-	aChessGame nextSideToMoveOn: aChessboard isBlackDo: [
+	aChessGameExecutor nextSideToMoveOn: aChessboard isBlackDo: [
 		originCoordinateSymbol last = 5 ifFalse: [^self].
 		(aChessboard pieceAtCoordinate: targetCoordinateSymbol) isPawn ifFalse: [^self].
 		
 	].
-	aChessGame nextSideToMoveOn: aChessboard isWhiteDo: [
+	aChessGameExecutor nextSideToMoveOn: aChessboard isWhiteDo: [
 		originCoordinateSymbol last = 4 ifFalse: [^self].
 		(aChessboard pieceAtCoordinate: targetCoordinateSymbol) isPawn ifFalse: [^self].
 	].

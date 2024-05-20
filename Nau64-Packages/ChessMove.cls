@@ -52,13 +52,13 @@ isWhiteEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 		and: [targetCoordinate first = to first].
 	!
 
-performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: aChessGame
+performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: aChessGameExecutor
 
 	(categories isEmpty or: [categories allSatisfy: [:each | each isEnPassantEnabler]])
 	ifTrue: [aChessboard movePieceFromCoordiante: from to: to]
-	ifFalse: [categories do: [:each | each performPieceSwitchFrom: from to: to on: aChessboard withPostActionOn: aChessGame]].
+	ifFalse: [categories do: [:each | each performPieceSwitchFrom: from to: to on: aChessboard withPostActionOn: aChessGameExecutor]].
 
-	aChessGame disableCastleForPieceMovedFrom: originSymbolCoordiante on: aChessboard.
+	aChessGameExecutor disableCastleForPieceMovedFrom: originSymbolCoordiante on: aChessboard.
 
 	
 !

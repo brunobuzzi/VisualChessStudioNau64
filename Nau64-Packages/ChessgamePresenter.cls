@@ -63,7 +63,7 @@ moveUndo
 
 moveUndoOn: aChessboard
 
-	chessGame undoLastMoveOn: aChessboard.
+	gameExecutor undoLastMoveOn: aChessboard.
 
 	self renderChessboard.!
 

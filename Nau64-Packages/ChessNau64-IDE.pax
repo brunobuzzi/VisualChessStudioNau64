@@ -48,7 +48,6 @@ package methodNames
 	add: #ChessSquare -> #drawOn:chessboard:isDisplayCoordinatesEnabled:;
 	add: #ChessSquare -> #drawOn2:chessboard:isDisplayCoordinatesEnabled:;
 	add: #ChessSquare -> #drawOn3:chessboard:isDisplayCoordinatesEnabled:;
-	add: #King -> #canvasIconAt2:;
 	add: #MouseTracker -> #sumStartLocalPointTo:;
 	yourself.
 
@@ -423,25 +422,6 @@ drawOn3: aCanvas chessboard: aChessboard isDisplayCoordinatesEnabled: isDisplayC
 drawOn:chessboard:isDisplayCoordinatesEnabled:!public! !
 drawOn2:chessboard:isDisplayCoordinatesEnabled:!public! !
 drawOn3:chessboard:isDisplayCoordinatesEnabled:!public! !
-!
-
-!King methodsFor!
-
-canvasIconAt2: aChessSquare
-	| file colorPiecePrefix squarePrefix chessboardModel |
-
-	chessboardModel := 'azul_'.
-	file := self pieceCode.
-	colorPiecePrefix := self isBlack ifTrue: ['b'] ifFalse: ['w'].
-	squarePrefix := aChessSquare isBlack ifTrue: ['b'] ifFalse: ['w'].
-
-	^Bitmap fromFile: (FileLocator imageRelative basePath, 'icons\king-test.bmp')
-
-	
-	"colorPiecePrefix := self class name asLowercase, '-', (self isBlack ifTrue: ['black'] ifFalse: ['white'] ).
-	^Bitmap fromFile: (FileLocator imageRelative basePath, 'icons\', colorPiecePrefix, '.bmp')"! !
-!King categoriesForMethods!
-canvasIconAt2:!public! !
 !
 
 !MouseTracker methodsFor!

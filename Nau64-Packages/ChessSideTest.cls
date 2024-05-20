@@ -11,7 +11,7 @@ ChessSideTest comment: ''!
 !ChessSideTest methodsFor!
 
 testCastleSquaresUnderAttack
-	| whiteKing blackKing game fenString |
+	| whiteKing blackKing game fenString gameExecutor |
 	fenString := 'r3k2r/b3ppp1/p6p/8/6B1/P4P2/4P1PP/R3K2R/ w KQkq - 1 20'.
 	game := ChessGame
 				newOn: systemRoot
@@ -19,28 +19,29 @@ testCastleSquaresUnderAttack
 				blackPlayer: nil
 				fenString: fenString.
 	chessboard := game newInitialChessboard.
+	gameExecutor := game newFenExecutorOn: chessboard.
 	whiteKing := chessboard pieceAt: (#e1 asChessSquareIn: systemRoot).
 	blackKing := chessboard pieceAt: (#e8 asChessSquareIn: systemRoot).
 	self assert: (whiteKing
 				isValidCastleMoveFrom: #e1
 				to: #c1
 				on: chessboard
-				on: game).
+				on: gameExecutor).
 	self assert: (blackKing
 				isValidCastleMoveFrom: #e8
 				to: #g8
 				on: chessboard
-				on: game).
+				on: gameExecutor).
 	self deny: (whiteKing
 				isValidCastleMoveFrom: #e1
 				to: #g1
 				on: chessboard
-				on: game).
+				on: gameExecutor).
 	self deny: (blackKing
 				isValidCastleMoveFrom: #e8
 				to: #c8
 				on: chessboard
-				on: game)!
+				on: gameExecutor)!
 
 testIsStaleMated1
 	| blackKing |
@@ -61,7 +62,7 @@ testIsStaleMated2
 	chessboard blackSideDo: [:side | self assert: side isStaledMated].!
 
 testKingSideBlackCastle
-	| king game |
+	| king game gameExecutor |
 	
 	game := ChessGame
 				newOn: systemRoot
@@ -69,11 +70,12 @@ testKingSideBlackCastle
 				blackPlayer: nil
 				fenString: '4k2r/8/8/8/8/8/8/8/ b KQkq - 1 20'.
 	chessboard := game newInitialChessboard.
+	gameExecutor := game newFenExecutorOn: chessboard.
 	king := chessboard pieceAt: (#e8 asChessSquareIn: systemRoot).
-	self assert: (king isValidCastleMoveFrom: #e8 to: #g8 on: chessboard on: game).!
+	self assert: (king isValidCastleMoveFrom: #e8 to: #g8 on: chessboard on: gameExecutor).!
 
 testKingSideWhiteCastle
-	| king game |
+	| king game gameExecutor |
 	
 	game := ChessGame
 				newOn: systemRoot
@@ -81,8 +83,9 @@ testKingSideWhiteCastle
 				blackPlayer: nil
 				fenString: '8/8/8/8/8/8/8/4K2R/ w KQkq - 1 20'.
 	chessboard := game newInitialChessboard.
+	gameExecutor := game newFenExecutorOn: chessboard.
 	king := chessboard pieceAt: (#e1 asChessSquareIn: systemRoot).
-	self assert: (king isValidCastleMoveFrom: #e1 to: #g1 on: chessboard on: game).!
+	self assert: (king isValidCastleMoveFrom: #e1 to: #g1 on: chessboard on: gameExecutor).!
 
 testQueenPromotion
 	| pawn game |
@@ -107,7 +110,7 @@ testQueenPromotion
 !
 
 testQueenSideBlackCastle
-	| king game |
+	| king game gameExecutor |
 	
 	game := ChessGame
 				newOn: systemRoot
@@ -115,12 +118,13 @@ testQueenSideBlackCastle
 				blackPlayer: nil
 				fenString: 'r3k3/8/8/8/8/8/8/8/ b KQkq - 1 20'.
 	chessboard := game newInitialChessboard.
+	gameExecutor := game newFenExecutorOn: chessboard.
 	king := chessboard pieceAt: (#e8 asChessSquareIn: systemRoot).
-	self assert: (king isValidCastleMoveFrom: #e8 to: #c8 on: chessboard on: game).
+	self assert: (king isValidCastleMoveFrom: #e8 to: #c8 on: chessboard on: gameExecutor).
 	!
 
 testQuenSideWhiteCastle
-	| king game |
+	| king game gameExecutor |
 	
 	game := ChessGame
 				newOn: systemRoot
@@ -128,8 +132,9 @@ testQuenSideWhiteCastle
 				blackPlayer: nil
 				fenString: '8/8/8/8/8/8/8/R3K3/ w KQkq - 1 20'.
 	chessboard := game newInitialChessboard.
+	gameExecutor := game newFenExecutorOn: chessboard.
 	king := chessboard pieceAt: (#e1 asChessSquareIn: systemRoot).
-	self assert: (king isValidCastleMoveFrom: #e1 to: #c1 on: chessboard on: game).
+	self assert: (king isValidCastleMoveFrom: #e1 to: #c1 on: chessboard on: gameExecutor).
 	! !
 !ChessSideTest categoriesForMethods!
 testCastleSquaresUnderAttack!public! !

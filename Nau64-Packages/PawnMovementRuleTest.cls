@@ -11,12 +11,13 @@ PawnMovementRuleTest comment: ''!
 !PawnMovementRuleTest methodsFor!
 
 testEnPassant
-	| chessGame |
+	| chessGame gameExecutor |
 
 	chessGame := ChessGame newOn: systemRoot whitePlayer: nil blackPlayer: nil fenString: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR/ w KQkq - 1 20'.
 	chessboard := chessGame newInitialChessboard.
+	gameExecutor := chessGame newFenExecutorOn: chessboard.
 
-	chessGame 
+	gameExecutor 
 		moveFrom: #e2 to: #e4 on: chessboard;
 		moveFrom: #e7 to: #e5 on: chessboard;
 		moveFrom: #d2 to: #d4 on: chessboard;

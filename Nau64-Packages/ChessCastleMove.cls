@@ -17,11 +17,11 @@ performBlackCastleOn: aChessboard withPostActionOn: aChessGame
 
 	self subclassResponsibility!
 
-performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: aChessGame
+performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: aChessGameExecutor
 
 	(move isBlackCurrentSideMovingOn: aChessboard)
-	ifTrue: [self performBlackCastleOn: aChessboard withPostActionOn: aChessGame] 
-	ifFalse: [self performWhiteCastleOn: aChessboard withPostActionOn: aChessGame]!
+	ifTrue: [self performBlackCastleOn: aChessboard withPostActionOn: aChessGameExecutor] 
+	ifFalse: [self performWhiteCastleOn: aChessboard withPostActionOn: aChessGameExecutor]!
 
 performWhiteCastleOn: aChessboard withPostActionOn: aChessGame
 

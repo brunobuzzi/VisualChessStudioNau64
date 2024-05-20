@@ -255,6 +255,7 @@ systemRoot
 
 validSquaresDictionaryFrom: aChessSquare do: aBlock
 	| squaresDictionaryScope |
+
 	squaresDictionaryScope := self squaresScopeFrom: aChessSquare.
 	squaresDictionaryScope pruneUnreachableSquares.
 	aBlock value: squaresDictionaryScope !

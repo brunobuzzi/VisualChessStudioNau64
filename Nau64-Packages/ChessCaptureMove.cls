@@ -10,7 +10,7 @@ ChessCaptureMove comment: ''!
 !ChessCaptureMove categoriesForClass!Unclassified! !
 !ChessCaptureMove methodsFor!
 
-performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGame
+performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGameExecutor
 
 	aChessboard movePieceFromCoordiante: originCoordinateSymbol to: targetCoordinateSymbol!
 

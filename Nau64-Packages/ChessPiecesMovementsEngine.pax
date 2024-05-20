@@ -20,7 +20,7 @@ package classNames
 
 package methodNames
 	add: #Bishop -> #orientations;
-	add: #ChessPiece -> #checkForAbsolutePinFrom:to:;
+	add: #ChessPiece -> #checkNoAbsolutePinFrom:to:;
 	add: #ChessPiece -> #currentChessSquare;
 	add: #ChessPiece -> #isInvalidMoveFrom:to:;
 	add: #ChessPiece -> #isValidMoveFrom:to:;
@@ -140,7 +140,7 @@ orientations!new framework!orientations do!public! !
 
 !ChessPiece methodsFor!
 
-checkForAbsolutePinFrom: originChessSquare to: targetChessSquare
+checkNoAbsolutePinFrom: originChessSquare to: targetChessSquare
 	| pins orientation |
 	pins := OrderedCollection new.
 	self oppositeSideDo: [:oppositeSide | 
@@ -171,7 +171,9 @@ isValidMoveFrom: originChessSquare to: targetChessSquare
 	isValid := false.
 	self squaresToMoveFrom: originChessSquare do: [:scopeSquare | scopeSquare == targetChessSquare ifTrue: [isValid := true]].
 
-	isValid ifTrue: [^self checkForAbsolutePinFrom: originChessSquare to: targetChessSquare].
+	isValid := isValid 
+			and: [(self checkNoAbsolutePinFrom: originChessSquare to: targetChessSquare) 
+				and: [(chessSide isStillInCheckAfterMoveFrom: originChessSquare to: targetChessSquare) not]].
 
 	^isValid
 
@@ -197,7 +199,7 @@ orientationVectorFrom: sourceChessSquare to: targetChessSquare
 
 	^ChessOrientationVector newFrom: sourceChessSquare to: targetChessSquare.! !
 !ChessPiece categoriesForMethods!
-checkForAbsolutePinFrom:to:!new framework!public! !
+checkNoAbsolutePinFrom:to:!new framework!public! !
 currentChessSquare!public! !
 isInvalidMoveFrom:to:!new framework!public! !
 isValidMoveFrom:to:!new framework!public! !

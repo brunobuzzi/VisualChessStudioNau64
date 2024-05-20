@@ -123,9 +123,9 @@ performMove: aChessMove on: aChessboard
 
 playNextMove
 
-	game movesDo: [:treeList | | nodes |
+	self movesDo: [:treeList | | nodes |
 		nodes := treeList childrenOf: (currentMove ifNil: [nil] ifNotNil: [:value | value move]).
-		nodes do: [:node | "node move isCastle ifTrue: [self halt]." game performMove: node move on: chessboard ].
+		nodes do: [:node | "node move isCastle ifTrue: [self halt]." self performMove: node move on: chessboard ].
 		currentMove := nodes last.
 	].!
 
@@ -157,7 +157,7 @@ setGame: aChessGame chessboard: aChessboard
 
 undoLastMove
 
-	game undoLastMoveOn: chessboard!
+	self undoLastMoveOn: chessboard!
 
 undoLastMoveOn: aChessboard
 

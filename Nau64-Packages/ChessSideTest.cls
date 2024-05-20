@@ -74,7 +74,12 @@ testKingAlmostCheckMated
 
 	blackKing := chessboard pieceAt: (#d1 asChessSquareIn: systemRoot).
 	blackRook := chessboard pieceAt: (#e8 asChessSquareIn: systemRoot).
-	self deny: blackKing isCheckMated.!
+
+	self assert: blackKing isChecked.
+	self deny: (blackRook isValidMoveFromCoordinate: #e8 to: #e7).
+	self assert: (blackRook isValidMoveFromCoordinate: #e8 to: #e1).
+
+!
 
 testKingInCheck
 	| blackQueen blackKing game fenString gameExecutor |

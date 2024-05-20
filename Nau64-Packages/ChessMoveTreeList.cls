@@ -98,6 +98,7 @@ lastMoveIsWhiteEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 
 lastSideToMoveOn: aChessboard
 
+	lastMove ifNil: [^game initialSideToMove].
 	^(lastMove isBlackOn: aChessboard) ifTrue: [#black] ifFalse: [#white]!
 
 lookupNode: aChessMove

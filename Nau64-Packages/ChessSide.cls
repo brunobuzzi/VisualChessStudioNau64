@@ -35,6 +35,10 @@ defaultColor
 isBlack
 	^false!
 
+isChecked
+	
+	^self king isChecked!
+
 isStaledMated
 	| staleMate |
 
@@ -42,6 +46,18 @@ isStaledMated
 	self piecesDo: [:piece | piece squaresToMoveDo: [:square | staleMate := false]].
 
 	^staleMate!
+
+isStillInCheckAfterMoveFrom: originChessSquare to: targetChessSquare
+	"At this point we know that the move is already valid"
+	| isChecked |
+
+	chessboard movePieceFromCoordiante: originChessSquare coordinate to: targetChessSquare coordinate.
+	
+	isChecked := self king isChecked.
+
+	chessboard movePieceFromCoordiante: targetChessSquare coordinate to: originChessSquare coordinate.
+
+	^isChecked!
 
 isWhite
 	^false!
@@ -112,7 +128,9 @@ codePointFor:!public! !
 currentChessSquareFor:!public! !
 defaultColor!public! !
 isBlack!public! !
+isChecked!public! !
 isStaledMated!public! !
+isStillInCheckAfterMoveFrom:to:!public! !
 isWhite!public! !
 king!public! !
 oppositePiecesDo:!public! !

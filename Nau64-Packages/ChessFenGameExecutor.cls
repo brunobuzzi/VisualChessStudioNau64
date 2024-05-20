@@ -10,9 +10,14 @@ ChessFenGameExecutor comment: ''!
 !ChessFenGameExecutor categoriesForClass!Unclassified! !
 !ChessFenGameExecutor methodsFor!
 
+initialSideToMove
+	^initialSideToMove!
+
 setInitalMoveAndCastleFromFenParser: aChessFenParser
 
 	initialSideToMove := aChessFenParser sideToMove.
+
+	(initialSideToMove = #white) ifTrue: [game setInitialMoveToWhite] ifFalse: [game setInitialMoveToBlack].
 
 	whiteCastleStatus setQueenCastle: aChessFenParser isEnabledWhiteQueenSideCastle kingCastle: aChessFenParser isEnabledWhiteKingSideCastle.
 	
@@ -21,6 +26,7 @@ setInitalMoveAndCastleFromFenParser: aChessFenParser
 
 ! !
 !ChessFenGameExecutor categoriesForMethods!
+initialSideToMove!public! !
 setInitalMoveAndCastleFromFenParser:!parser-fen!public! !
 !
 

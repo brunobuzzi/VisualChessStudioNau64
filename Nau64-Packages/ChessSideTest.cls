@@ -61,6 +61,39 @@ testIsStaleMated2
 	self deny: (blackKing isCheckMatedOn: chessboard).
 	chessboard blackSideDo: [:side | self assert: side isStaledMated].!
 
+testKingAlmostCheckMated
+	| blackKing blackRook game fenString gameExecutor |
+	fenString := '4r3/1K6/8/8/8/8/R7/3k1R2/ b KQkq - 1 20'.
+	game := ChessGame
+				newOn: systemRoot
+				whitePlayer: nil
+				blackPlayer: nil
+				fenString: fenString.
+	chessboard := game newInitialChessboard.
+	gameExecutor := game newFenExecutorOn: chessboard.
+
+	blackKing := chessboard pieceAt: (#d1 asChessSquareIn: systemRoot).
+	blackRook := chessboard pieceAt: (#e8 asChessSquareIn: systemRoot).
+	self deny: (blackKing isCheckMatedOn: chessboard).!
+
+testKingInCheck
+	| blackQueen blackKing game fenString gameExecutor |
+	fenString := '2Q5/1K6/8/8/8/8/2k5/3q4/ w KQkq - 1 20'.
+	game := ChessGame
+				newOn: systemRoot
+				whitePlayer: nil
+				blackPlayer: nil
+				fenString: fenString.
+	chessboard := game newInitialChessboard.
+	gameExecutor := game newFenExecutorOn: chessboard.
+	blackQueen := chessboard pieceAt: (#d1 asChessSquareIn: systemRoot).
+	blackKing := chessboard pieceAt: (#c2 asChessSquareIn: systemRoot).
+	self assert: (blackKing isValidMoveFromCoordinate: #c2 to: #b3).
+	self deny: (blackKing isValidMoveFromCoordinate: #c2 to: #c3).
+	self deny: (blackQueen isValidMoveFromCoordinate: #d1 to: #d3).
+
+!
+
 testKingSideBlackCastle
 	| king game gameExecutor |
 	
@@ -140,6 +173,8 @@ testQuenSideWhiteCastle
 testCastleSquaresUnderAttack!public! !
 testIsStaleMated1!public! !
 testIsStaleMated2!public! !
+testKingAlmostCheckMated!public! !
+testKingInCheck!public! !
 testKingSideBlackCastle!public! !
 testKingSideWhiteCastle!public! !
 testQueenPromotion!public! !

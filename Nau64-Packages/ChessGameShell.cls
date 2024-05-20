@@ -101,8 +101,9 @@ resource_Default_view
 showOn: aChessboard
 	| chessboard shell |
 
-	chessboard := Chessboard newWithAllPiecesOn: aChessboard systemRoot.
-	shell := super showOn: chessboard.
+	"chessboard := Chessboard newWithAllPiecesOn: aChessboard systemRoot."
+"	shell := super showOn: chessboard."
+	shell := super showOn: aChessboard.
 	shell setRoot: aChessboard systemRoot.
 	^shell
 	!

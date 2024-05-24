@@ -10,7 +10,19 @@ package paxVersion: 1;
 
 * Start to think on the ChessEngine and similars
 
-* Implement Tactical searchers'.
+* Implement Tactical searchers
+
+
+
+Info 01 (HGMuller):
+"Well, I am an engine programmer, and engines are basically very stupid, but very, very fast. They just generate possible sequece of moves of a certain length (the ''search depth''), and at the end (if there is no checkmate, which usually there isn''t) use a very simple method to ''evaluate'' the resulting position as a number indicating how desirable it is for one side or the other. This evaluation usually contains material (addition of piece values, P=1, N,B=3, R=5...), and as a much smaller term centralization (for pieces that benefit from it, assigning points to each board square), actual mobility (i.e. number of moves, taking account of blocking by other pieces), Pawn structure bonuses (advance, passers, isolated, doubled and backward Pawns) and King safety (presence of a Pawn shield, number of squares from which the King can be ''seen'', number of squares next to the King actually attacked by enemy pieces).
+
+That is basically all. The evaluation usually fails badly in non-quiet positions (i.e. when one side is a Queen ''ahead'', but it is not his move and the Queen is attacked and not protected), and to solve that engines always consider grabbing material at the end of a line, even if it is beyond the intended depth (''quiescence search''). So they just trade until no captures are possible anymore, and evaluate then. If no captures gain material (or other advantages), the position is by definition quiet, and they trust the evaluation for it.
+
+Then they simply make the move that forces the best outcome for them (evaluation-wise), assuming what they consider optimal defense. Modern engines do not search all possible lines to the same depth, but ''reduce'' branches they think are not promising (e.g. because they lose material early on), meaning they subtract some number of half-moves from the nominal search depth, until it is proven that the loss can be recouped (i.e. was a sound sacrifice rather than a blunder), at which time that branch gains back the full nominal depth.
+
+That is basically it. With current computer speeds millions of positions can be searched per second, and a simple program of about 100 lines of computer code, not having much more than material and centralization/pawn advance in its evaluation (like Fairy-Max) can already be a very tough opponent for a good club player.
+"'.
 
 package basicScriptAt: #postinstall put: 'ChessFile initializeFiles.
 ChessRank initializeRanks.

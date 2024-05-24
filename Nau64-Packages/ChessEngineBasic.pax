@@ -5,7 +5,17 @@ package paxVersion: 1;
 
 
 package classNames
+	add: #ChessboardTerritoryEvaluation;
+	add: #ChessEndGamePhase;
 	add: #ChessEngine;
+	add: #ChessEvaluationAlgorithm;
+	add: #ChessGamePhase;
+	add: #ChessMiddleGamePhase;
+	add: #ChessOpeningGamePhase;
+	add: #DolphinParallelProcessing;
+	add: #GemStoneParallelProcessing;
+	add: #ParallelProcessingServices;
+	add: #SimplePieceValueEvaluation;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -15,6 +25,7 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
+	'ChessBasicElements'
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
 
@@ -23,7 +34,57 @@ package!
 "Class Definitions"!
 
 Object subclass: #ChessEngine
+	instanceVariableNames: 'game gameExecutors sideName enterThinkingLoop'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessEvaluationAlgorithm
 	instanceVariableNames: 'chessboard'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessGamePhase
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ParallelProcessingServices
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessEvaluationAlgorithm subclass: #ChessboardTerritoryEvaluation
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessEvaluationAlgorithm subclass: #SimplePieceValueEvaluation
+	instanceVariableNames: 'values'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessGamePhase subclass: #ChessEndGamePhase
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessGamePhase subclass: #ChessMiddleGamePhase
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessGamePhase subclass: #ChessOpeningGamePhase
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ParallelProcessingServices subclass: #DolphinParallelProcessing
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ParallelProcessingServices subclass: #GemStoneParallelProcessing
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

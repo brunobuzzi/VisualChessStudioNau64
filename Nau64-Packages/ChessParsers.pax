@@ -6,9 +6,13 @@ package paxVersion: 1;
 
 package classNames
 	add: #ChessFenParser;
+	add: #ChessGameParser;
 	add: #ChessGamePgnInterpreter;
+	add: #ChessLanParser;
 	add: #ChessParser;
 	add: #ChessPgnParser;
+	add: #ChessPositionParser;
+	add: #ChessUciParser;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -35,13 +39,33 @@ Object subclass: #ChessParser
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessParser subclass: #ChessFenParser
-	instanceVariableNames: 'entries map properties'
+ChessParser subclass: #ChessGameParser
+	instanceVariableNames: 'gameProperties whitePositions blackPositions parsedMoves'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ChessParser subclass: #ChessPgnParser
-	instanceVariableNames: 'gameProperties whitePositions blackPositions pgnMoves parsedMoves'
+ChessParser subclass: #ChessPositionParser
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessGameParser subclass: #ChessLanParser
+	instanceVariableNames: 'lanMoves'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessGameParser subclass: #ChessPgnParser
+	instanceVariableNames: 'pgnMoves'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessGameParser subclass: #ChessUciParser
+	instanceVariableNames: 'uciMoves'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessPositionParser subclass: #ChessFenParser
+	instanceVariableNames: 'entries map properties'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

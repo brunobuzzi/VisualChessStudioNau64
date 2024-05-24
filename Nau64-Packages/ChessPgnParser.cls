@@ -1,18 +1,14 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
-ChessParser subclass: #ChessPgnParser
-	instanceVariableNames: 'gameProperties whitePositions blackPositions pgnMoves parsedMoves'
+ChessGameParser subclass: #ChessPgnParser
+	instanceVariableNames: 'pgnMoves'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessPgnParser guid: (GUID fromString: '{5b668773-df2d-4d5c-91eb-7033dbd1730e}')!
-ChessPgnParser comment: ''!
+ChessPgnParser comment: 'PGN - portable game notation'!
 !ChessPgnParser categoriesForClass!Unclassified! !
 !ChessPgnParser methodsFor!
-
-blackPieceAt: aSymbol ifNone: aBlock
-
-	^blackPositions at: aSymbol ifAbsent: aBlock!
 
 buildGameFor: aChessPgnGameExecutor
 
@@ -207,26 +203,9 @@ calculateWhitePieceCoordinatesFrom: pgnWhiteMove on: aChessboard
 	parsedMoves add: (Array with: piece currentChessSquare coordinate with: targetCoordinate).
 	aChessboard movePieceFromCoordiante: piece currentChessSquare coordinate to: targetCoordinate.!
 
-moveBlackPieceFrom: originSymbol to: targetSymbol
-	| piece |
-	piece := self blackPieceAt: originSymbol ifNone: [self error: 'Piece not found'].
-	blackPositions removeKey: originSymbol.
-	blackPositions at: targetSymbol put: piece.!
-
-moveWhitePieceFrom: originSymbol to: targetSymbol
-	| piece |
-	piece := self whitePieceAt: originSymbol ifNone: [self error: 'Piece not found'].
-	whitePositions removeKey: originSymbol.
-	whitePositions at: targetSymbol put: piece.!
-
 numberOfMoves
 
 	^pgnMoves size!
-
-parse
-	self parseGameData.
-	self parseGameMoves.
-!
 
 parseGameData
 	| isMoveSecttion |
@@ -258,49 +237,8 @@ parseGameMoves
 			pgnMoves add: (Array with: moveNumber with: whiteMove with: blackMove).
 	].
 
-!
-
-propertyNamed: aString
-
-	^gameProperties at: aString ifAbsent: []!
-
-setInitialPositions
-	whitePositions := Dictionary new.
-	blackPositions := Dictionary new.
-
-	whitePositions at: #a1 put: #T.
-	whitePositions at: #b1 put: #N.
-	whitePositions at: #c1 put: #B.
-	whitePositions at: #d1 put: #Q.
-	whitePositions at: #e1 put: #K.
-	whitePositions at: #f1 put: #B.
-	whitePositions at: #g1 put: #N.
-	whitePositions at: #h1 put: #T.
-	#(#a2 #b2 #c2 #d2 #e2 #f2 #g2 #h2) do: [:e | whitePositions at: e put: #P.].
-
-	blackPositions at: #a8 put: #T.
-	blackPositions at: #b8 put: #N.
-	blackPositions at: #c8 put: #B.
-	blackPositions at: #d8 put: #Q.
-	blackPositions at: #e8 put: #K.
-	blackPositions at: #f8 put: #B.
-	blackPositions at: #g8 put: #N.
-	blackPositions at: #h8 put: #T.
-	#(#a7 #b7 #c7 #d7 #e7 #f7 #g7 #h7) do: [:e | blackPositions at: e put: #P.].!
-
-setRoot: aSystemRoot pgnString: pgnString
-
-	systemRoot := aSystemRoot.
-	parserStream := pgnString readStream.
-	parsedMoves := OrderedCollection new.
-	self setInitialPositions.
-!
-
-whitePieceAt: aSymbol ifNone: aBlock
-
-	^whitePositions at: aSymbol ifAbsent: aBlock! !
+! !
 !ChessPgnParser categoriesForMethods!
-blackPieceAt:ifNone:!pieces-black!public! !
 buildGameFor:!chess game!parser!public! !
 buildMovesModelFor:!chess game!parser!public! !
 buildPgnListFor:!chess game!parser!public! !
@@ -312,16 +250,9 @@ calculateWhiteCastleCoordinatesFrom:on:!chess game!public! !
 calculateWhiteCoordinatesFrom:on:!chess game!public! !
 calculateWhitePawnCoordinatesFrom:on:!chess game!public! !
 calculateWhitePieceCoordinatesFrom:on:!chess game!public! !
-moveBlackPieceFrom:to:!pieces-black!public! !
-moveWhitePieceFrom:to:!pieces-white!public! !
 numberOfMoves!public! !
-parse!parser!public! !
 parseGameData!parser!public! !
 parseGameMoves!parser!public! !
-propertyNamed:!public! !
-setInitialPositions!private! !
-setRoot:pgnString:!private! !
-whitePieceAt:ifNone:!pieces-white!public! !
 !
 
 !ChessPgnParser class methodsFor!

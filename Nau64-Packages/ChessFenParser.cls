@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
-ChessParser subclass: #ChessFenParser
+ChessPositionParser subclass: #ChessFenParser
 	instanceVariableNames: 'entries map properties'
 	classVariableNames: ''
 	poolDictionaries: ''

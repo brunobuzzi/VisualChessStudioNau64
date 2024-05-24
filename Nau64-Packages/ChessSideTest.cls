@@ -82,7 +82,7 @@ testKingAlmostCheckMated
 !
 
 testKingInCheck
-	| blackQueen blackKing game fenString gameExecutor |
+	| blackQueen blackKing game fenString |
 	fenString := '2Q5/1K6/8/8/8/8/2k5/3q4/ w KQkq - 1 20'.
 	game := ChessGame
 				newOn: systemRoot
@@ -90,7 +90,6 @@ testKingInCheck
 				blackPlayer: nil
 				fenString: fenString.
 	chessboard := game newInitialChessboard.
-	gameExecutor := game newFenExecutorOn: chessboard.
 	blackQueen := chessboard pieceAt: (#d1 asChessSquareIn: systemRoot).
 	blackKing := chessboard pieceAt: (#c2 asChessSquareIn: systemRoot).
 	self assert: (blackKing isValidMoveFromCoordinate: #c2 to: #b3).

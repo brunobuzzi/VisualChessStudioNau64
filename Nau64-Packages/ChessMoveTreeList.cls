@@ -34,7 +34,7 @@ annotateMove: aChessMove on: aChessboard
 	treeRoots ifNil: [treeRoots := OrderedCollection new].
 
 	self addChild: aChessMove parentNode: lastMove.
-	
+"	(aChessMove from = #g2 and:[aChessMove to = #b7]) ifTrue: [self halt]."
 	lastMove := aChessMove.!
 
 childrenOf: anObject
@@ -179,6 +179,9 @@ setGame: aChessGame
 
 !
 
+treeRoots
+	^treeRoots!
+
 undoLastMoveOn: aChessboard
 	| moveToRemove node |
 
@@ -217,6 +220,7 @@ redoFirstMoveOn:!public! !
 redoNextMoveOn:!public! !
 remove:ifAbsent:!public!tree operations! !
 setGame:!private! !
+treeRoots!private! !
 undoLastMoveOn:!move operations!public! !
 !
 

@@ -35,26 +35,8 @@ createSchematicWiring
 		when: #leftButtonPressed: send: #movePiece: to: self.!
 
 endTrackingAt: aPoint 
-	| originSquare targetSquare piece move promotionPieceClass |
 
-	originSquare := model squareAt: mouseTracker startPoint.
-	targetSquare := model squareAt: (mouseTracker sumStartLocalPointTo: aPoint).
-	(originSquare isNil or: [targetSquare isNil]) ifTrue: [^nil].
-
-	piece := model pieceAt: originSquare.
-
-	(chessGame isCorrectSideToMove: piece on: model)
-	ifFalse: [^MessageBubble notify: ('Wrong Side to move, it must move: [', piece oppositeSideName ,']') caption: 'Nau64'].
-
-	(piece isValidMoveFromCoordinate: originSquare coordinate to: targetSquare coordinate on: model on: chessGame) 
-	ifFalse: [^MessageBubble notify: ('Invalid move from [',  originSquare coordinate, '] to [',  targetSquare coordinate, ']') caption: 'Nau64'].
-
-	move := chessGame annotateMoveFrom: originSquare coordinate to: targetSquare coordinate on: model.
-	move isPromotion ifTrue: [[promotionPieceClass isNil] whileTrue: [promotionPieceClass := self selectPromotionPiece].
-						move promotion setPromotionPieceClass: promotionPieceClass].
-	chessGame performMove: move on: model.
-
-	self renderChessboard.!
+	self subclassResponsibility!
 
 gdiBitmap
 

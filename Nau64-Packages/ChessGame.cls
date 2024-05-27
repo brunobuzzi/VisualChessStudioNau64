@@ -31,14 +31,6 @@ isLastPgnAnnotation: anArray
 
 	^pgnMoves last == anArray!
 
-moveFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard
-
-	self 
-		performMove: (self annotateMoveFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard) 
-		on: aChessboard
-	
-	!
-
 newFenExecutor
 	| fenExecutor parser |
 
@@ -79,13 +71,15 @@ newPgnExecutor
 
 	^pgnExecutor!
 
-performMove: aChessMove on: aChessboard
+newPgnExecutorOn: aChessboard
+	| pgnExecutor parser |
 
-	aChessMove 
-		performPieceSwitchFrom: aChessMove from 
-		to: aChessMove to 
-		on: aChessboard 
-		withPostActionOn: self!
+	pgnExecutor := ChessPgnGameExecutor newOn: self chessboard: aChessboard.
+
+	parser := ChessPgnParser newOn: systemRoot pgnString: pgnString.
+	parser buildGameFor: pgnExecutor.
+
+	^pgnExecutor!
 
 pgnMovesDo: aBlock
 
@@ -158,12 +152,11 @@ initialFenPosition!executors!public! !
 initialFenStringPosition!private! !
 initialSideToMove!public! !
 isLastPgnAnnotation:!moves!public! !
-moveFrom:to:on:!moves!public! !
 newFenExecutor!executors!public! !
 newFenExecutorOn:!executors!public! !
 newInitialChessboard!public! !
 newPgnExecutor!executors!public! !
-performMove:on:!moves!public! !
+newPgnExecutorOn:!executors!public! !
 pgnMovesDo:!moves!public! !
 setInitialMoveToBlack!public! !
 setInitialMoveToWhite!public! !

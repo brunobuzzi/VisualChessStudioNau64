@@ -25,6 +25,7 @@ buildMovesModelFor: aChessPgnGameExecutor
 		pgnBlackMove := eachArray at: 3.
 		(eachArray == pgnMoves last)
 		ifFalse: [
+			index = 67 ifTrue: [self halt].
 			self calculateWhiteCoordinatesFrom: pgnWhiteMove on: chessboard. 
 			self calculateBlackCoordinatesFrom: pgnBlackMove on: chessboard.
 		]

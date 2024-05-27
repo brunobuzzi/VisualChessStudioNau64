@@ -168,8 +168,6 @@ piecesSize
 
 	^pieces size!
 
-printEncoded!
-
 printFenString
 	| fenStream |
 
@@ -189,8 +187,9 @@ printFenString
 		fenStream nextPut: $/.
 	].
 	^fenStream contents
-
-!
+"
+'rnbqk1nr/pppp1ppp/8/4p3/1b1P4/5N2/PPP1PPPP/RNBQKB1R/ w - - 0 1'
+"!
 
 printFenStringFor: aChessPiece
 	| fenStream |
@@ -216,6 +215,31 @@ printFenStringFor: aChessPiece
 	^fenStream contents
 
 !
+
+printFenStringForExecutor: aChessGameExectutor
+	| fenStream nextSideToMove |
+
+	nextSideToMove := (aChessGameExectutor nextSideToMoveOn: self) first asString.
+	fenStream := String new writeStream.
+	systemRoot fenSquares do: [:squareCollection | | freeSquares |
+		freeSquares := 0.
+		squareCollection do: [:square | 
+			self 
+				pieceAt: square 
+				do: [:piece | (freeSquares > 0) 
+						ifTrue: [fenStream nextPutAll: freeSquares printString.
+							freeSquares := 0].
+						fenStream nextPutAll: piece fenString] 
+				ifAbsent: [freeSquares := freeSquares + 1].
+		].
+		(freeSquares > 0) ifTrue: [fenStream nextPutAll: freeSquares printString].
+		fenStream nextPut: $/.
+	].
+	fenStream nextPutAll: ' ', nextSideToMove;
+		nextPutAll: aChessGameExectutor printFenStringForWhiteCastle;
+		nextPutAll: aChessGameExectutor printFenStringForBlackCastle;
+		nextPutAll: ' - - -'.
+	^fenStream contents!
 
 removeEnPassantPawn: targetSymbolCoordinate
 
@@ -434,9 +458,9 @@ piecesAtSameFileAs:do:!pieces-black!public! !
 piecesAtSameRankAs:do:!pieces-black!public! !
 piecesDo:!iteration!public! !
 piecesSize!public! !
-printEncoded!public! !
 printFenString!fen notation!public! !
 printFenStringFor:!fen notation!public! !
+printFenStringForExecutor:!fen notation!public! !
 removeEnPassantPawn:!public! !
 removePieceAt:!chessboard contents!public! !
 removePieceAtCoordiante:!chessboard contents!public! !

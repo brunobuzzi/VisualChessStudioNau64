@@ -49,13 +49,16 @@ isStaledMated
 
 isStillInCheckAfterMoveFrom: originChessSquare to: targetChessSquare
 	"At this point we know that the move is already valid"
-	| isChecked |
+	| isChecked targetPiece |
+
+	targetPiece := chessboard pieceAt: targetChessSquare ifAbsent: [].
 
 	chessboard movePieceFromCoordiante: originChessSquare coordinate to: targetChessSquare coordinate.
 	
 	isChecked := self king isChecked.
 
 	chessboard movePieceFromCoordiante: targetChessSquare coordinate to: originChessSquare coordinate.
+	targetPiece notNil ifTrue: [chessboard pieceAt: targetChessSquare put: targetPiece].
 
 	^isChecked!
 

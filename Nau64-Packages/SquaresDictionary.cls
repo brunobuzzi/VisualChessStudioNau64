@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
-Object subclass: #SquaresDictionary
-	instanceVariableNames: 'squares piece'
+ChessPieceDictionary subclass: #SquaresDictionary
+	instanceVariableNames: 'squares'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -9,12 +9,6 @@ SquaresDictionary guid: (GUID fromString: '{48a2cf70-b5dd-462d-a064-6e0690cf8202
 SquaresDictionary comment: ''!
 !SquaresDictionary categoriesForClass!Unclassified! !
 !SquaresDictionary methodsFor!
-
-add: aChessSquare to: aCollection
-
-	(aCollection includes: aChessSquare) ifTrue: [^aChessSquare].
-
-	aCollection add: aChessSquare!
 
 atEastAdd: aChessSquare
 
@@ -31,6 +25,11 @@ atNorthEastAdd: aChessSquare
 atNorthWestAdd: aChessSquare
 
 	(squares at: #northWest ifAbsentPut: [OrderedCollection new]) ifAbsentAdd: aChessSquare!
+
+atOrientation: orientationSymbol add: anChessObject
+
+	self validateOrientationName: orientationSymbol.
+	(squares at: #west ifAbsentPut: [OrderedCollection new]) ifAbsentAdd: anChessObject!
 
 atOrientation: symbolOrientationName put: anOrderedCollection
 	self validateOrientationName: symbolOrientationName.
@@ -51,10 +50,6 @@ atSouthWestAdd: aChessSquare
 atWestAdd: aChessSquare
 
 	(squares at: #west ifAbsentPut: [OrderedCollection new]) ifAbsentAdd: aChessSquare!
-
-chessboardDo: monadicBlock
-
-	piece chessboardDo: [:chessboard | monadicBlock value: chessboard]!
 
 detectForkedSquaresFor: aChessSide
 	| attackedPieces forkedSquares |
@@ -150,10 +145,6 @@ intersection: aSquaresDictionary
 isEmpty
 
 	^squares allSatisfy: [:collection | collection isEmpty]!
-
-pieceDo: monadicBlock
-
-	monadicBlock value: piece!
 
 pruneUnreachableSquares
 
@@ -272,7 +263,7 @@ remove: aChessSquare ifAbsent: aNiladicValuable
 
 setChessPiece: aChessPiece
 
-	piece := aChessPiece.
+	super setChessPiece: aChessPiece.
 
 	squares := Dictionary new.!
 
@@ -434,17 +425,16 @@ viewSquares
 
 	^self! !
 !SquaresDictionary categoriesForMethods!
-add:to:!add element!public! !
 atEastAdd:!add element!public! !
 atNorthAdd:!add element!public! !
 atNorthEastAdd:!add element!public! !
 atNorthWestAdd:!add element!public! !
+atOrientation:add:!add element!public! !
 atOrientation:put:!add element!public! !
 atSouthAdd:!add element!public! !
 atSouthEastAdd:!add element!public! !
 atSouthWestAdd:!add element!public! !
 atWestAdd:!add element!public! !
-chessboardDo:!public! !
 detectForkedSquaresFor:!public!tactics searchs! !
 difference:!public!set operations! !
 includes:!public!searching! !
@@ -459,7 +449,6 @@ includesAtSouthWest:!public!searching! !
 includesAtWest:!public!searching! !
 intersection:!public!searching!set operations! !
 isEmpty!public!set operations! !
-pieceDo:!public!tactics searchs! !
 pruneUnreachableSquares!enumerating!new framework!public! !
 pruneUnreachableSquaresFromSlidingPiece!enumerating!new framework!public! !
 pruneUnreacheableSquaresFromBlackPawn!enumerating!new framework!public! !
@@ -501,19 +490,5 @@ squaresDo:!enumerating!public! !
 squaresSize!enumerating!public! !
 validateOrientationName:!add element!public! !
 viewSquares!public! !
-!
-
-!SquaresDictionary class methodsFor!
-
-icon
-
-	^Icon fromId: 'SystemDictionary.ico'!
-
-on: aChessPiece
-
-	^self new setChessPiece: aChessPiece! !
-!SquaresDictionary class categoriesForMethods!
-icon!public! !
-on:!public! !
 !
 

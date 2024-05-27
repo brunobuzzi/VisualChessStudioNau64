@@ -86,6 +86,13 @@ printOn: aStream
 
 	aStream nextPutAll: '[', from, '>>', to, ']'!
 
+printPgn
+	| stream |
+
+	stream := WriteStream on: String new.
+	self printPgnOn: stream.
+	^stream contents!
+
 printPgnOn: aStream
 
 	aStream nextPutAll: pgnPiece, to!
@@ -164,6 +171,7 @@ performPieceSwitchFrom:to:on:withPostActionOn:presenter:!public! !
 pgnPiece!accessing!public! !
 pgnPiece:!accessing!public! !
 printOn:!public! !
+printPgn!public! !
 printPgnOn:!public! !
 promotion!public! !
 redoOn:!public! !

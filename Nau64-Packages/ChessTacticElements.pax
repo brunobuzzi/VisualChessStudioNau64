@@ -13,6 +13,10 @@ package classNames
 	add: #TacticDictionary;
 	yourself.
 
+package methodNames
+	add: #ChessPiece -> #pinnedPieces;
+	yourself.
+
 package binaryGlobalNames: (Set new
 	yourself).
 
@@ -20,6 +24,8 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
+	'ChessBasicElements'
+	'ChessPiecesMovementsEngine'
 	'..\Core\Object Arts\Dolphin\Base\Dolphin').
 
 package!
@@ -61,6 +67,43 @@ ChessTacticInstance subclass: #ChessSkewer
 
 
 "Loose Methods"!
+
+!ChessPiece methodsFor!
+
+pinnedPieces
+	| pinnedPieces |
+
+	self isSlidingPiece ifFalse: [^OrientationDictionary on: self].
+	pinnedPieces := OrientationDictionary on: self.
+	self chessboardDo:	[:aChessboard |
+			self squaresScopeFrom: self currentChessSquare
+				do: [:aSquaresDictionary | 
+					aSquaresDictionary squaresCollectionAndOrientationDo: [:squareCollection :orientation | | oppositePieces halted pinnedPiece |
+						oppositePieces := 0.
+						halted := false.
+						squareCollection do: [:chessSquare |
+								aChessboard
+									pieceAt: chessSquare
+									do: [:piece |
+										(piece isOppositeSideTo: self)
+										ifTrue: [oppositePieces := oppositePieces + 1.
+											oppositePieces = 1 ifTrue: [pinnedPiece := piece].											
+											(oppositePieces > 1 and: [halted not])
+											ifTrue: [pinnedPieces 
+													atOrientation: orientation 
+													add: (ChessPin newOnControl: self pinned: pinnedPiece target: piece orientation: orientation).
+												pinnedPiece := piece]]
+										ifFalse: [halted := true]
+									]
+									ifAbsent: []
+						]
+					]
+				]
+	].
+	^pinnedPieces! !
+!ChessPiece categoriesForMethods!
+pinnedPieces!new framework!public! !
+!
 
 "End of package definition"!
 

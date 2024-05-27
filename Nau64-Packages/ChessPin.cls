@@ -30,6 +30,18 @@ pinnedPieceIs: aChessPiece
 
 	^pinnedPiece == aChessPiece!
 
+printOn: aStream
+
+	super printOn: aStream.
+
+	aStream nextPutAll: '[',controlPiece pgnString.
+	controlPiece printCurrentSquareOn: aStream.
+	aStream nextPutAll: '>', pinnedPiece pgnString.
+	pinnedPiece printCurrentSquareOn: aStream.
+	aStream nextPutAll: '>',  targetPiece pgnString.
+	targetPiece printCurrentSquareOn: aStream.
+	aStream nextPutAll: ']'!
+
 setControl: controlChessPiece pinned: pinnedChessPiece target: targetChessPiece orientation: orientationName
 
 	controlPiece := controlChessPiece.
@@ -48,6 +60,7 @@ isAbsolute!public!testing! !
 orientation!public!testing! !
 orientationIs:!public!testing! !
 pinnedPieceIs:!public!testing! !
+printOn:!public! !
 setControl:pinned:target:orientation:!private! !
 targetPieceIs:!public!testing! !
 !

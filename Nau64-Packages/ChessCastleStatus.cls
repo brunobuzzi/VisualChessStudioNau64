@@ -42,6 +42,26 @@ ifQueenSideCastleNotEnabled: aNiladicValuable
 ifWhiteCastleNotEnabled: aNiladicValuable 
 	^Error notYetImplemented!
 
+printFenStringForBlack
+	| status |
+
+	status := WriteStream on: String new.
+	isKingSideClastleEnabled ifTrue: [status nextPutAll: 'k'].
+	isQueenSideClastleEnabled ifTrue: [status nextPutAll: 'q'].
+	^status contents
+
+	!
+
+printFenStringForWhite
+	| status |
+
+	status := WriteStream on: String new.
+	isKingSideClastleEnabled ifTrue: [status nextPutAll: 'K'].
+	isQueenSideClastleEnabled ifTrue: [status nextPutAll: 'Q'].
+	^status contents
+
+	!
+
 setChessGame: aChessGame
 
 	game := aChessGame.
@@ -66,6 +86,8 @@ enableQueenSideCastle!public! !
 ifKindSideCastleNotEnabled:!public! !
 ifQueenSideCastleNotEnabled:!public! !
 ifWhiteCastleNotEnabled:!public! !
+printFenStringForBlack!public! !
+printFenStringForWhite!public! !
 setChessGame:!private! !
 setQueenCastle:kingCastle:!public! !
 !

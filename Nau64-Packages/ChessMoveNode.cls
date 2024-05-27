@@ -45,6 +45,9 @@ printOn: aStream
 	move printOn: aStream.
 	aStream nextPutAll: ')'.!
 
+printPgn
+	^move printPgn!
+
 removeChildNode: aChessMoveNode
 
 	children remove: aChessMoveNode ifAbsent: [self error: 'Node does not exist'].
@@ -70,6 +73,7 @@ move!public! !
 object!public! !
 parentNodeDo:!public! !
 printOn:!public! !
+printPgn!public! !
 removeChildNode:!public! !
 resetParent!public! !
 setTree:move:parentNode:!private! !

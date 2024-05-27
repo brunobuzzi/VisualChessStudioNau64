@@ -17,6 +17,10 @@ annotateMoveFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessbo
 	moves annotateMove: aChessMove on: aChessboard.
 	^aChessMove!
 
+chessboardDo: aMonadicBlock
+
+	aMonadicBlock value: chessboard!
+
 disableBlackCastle
 
 	blackCastleStatus disableCastle!
@@ -27,9 +31,10 @@ disableBlackCastleForPieceMovedFrom: originSymbolCoordiante on: aChessboard
 	originSymbolCoordiante = #h8 ifTrue: [^blackCastleStatus disableKingSideCastle]!
 
 disableCastleForPieceMovedFrom: originSymbolCoordiante on: aChessboard
-	(moves lastSideToMoveOn: aChessboard) = #white
+	currentMove ifNil: [^self].
+	(self lastSideToMoveOn: aChessboard) = #white
 		ifTrue: [^self disableWhiteCastleForPieceMovedFrom: originSymbolCoordiante on: aChessboard].
-	(moves lastSideToMoveOn: aChessboard) = #black
+	(self lastSideToMoveOn: aChessboard) = #black
 		ifTrue: [^self disableBlackCastleForPieceMovedFrom: originSymbolCoordiante on: aChessboard].
 	self error: 'No such side'!
 
@@ -58,6 +63,11 @@ ifWhiteQueenSideCastleNotEnabled: aNiladicValuable
 
 	whiteCastleStatus ifQueenSideCastleNotEnabled: aNiladicValuable !
 
+includesPgnMove: pgnString
+
+	moves preOrderDo: [:each | each printPgn = pgnString ifTrue: [^true]].
+	^false!
+
 isCorrectSideToMove: aChessPiece on: aChessboard
 
 	^(self nextSideToMoveOn: aChessboard) = aChessPiece sideName!
@@ -72,10 +82,9 @@ lastMoveIsWhiteEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 
 lastSideToMoveOn: aChessboard
 
-	moves isEmpty ifTrue: [^self error: 'No side has moved'].
+	currentMove isNil ifTrue: [^self error: 'No side has moved'].
 
-	^moves lastSideToMoveOn: aChessboard
-!
+	^(currentMove move isBlackOn: aChessboard) ifTrue: [#black] ifFalse: [#white]!
 
 moveFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard
 
@@ -121,13 +130,43 @@ performMove: aChessMove on: aChessboard
 		on: aChessboard 
 		withPostActionOn: self!
 
+playAllMoves
+
+	[currentMove isNil or: [(moves childrenOf: currentMove move) notEmpty]]
+	whileTrue: [
+		self playNextMove 
+	].!
+
+playAllMovesDoWithCurrent: aBlock
+	| index |
+
+	index := 1.
+	[currentMove isNil or: [(moves childrenOf: currentMove move) notEmpty]]
+	whileTrue: [
+		self playNextMove.
+		aBlock value: currentMove move.
+		(currentMove move isBlackOn: chessboard) ifFalse: [index := index + 1].
+	].!
+
 playNextMove
+
+	currentMove ifNil: [
+		currentMove := moves treeRoots last.
+		^self performMove: currentMove move on: chessboard].
 
 	self movesDo: [:treeList | | nodes |
 		nodes := treeList childrenOf: (currentMove ifNil: [nil] ifNotNil: [:value | value move]).
-		nodes do: [:node | "node move isCastle ifTrue: [self halt]." self performMove: node move on: chessboard ].
+		nodes do: [:node | self performMove: node move on: chessboard].
 		currentMove := nodes last.
 	].!
+
+printFenStringForBlackCastle
+
+	^blackCastleStatus printFenStringForBlack!
+
+printFenStringForWhiteCastle
+
+	^whiteCastleStatus printFenStringForWhite!
 
 printMoves
 
@@ -164,6 +203,7 @@ undoLastMoveOn: aChessboard
 	moves undoLastMoveOn: aChessboard! !
 !ChessGameExecutor categoriesForMethods!
 annotateMoveFrom:to:on:!moves!public! !
+chessboardDo:!public! !
 disableBlackCastle!castle!public! !
 disableBlackCastleForPieceMovedFrom:on:!castle!public! !
 disableCastleForPieceMovedFrom:on:!castle!public! !
@@ -173,6 +213,7 @@ ifBlackKindSideCastleNotEnabled:!castle!public! !
 ifBlackQueenSideCastleNotEnabled:!castle!public! !
 ifWhiteKindSideCastleNotEnabled:!castle!public! !
 ifWhiteQueenSideCastleNotEnabled:!castle!public! !
+includesPgnMove:!public! !
 isCorrectSideToMove:on:!public! !
 lastMoveIsBlackEnPassantEnabledFrom:to:!en passant!public! !
 lastMoveIsWhiteEnPassantEnabledFrom:to:!en passant!public! !
@@ -184,7 +225,11 @@ nextSideToMoveOn:!public! !
 nextSideToMoveOn:isBlackDo:!public! !
 nextSideToMoveOn:isWhiteDo:!public! !
 performMove:on:!moves!public! !
-playNextMove!public! !
+playAllMoves!moves!public! !
+playAllMovesDoWithCurrent:!moves!public! !
+playNextMove!moves!public! !
+printFenStringForBlackCastle!public! !
+printFenStringForWhiteCastle!public! !
 printMoves!public! !
 printMovesOn:!public! !
 redoFirstMoveOn:!moves!public! !

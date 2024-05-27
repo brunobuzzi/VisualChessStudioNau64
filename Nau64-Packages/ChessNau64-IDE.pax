@@ -44,6 +44,8 @@ package methodNames
 	add: #ChessFork -> #drawOn:on:pieceSquarePen:forkPen:;
 	add: #ChessGame -> #show;
 	add: #ChessGame -> #showOn:;
+	add: #ChessGame -> #showPgn;
+	add: #ChessGame -> #showPgnAtEnd;
 	add: #ChessPiece -> #drawOn:chessboard:at:isDisplayCoordinatesEnabled:;
 	add: #ChessSquare -> #drawOn:chessboard:isDisplayCoordinatesEnabled:;
 	add: #ChessSquare -> #drawOn2:chessboard:isDisplayCoordinatesEnabled:;
@@ -72,6 +74,7 @@ package setPrerequisites: #(
 	'..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
 	'..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter'
+	'..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter'
 	'..\Core\Object Arts\Dolphin\MVP\Icons\Dolphin Text Tile Icons'
 	'..\Core\Object Arts\Dolphin\MVP\Views\Tooltips\Dolphin Tooltips'
 	'..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters'
@@ -159,7 +162,7 @@ AbstractChessboardPresenter subclass: #ChessboardSquaresPresenter
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 AbstractChessboardPresenter subclass: #ChessGamePresenter
-	instanceVariableNames: 'chessGame gameExecutor'
+	instanceVariableNames: 'chessGame gameExecutor movesPresenter'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -301,10 +304,22 @@ show
 
 showOn: aChessboard
 	(ChessGameShell showOn: aChessboard)
-		setGame: self! !
+		setGame: self!
+
+showPgn
+	ChessGameShell showWithPgnString: pgnString on: systemRoot
+
+!
+
+showPgnAtEnd
+	ChessGameShell showAtEndPgnString: pgnString on: systemRoot
+
+! !
 !ChessGame categoriesForMethods!
 show!public! !
 showOn:!public! !
+showPgn!public! !
+showPgnAtEnd!public! !
 !
 
 !ChessPiece methodsFor!

@@ -57,16 +57,6 @@ forceNumberAt: aChessSquare
 
 	^chessSide forceNumberAt: aChessSquare!
 
-isAbsolutePinned
-	self oppositeSideDo: [:oppositeSide | 
-		oppositeSide opppositeSlidingPiecesDo: [:piece | | pinnedPieces |
-			pinnedPieces := piece pinnedPieces.
-			pinnedPieces select: [:pin | (pin pinnedPieceIs: self) and: [pin isAbsolute]].
-		]
-	].
-
-	^false!
-
 isBishop
 
 	^false!
@@ -154,35 +144,6 @@ pgnStringForNotation
 
 pieceCode
 	^self class pieceCode!
-
-pinnedPieces
-	| pinnedPieces |
-
-	self isSlidingPiece ifFalse: [^OrderedCollection new].
-	pinnedPieces := OrderedCollection new.
-	self chessboardDo:	[:aChessboard |
-			self squaresScopeFrom: self currentChessSquare
-				do: [:aSquaresDictionary | 
-					aSquaresDictionary squaresCollectionAndOrientationDo: [:squareCollection :orientation | | oppositePieces halted pinnedPiece |
-						oppositePieces := 0.
-						halted := false.
-						squareCollection do: [:chessSquare |
-								aChessboard
-									pieceAt: chessSquare
-									do: [:piece |
-										(piece isOppositeSideTo: self)
-										ifTrue: [oppositePieces := oppositePieces + 1.
-											oppositePieces = 1 ifTrue: [pinnedPiece := piece].
-											(oppositePieces > 1 and: [halted not])
-											ifTrue: [pinnedPieces add: (ChessPin newOnControl: self pinned: pinnedPiece target: piece orientation: orientation)]]
-										ifFalse: [halted := true]
-									]
-									ifAbsent: []
-						]
-					]
-				]
-	].
-	^pinnedPieces!
 
 printOn: aStream
 
@@ -299,7 +260,6 @@ codePoint!public!unicode! !
 defaultColor!public!testing! !
 fenString!public! !
 forceNumberAt:!public! !
-isAbsolutePinned!new framework!public! !
 isBishop!public!testing! !
 isBlack!public!testing! !
 isKing!public!testing! !
@@ -321,7 +281,6 @@ orientationsDo:!new framework!public! !
 pgnString!public! !
 pgnStringForNotation!public! !
 pieceCode!public! !
-pinnedPieces!new framework!public! !
 printOn:!public! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
 secureSquaresDo:!new framework!public! !

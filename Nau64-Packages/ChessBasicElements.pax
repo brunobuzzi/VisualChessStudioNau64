@@ -67,7 +67,6 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-	'ChessTacticElements'
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
 	'..\Core\Object Arts\Dolphin\MVP\Icons\Dolphin Text Tile Icons').

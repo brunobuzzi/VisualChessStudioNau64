@@ -12,9 +12,11 @@ package classNames
 	add: #ChessNorthOrientation;
 	add: #ChessOrientation;
 	add: #ChessOrientationVector;
+	add: #ChessPieceDictionary;
 	add: #ChessSouthOrientation;
 	add: #ChessVector;
 	add: #ChessWestOrientation;
+	add: #OrientationDictionary;
 	add: #SquaresDictionary;
 	yourself.
 
@@ -29,6 +31,7 @@ package methodNames
 	add: #ChessPiece -> #isValidMoveFromCoordinate:to:on:on:;
 	add: #ChessPiece -> #orientations;
 	add: #ChessPiece -> #orientationVectorFrom:to:;
+	add: #ChessPiece -> #printCurrentSquareOn:;
 	add: #King -> #isValidBlackCastleMoveFrom:to:on:on:;
 	add: #King -> #isValidCastleMoveFrom:to:on:on:;
 	add: #King -> #isValidMoveFromCoordinate:to:on:on:;
@@ -74,13 +77,13 @@ Object subclass: #ChessOrientation
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-Object subclass: #ChessVector
-	instanceVariableNames: ''
+Object subclass: #ChessPieceDictionary
+	instanceVariableNames: 'piece'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-Object subclass: #SquaresDictionary
-	instanceVariableNames: 'squares piece'
+Object subclass: #ChessVector
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -114,6 +117,16 @@ ChessOrientation subclass: #ChessWestOrientation
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+ChessPieceDictionary subclass: #OrientationDictionary
+	instanceVariableNames: 'orientations'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessPieceDictionary subclass: #SquaresDictionary
+	instanceVariableNames: 'squares'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 ChessVector subclass: #ChessOrientationVector
 	instanceVariableNames: 'southOrNorth eastOrWest'
 	classVariableNames: ''
@@ -141,19 +154,21 @@ orientations!new framework!orientations do!public! !
 !ChessPiece methodsFor!
 
 checkNoAbsolutePinFrom: originChessSquare to: targetChessSquare
-	| pins orientation |
+	| pins vector |
 	pins := OrderedCollection new.
 	self oppositeSideDo: [:oppositeSide | 
-		oppositeSide piecesDo: [:piece | | pinnedPieces |
-			pinnedPieces := piece pinnedPieces.
-			pins addAll: (pinnedPieces select: [:pin | (pin pinnedPieceIs: self) and: [pin isAbsolute]]).
+		oppositeSide piecesDo: [:piece | 
+			piece pinnedPieces collectionAndOrientationDo: [:collection :orientation | 
+				collection size = 1
+				ifTrue: [pins addAll: (collection select: [:pin | (pin pinnedPieceIs: self) and: [pin isAbsolute]])]
+			].
 		]
 	].
 	pins isEmpty ifTrue: [^true].
 
-	orientation := ChessOrientationVector newFrom:  originChessSquare to: targetChessSquare.
+	vector := ChessOrientationVector newFrom:  originChessSquare to: targetChessSquare.
 
-	^pins allSatisfy: [:pin | orientation isPinCompatibleWithOrientationNamed: pin orientation]!
+	^pins allSatisfy: [:pin | vector isPinCompatibleWithOrientationNamed: pin orientation]!
 
 currentChessSquare
 
@@ -197,7 +212,12 @@ orientations
 
 orientationVectorFrom: sourceChessSquare to: targetChessSquare
 
-	^ChessOrientationVector newFrom: sourceChessSquare to: targetChessSquare.! !
+	^ChessOrientationVector newFrom: sourceChessSquare to: targetChessSquare.!
+
+printCurrentSquareOn: aStream
+	| currentSquare |
+	currentSquare := self currentChessSquare.
+	aStream nextPutAll: currentSquare printName! !
 !ChessPiece categoriesForMethods!
 checkNoAbsolutePinFrom:to:!new framework!public! !
 currentChessSquare!public! !
@@ -208,6 +228,7 @@ isValidMoveFromCoordinate:to:on:!public! !
 isValidMoveFromCoordinate:to:on:on:!public! !
 orientations!new framework!public! !
 orientationVectorFrom:to:!public! !
+printCurrentSquareOn:!public! !
 !
 
 !King methodsFor!

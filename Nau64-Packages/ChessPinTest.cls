@@ -135,15 +135,123 @@ testDoublePin
 	pinnedPieces collectionAtWestDo: [:collection | pin := collection at: 1].
 	self assert: (pin controlPieceIs: (chessboard pieceAtCoordinate: #g2)).
 	self assert: (pin pinnedPieceIs: (chessboard pieceAtCoordinate: #f2)).
-	self assert: (pin targetPieceIs: (chessboard pieceAtCoordinate: #c2)).
+	self assert: (pin targetPieceIs: (chessboard pieceAtCoordinate: #e2)).
 	self assert: (pin orientationIs: #west).
-	self assert: pin isAbsolute.
+	self deny: pin isAbsolute.
 	self assert: (pinnedPiece isValidMoveFrom: (#f2 asChessSquareIn: systemRoot) to: (#e3 asChessSquareIn: systemRoot)).
-	! !
+	!
+
+testMultiplePins
+	| pinnedPieces pin pinnedPiece controlPiece |
+	parser := ChessFenParser newOn: systemRoot fenString: 'k1q3r1/1p6/4R1N1/5RN1/r3BPK1/5NB1/4R3/1N1b2q1/ w - - 1 20'.
+	chessboard := Chessboard newEmptyOn: systemRoot.
+	parser deployOn: chessboard.
+
+	controlPiece := chessboard pieceAtCoordinate: #g1.
+	pinnedPiece := chessboard pieceAtCoordinate: #g3.
+	pinnedPieces := controlPiece pinnedPieces.
+	pinnedPieces collectionAtNorthDo: [:collection | pin := collection at: 1].
+	self assert: pinnedPieces totalSize equals: 1.
+	self assert: (pin controlPieceIs: (chessboard pieceAtCoordinate: #g1)).
+	self assert: (pin pinnedPieceIs: (chessboard pieceAtCoordinate: #g3)).
+	self assert: (pin targetPieceIs: (chessboard pieceAtCoordinate: #g4)).
+	self assert: (pin orientationIs: #north).
+	self assert: pin isAbsolute.
+	self deny: (pinnedPiece isValidMoveFrom: (#g3 asChessSquareIn: systemRoot) to: (#h2 asChessSquareIn: systemRoot)).
+	self deny: (pinnedPiece isValidMoveFrom: (#g3 asChessSquareIn: systemRoot) to: (#f2 asChessSquareIn: systemRoot)).
+	self deny: (pinnedPiece isValidMoveFrom: (#g3 asChessSquareIn: systemRoot) to: (#e1 asChessSquareIn: systemRoot)).
+
+	controlPiece := chessboard pieceAtCoordinate: #c8.
+	pinnedPiece := chessboard pieceAtCoordinate: #e6.
+	pinnedPieces := controlPiece pinnedPieces.
+	pinnedPieces collectionAtSouthEastDo: [:collection | pin := collection at: 1].
+	self assert: pinnedPieces totalSize equals: 2.
+	self assert: (pin controlPieceIs: (chessboard pieceAtCoordinate: #c8)).
+	self assert: (pin pinnedPieceIs: (chessboard pieceAtCoordinate: #e6)).
+	self assert: (pin targetPieceIs: (chessboard pieceAtCoordinate: #f5)).
+	self assert: (pin orientationIs: #southEast).
+	self deny: pin isAbsolute.
+	controlPiece := chessboard pieceAtCoordinate: #c8.
+	pinnedPiece := chessboard pieceAtCoordinate: #f5.
+	pinnedPieces collectionAtSouthEastDo: [:collection | pin := collection at: 2].
+	self assert: pinnedPieces totalSize equals: 2.
+	self assert: (pin controlPieceIs: (chessboard pieceAtCoordinate: #c8)).
+	self assert: (pin pinnedPieceIs: (chessboard pieceAtCoordinate: #f5)).
+	self assert: (pin targetPieceIs: (chessboard pieceAtCoordinate: #g4)).
+	self assert: (pin orientationIs: #southEast).
+	self assert: pin isAbsolute.
+	self assert: (pinnedPiece isValidMoveFrom: (#e6 asChessSquareIn: systemRoot) to: (#e5 asChessSquareIn: systemRoot)).
+	self assert: (pinnedPiece isValidMoveFrom: (#f5 asChessSquareIn: systemRoot) to: (#e5 asChessSquareIn: systemRoot)).
+
+	controlPiece := chessboard pieceAtCoordinate: #g8.
+	pinnedPiece := chessboard pieceAtCoordinate: #g6.
+	pinnedPieces := controlPiece pinnedPieces.
+	pinnedPieces collectionAtSouthDo: [:collection | pin := collection at: 1].
+	self assert: pinnedPieces totalSize equals: 2.
+	self assert: (pin controlPieceIs: (chessboard pieceAtCoordinate: #g8)).
+	self assert: (pin pinnedPieceIs: (chessboard pieceAtCoordinate: #g6)).
+	self assert: (pin targetPieceIs: (chessboard pieceAtCoordinate: #g5)).
+	self assert: (pin orientationIs: #south).
+	self deny: pin isAbsolute.
+	controlPiece := chessboard pieceAtCoordinate: #g8.
+	pinnedPiece := chessboard pieceAtCoordinate: #g5.
+	pinnedPieces collectionAtSouthDo: [:collection | pin := collection at: 2].
+	self assert: pinnedPieces totalSize equals: 2.
+	self assert: (pin controlPieceIs: (chessboard pieceAtCoordinate: #g8)).
+	self assert: (pin pinnedPieceIs: (chessboard pieceAtCoordinate: #g5)).
+	self assert: (pin targetPieceIs: (chessboard pieceAtCoordinate: #g4)).
+	self assert: (pin orientationIs: #south).
+	self assert: pin isAbsolute.
+	self assert: (pinnedPiece isValidMoveFrom: (#g6 asChessSquareIn: systemRoot) to: (#h8 asChessSquareIn: systemRoot)).
+	self assert: (pinnedPiece isValidMoveFrom: (#g5 asChessSquareIn: systemRoot) to: (#f7 asChessSquareIn: systemRoot)).
+
+	controlPiece := chessboard pieceAtCoordinate: #a4.
+	pinnedPiece := chessboard pieceAtCoordinate: #e4.
+	pinnedPieces := controlPiece pinnedPieces.
+	pinnedPieces collectionAtEastDo: [:collection | pin := collection at: 1].
+	self assert: pinnedPieces totalSize equals: 2.
+	self assert: (pin controlPieceIs: (chessboard pieceAtCoordinate: #a4)).
+	self assert: (pin pinnedPieceIs: (chessboard pieceAtCoordinate: #e4)).
+	self assert: (pin targetPieceIs: (chessboard pieceAtCoordinate: #f4)).
+	self assert: (pin orientationIs: #east).
+	self deny: pin isAbsolute.
+	self assert: (pinnedPiece isValidMoveFrom: (#e4 asChessSquareIn: systemRoot) to: (#d3 asChessSquareIn: systemRoot)).
+	controlPiece := chessboard pieceAtCoordinate: #a4.
+	pinnedPiece := chessboard pieceAtCoordinate: #f4.
+	pinnedPieces collectionAtEastDo: [:collection | pin := collection at: 2].
+	self assert: pinnedPieces totalSize equals: 2.
+	self assert: (pin controlPieceIs: (chessboard pieceAtCoordinate: #a4)).
+	self assert: (pin pinnedPieceIs: (chessboard pieceAtCoordinate: #f4)).
+	self assert: (pin targetPieceIs: (chessboard pieceAtCoordinate: #g4)).
+	self assert: (pin orientationIs: #east).
+	self assert: pin isAbsolute.
+
+	controlPiece := chessboard pieceAtCoordinate: #d1.
+	pinnedPiece := chessboard pieceAtCoordinate: #e2.
+	pinnedPieces := controlPiece pinnedPieces.
+	pinnedPieces collectionAtNorthEastDo: [:collection | pin := collection at: 1].
+	self assert: pinnedPieces totalSize equals: 2.
+	self assert: (pin controlPieceIs: (chessboard pieceAtCoordinate: #d1)).
+	self assert: (pin pinnedPieceIs: (chessboard pieceAtCoordinate: #e2)).
+	self assert: (pin targetPieceIs: (chessboard pieceAtCoordinate: #f3)).
+	self assert: (pin orientationIs: #northEast).
+	self deny: pin isAbsolute.
+	self assert: (pinnedPiece isValidMoveFrom: (#e2 asChessSquareIn: systemRoot) to: (#e1 asChessSquareIn: systemRoot)).
+	controlPiece := chessboard pieceAtCoordinate: #d1.
+	pinnedPiece := chessboard pieceAtCoordinate: #f3.
+	pinnedPieces collectionAtNorthEastDo: [:collection | pin := collection at: 2].
+	self assert: pinnedPieces totalSize equals: 2.
+	self assert: (pin controlPieceIs: (chessboard pieceAtCoordinate: #d1)).
+	self assert: (pin pinnedPieceIs: (chessboard pieceAtCoordinate: #f3)).
+	self assert: (pin targetPieceIs: (chessboard pieceAtCoordinate: #g4)).
+	self assert: (pin orientationIs: #northEast).
+	self assert: pin isAbsolute.
+	self assert: (pinnedPiece isValidMoveFrom: (#f3 asChessSquareIn: systemRoot) to: (#h2 asChessSquareIn: systemRoot)).! !
 !ChessPinTest categoriesForMethods!
 testAbsolutePinOnBishopFromRook!public! !
 testAbsolutePinOnQueenFromBishop!public! !
 testAbsolutePinQueenFromQueen!public! !
 testDoublePin!public! !
+testMultiplePins!public! !
 !
 

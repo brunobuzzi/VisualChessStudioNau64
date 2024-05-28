@@ -88,12 +88,13 @@ pinnedPieces
 										(piece isOppositeSideTo: self)
 										ifTrue: [oppositePieces := oppositePieces + 1.
 											oppositePieces = 1 ifTrue: [pinnedPiece := piece].											
-											(oppositePieces > 1 and: [halted not])
+											(oppositePieces > 1 and: [halted not and:[pinnedPiece isKing not]])
 											ifTrue: [pinnedPieces 
 													atOrientation: orientation 
 													add: (ChessPin newOnControl: self pinned: pinnedPiece target: piece orientation: orientation).
 												pinnedPiece := piece]]
-										ifFalse: [halted := true]
+										ifFalse: [halted := true].
+										piece isKing ifTrue: [halted := true].
 									]
 									ifAbsent: []
 						]

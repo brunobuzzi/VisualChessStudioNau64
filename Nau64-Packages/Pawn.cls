@@ -21,6 +21,29 @@ attackedSquaresDo: aBlock
 
 	attackedSquares do: aBlock!
 
+blackPawnSquaresOn: aChessOrientationVector from: aChessSquare do: aBlock
+	| slidingSquares |
+
+	slidingSquares := OrderedCollection new.
+	((aChessSquare fileNumber + aChessOrientationVector fileSign) isInChessRange and: [(aChessSquare rankNumber + aChessOrientationVector rankSign) isInChessRange])
+	ifTrue: [ 
+		aChessOrientationVector isSouth
+		ifTrue: [aChessSquare isRankSeven
+			ifTrue: [
+				slidingSquares add: (aChessSquare next: aChessOrientationVector productArray: #(1 1)).
+				slidingSquares add: (aChessSquare next: aChessOrientationVector productArray: #(1 2)).
+			]
+			ifFalse: [
+				slidingSquares add: (aChessSquare next: aChessOrientationVector productArray: #(1 1)).
+			]
+		]
+		ifFalse: [
+			slidingSquares add: (aChessSquare next: aChessOrientationVector productArray: #(1 1)).
+		].
+	].
+
+	slidingSquares do: aBlock!
+
 canBeMovedToValidCoordinate: symbolCoordinate on: aChessboard
 
 	^(aChessboard squareNotEmptyAtCoordinate: symbolCoordinate) and: [self isOppositeSideTo: (aChessboard pieceAtCoordinate: symbolCoordinate)]!
@@ -48,18 +71,50 @@ pruneUnreacheableSquaresFrom: aSquaresDictionary
 	ifTrue: [aSquaresDictionary pruneUnreacheableSquaresFromBlackPawn]
 	!
 
+squaresOn: aChessOrientationVector from: aChessSquare do: aBlock
+
+	chessSide isWhite
+	ifTrue: [self whitePawnSquaresOn: aChessOrientationVector from: aChessSquare do: aBlock]
+	ifFalse: [self blackPawnSquaresOn: aChessOrientationVector from: aChessSquare do: aBlock]!
+
 validPromotionClasses
 
-	^self class validPromotionClasses! !
+	^self class validPromotionClasses!
+
+whitePawnSquaresOn: aChessOrientationVector from: aChessSquare do: aBlock
+	| slidingSquares |
+
+	slidingSquares := OrderedCollection new.
+	((aChessSquare fileNumber + aChessOrientationVector fileSign) isInChessRange and: [(aChessSquare rankNumber + aChessOrientationVector rankSign) isInChessRange])
+	ifTrue: [ 
+		aChessOrientationVector isNorth
+		ifTrue: [aChessSquare isRankTwo
+			ifTrue: [
+				slidingSquares add: (aChessSquare next: aChessOrientationVector productArray: #(1 1)).
+				slidingSquares add: (aChessSquare next: aChessOrientationVector productArray: #(1 2)).
+			]
+			ifFalse: [
+				slidingSquares add: (aChessSquare next: aChessOrientationVector productArray: #(1 1)).
+			]
+		]
+		ifFalse: [
+			slidingSquares add: (aChessSquare next: aChessOrientationVector productArray: #(1 1)).
+		].
+	].
+
+	slidingSquares do: aBlock! !
 !Pawn categoriesForMethods!
 attackedSquaresDo:!new framework!public! !
+blackPawnSquaresOn:from:do:!new framework!public! !
 canBeMovedToValidCoordinate:on:!public!testing! !
 fenString!public! !
 isPawn!public!testing! !
 pgnString!public! !
 pgnStringForNotation!public! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
+squaresOn:from:do:!new framework!public! !
 validPromotionClasses!new framework!public! !
+whitePawnSquaresOn:from:do:!new framework!public! !
 !
 
 !Pawn class methodsFor!

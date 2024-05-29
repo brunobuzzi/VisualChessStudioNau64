@@ -185,13 +185,13 @@ squareSize
 
 	^chessSide squareSize!
 
+squaresOn: aChessOrientationVector from: aChessSquare do: aBlock
+
+	self subclassResponsibility!
+
 squaresScopeDo: aBlock
 
 	self squaresScopeFrom: self currentChessSquare do: aBlock!
-
-squaresScopeFrom: aChessSquare
-
-	self subclassResponsibility!
 
 squaresScopeFrom: aChessSquare do: aBlock
 	| aSquaresDictionary |
@@ -288,8 +288,8 @@ secureSquaresFrom:do:!new framework!public! !
 setSide:!private! !
 sideName!public! !
 squareSize!public! !
+squaresOn:from:do:!new framework!public! !
 squaresScopeDo:!new framework!public! !
-squaresScopeFrom:!new framework!public! !
 squaresScopeFrom:do:!new framework!public! !
 squaresScopeFromCoordiante:!new framework!public! !
 squaresToMoveDo:!new framework!public! !

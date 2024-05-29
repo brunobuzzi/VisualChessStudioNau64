@@ -32,23 +32,20 @@ package methodNames
 	add: #ChessPiece -> #orientations;
 	add: #ChessPiece -> #orientationVectorFrom:to:;
 	add: #ChessPiece -> #printCurrentSquareOn:;
+	add: #ChessPiece -> #squaresScopeFrom:;
 	add: #King -> #isValidBlackCastleMoveFrom:to:on:on:;
 	add: #King -> #isValidCastleMoveFrom:to:on:on:;
 	add: #King -> #isValidMoveFromCoordinate:to:on:on:;
 	add: #King -> #isValidWhiteCastleMoveFrom:to:on:on:;
 	add: #King -> #orientations;
-	add: #King -> #squaresScopeFrom:;
 	add: #Knight -> #orientations;
-	add: #Knight -> #squaresScopeFrom:;
 	add: #Pawn -> #isValidBlackEnPassantMoveFrom:to:on:;
 	add: #Pawn -> #isValidEnPassantMoveFrom:to:on:;
 	add: #Pawn -> #isValidMoveFromCoordinate:to:on:;
 	add: #Pawn -> #isValidWhiteEnPassantMoveFrom:to:on:;
 	add: #Pawn -> #orientations;
-	add: #Pawn -> #squaresScopeFrom:;
 	add: #Queen -> #orientations;
 	add: #Rook -> #orientations;
-	add: #SlidingPiece -> #squaresScopeFrom:;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -217,7 +214,20 @@ orientationVectorFrom: sourceChessSquare to: targetChessSquare
 printCurrentSquareOn: aStream
 	| currentSquare |
 	currentSquare := self currentChessSquare.
-	aStream nextPutAll: currentSquare printName! !
+	aStream nextPutAll: currentSquare printName!
+
+squaresScopeFrom: aChessSquare
+	| scopeDictionary |
+
+	scopeDictionary := SquaresDictionary on: self.
+
+	self orientationsDo: [:chessOrientationVector | | scopeCollection |
+		scopeCollection := OrderedCollection new.
+		self squaresOn: chessOrientationVector from: aChessSquare do: [:eachSquare | scopeCollection add: eachSquare]. 
+		scopeDictionary atOrientation: chessOrientationVector vectorName put: scopeCollection.
+	].
+
+	^scopeDictionary! !
 !ChessPiece categoriesForMethods!
 checkNoAbsolutePinFrom:to:!new framework!public! !
 currentChessSquare!public! !
@@ -229,6 +239,7 @@ isValidMoveFromCoordinate:to:on:on:!public! !
 orientations!new framework!public! !
 orientationVectorFrom:to:!public! !
 printCurrentSquareOn:!public! !
+squaresScopeFrom:!new framework!public! !
 !
 
 !King methodsFor!
@@ -293,27 +304,13 @@ orientations
 		add: ChessOrientationVector newNorthEast;
 		add: ChessOrientationVector newSouthWest;
 		add: ChessOrientationVector newSouthEast;
-		yourself!
-
-squaresScopeFrom: aChessSquare
-	| scopeDictionary |
-
-	scopeDictionary := SquaresDictionary on: self.
-
-	self orientationsDo: [:chessOrientationVector | | scopeCollection |
-		scopeCollection := OrderedCollection new.
-		aChessSquare kingSquaresWith: chessOrientationVector do: [:eachSquare | scopeCollection add: eachSquare].
-		scopeDictionary atOrientation: chessOrientationVector vectorName put: scopeCollection.
-	].
-
-	^scopeDictionary! !
+		yourself! !
 !King categoriesForMethods!
 isValidBlackCastleMoveFrom:to:on:on:!new framework!public! !
 isValidCastleMoveFrom:to:on:on:!new framework!public! !
 isValidMoveFromCoordinate:to:on:on:!new framework!public! !
 isValidWhiteCastleMoveFrom:to:on:on:!new framework!public! !
 orientations!public! !
-squaresScopeFrom:!new framework!public! !
 !
 
 !Knight methodsFor!
@@ -324,23 +321,9 @@ orientations
 		with: ChessOrientationVector newNorthWest 
 		with: ChessOrientationVector newNorthEast
 		with: ChessOrientationVector newSouthWest
-		with: ChessOrientationVector newSouthEast!
-
-squaresScopeFrom: aChessSquare
-	| scopeDictionary |
-
-	scopeDictionary := SquaresDictionary on: self.
-
-	self orientationsDo: [:chessOrientationVector | | scopeCollection |
-		scopeCollection := OrderedCollection new.
-		aChessSquare knightSquaresWith: chessOrientationVector do: [:eachSquare | scopeCollection add: eachSquare].
-		scopeDictionary atOrientation: chessOrientationVector vectorName put: scopeCollection.
-	].
-
-	^scopeDictionary! !
+		with: ChessOrientationVector newSouthEast! !
 !Knight categoriesForMethods!
 orientations!new framework!orientations do!public! !
-squaresScopeFrom:!new framework!public! !
 !
 
 !Pawn methodsFor!
@@ -382,30 +365,13 @@ orientations
 			add: ChessOrientationVector newSouth;
 			add: ChessOrientationVector newSouthWest;
 			add: ChessOrientationVector newSouthEast;
-			yourself]!
-
-squaresScopeFrom: aChessSquare
-	| scopeDictionary |
-
-	scopeDictionary := SquaresDictionary on: self.
-
-	self orientationsDo: [:chessOrientationVector | | scopeCollection |
-		scopeCollection := OrderedCollection new.
-		self isWhite 
-		ifTrue: [aChessSquare whitePawnSquaresWith: chessOrientationVector do: [:eachSquare | scopeCollection add: eachSquare]] 
-		ifFalse: [aChessSquare blackPawnSquaresWith: chessOrientationVector do: [:eachSquare | scopeCollection add: eachSquare]].
-		scopeDictionary atOrientation: chessOrientationVector vectorName put: scopeCollection.
-	].
-
-	^scopeDictionary
-	! !
+			yourself]! !
 !Pawn categoriesForMethods!
 isValidBlackEnPassantMoveFrom:to:on:!public! !
 isValidEnPassantMoveFrom:to:on:!public! !
 isValidMoveFromCoordinate:to:on:!public! !
 isValidWhiteEnPassantMoveFrom:to:on:!public! !
 orientations!new framework!public! !
-squaresScopeFrom:!new framework!public! !
 !
 
 !Queen methodsFor!
@@ -437,24 +403,6 @@ orientations
 		with: ChessOrientationVector newEast! !
 !Rook categoriesForMethods!
 orientations!new framework!public! !
-!
-
-!SlidingPiece methodsFor!
-
-squaresScopeFrom: aChessSquare
-	| scopeDictionary |
-
-	scopeDictionary := SquaresDictionary on: self.
-
-	self orientationsDo: [:chessOrientationVector | | scopeCollection |
-		scopeCollection := OrderedCollection new.
-		aChessSquare slidingSquaresWith: chessOrientationVector do: [:eachSquare | scopeCollection add: eachSquare].
-		scopeDictionary atOrientation: chessOrientationVector vectorName put: scopeCollection.
-	].
-
-	^scopeDictionary! !
-!SlidingPiece categoriesForMethods!
-squaresScopeFrom:!new framework!public! !
 !
 
 "End of package definition"!

@@ -66,6 +66,17 @@ secureSquaresFrom: aChessSquare do: aBlock
 	].
 !
 
+squaresOn: aChessOrientationVector from: aChessSquare do: aBlock
+	| slidingSquares nextSquare |
+
+	slidingSquares := OrderedCollection new.
+	((aChessSquare fileNumber + aChessOrientationVector fileSign) isInChessRange and: [(aChessSquare rankNumber + aChessOrientationVector rankSign) isInChessRange])
+	ifTrue: [ 
+		nextSquare := aChessSquare next: aChessOrientationVector.
+		slidingSquares add: nextSquare].
+
+	slidingSquares do: aBlock!
+
 squaresToMoveDo: aBlock
 
 	self secureSquaresDo: aBlock!
@@ -81,6 +92,7 @@ isKing!public!testing! !
 pgnString!public! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
 secureSquaresFrom:do:!new framework!public! !
+squaresOn:from:do:!new framework!public! !
 squaresToMoveDo:!new framework!public! !
 squaresToMoveFrom:do:!new framework!public! !
 !

@@ -49,6 +49,19 @@ pruneUnreacheableSquaresFrom: aSquaresDictionary
 
 	aSquaresDictionary pruneUnreachableSquaresFromSlidingPiece!
 
+squaresOn: aChessOrientationVector from: aChessSquare do: aBlock
+	| nextSquare slidingSquares |
+
+	slidingSquares := OrderedCollection new.
+	nextSquare := aChessSquare.
+
+	[(nextSquare fileNumber + aChessOrientationVector fileSign) isInChessRange and: [(nextSquare rankNumber + aChessOrientationVector rankSign) isInChessRange]]
+	whileTrue: [ 
+		nextSquare := nextSquare next: aChessOrientationVector productArray: #(1 1).
+		slidingSquares add: nextSquare].
+
+	slidingSquares do: aBlock!
+
 xRaySquaresFrom: aChessSquare xRayCount: anInteger do: aBlock
 	| xRaySquares |
 
@@ -84,6 +97,7 @@ xRaySquaresWithCount: anInteger do: aBlock
 absoluteXRaySquaresDo:!new framework!public! !
 absoluteXRaySquaresFrom:do:!new framework!public! !
 pruneUnreacheableSquaresFrom:!new framework!public! !
+squaresOn:from:do:!new framework!public! !
 xRaySquaresFrom:xRayCount:do:!new framework!public! !
 xRaySquaresWithCount:do:!new framework!public! !
 !

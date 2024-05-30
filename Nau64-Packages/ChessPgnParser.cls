@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 ChessGameParser subclass: #ChessPgnParser
-	instanceVariableNames: 'pgnMoves'
+	instanceVariableNames: 'pgnMoves result'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -29,9 +29,12 @@ buildMovesModelFor: aChessPgnGameExecutor
 			self calculateBlackCoordinatesFrom: pgnBlackMove on: chessboard.
 		]
 		ifTrue: [
-			(eachArray second includes: $-) 
-			ifTrue: ["self parseResult"]
-			ifFalse: [(eachArray third includes: $-) ifTrue: [self calculateWhiteCoordinatesFrom: pgnWhiteMove on: chessboard]].
+			(eachArray first includes: $-) "resignation after Black last move"
+			ifTrue: [result := eachArray first]
+			ifFalse: [(eachArray third includes: $-) "resignation after White last move"
+				ifTrue: [self calculateWhiteCoordinatesFrom: pgnWhiteMove on: chessboard]
+				ifFalse: [self error: 'Bad last move parsing' ]
+			].
 		].
 	].
 	chessboard := aChessPgnGameExecutor newInitialChessboard.

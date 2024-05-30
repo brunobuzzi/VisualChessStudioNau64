@@ -84,7 +84,7 @@ printOn: aStream
 
 	super printOn: aStream.
 
-	aStream nextPutAll: '[', from, '>>', to, ']'!
+	aStream nextPutAll: '[', pgnPiece, from, '>>', to, ']'!
 
 printPgn
 	| stream |

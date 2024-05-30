@@ -25,11 +25,14 @@ buildMovesModelFor: aChessPgnGameExecutor
 		pgnBlackMove := eachArray at: 3.
 		(eachArray == pgnMoves last)
 		ifFalse: [
-			index = 67 ifTrue: [self halt].
 			self calculateWhiteCoordinatesFrom: pgnWhiteMove on: chessboard. 
 			self calculateBlackCoordinatesFrom: pgnBlackMove on: chessboard.
 		]
-		ifTrue: ["self parseResult"].
+		ifTrue: [
+			(eachArray second includes: $-) 
+			ifTrue: ["self parseResult"]
+			ifFalse: [(eachArray third includes: $-) ifTrue: [self calculateWhiteCoordinatesFrom: pgnWhiteMove on: chessboard]].
+		].
 	].
 	chessboard := aChessPgnGameExecutor newInitialChessboard.
 	parsedMoves keysAndValuesDo: [:index :eachArray | | move |

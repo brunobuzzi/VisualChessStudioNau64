@@ -32,7 +32,8 @@ buildMovesModelFor: aChessPgnGameExecutor
 			(eachArray first includes: $-) "resignation after Black last move"
 			ifTrue: [result := eachArray first]
 			ifFalse: [(eachArray third includes: $-) "resignation after White last move"
-				ifTrue: [self calculateWhiteCoordinatesFrom: pgnWhiteMove on: chessboard]
+				ifTrue: [self calculateWhiteCoordinatesFrom: pgnWhiteMove on: chessboard.
+					result := eachArray third]
 				ifFalse: [self error: 'Bad last move parsing' ]
 			].
 		].

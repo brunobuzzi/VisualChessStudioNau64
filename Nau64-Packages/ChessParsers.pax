@@ -55,7 +55,7 @@ ChessGameParser subclass: #ChessLanParser
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ChessGameParser subclass: #ChessPgnParser
-	instanceVariableNames: 'pgnMoves result'
+	instanceVariableNames: 'pgnMoves result castlingCharacter'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

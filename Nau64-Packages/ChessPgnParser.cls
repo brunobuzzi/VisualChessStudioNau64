@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 ChessGameParser subclass: #ChessPgnParser
-	instanceVariableNames: 'pgnMoves result'
+	instanceVariableNames: 'pgnMoves result castlingCharacter'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -55,7 +55,7 @@ calculateBlackCastleCoordinatesFrom: pgnBlackMove on: aChessboard
 	| king rook |
 
 	king :=  aChessboard pieceAtCoordinate: #e8.
-	((pgnBlackMove occurrencesOf: $O) = 2)
+	((pgnBlackMove occurrencesOf: castlingCharacter) = 2)
 	ifTrue: [rook := aChessboard pieceAtCoordinate: #h8.
 		self moveBlackPieceFrom: king currentChessSquare coordinate to: #g8.
 		self moveBlackPieceFrom: rook currentChessSquare coordinate to: #f8.
@@ -75,7 +75,11 @@ calculateBlackCastleCoordinatesFrom: pgnBlackMove on: aChessboard
 		aChessboard movePieceFromCoordiante: #a8 to: #d8.]!
 
 calculateBlackCoordinatesFrom: pgnBlackMove on: aChessboard
-	^pgnBlackMove first isUppercase
+
+	((pgnBlackMove first = $0) or: [pgnBlackMove first = $O]) "the official character for castle is uppercase letter O, not 0, but zero is somehow accepted"
+	ifTrue: [castlingCharacter := pgnBlackMove first].
+
+	^(pgnBlackMove first isUpperCase or: [pgnBlackMove first = castlingCharacter]) 
 	ifFalse: [self calculateBlackPawnCoordinatesFrom: pgnBlackMove on: aChessboard] 
 	ifTrue: [self calculateBlackPieceCoordinatesFrom: pgnBlackMove on: aChessboard]!
 
@@ -110,7 +114,7 @@ calculateBlackPawnCoordinatesFrom: pgnWhiteMove on: aChessboard
 calculateBlackPieceCoordinatesFrom: pgnBlackMove on: aChessboard
 	| targetCoordinate pieceName pieces piece |
 
-	('*O*' match: pgnBlackMove) ifTrue: [^self calculateBlackCastleCoordinatesFrom: pgnBlackMove on: aChessboard].
+	('*', self castlingCharacterForMatching, '*' match: pgnBlackMove) ifTrue: [^self calculateBlackCastleCoordinatesFrom: pgnBlackMove on: aChessboard].
 	('*x*' match: pgnBlackMove)
 	ifFalse: [targetCoordinate := pgnBlackMove allButFirst asSymbol.
 		pieceName := pgnBlackMove first asString]
@@ -135,7 +139,7 @@ calculateWhiteCastleCoordinatesFrom: pgnWhiteMove on: aChessboard
 	| king rook |
 
 	king :=  aChessboard pieceAtCoordinate: #e1.
-	((pgnWhiteMove occurrencesOf: $O) = 2)
+	((pgnWhiteMove occurrencesOf: castlingCharacter) = 2)
 	ifTrue: [rook := aChessboard pieceAtCoordinate: #h1.
 		self moveWhitePieceFrom: king currentChessSquare coordinate to: #g1.
 		self moveWhitePieceFrom: rook currentChessSquare coordinate to: #f1.
@@ -156,7 +160,11 @@ calculateWhiteCastleCoordinatesFrom: pgnWhiteMove on: aChessboard
 !
 
 calculateWhiteCoordinatesFrom: pgnWhiteMove on: aChessboard
-	^pgnWhiteMove first isUppercase
+
+	((pgnWhiteMove first = $0) or: [pgnWhiteMove first = $O]) "the official character for castle is uppercase letter O, not 0, but zero is somehow accepted"
+	ifTrue: [castlingCharacter := pgnWhiteMove first].
+
+	^(pgnWhiteMove first isUpperCase or: [pgnWhiteMove first = castlingCharacter]) 
 	ifFalse: [self calculateWhitePawnCoordinatesFrom: pgnWhiteMove on: aChessboard] 
 	ifTrue: [self calculateWhitePieceCoordinatesFrom: pgnWhiteMove on: aChessboard]!
 
@@ -191,25 +199,29 @@ calculateWhitePawnCoordinatesFrom: pgnWhiteMove on: aChessboard
 calculateWhitePieceCoordinatesFrom: pgnWhiteMove on: aChessboard
 	| targetCoordinate pieceName pieces piece |
 
-	('*O*' match: pgnWhiteMove) ifTrue: [^self calculateWhiteCastleCoordinatesFrom: pgnWhiteMove on: aChessboard].
-	('*x*' match: pgnWhiteMove)
-	ifFalse: [targetCoordinate := pgnWhiteMove allButFirst asSymbol.
-		pieceName := pgnWhiteMove first asString]
+	('*' , self castlingCharacterForMatching, '*' match: pgnWhiteMove) ifTrue: [^self calculateWhiteCastleCoordinatesFrom: pgnWhiteMove on: aChessboard].
+	('*x*' match: pgnWhiteMove) 	
+	ifFalse:  [targetCoordinate := pgnWhiteMove allButFirst asSymbol.
+			pieceName := pgnWhiteMove first asString]
 	ifTrue: [targetCoordinate := (pgnWhiteMove subStrings: $x) last asSymbol.
-		pieceName := (pgnWhiteMove subStrings: $x) first asString.].
+			pieceName := (pgnWhiteMove subStrings: $x) first asString].
 	(targetCoordinate includes: $+) ifTrue: [targetCoordinate := targetCoordinate allButLast asSymbol].
 	pieceName size = 2 ifTrue: [self error: 'Not implemented yet'].
-	pieces  := (aChessboard whitePiecesPgnNamed: pieceName) asOrderedCollection.
+	pieces := (aChessboard whitePiecesPgnNamed: pieceName) asOrderedCollection.
 	targetCoordinate size = 3 ifTrue: [targetCoordinate := targetCoordinate allButFirst asSymbol].
 	pieces := (pieces select: [:eachPiece | eachPiece isValidMoveFrom: eachPiece currentChessSquare to: (targetCoordinate asChessSquareIn: systemRoot)]) asOrderedCollection.
 	pieces size > 1
-	ifTrue: [
-		pieces := pieces select: [:eachPiece | eachPiece currentChessSquare coordinate first = pgnWhiteMove second or:[eachPiece currentChessSquare coordinate second = pgnWhiteMove second]].
-	].
+		ifTrue: [pieces := pieces select: [:eachPiece | eachPiece currentChessSquare coordinate first = pgnWhiteMove second
+										or: [eachPiece currentChessSquare coordinate second = pgnWhiteMove second]]].
 	piece := pieces last.
 	self moveWhitePieceFrom: piece currentChessSquare coordinate to: targetCoordinate.
 	parsedMoves add: (Array with: piece currentChessSquare coordinate with: targetCoordinate).
-	aChessboard movePieceFromCoordiante: piece currentChessSquare coordinate to: targetCoordinate.!
+	aChessboard movePieceFromCoordiante: piece currentChessSquare coordinate to: targetCoordinate!
+
+castlingCharacterForMatching
+
+	castlingCharacter ifNil: [^'O'].
+	^castlingCharacter asString!
 
 numberOfMoves
 
@@ -258,6 +270,7 @@ calculateWhiteCastleCoordinatesFrom:on:!chess game!public! !
 calculateWhiteCoordinatesFrom:on:!chess game!public! !
 calculateWhitePawnCoordinatesFrom:on:!chess game!public! !
 calculateWhitePieceCoordinatesFrom:on:!chess game!public! !
+castlingCharacterForMatching!chess game!public! !
 numberOfMoves!public! !
 parseGameData!parser!public! !
 parseGameMoves!parser!public! !

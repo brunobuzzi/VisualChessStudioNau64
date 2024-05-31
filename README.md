@@ -14,3 +14,5 @@ Future Task:
 * Ideas searcher
 * GemStone/S compilation (for parallel processing)
 
+![Current Chessboard rendered with UTF characters ](https://raw.githubusercontent.com/brunobuzzi/VisualChessStudioNau64/main/wikiImages/readChessboard.png)
+

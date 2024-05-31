@@ -10,55 +10,6 @@ ChessOrientationVector comment: ''!
 !ChessOrientationVector categoriesForClass!Unclassified! !
 !ChessOrientationVector methodsFor!
 
-calculateLastDiagonalSquareFrom: aChessSquare
-
-	^self calculateLastSquareFrom: aChessSquare 
-			fileShift: southOrNorth fileSign 
-			rankShift: eastOrWest rankSign!
-
-calculateLastHorizontalSquareFrom: aChessSquare
-
-	^self calculateLastSquareFrom: aChessSquare 
-			fileShift: southOrNorth fileSign 
-			rankShift: 0!
-
-calculateLastSquareFrom: aChessSquare
-
-	(southOrNorth notNil and: [eastOrWest notNil]) ifTrue: [^self calculateLastDiagonalSquareFrom: aChessSquare].
-
-	southOrNorth notNil ifTrue: [^self calculateLastVerticalSquareFrom: aChessSquare].
-
-	eastOrWest notNil ifTrue: [^self calculateLastHorizontalSquareFrom: aChessSquare].
-
-	^self error: 'Unsupported orientation combination'
-
-	!
-
-calculateLastSquareFrom: aChessSquare fileShift: fileShift rankShift: rankShift
-	| currentSquare isLast |
-
-	currentSquare := aChessSquare.
-	isLast := false.
-
-	[isLast] whileFalse: [
-		currentSquare
-			nextFile: fileShift
-			nextRank: rankShift
-			onSuccessDo: [:square | currentSquare := square]
-			onErrorDo: [:ex | isLast := true].
-	].
-	^currentSquare!
-
-calculateLastVerticalSquareFrom: aChessSquare
-
-	^self calculateLastSquareFrom: aChessSquare 
-			fileShift: 0 
-			rankShift: eastOrWest rankSign!
-
-eastOrWestDo: aBlock
-
-	aBlock value: eastOrWest!
-
 fileSign
 	^eastOrWest ifNil: [0] ifNotNil: [eastOrWest fileSign]!
 
@@ -96,9 +47,6 @@ isNorthEast
 isNorthWest
 
 	^southOrNorth isNorth and: [eastOrWest isWest]!
-
-isPieceCompatible
-	"^sourcePiece movesAreCompatibleWith: self"!
 
 isPinCompatibleOnDiagonalWithOrientationNamed: aSymbol
 
@@ -160,42 +108,6 @@ isWest
 
 	^southOrNorth isNil and: [eastOrWest isWest]!
 
-nextSquaresFrom: aChessSquare
-	| squares |
-
-	squares := OrderedCollection new.
-	southOrNorth ifNotNil: [].
-	eastOrWest ifNotNil: [].!
-
-nextSquaresFrom: aChessSquare do: aBlock
-	| squares |
-
-	"self isPieceCompatible ifFalse: [^self]. " "CHECK THIS COMMENT OUT"
-
-	squares := OrderedCollection new.
-	
-	1 to: 7 do: [:shift |
-		aChessSquare 
-			nextFile: (shift * self fileSign) 
-			nextRank: (shift * self rankSign)
-			onSuccessDo: [:square | squares add: square] 
-			onErrorDo: [:ex | ]].
-
-	squares do: aBlock!
-
-notOpposing: aChessOrientationVector 
-	| notOpposing |
-
-	(eastOrWest notNil and: [southOrNorth isNil])
-	ifTrue: [aChessOrientationVector eastOrWestDo: [:orientationOrNil | notOpposing := eastOrWest isOpposing: orientationOrNil]].
-	
-	(eastOrWest isNil and: [southOrNorth notNil])
-	ifTrue: [aChessOrientationVector southOrNorthDo: [:orientationOrNil | notOpposing := southOrNorth isOpposing: orientationOrNil]].
-
-	(eastOrWest notNil and: [southOrNorth notNil]) ifTrue: [self error: 'Not Implemented'].
-
-	^notOpposing not!
-
 printOn: aStream
 
 	super printOn: aStream.
@@ -204,18 +116,6 @@ printOn: aStream
 
 rankSign
 	^southOrNorth ifNil: [0] ifNotNil: [southOrNorth rankSign]!
-
-rookBateryOrientationsDo: aBlock
-
-	southOrNorth ifNotNil: [^(Array with: ChessWestOrientation new with: ChessEastOrientation new) do: aBlock].
-
-	eastOrWest ifNotNil: [^(Array with: ChessSouthOrientation new with: ChessNorthOrientation new) do: aBlock].
-	
-	!
-
-southOrNorthDo: aBlock
-
-	aBlock value: southOrNorth!
 
 unicodeValue
 
@@ -266,12 +166,6 @@ vectorName
 
 	self error: 'Bad Orientation Vector'! !
 !ChessOrientationVector categoriesForMethods!
-calculateLastDiagonalSquareFrom:!move calculation!public! !
-calculateLastHorizontalSquareFrom:!move calculation!public! !
-calculateLastSquareFrom:!move calculation!public! !
-calculateLastSquareFrom:fileShift:rankShift:!move calculation!public! !
-calculateLastVerticalSquareFrom:!move calculation!public! !
-eastOrWestDo:!orientations do!public! !
 fileSign!new framework!public!squares iteration! !
 icon!new framework!public! !
 intialize!public! !
@@ -282,7 +176,6 @@ isEast!new framework!public!testing! !
 isNorth!new framework!public!testing! !
 isNorthEast!new framework!public!testing! !
 isNorthWest!new framework!public!testing! !
-isPieceCompatible!public!squares iteration! !
 isPinCompatibleOnDiagonalWithOrientationNamed:!new framework!public! !
 isPinCompatibleOnNonDiagonalWithOrientationNamed:!new framework!public! !
 isPinCompatibleWithOrientationNamed:!new framework!public! !
@@ -290,13 +183,8 @@ isSouth!new framework!public!testing! !
 isSouthEast!new framework!public!testing! !
 isSouthWest!new framework!public!testing! !
 isWest!new framework!public!testing! !
-nextSquaresFrom:!new framework!public!squares iteration! !
-nextSquaresFrom:do:!public!squares iteration! !
-notOpposing:!public! !
 printOn:!public! !
 rankSign!new framework!public!squares iteration! !
-rookBateryOrientationsDo:!public!tactics! !
-southOrNorthDo:!orientations do!public! !
 unicodeValue!new framework!public! !
 updateOrientationForSource:target:!public! !
 updateToEast!orientation settings!public! !

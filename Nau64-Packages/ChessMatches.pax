@@ -20,6 +20,7 @@ package classNames
 	add: #ChessMoveCategory;
 	add: #ChessMoveNode;
 	add: #ChessMoveTreeList;
+	add: #ChessNewGameExecutor;
 	add: #ChessPgnGameExecutor;
 	add: #ChessPlayer;
 	add: #ChessPromotionMove;
@@ -85,6 +86,11 @@ Object subclass: #ChessPlayer
 	classInstanceVariableNames: ''!
 ChessGameExecutor subclass: #ChessFenGameExecutor
 	instanceVariableNames: 'initialSideToMove'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessGameExecutor subclass: #ChessNewGameExecutor
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

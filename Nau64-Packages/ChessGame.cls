@@ -31,6 +31,13 @@ isLastPgnAnnotation: anArray
 
 	^pgnMoves last == anArray!
 
+newExecutor
+	| pgnExecutor |
+
+	pgnExecutor := ChessNewGameExecutor newOn: self.
+
+	^pgnExecutor!
+
 newFenExecutor
 	| fenExecutor parser |
 
@@ -152,6 +159,7 @@ initialFenPosition!executors!public! !
 initialFenStringPosition!private! !
 initialSideToMove!public! !
 isLastPgnAnnotation:!moves!public! !
+newExecutor!executors!public! !
 newFenExecutor!executors!public! !
 newFenExecutorOn:!executors!public! !
 newInitialChessboard!public! !

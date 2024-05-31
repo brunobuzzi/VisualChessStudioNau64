@@ -135,7 +135,7 @@ renderChessboard
 	gdiBitmap := GdiplusBitmap extent: DesktopView current extent.
 	model drawOn: gdiBitmap isDisplayCoordinatesEnabled: isDisplayCoordinatesEnabled.
 	effects do: [:chessboardEffect | chessboardEffect drawOn: gdiBitmap].
-	self imageModel: gdiBitmap asValue!
+	self imageModel: gdiBitmap asValue.!
 
 setGame: aChessGame
 	chessGame := aChessGame.
@@ -167,6 +167,7 @@ setRoot: aSystemRoot pgnString: pgnString
 
 startTrackingAt: aPoint 
 
+	gameExecutor ifNil: [gameExecutor := chessGame newExecutor].
 	super startTrackingAt: aPoint.! !
 !ChessGamePresenter categoriesForMethods!
 buildFenExecutorFor:!public! !

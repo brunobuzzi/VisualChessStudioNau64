@@ -80,57 +80,63 @@ calculateBlackCoordinatesFrom: pgnBlackMove on: aChessboard
 	ifTrue: [castlingCharacter := pgnBlackMove first].
 
 	^(pgnBlackMove first isUpperCase or: [pgnBlackMove first = castlingCharacter]) 
-	ifFalse: [self calculateBlackPawnCoordinatesFrom: pgnBlackMove on: aChessboard] 
-	ifTrue: [self calculateBlackPieceCoordinatesFrom: pgnBlackMove on: aChessboard]!
+	ifFalse: [self calculatePawnCoordinatesFrom: pgnBlackMove for: #black on: aChessboard] 
+	ifTrue: [self calculatePieceCoordinatesFrom: pgnBlackMove for: #black on: aChessboard]!
 
-calculateBlackPawnCoordinatesFrom: pgnWhiteMove on: aChessboard
+calculateCastleCoordinatesFrom: pgnMove for: symbolChessSide on: aChessboard
+
+	^symbolChessSide = #white
+		ifTrue: [self calculateWhiteCastleCoordinatesFrom: pgnMove on: aChessboard]
+		ifFalse: [self calculateBlackCastleCoordinatesFrom: pgnMove on: aChessboard]!
+
+calculatePawnCoordinatesFrom: pgnCompleMove for: symbolChessSide on: aChessboard
 	| isCapture pgnMove |
 
-	pgnMove := (pgnWhiteMove includes: $+) ifTrue: [pgnWhiteMove allButLast asSymbol] ifFalse: [pgnWhiteMove].
-	isCapture := '*x*' match: pgnWhiteMove.
+	pgnMove := (pgnCompleMove includes: $+) ifTrue: [pgnCompleMove allButLast asSymbol] ifFalse: [pgnCompleMove].
+	isCapture := '*x*' match: pgnCompleMove.
 	isCapture
 	ifFalse: [ | piecesDictionary pieces piece |
-		piecesDictionary := aChessboard blackPawnsOnFile: pgnMove first asString.
+		piecesDictionary := self pawnsOnFile: pgnMove first asString for: symbolChessSide on: aChessboard.
 		pieces := (piecesDictionary select: [:eachPiece | (eachPiece squaresScopeFrom: eachPiece currentChessSquare) includes: (pgnMove asSymbol asChessSquareIn: systemRoot)]) asOrderedCollection.
 		pieces size = 0 ifTrue: [self error: 'No Pawn found to move to [', pgnMove ,']'].
 		pieces size = 1 ifFalse: [self error: 'Not implemented yet'].
 		piece := pieces last.
-		self moveBlackPieceFrom: piece currentChessSquare coordinate to: pgnMove asSymbol.
+		self movePieceFor: symbolChessSide from: piece currentChessSquare coordinate to: pgnMove asSymbol.
 		parsedMoves add: (Array with: piece currentChessSquare coordinate with: pgnMove asSymbol).
 		aChessboard movePieceFromCoordiante: piece currentChessSquare coordinate to: pgnMove asSymbol]
 	ifTrue: [ | piecesDictionary pieces piece targetSquareCoordinate |
 		targetSquareCoordinate := (pgnMove subStrings: $x) last asSymbol.
-		piecesDictionary := aChessboard blackPawnsOnFile: pgnMove first asString.
+		piecesDictionary := self pawnsOnFile: pgnMove first asString for: symbolChessSide on: aChessboard.
 		pieces := (piecesDictionary select: [:eachPiece | (eachPiece squaresScopeFrom: eachPiece currentChessSquare) includes: (targetSquareCoordinate asChessSquareIn: systemRoot)]) asOrderedCollection.
 		pieces size = 0 ifTrue: [self error: 'No Pawn found to move to [', pgnMove ,']'].
 		pieces size = 1 ifFalse: [self error: 'Not implemented yet'].
 		piece := pieces last.
-		self moveBlackPieceFrom: piece currentChessSquare coordinate to: targetSquareCoordinate.
+		self movePieceFor: symbolChessSide from: piece currentChessSquare coordinate to: targetSquareCoordinate.
 		parsedMoves add: (Array with: piece currentChessSquare coordinate with: targetSquareCoordinate).
 		aChessboard movePieceFromCoordiante: piece currentChessSquare coordinate to: targetSquareCoordinate.
 	]
 	!
 
-calculateBlackPieceCoordinatesFrom: pgnBlackMove on: aChessboard
+calculatePieceCoordinatesFrom: pgnMove for: symbolChessSide on: aChessboard
 	| targetCoordinate pieceName pieces piece |
 
-	('*', self castlingCharacterForMatching, '*' match: pgnBlackMove) ifTrue: [^self calculateBlackCastleCoordinatesFrom: pgnBlackMove on: aChessboard].
-	('*x*' match: pgnBlackMove)
-	ifFalse: [targetCoordinate := pgnBlackMove allButFirst asSymbol.
-		pieceName := pgnBlackMove first asString]
-	ifTrue: [targetCoordinate := (pgnBlackMove subStrings: $x) last asSymbol.
-		pieceName := (pgnBlackMove subStrings: $x) first asString.].
+	('*', self castlingCharacterForMatching, '*' match: pgnMove) ifTrue: [^self calculateCastleCoordinatesFrom: pgnMove for: symbolChessSide on: aChessboard]. "1"
+	('*x*' match: pgnMove)
+	ifFalse: [targetCoordinate := pgnMove allButFirst asSymbol.
+		pieceName := pgnMove first asString]
+	ifTrue: [targetCoordinate := (pgnMove subStrings: $x) last asSymbol.
+		pieceName := (pgnMove subStrings: $x) first asString.].
 	(targetCoordinate includes: $+) ifTrue: [targetCoordinate := targetCoordinate allButLast asSymbol].
 	pieceName size = 2 ifTrue: [self error: 'Not implemented yet'].
-	pieces  := (aChessboard blackPiecesPgnNamed: pieceName) asOrderedCollection.
+	pieces  := self piecesWithPgnName: pieceName for: symbolChessSide on: aChessboard. "2"
 	targetCoordinate size = 3 ifTrue: [targetCoordinate := targetCoordinate allButFirst asSymbol].
 	pieces := (pieces select: [:eachPiece | eachPiece isValidMoveFrom: eachPiece currentChessSquare to: (targetCoordinate asChessSquareIn: systemRoot)]) asOrderedCollection.
 	pieces size > 1 
 	ifTrue: [
-		pieces := pieces select: [:eachPiece | eachPiece currentChessSquare coordinate first = pgnBlackMove second or:[eachPiece currentChessSquare coordinate second = pgnBlackMove second]].
+		pieces := pieces select: [:eachPiece | eachPiece currentChessSquare coordinate first = pgnMove second or:[eachPiece currentChessSquare coordinate second = pgnMove second]].
 	].
 	piece := pieces last.
-	self moveBlackPieceFrom: piece currentChessSquare coordinate to: targetCoordinate.
+	self movePieceFor: symbolChessSide from: piece currentChessSquare coordinate to: targetCoordinate."3"
 	parsedMoves add: (Array with: piece currentChessSquare coordinate with: targetCoordinate).
 	aChessboard movePieceFromCoordiante: piece currentChessSquare coordinate to: targetCoordinate.
 	!
@@ -165,63 +171,20 @@ calculateWhiteCoordinatesFrom: pgnWhiteMove on: aChessboard
 	ifTrue: [castlingCharacter := pgnWhiteMove first].
 
 	^(pgnWhiteMove first isUpperCase or: [pgnWhiteMove first = castlingCharacter]) 
-	ifFalse: [self calculateWhitePawnCoordinatesFrom: pgnWhiteMove on: aChessboard] 
-	ifTrue: [self calculateWhitePieceCoordinatesFrom: pgnWhiteMove on: aChessboard]!
-
-calculateWhitePawnCoordinatesFrom: pgnWhiteMove on: aChessboard
-	| isCapture pgnMove |
-
-	pgnMove := (pgnWhiteMove includes: $+) ifTrue: [pgnWhiteMove allButLast asSymbol] ifFalse: [pgnWhiteMove].
-	isCapture := '*x*' match: pgnWhiteMove.
-	isCapture
-	ifFalse: [ | piecesDictionary pieces piece |
-		piecesDictionary := aChessboard whitePawnsOnFile: pgnMove first asString.
-		pieces := (piecesDictionary select: [:eachPiece | (eachPiece squaresScopeFrom: eachPiece currentChessSquare) includes: (pgnMove asSymbol asChessSquareIn: systemRoot)]) asOrderedCollection.
-		pieces size = 0 ifTrue: [self error: 'No Pawn found to move to [', pgnMove ,']'].
-		pieces size = 1 ifFalse: [self error: 'Not implemented yet'].
-		piece := pieces last.
-		self moveWhitePieceFrom: piece currentChessSquare coordinate to: pgnMove asSymbol.
-		parsedMoves add: (Array with: piece currentChessSquare coordinate with: pgnMove asSymbol).
-		aChessboard movePieceFromCoordiante: piece currentChessSquare coordinate to: pgnMove asSymbol]
-	ifTrue: [ | piecesDictionary pieces piece targetSquareCoordinate |
-		targetSquareCoordinate := (pgnMove subStrings: $x) last asSymbol.
-		piecesDictionary := aChessboard whitePawnsOnFile: pgnMove first asString.
-		pieces := (piecesDictionary select: [:eachPiece | (eachPiece squaresScopeFrom: eachPiece currentChessSquare) includes: (targetSquareCoordinate asChessSquareIn: systemRoot)]) asOrderedCollection.
-		pieces size = 0 ifTrue: [self error: 'No Pawn found to move to [', pgnMove ,']'].
-		pieces size = 1 ifFalse: [self error: 'Not implemented yet'].
-		piece := pieces last.
-		self moveWhitePieceFrom: piece currentChessSquare coordinate to: targetSquareCoordinate.
-		parsedMoves add: (Array with: piece currentChessSquare coordinate with: targetSquareCoordinate).
-		aChessboard movePieceFromCoordiante: piece currentChessSquare coordinate to: targetSquareCoordinate.
-	]
-	!
-
-calculateWhitePieceCoordinatesFrom: pgnWhiteMove on: aChessboard
-	| targetCoordinate pieceName pieces piece |
-
-	('*' , self castlingCharacterForMatching, '*' match: pgnWhiteMove) ifTrue: [^self calculateWhiteCastleCoordinatesFrom: pgnWhiteMove on: aChessboard].
-	('*x*' match: pgnWhiteMove) 	
-	ifFalse:  [targetCoordinate := pgnWhiteMove allButFirst asSymbol.
-			pieceName := pgnWhiteMove first asString]
-	ifTrue: [targetCoordinate := (pgnWhiteMove subStrings: $x) last asSymbol.
-			pieceName := (pgnWhiteMove subStrings: $x) first asString].
-	(targetCoordinate includes: $+) ifTrue: [targetCoordinate := targetCoordinate allButLast asSymbol].
-	pieceName size = 2 ifTrue: [self error: 'Not implemented yet'].
-	pieces := (aChessboard whitePiecesPgnNamed: pieceName) asOrderedCollection.
-	targetCoordinate size = 3 ifTrue: [targetCoordinate := targetCoordinate allButFirst asSymbol].
-	pieces := (pieces select: [:eachPiece | eachPiece isValidMoveFrom: eachPiece currentChessSquare to: (targetCoordinate asChessSquareIn: systemRoot)]) asOrderedCollection.
-	pieces size > 1
-		ifTrue: [pieces := pieces select: [:eachPiece | eachPiece currentChessSquare coordinate first = pgnWhiteMove second
-										or: [eachPiece currentChessSquare coordinate second = pgnWhiteMove second]]].
-	piece := pieces last.
-	self moveWhitePieceFrom: piece currentChessSquare coordinate to: targetCoordinate.
-	parsedMoves add: (Array with: piece currentChessSquare coordinate with: targetCoordinate).
-	aChessboard movePieceFromCoordiante: piece currentChessSquare coordinate to: targetCoordinate!
+	ifFalse: [self calculatePawnCoordinatesFrom: pgnWhiteMove for: #white on: aChessboard] 
+	ifTrue: [self calculatePieceCoordinatesFrom: pgnWhiteMove for: #white on: aChessboard]
+!
 
 castlingCharacterForMatching
 
 	castlingCharacter ifNil: [^'O'].
 	^castlingCharacter asString!
+
+movePieceFor: symbolChessSide from: fromCoordinate to: targetCoordinate
+
+	^symbolChessSide = #white
+		ifTrue: [self moveWhitePieceFrom: fromCoordinate to: targetCoordinate]
+		ifFalse: [self moveBlackPieceFrom: fromCoordinate to: targetCoordinate]!
 
 numberOfMoves
 
@@ -257,23 +220,37 @@ parseGameMoves
 			pgnMoves add: (Array with: moveNumber with: whiteMove with: blackMove).
 	].
 
-! !
+!
+
+pawnsOnFile: fileName for: symbolChessSide on: aChessboard
+
+	^symbolChessSide = #white
+		ifTrue: [aChessboard whitePawnsOnFile: fileName]
+		ifFalse: [aChessboard blackPawnsOnFile: fileName ] !
+
+piecesWithPgnName: pieceName for: symbolChessSide on: aChessboard
+
+	^(symbolChessSide = #white
+		ifTrue: [aChessboard whitePiecesPgnNamed: pieceName]
+		ifFalse: [aChessboard blackPiecesPgnNamed: pieceName]) asOrderedCollection! !
 !ChessPgnParser categoriesForMethods!
 buildGameFor:!chess game!parser!public! !
 buildMovesModelFor:!chess game!parser!public! !
 buildPgnListFor:!chess game!parser!public! !
 calculateBlackCastleCoordinatesFrom:on:!chess game!public! !
 calculateBlackCoordinatesFrom:on:!chess game!public! !
-calculateBlackPawnCoordinatesFrom:on:!chess game!public! !
-calculateBlackPieceCoordinatesFrom:on:!chess game!public! !
+calculateCastleCoordinatesFrom:for:on:!chess game!public! !
+calculatePawnCoordinatesFrom:for:on:!chess game!public! !
+calculatePieceCoordinatesFrom:for:on:!chess game!public! !
 calculateWhiteCastleCoordinatesFrom:on:!chess game!public! !
 calculateWhiteCoordinatesFrom:on:!chess game!public! !
-calculateWhitePawnCoordinatesFrom:on:!chess game!public! !
-calculateWhitePieceCoordinatesFrom:on:!chess game!public! !
 castlingCharacterForMatching!chess game!public! !
+movePieceFor:from:to:!chess game!public! !
 numberOfMoves!public! !
 parseGameData!parser!public! !
 parseGameMoves!parser!public! !
+pawnsOnFile:for:on:!chess game!public! !
+piecesWithPgnName:for:on:!chess game!public! !
 !
 
 !ChessPgnParser class methodsFor!

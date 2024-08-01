@@ -75,6 +75,7 @@ package setPrerequisites: #(
 	'..\Core\Object Arts\Dolphin\MVP\Presenters\List\Dolphin List Presenter'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
 	'..\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter'
+	'..\Core\Object Arts\Dolphin\MVP\Presenters\Text\Dolphin Text Presenter'
 	'..\Core\Object Arts\Dolphin\MVP\Icons\Dolphin Text Tile Icons'
 	'..\Core\Object Arts\Dolphin\MVP\Views\Tooltips\Dolphin Tooltips'
 	'..\Core\Object Arts\Dolphin\MVP\Type Converters\Dolphin Type Converters'
@@ -162,7 +163,7 @@ AbstractChessboardPresenter subclass: #ChessboardSquaresPresenter
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 AbstractChessboardPresenter subclass: #ChessGamePresenter
-	instanceVariableNames: 'chessGame gameExecutor movesPresenter'
+	instanceVariableNames: 'chessGame gameExecutor movesPresenter currentMovePresenter'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

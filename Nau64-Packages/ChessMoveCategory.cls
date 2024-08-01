@@ -10,10 +10,6 @@ ChessMoveCategory comment: ''!
 !ChessMoveCategory categoriesForClass!Unclassified! !
 !ChessMoveCategory methodsFor!
 
-applyRedoTo: aChessMove on: aChessboard
-
-	aChessboard movePieceFromCoordiante: aChessMove from to: aChessMove to.!
-
 isCastle
 	^false!
 
@@ -27,16 +23,23 @@ performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aC
 
 	self subclassResponsibility!
 
+redoOn: aChessboard
+	self subclassResponsibility!
+
 setMove: aChessMove
 
-	move := aChessMove! !
+	move := aChessMove!
+
+undoOn: aChessboard 
+	self subclassResponsibility! !
 !ChessMoveCategory categoriesForMethods!
-applyRedoTo:on:!public! !
 isCastle!public! !
 isEnPassantEnabler!public! !
 isPromotion!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
+redoOn:!public! !
 setMove:!private! !
+undoOn:!public! !
 !
 
 !ChessMoveCategory class methodsFor!

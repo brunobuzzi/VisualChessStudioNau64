@@ -152,6 +152,7 @@ orientations!new framework!orientations do!public! !
 
 checkNoAbsolutePinFrom: originChessSquare to: targetChessSquare
 	| pins vector |
+
 	pins := OrderedCollection new.
 	self oppositeSideDo: [:oppositeSide | 
 		oppositeSide piecesDo: [:piece | 

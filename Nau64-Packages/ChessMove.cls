@@ -100,14 +100,10 @@ printPgnOn: aStream
 promotion
 	^categories detect: [:each | each isPromotion]!
 
-redoOn: aChessboard 
-
-	(categories reject: [:each | each isEnPassantEnabler]) isEmpty 
-	ifTrue: [^aChessboard movePieceFromCoordiante: from to: to].
-
-	categories do: [:each | each applyRedoTo: self on: aChessboard].
-
-	!
+redoOn: aChessboard
+	(categories reject: [:each | each isEnPassantEnabler]) isEmpty
+		ifTrue: [^aChessboard movePieceFromCoordiante: from to: to].
+	categories do: [:each | each redoOn: aChessboard]!
 
 setCategoriesFrom: aChessboard 
 	| originPiece targetPiece |

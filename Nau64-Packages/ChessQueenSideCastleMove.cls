@@ -24,6 +24,23 @@ performWhiteCastleOn: aChessboard withPostActionOn: aChessGame
 
 	aChessGame disableWhiteCastle.!
 
+redoOn: aChessboard 
+
+	move to last = $1 "white castle"
+	ifTrue: [
+		aChessboard movePieceFromCoordiante: #a1 to: #d1.
+		^aChessboard movePieceFromCoordiante: #e1 to: #c1.		
+	].
+
+	move to last = $8 "black castle"	
+	ifTrue: [
+		aChessboard movePieceFromCoordiante: #a8 to: #d8.
+		^aChessboard movePieceFromCoordiante: #e8 to: #c8.
+	].
+
+	^self error: 'Bad undo'
+	!
+
 undoOn: aChessboard 
 
 	move to last = $1 "white castle"
@@ -43,6 +60,7 @@ undoOn: aChessboard
 !ChessQueenSideCastleMove categoriesForMethods!
 performBlackCastleOn:withPostActionOn:!public! !
 performWhiteCastleOn:withPostActionOn:!public! !
+redoOn:!public! !
 undoOn:!public! !
 !
 

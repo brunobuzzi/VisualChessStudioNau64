@@ -10,21 +10,23 @@ ChessEnPassantEnablerMove comment: ''!
 !ChessEnPassantEnablerMove categoriesForClass!Unclassified! !
 !ChessEnPassantEnablerMove methodsFor!
 
-applyRedoTo: aChessMove on: aChessboard
-	"Nothing to do, it is only a enabler for the next move" !
-
 isEnPassantEnabler
 	^true!
 
 performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aChessboard withPostActionOn: aChessGameExecutor
 	"Nothing to do, it is only a enabler for the next move" !
 
+redoOn: aChessboard
+	"Nothing to do, it is only a enabler for the next move"
+
+	!
+
 undoOn: aChessboard 
 	"Nothing to do, it is only a enabler for the next move" ! !
 !ChessEnPassantEnablerMove categoriesForMethods!
-applyRedoTo:on:!public! !
 isEnPassantEnabler!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
+redoOn:!public! !
 undoOn:!public! !
 !
 

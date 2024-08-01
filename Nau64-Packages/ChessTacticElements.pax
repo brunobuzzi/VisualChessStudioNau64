@@ -37,7 +37,7 @@ Object subclass: #ChessTacticInstance
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-Object subclass: #TacticDictionary
+ChessPieceDictionary subclass: #TacticDictionary
 	instanceVariableNames: 'tactics'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -76,30 +76,30 @@ pinnedPieces
 	self isSlidingPiece ifFalse: [^OrientationDictionary on: self].
 	pinnedPieces := OrientationDictionary on: self.
 	self chessboardDo:	[:aChessboard |
-			self squaresScopeFrom: self currentChessSquare
-				do: [:aSquaresDictionary | 
-					aSquaresDictionary squaresCollectionAndOrientationDo: [:squareCollection :orientation | | oppositePieces halted pinnedPiece |
-						oppositePieces := 0.
-						halted := false.
-						squareCollection do: [:chessSquare |
-								aChessboard
-									pieceAt: chessSquare
-									do: [:piece |
-										(piece isOppositeSideTo: self)
-										ifTrue: [oppositePieces := oppositePieces + 1.
-											oppositePieces = 1 ifTrue: [pinnedPiece := piece].											
-											(oppositePieces > 1 and: [halted not and:[pinnedPiece isKing not]])
-											ifTrue: [pinnedPieces 
-													atOrientation: orientation 
-													add: (ChessPin newOnControl: self pinned: pinnedPiece target: piece orientation: orientation).
-												pinnedPiece := piece]]
-										ifFalse: [halted := true].
-										piece isKing ifTrue: [halted := true].
-									]
-									ifAbsent: []
-						]
+		self squaresScopeFrom: self currentChessSquare
+			do: [:aSquaresDictionary | 
+				aSquaresDictionary squaresCollectionAndOrientationDo: [:squareCollection :orientation | | oppositePieces halted pinnedPiece |
+					oppositePieces := 0.
+					halted := false.
+					squareCollection do: [:chessSquare |
+							aChessboard
+								pieceAt: chessSquare
+								do: [:piece |
+									(piece isOppositeSideTo: self)
+									ifTrue: [oppositePieces := oppositePieces + 1.
+										oppositePieces = 1 ifTrue: [pinnedPiece := piece].											
+										(oppositePieces > 1 and: [halted not and:[pinnedPiece isKing not]])
+										ifTrue: [pinnedPieces 
+												atOrientation: orientation 
+												add: (ChessPin newOnControl: self pinned: pinnedPiece target: piece orientation: orientation).
+											pinnedPiece := piece]]
+									ifFalse: [halted := true].
+									piece isKing ifTrue: [halted := true].
+								]
+								ifAbsent: []
 					]
 				]
+			]
 	].
 	^pinnedPieces! !
 !ChessPiece categoriesForMethods!

@@ -94,6 +94,10 @@ moveFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard
 	
 	!
 
+moveRedoAllOn: aChessboard
+
+	moves moveRedoAllOn: aChessboard!
+
 movesDo: aBlock
 
 	aBlock value: moves!
@@ -176,13 +180,41 @@ printMovesOn: aStream
 
 	moves printMovesOn: aStream!
 
+redoAllMovesOn: aChessboard
+	| count exit |
+	count := 0.
+	exit := false.
+	[exit] whileFalse: [
+		count := count + 1.
+		self redoNextMoveOn: aChessboard ifNone: [exit := true].
+		count > 500 ifTrue: [self error: 'BUG: something went wrong'].
+	].!
+
 redoFirstMoveOn: aChessboard 
 
-	moves redoFirstMoveOn: aChessboard!
+	self redoFirstMoveOn: aChessboard ifNone: [self]!
+
+redoFirstMoveOn: aChessboard ifNone: aBlock
+
+	moves hasMoves ifFalse: [^aBlock value].
+	
+	moves firstMoveDo: [:aChessMove | 
+		aChessMove redoOn: aChessboard.
+		currentMove := aChessMove].!
 
 redoNextMoveOn: aChessboard 
 
-	moves redoNextMoveOn: aChessboard !
+	self redoNextMoveOn: aChessboard ifNone: [self]!
+
+redoNextMoveOn: aChessboard ifNone: aBlock
+
+	currentMove ifNil: [^self redoFirstMoveOn: aChessboard].
+	moves 
+		lookupChildNodeOf: currentMove 
+		do: [:childNode |
+			currentMove := childNode move.
+			currentMove redoOn: aChessboard.]
+		ifNone: aBlock!
 
 setGame: aChessGame chessboard: aChessboard
 
@@ -194,13 +226,35 @@ setGame: aChessGame chessboard: aChessboard
 	whiteCastleStatus := ChessCastleStatus newOn: self.
 	blackCastleStatus := ChessCastleStatus newOn: self.!
 
+undoAllMovesOn: aChessboard
+	| count |
+	count := 0.
+	[currentMove notNil] whileTrue: [
+		count := count + 1.
+		self undoLastMoveOn: aChessboard ifNone: [].
+		count > 500 ifTrue: [self error: 'BUG: something went wrong'].
+	].!
+
 undoLastMove
 
 	self undoLastMoveOn: chessboard!
 
 undoLastMoveOn: aChessboard
 
-	moves undoLastMoveOn: aChessboard! !
+	self undoLastMoveOn: aChessboard 
+		ifNone: [self error: 'Can NOT undo, there is no last move']!
+
+undoLastMoveOn: aChessboard ifNone: aBlock
+	| moveToUndo |
+
+	currentMove ifNil: [^aBlock value].
+	moveToUndo := currentMove.
+	
+	moves 
+		lookupParentNodeOf: moveToUndo 
+		do: [:parentNode |
+			parentNode ifNotNil: [currentMove := parentNode move] ifNil: [currentMove := nil] ] 
+		ifNone: [aBlock value].! !
 !ChessGameExecutor categoriesForMethods!
 annotateMoveFrom:to:on:!moves!public! !
 chessboardDo:!public! !
@@ -219,6 +273,7 @@ lastMoveIsBlackEnPassantEnabledFrom:to:!en passant!public! !
 lastMoveIsWhiteEnPassantEnabledFrom:to:!en passant!public! !
 lastSideToMoveOn:!public! !
 moveFrom:to:on:!moves!public! !
+moveRedoAllOn:!moves!public! !
 movesDo:!moves!public! !
 newInitialChessboard!chessboard!public! !
 nextSideToMoveOn:!public! !
@@ -232,11 +287,16 @@ printFenStringForBlackCastle!public! !
 printFenStringForWhiteCastle!public! !
 printMoves!public! !
 printMovesOn:!public! !
+redoAllMovesOn:!moves!public! !
 redoFirstMoveOn:!moves!public! !
+redoFirstMoveOn:ifNone:!moves!public! !
 redoNextMoveOn:!moves!public! !
+redoNextMoveOn:ifNone:!moves!public! !
 setGame:chessboard:!private! !
+undoAllMovesOn:!moves!public! !
 undoLastMove!public! !
 undoLastMoveOn:!moves!public! !
+undoLastMoveOn:ifNone:!moves!public! !
 !
 
 !ChessGameExecutor class methodsFor!

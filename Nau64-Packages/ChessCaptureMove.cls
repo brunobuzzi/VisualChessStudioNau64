@@ -14,6 +14,10 @@ performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aC
 
 	aChessboard movePieceFromCoordiante: originCoordinateSymbol to: targetCoordinateSymbol!
 
+redoOn: aChessboard
+	aChessboard movePieceFromCoordiante: move from to: move to.
+!
+
 setMove: aChessMove capturedPiece: code
 
 	move := aChessMove.
@@ -32,6 +36,7 @@ undoOn: aChessboard
 	aChessboard pieceAtCoordinate: move to put: capturedPiece! !
 !ChessCaptureMove categoriesForMethods!
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
+redoOn:!public! !
 setMove:capturedPiece:!public! !
 undoOn:!public! !
 !

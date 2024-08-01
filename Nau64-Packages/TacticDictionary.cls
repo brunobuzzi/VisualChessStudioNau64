@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
-Object subclass: #TacticDictionary
+ChessPieceDictionary subclass: #TacticDictionary
 	instanceVariableNames: 'tactics'
 	classVariableNames: ''
 	poolDictionaries: ''

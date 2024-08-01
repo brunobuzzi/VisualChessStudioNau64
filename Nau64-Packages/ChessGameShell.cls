@@ -49,9 +49,17 @@ moveRedo
 
 	chessGamePresenter moveRedoOn: model!
 
+moveRedoAll
+
+	chessGamePresenter moveRedoAllOn: model!
+
 moveUndo
 
 	chessGamePresenter moveUndoOn: model!
+
+moveUndoAll
+
+	chessGamePresenter moveUndoAllOn: model!
 
 newChessboardFromFEN
 
@@ -96,7 +104,9 @@ createComponents!public! !
 defaultChessPresenter!public! !
 model:!public! !
 moveRedo!public! !
+moveRedoAll!public! !
 moveUndo!public! !
+moveUndoAll!public! !
 newChessboardFromFEN!public! !
 renderChessboard!public! !
 setGame:!public! !

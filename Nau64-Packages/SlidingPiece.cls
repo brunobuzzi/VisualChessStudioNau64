@@ -25,7 +25,6 @@ absoluteXRaySquaresFrom: aChessSquare do: aBlock
 			self squaresScopeFrom: aChessSquare
 				do: [:aSquaresDictionary | 
 					aSquaresDictionary squaresCollectionAndOrientationDo: [:squareCollection :orientation | | oppositePieces halted |
-						"orientation = #south ifTrue: [self halt]."
 						oppositePieces := 0.
 						halted := false.
 						squareCollection do: [:chessSquare |

@@ -10,13 +10,6 @@ ChessPromotionMove comment: ''!
 !ChessPromotionMove categoriesForClass!Unclassified! !
 !ChessPromotionMove methodsFor!
 
-applyRedoTo: aChessMove on: aChessboard
-	| piece |
-
-	piece := aChessboard pieceAtCoordinate: aChessMove from.
-
-	piece chessSideDo: [:side | side promote: piece at: aChessMove to to: selectedPiece].!
-
 isPromotion
 	^true!
 
@@ -24,6 +17,16 @@ performPieceSwitchFrom: originCoordinateSymbol to: targetCoordinateSymbol on: aC
 	| piece |
 	piece := aChessboard pieceAtCoordinate: originCoordinateSymbol.
 	piece chessSideDo: [:side | side promote: piece at: targetCoordinateSymbol to: selectedPiece].!
+
+redoOn: aChessboard
+	| piece |
+	piece := aChessboard pieceAtCoordinate: move from.
+	piece chessSideDo: 
+			[:side |
+			side
+				promote: piece
+				at: move to
+				to: selectedPiece]!
 
 setPromotionPieceClass: aPromotablePieceClass
 
@@ -36,9 +39,9 @@ undoOn: aChessboard
 	aChessboard pieceAtCoordinate: move from put: (Pawn newOn: side).
 	aChessboard removePieceAtCoordiante: move to.! !
 !ChessPromotionMove categoriesForMethods!
-applyRedoTo:on:!public! !
 isPromotion!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
+redoOn:!public! !
 setPromotionPieceClass:!public! !
 undoOn:!public! !
 !

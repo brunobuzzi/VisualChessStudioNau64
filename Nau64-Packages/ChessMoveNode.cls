@@ -28,6 +28,10 @@ firstChildDo: aBlock
 
 	aBlock value: children first!
 
+hasChildren
+
+	^children notEmpty!
+
 move
 
 	^move!
@@ -69,6 +73,7 @@ addChildNode:!public! !
 chessMoveDo:!public! !
 children!public! !
 firstChildDo:!public! !
+hasChildren!public! !
 move!public! !
 object!public! !
 parentNodeDo:!public! !

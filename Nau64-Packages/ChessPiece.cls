@@ -20,18 +20,9 @@ attackedSquaresDo: aBlock
 
 	self validSquaresDo: aBlock!
 
-bateryOrientationsFrom: aChessOrientationVector do: aBlock
-
-!
-
 blackCodePoint
 
 	^self class blackCodePoint!
-
-canBeMovedToValidCoordinate: symbolCoordinate on: aChessboard
-
-	^(aChessboard squareIsEmptyAtCoordinate: symbolCoordinate) or: 
-		[(aChessboard squareNotEmptyAtCoordinate: symbolCoordinate) and: [self isOppositeSideTo: (aChessboard pieceAtCoordinate: symbolCoordinate)]]!
 
 chessboardDo: aBlock
 
@@ -251,9 +242,7 @@ xRaySquaresWithCount: anInteger do: aBlock
 absoluteXRaySquaresDo:!new framework!public! !
 absoluteXRaySquaresFrom:do:!new framework!public! !
 attackedSquaresDo:!new framework!public! !
-bateryOrientationsFrom:do:!public!tactics! !
 blackCodePoint!public!unicode! !
-canBeMovedToValidCoordinate:on:!public!testing! !
 chessboardDo:!public! !
 chessSideDo:!public! !
 codePoint!public!unicode! !

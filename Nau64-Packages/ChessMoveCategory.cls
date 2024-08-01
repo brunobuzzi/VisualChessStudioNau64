@@ -24,14 +24,17 @@ performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aC
 	self subclassResponsibility!
 
 redoOn: aChessboard
-	self subclassResponsibility!
+
+	aChessboard movePieceFromCoordiante: move from to: move to
+!
 
 setMove: aChessMove
 
 	move := aChessMove!
 
 undoOn: aChessboard 
-	self subclassResponsibility! !
+
+	aChessboard movePieceFromCoordiante: move to to: move from! !
 !ChessMoveCategory categoriesForMethods!
 isCastle!public! !
 isEnPassantEnabler!public! !

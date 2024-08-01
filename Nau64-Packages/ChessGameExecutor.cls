@@ -21,6 +21,10 @@ chessboardDo: aMonadicBlock
 
 	aMonadicBlock value: chessboard!
 
+currentMoveDo: aBlock
+
+	aBlock value: currentMove!
+
 disableBlackCastle
 
 	blackCastleStatus disableCastle!
@@ -84,7 +88,7 @@ lastSideToMoveOn: aChessboard
 
 	currentMove isNil ifTrue: [^self error: 'No side has moved'].
 
-	^(currentMove move isBlackOn: aChessboard) ifTrue: [#black] ifFalse: [#white]!
+	^(currentMove isBlackOn: aChessboard) ifTrue: [#black] ifFalse: [#white]!
 
 moveFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard
 
@@ -134,36 +138,6 @@ performMove: aChessMove on: aChessboard
 		on: aChessboard 
 		withPostActionOn: self!
 
-playAllMoves
-
-	[currentMove isNil or: [(moves childrenOf: currentMove move) notEmpty]]
-	whileTrue: [
-		self playNextMove 
-	].!
-
-playAllMovesDoWithCurrent: aBlock
-	| index |
-
-	index := 1.
-	[currentMove isNil or: [(moves childrenOf: currentMove move) notEmpty]]
-	whileTrue: [
-		self playNextMove.
-		aBlock value: currentMove move.
-		(currentMove move isBlackOn: chessboard) ifFalse: [index := index + 1].
-	].!
-
-playNextMove
-
-	currentMove ifNil: [
-		currentMove := moves treeRoots last.
-		^self performMove: currentMove move on: chessboard].
-
-	self movesDo: [:treeList | | nodes |
-		nodes := treeList childrenOf: (currentMove ifNil: [nil] ifNotNil: [:value | value move]).
-		nodes do: [:node | self performMove: node move on: chessboard].
-		currentMove := nodes last.
-	].!
-
 printFenStringForBlackCastle
 
 	^blackCastleStatus printFenStringForBlack!
@@ -180,13 +154,22 @@ printMovesOn: aStream
 
 	moves printMovesOn: aStream!
 
+redoAllMoves
+
+	self redoAllMovesOn: chessboard!
+
 redoAllMovesOn: aChessboard
+	
+	self redoAllMovesOn: aChessboard currentMoveDo: [:move | "do nothing" ]!
+
+redoAllMovesOn: aChessboard currentMoveDo: aBlock
 	| count exit |
 	count := 0.
 	exit := false.
 	[exit] whileFalse: [
 		count := count + 1.
 		self redoNextMoveOn: aChessboard ifNone: [exit := true].
+		aBlock value: currentMove.
 		count > 500 ifTrue: [self error: 'BUG: something went wrong'].
 	].!
 
@@ -226,9 +209,14 @@ setGame: aChessGame chessboard: aChessboard
 	whiteCastleStatus := ChessCastleStatus newOn: self.
 	blackCastleStatus := ChessCastleStatus newOn: self.!
 
+undoAllMoves
+
+	self undoAllMovesOn: chessboard!
+
 undoAllMovesOn: aChessboard
 	| count |
 	count := 0.
+
 	[currentMove notNil] whileTrue: [
 		count := count + 1.
 		self undoLastMoveOn: aChessboard ifNone: [].
@@ -245,19 +233,19 @@ undoLastMoveOn: aChessboard
 		ifNone: [self error: 'Can NOT undo, there is no last move']!
 
 undoLastMoveOn: aChessboard ifNone: aBlock
-	| moveToUndo |
 
 	currentMove ifNil: [^aBlock value].
-	moveToUndo := currentMove.
 	
 	moves 
-		lookupParentNodeOf: moveToUndo 
+		lookupParentNodeOf: currentMove 
 		do: [:parentNode |
+			currentMove undoOn: aChessboard.
 			parentNode ifNotNil: [currentMove := parentNode move] ifNil: [currentMove := nil] ] 
 		ifNone: [aBlock value].! !
 !ChessGameExecutor categoriesForMethods!
 annotateMoveFrom:to:on:!moves!public! !
 chessboardDo:!public! !
+currentMoveDo:!moves!public! !
 disableBlackCastle!castle!public! !
 disableBlackCastleForPieceMovedFrom:on:!castle!public! !
 disableCastleForPieceMovedFrom:on:!castle!public! !
@@ -280,19 +268,19 @@ nextSideToMoveOn:!public! !
 nextSideToMoveOn:isBlackDo:!public! !
 nextSideToMoveOn:isWhiteDo:!public! !
 performMove:on:!moves!public! !
-playAllMoves!moves!public! !
-playAllMovesDoWithCurrent:!moves!public! !
-playNextMove!moves!public! !
 printFenStringForBlackCastle!public! !
 printFenStringForWhiteCastle!public! !
 printMoves!public! !
 printMovesOn:!public! !
+redoAllMoves!moves!public! !
 redoAllMovesOn:!moves!public! !
+redoAllMovesOn:currentMoveDo:!moves!public! !
 redoFirstMoveOn:!moves!public! !
 redoFirstMoveOn:ifNone:!moves!public! !
 redoNextMoveOn:!moves!public! !
 redoNextMoveOn:ifNone:!moves!public! !
 setGame:chessboard:!private! !
+undoAllMoves!moves!public! !
 undoAllMovesOn:!moves!public! !
 undoLastMove!public! !
 undoLastMoveOn:!moves!public! !

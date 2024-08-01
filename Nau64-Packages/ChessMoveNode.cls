@@ -32,12 +32,31 @@ hasChildren
 
 	^children notEmpty!
 
+index
+	| tempNode index |
+
+	index := 1.
+	tempNode := parentNode.
+	[tempNode notNil] whileTrue: [
+		tempNode := tempNode parentNode.
+		index := index + 1.
+
+	].
+	
+	^(index // 2) + 1
+
+!
+
 move
 
 	^move!
 
 object
 	^move!
+
+parentNode
+
+	^parentNode!
 
 parentNodeDo: monadicBlock
 
@@ -74,8 +93,10 @@ chessMoveDo:!public! !
 children!public! !
 firstChildDo:!public! !
 hasChildren!public! !
+index!public! !
 move!public! !
 object!public! !
+parentNode!private! !
 parentNodeDo:!public! !
 printOn:!public! !
 printPgn!public! !

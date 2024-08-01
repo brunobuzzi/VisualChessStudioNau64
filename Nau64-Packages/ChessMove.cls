@@ -17,6 +17,10 @@ from
 
 	^from!
 
+index
+
+	^list indexOf: self!
+
 isBlackCurrentSideMovingOn: aChessboard
 
 	^(aChessboard pieceAtCoordinate: from) isBlack!
@@ -149,12 +153,15 @@ to
 
 undoOn: aChessboard
 
+	self assert: [pgnPiece = (aChessboard pieceAtCoordinate: to) pgnStringForNotation].
+
 	categories isEmpty ifTrue: [^aChessboard movePieceFromCoordiante: to to: from].
 
 	categories do: [:each | each undoOn: aChessboard]! !
 !ChessMove categoriesForMethods!
 addEnPassantCategoryEnabled:!public! !
 from!public! !
+index!public! !
 isBlackCurrentSideMovingOn:!public! !
 isBlackEnPassantEnabledFrom:to:!en passant!public! !
 isBlackOn:!public! !

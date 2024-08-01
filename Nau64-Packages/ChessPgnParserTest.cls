@@ -28,7 +28,7 @@ testParseCompleteSimpleGame
 	game := ChessGame newOn: systemRoot whitePlayer: '' blackPlayer: '' pgnString: string.
 	executor := game newPgnExecutor.
 	self assert: (executor includesPgnMove: 'e4').
-	executor playAllMoves.
+	executor redoAllMoves.
 	executor chessboardDo: [:board | self assert: (board printFenStringForExecutor: executor) = '8/1q3B2/8/2p4K/1kP5/7p/1P6/8/ w - - -'].
 
 
@@ -53,7 +53,7 @@ testParseCompleteSimpleGame01
 	game := ChessGame newOn: systemRoot whitePlayer: '' blackPlayer: '' pgnString: string.
 	executor := game newPgnExecutor.
 	self assert: (executor includesPgnMove: 'e4').
-	executor playAllMoves.
+	executor redoAllMoves.
 	executor chessboardDo: [:board | self assert: (board printFenStringForExecutor: executor) = '8/1R6/8/8/2KB4/k7/6r1/8/ b - - -'].
 
 
@@ -79,7 +79,7 @@ testParseCompleteSimpleGame02
 	game := ChessGame newOn: systemRoot whitePlayer: '' blackPlayer: '' pgnString: string.
 	executor := game newPgnExecutor.
 	self assert: (executor includesPgnMove: 'e4').
-	executor playAllMoves.
+	executor redoAllMoves.
 	executor chessboardDo: [:board | self assert: (board printFenStringForExecutor: executor) = '8/8/R5p1/2k3p1/1p4P1/1P1b1P2/3K1n2/8/ w - - -'].
 
 
@@ -124,7 +124,7 @@ testParsePgnSpasskyFischer_01
 
 	game := ChessGame newOn: systemRoot whitePlayer: '' blackPlayer: '' pgnString: string.
 	executor := game newPgnExecutor.
-	executor playAllMoves.
+	executor redoAllMoves.
 	executor chessboardDo: [:board | self assert: (board printFenStringForExecutor: executor) equals: '8/1p6/1P1K4/pk6/8/8/5B2/8/ b - - -'].
 
 

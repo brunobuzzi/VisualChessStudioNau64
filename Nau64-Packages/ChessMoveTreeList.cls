@@ -86,6 +86,12 @@ hasMoves
 
 	^treeRoots notEmpty!
 
+indexOf: aChessMove
+	| node |
+
+	node := self lookupNode: aChessMove.
+	^node index!
+
 isEmpty
 	^treeRoots isEmpty!
 
@@ -126,11 +132,18 @@ lookupNode: aChessMove
 
 	^objectNodeMap lookup: aChessMove!
 
+lookupNodeOf: aChessMove do: doBlock ifNone: exceptionBlock
+	| currentTreeNode |
+
+	currentTreeNode := self lookupNode: aChessMove.
+	doBlock value: currentTreeNode!
+
 lookupParentNodeOf: aChessMove do: doBlock ifNone: exceptionBlock
 	| currentTreeNode |
 
 	currentTreeNode := self lookupNode: aChessMove.
-	doBlock value: currentTreeNode parent!
+	currentTreeNode ifNil: [^exceptionBlock value].
+	currentTreeNode parentNodeDo: doBlock!
 
 newNodeParent: parentNodeOrNil move: aChessMove
 
@@ -170,31 +183,6 @@ printMovesOn: aStream
 		index := index + 1.
 	].!
 
-redoFirstMoveOn: aChessboard 
-Notification deprecated.
-	treeRoots isEmpty ifTrue: [^self].
-	treeRoots first move redoOn: aChessboard.
-	lastMove := treeRoots first move.!
-
-redoNextMoveOn: aChessboard 
-Notification deprecated. 
-	^self redoNextMoveOn: aChessboard ifNone: [self]
-	!
-
-redoNextMoveOn: aChessboard ifNone: aBlock
-	| currentNode |
-Notification deprecated.
-	lastMove ifNil: [^self redoFirstMoveOn: aChessboard].
-
-	currentNode := self lookupNode: lastMove.
-	currentNode hasChildren ifFalse: [^aBlock value].
-	currentNode firstChildDo: [:childNode | 
-		childNode move redoOn: aChessboard.
-		lastMove := childNode move.
-	].
-
-	!
-
 remove: aChessMove ifAbsent: aBlock
 	| node |
 
@@ -213,36 +201,7 @@ setGame: aChessGame
 !
 
 treeRoots
-	^treeRoots!
-
-undoAllMovesOn: aChessboard
-	| count |
-Notification deprecated.
-	count := 0.
-	[lastMove notNil] whileTrue: [
-		count := count + 1.
-		self undoLastMoveOn: aChessboard ifNone: [].
-		count > 500 ifTrue: [self error: 'BUG: something went wrong'].
-	].!
-
-undoLastMoveOn: aChessboard
-Notification deprecated.
-	self undoLastMoveOn: aChessboard 
-		ifNone: [self error: 'Can NOT undo, there is no last move']
-	!
-
-undoLastMoveOn: aChessboard ifNone: aBlock
-	| moveToRemove node |
-Notification deprecated.
-	lastMove ifNil: [^aBlock value].
-	moveToRemove := lastMove.
-	moveToRemove undoOn: aChessboard.
-
-	node := self lookupNode: moveToRemove.
-	node parentNodeDo: [:parentNode | 
-		parentNode ifNotNil: [lastMove := parentNode move] ifNil: [lastMove := nil].
-	]
-! !
+	^treeRoots! !
 !ChessMoveTreeList categoriesForMethods!
 addChild:parentNode:!public!tree operations! !
 annotateMove:on:!move operations!public! !
@@ -254,6 +213,7 @@ firstMoveDo:!public!tree operations! !
 getChildrenOf:!private!tree operations! !
 getNodeFor:!private!tree operations! !
 hasMoves!public! !
+indexOf:!public!tree operations! !
 isEmpty!public! !
 lastMove!public! !
 lastMoveIsBlackEnPassantEnabledFrom:to:!move operations!public! !
@@ -262,6 +222,7 @@ lastMoveIsWhiteEnPassantEnabledFrom:to:!move operations!public! !
 lastSideToMoveOn:!move operations!public! !
 lookupChildNodeOf:do:ifNone:!public!tree operations! !
 lookupNode:!private!tree operations! !
+lookupNodeOf:do:ifNone:!public!tree operations! !
 lookupParentNodeOf:do:ifNone:!public!tree operations! !
 newNodeParent:move:!public!tree operations! !
 nextSideToMoveOn:!move operations!public! !
@@ -269,15 +230,9 @@ preOrderDo:!public!tree operations! !
 preOrderDo:on:!private!tree operations! !
 printMoves!move operations!public! !
 printMovesOn:!move operations!public! !
-redoFirstMoveOn:!move operations!public! !
-redoNextMoveOn:!move operations!public! !
-redoNextMoveOn:ifNone:!move operations!public! !
 remove:ifAbsent:!public!tree operations! !
 setGame:!private! !
 treeRoots!private! !
-undoAllMovesOn:!move operations!public! !
-undoLastMoveOn:!move operations!public! !
-undoLastMoveOn:ifNone:!move operations!public! !
 !
 
 !ChessMoveTreeList class methodsFor!

@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smallalk"!
 
 Object subclass: #ChessMove
-	instanceVariableNames: 'list from to categories pgnPiece'
+	instanceVariableNames: 'list from to categories pgnPiece pieceIsWhite'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -56,6 +56,12 @@ isWhiteEnPassantEnabledFrom: originCoordinate to: targetCoordinate
 		and: [targetCoordinate first = to first].
 	!
 
+isWhiteOn: aChessboard
+
+	^(aChessboard squareIsEmptyAtCoordinate: to)
+	ifFalse: [(aChessboard pieceAtCoordinate: to) isWhite]
+	ifTrue: [(aChessboard pieceAtCoordinate: from) isWhite]!
+
 performPieceSwitchFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard withPostActionOn: aChessGameExecutor
 
 	(categories isEmpty or: [categories allSatisfy: [:each | each isEnPassantEnabler]])
@@ -83,6 +89,10 @@ pgnPiece
 
 pgnPiece: aString
 	pgnPiece := aString!
+
+pieceIsWhite
+
+	^pieceIsWhite!
 
 printOn: aStream
 
@@ -147,6 +157,14 @@ setList: aChessMoveList from: originCoordinate to: targetCoordinate
 	to := targetCoordinate.
 	categories := OrderedCollection new.!
 
+setPieceBlack
+
+	pieceIsWhite := false!
+
+setPieceWhite
+
+	pieceIsWhite := true!
+
 to
 
 	^to!
@@ -169,10 +187,12 @@ isCastle!public! !
 isEnPassantEnabler!public! !
 isPromotion!public! !
 isWhiteEnPassantEnabledFrom:to:!en passant!public! !
+isWhiteOn:!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:!public! !
 performPieceSwitchFrom:to:on:withPostActionOn:presenter:!public! !
 pgnPiece!accessing!public! !
 pgnPiece:!accessing!public! !
+pieceIsWhite!accessing!public! !
 printOn:!public! !
 printPgn!public! !
 printPgnOn:!public! !
@@ -180,6 +200,8 @@ promotion!public! !
 redoOn:!public! !
 setCategoriesFrom:!public! !
 setList:from:to:!private! !
+setPieceBlack!accessing!public! !
+setPieceWhite!accessing!public! !
 to!public! !
 undoOn:!public! !
 !

@@ -16,9 +16,11 @@ package classNames
 	add: #ChessGame;
 	add: #ChessGameExecutor;
 	add: #ChessKingSideCastleMove;
+	add: #ChessLanGameExecutor;
 	add: #ChessMove;
 	add: #ChessMoveCategory;
 	add: #ChessMoveNode;
+	add: #ChessMovePair;
 	add: #ChessMoveTreeList;
 	add: #ChessNewGameExecutor;
 	add: #ChessPgnGameExecutor;
@@ -60,7 +62,7 @@ Object subclass: #ChessGameExecutor
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 Object subclass: #ChessMove
-	instanceVariableNames: 'list from to categories pgnPiece'
+	instanceVariableNames: 'list from to categories pgnPiece pieceIsWhite'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -71,6 +73,11 @@ Object subclass: #ChessMoveCategory
 	classInstanceVariableNames: ''!
 Object subclass: #ChessMoveNode
 	instanceVariableNames: 'tree parentNode children move'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #ChessMovePair
+	instanceVariableNames: 'whiteMove blackMove'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -86,6 +93,11 @@ Object subclass: #ChessPlayer
 	classInstanceVariableNames: ''!
 ChessGameExecutor subclass: #ChessFenGameExecutor
 	instanceVariableNames: 'initialSideToMove'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ChessGameExecutor subclass: #ChessLanGameExecutor
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

@@ -11,10 +11,12 @@ ChessGameExecutor comment: ''!
 !ChessGameExecutor methodsFor!
 
 annotateMoveFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard
-	| aChessMove |
+	| aChessMove piece |
 
 	aChessMove := ChessMove newOn: moves from: originSymbolCoordiante to: targetSymbolCoordinate.
 	moves annotateMove: aChessMove on: aChessboard.
+	piece := aChessboard pieceAtCoordinate: aChessMove from.
+	piece isBlack ifTrue: [aChessMove setPieceBlack] ifFalse: [aChessMove setPieceWhite].
 	^aChessMove!
 
 chessboardDo: aMonadicBlock
@@ -98,13 +100,34 @@ moveFrom: originSymbolCoordiante to: targetSymbolCoordinate on: aChessboard
 	
 	!
 
+moveNumber: anInteger whiteDo: whiteBlock blackDo: blackBlock
+	| index done |
+
+	index := 0.
+	done := 0.
+	self movesDo: [:node | 
+		(node move pieceIsWhite) ifTrue: [index := index + 1].
+		index = anInteger 
+		ifTrue: [(node move pieceIsWhite) 
+			ifTrue: [whiteBlock value: node move.
+				done := 1.]
+			ifFalse: [blackBlock value: node move.
+				done := 2].
+		].
+		done = 2 ifTrue: [^self].
+	].!
+
 moveRedoAllOn: aChessboard
 
 	moves moveRedoAllOn: aChessboard!
 
+movesAnySatisfy: aBlock
+
+	^moves anySatisfy: aBlock!
+
 movesDo: aBlock
 
-	aBlock value: moves!
+	moves preOrderDo: aBlock!
 
 newInitialChessboard
 	| newChessbaord |
@@ -261,7 +284,9 @@ lastMoveIsBlackEnPassantEnabledFrom:to:!en passant!public! !
 lastMoveIsWhiteEnPassantEnabledFrom:to:!en passant!public! !
 lastSideToMoveOn:!public! !
 moveFrom:to:on:!moves!public! !
+moveNumber:whiteDo:blackDo:!moves!public! !
 moveRedoAllOn:!moves!public! !
+movesAnySatisfy:!moves!public! !
 movesDo:!moves!public! !
 newInitialChessboard!chessboard!public! !
 nextSideToMoveOn:!public! !
